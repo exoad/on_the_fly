@@ -1,0 +1,14 @@
+{
+      "files.associations": {
+            "*.diff": "diff",
+            "*.halcyon": "properties",
+            "*.hll": "html",
+            "*.hcy": "coffeescript",
+            "*.hkn": "coffeescript",
+            "*.db": "json",
+            "*.dirt": "groovy",
+            "array": "cpp",
+            "string_view": "cpp",
+            "initializer_list": "cpp"
+      }
+}
