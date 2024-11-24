@@ -11,6 +11,7 @@ void main() {
     exit(-1);
   } else {
     initConsts().then((_) {
+      // i know i prob shldnt have "unit tests" in production level code LOL
       if (kRunTests) {
         __tests();
       }

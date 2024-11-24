@@ -1,5 +1,7 @@
 import 'package:auto_img/core/e_files.dart';
+import 'package:auto_img/core/utils/result.dart';
 import 'package:auto_img/shared/app.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as paths;
 
 typedef Status = ({JobStatus status, String message});
@@ -9,18 +11,68 @@ abstract class ConvertJob {
   final String canonicalSubtitle;
   final String canonicalDescription;
   final List<ImgFileTypes> supportedInputs;
-  final ImgFileTypes outputType;
-  bool isDead;
+  final List<ImgFileTypes> supportedOutputs;
+
+  final Map<int, ConvertJobInstance> instances;
 
   ConvertJob(
       {required this.canonicalTitle,
       required this.canonicalSubtitle,
       required this.canonicalDescription,
       required this.supportedInputs,
-      required this.outputType,
-      this.isDead = false});
+      required this.supportedOutputs})
+      : instances = <int, ConvertJobInstance>{};
 
-  Status convert(FileCandidate job);
+  ConvertJobInstance get newInst;
+
+  @nonVirtual
+  Result<bool, String> isValidInputCandidate(
+      FileCandidate candidate) {
+    if (candidate.autoDetectFileType == null) {
+      return Result<bool, String>.bad(
+          false, "File type not supported or could not be detected");
+    }
+    if (!candidate.autoDetectFileType!.canRead) {
+      return Result<bool, String>.bad(false,
+          "File type ${candidate.autoDetectFileType} for ${candidate.inputPath} is NOT supported for reading."); // we shld have a way in the ui to handle this
+    }
+    if (!supportedInputs.contains(candidate.autoDetectFileType!)) {
+      return Result<bool, String>.bad(false,
+          "File type ${candidate.autoDetectFileType} for ${candidate.inputPath} is NOT supported for this job.");
+    }
+    return Result<bool, String>.good(true,
+        "File is a valid input candidate"); // we always provide a message !
+  }
+
+  Map<JobRequiredFields, String /*The title of the field*/ >
+      get requiredFields;
+}
+
+abstract class ConvertJobInstance {
+  final int
+      parentID; // refers to the index of the job in the list of registered jobs
+  final bool isContinuous;
+  final String inputPath;
+  final OutputPathHandler outputNameBuilder;
+  final List<ImgFileTypes> inputFileTypes;
+  final ImgFileTypes outputFileType;
+
+  ConvertJobInstance(
+      {required this.parentID,
+      required this.isContinuous,
+      required this.inputPath,
+      required this.outputNameBuilder,
+      required this.inputFileTypes,
+      required this.outputFileType});
+
+  void optionalAction();
+}
+
+enum JobRequiredFields {
+  inputPathSelector,
+  singleFiletypeSelector,
+  multiFiletypeSelector,
+  outputNameBuilderSelector,
 }
 
 typedef OutputPathHandler = String Function(
@@ -62,6 +114,16 @@ class FileCandidate {
   final OutputPathHandler outputName;
 
   FileCandidate({required this.inputPath, required this.outputName});
+
+  /// If [autoDetectFileType] returns null, then the file type is not supported and should be skipped or treated as an error.
+  ImgFileTypes? get autoDetectFileType {
+    for (ImgFileTypes type in ImgFileTypes.inputTypes) {
+      if (type.validExtensions.contains(paths.extension(inputPath))) {
+        return type;
+      }
+    }
+    return null;
+  }
 }
 
 enum JobStatus {

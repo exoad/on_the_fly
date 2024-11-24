@@ -37,4 +37,23 @@ enum ImgFileTypes {
     required this.canWrite,
     required this.canRead,
   });
+
+  static const List<ImgFileTypes> inputTypes = <ImgFileTypes>[
+    webp,
+    jpg,
+    bmp,
+    ico,
+    png,
+    gif,
+    tiff
+  ];
+
+  static const List<ImgFileTypes> outputTypes = <ImgFileTypes>[
+    jpg,
+    bmp,
+    ico,
+    png,
+    gif,
+    tiff
+  ];
 }
