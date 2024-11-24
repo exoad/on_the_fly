@@ -21,23 +21,17 @@ void main() {
 
 void __tests() {
   // Test OutputNameBuilder.simpleRandomName
-  final OutputPathHandler simpleRandomName =
-      OutputNameBuilder.simpleRandomName(len: 10);
   test("Test OutputNameBuilder.simpleRandomName",
-      () => simpleRandomName("test.jpg", ImgFileTypes.png), null);
+      () => OutputNameBuilder.simpleRandomName(len: 10)("test.jpg", ImgFileTypes.png), null);
   // Test OutputNameBuilder.simpleName
-  final OutputPathHandler simpleName =
-      OutputNameBuilder.simpleName(name: "amogus");
   test(
       "Test OutputNameBuilder.simpleName",
-      () => simpleName("test.jpg", ImgFileTypes.png),
+      () => OutputNameBuilder.simpleName(name: "amogus")("test.jpg", ImgFileTypes.png),
       ".\\amogus.png");
   // Test OutputNameBuilder.simplePrefix
-  final OutputPathHandler simplePrefix =
-      OutputNameBuilder.simplePrefix(prefix: "test_");
   test(
       "Test OutputNameBuilder.simplePrefix",
-      () => simplePrefix("bbbbb.jpg", ImgFileTypes.png),
+      () => OutputNameBuilder.simplePrefix(prefix: "test_")("bbbbb.jpg", ImgFileTypes.png),
       ".\\test_bbbbb.png");
 }
 

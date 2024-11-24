@@ -52,7 +52,7 @@ final class OutputNameBuilder {
   static OutputPathHandler simplePrefix({required String prefix}) {
     return (String inputPath, ImgFileTypes outputType) {
       return paths.join(paths.dirname(inputPath),
-          "$prefix${paths.basename(inputPath)}");
+          "$prefix${paths.basenameWithoutExtension(inputPath)}.${outputType.validExtensions.first}");
     };
   }
 }
