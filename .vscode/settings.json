@@ -10,5 +10,8 @@
             "array": "cpp",
             "string_view": "cpp",
             "initializer_list": "cpp"
-      }
+      },
+      "cSpell.words": [
+            "webp"
+      ]
 }

@@ -1,8 +1,8 @@
 import 'package:auto_img/parts/left_menu_view.dart';
+import 'package:auto_img/parts/right_menu_view.dart';
 import 'package:auto_img/shared/layout.dart';
 import 'package:flutter/material.dart';
 import "package:auto_img/shared/theme.dart";
-import 'package:flutter_svg/flutter_svg.dart';
 
 class AppView extends StatelessWidget {
   const AppView({super.key});
@@ -82,32 +82,11 @@ class AppView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(kRRArc),
                     color: kThemeCmpBg),
                 child: const AppLeftMenuView()),
-            Expanded(
-              child: Column(
-                children: <Widget>[
-                  AppBar(),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                            width: 250,
-                            height: 200,
-                            child: SvgPicture.asset(
-                                "assets/illust/undraw_loading.svg",
-                                height: 200)),
-                        const SizedBox(height: 18),
-                        const Text("No jobs, add one to start"),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const RightMenuView(),
           ]),
         ),
       ),
     );
   }
 }
+
