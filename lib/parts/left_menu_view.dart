@@ -2,6 +2,8 @@ import 'package:auto_img/parts/components/text_basis.dart';
 import 'package:auto_img/shared/app.dart';
 import 'package:auto_img/shared/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class AppLeftMenuView extends StatelessWidget {
   const AppLeftMenuView({super.key});
@@ -14,9 +16,11 @@ class AppLeftMenuView extends StatelessWidget {
         primary: true,
         children: <Widget>[
           DrawerHeader(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(kRRArc),
-              gradient: const LinearGradient(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(kRRArc),
+                  topRight: Radius.circular(kRRArc)),
+              gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.centerRight,
                 colors: <Color>[
@@ -39,17 +43,43 @@ class AppLeftMenuView extends StatelessWidget {
                 const Text("v$kStrVerCode",
                     style: TextStyle(fontSize: 12)),
                 const Spacer(),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                Wrap(
+                    alignment: WrapAlignment.start,
+                    spacing: 10,
+                    runSpacing: 10,
                     children: <Widget>[
-                      IconButton(
-                          style: ButtonStyle(
-                              backgroundColor: WidgetStatePropertyAll<
-                                      Color>(
-                                  kThemePrimaryFg1.withOpacity(0.3))),
-                          onPressed: () {},
-                          icon: const Icon(Icons.search)),
+                      // TextButton.icon(
+                      //     style: const ButtonStyle(
+                      //         foregroundColor:
+                      //             WidgetStatePropertyAll<Color>(
+                      //                 kThemePrimaryFg1),
+                      //         backgroundColor:
+                      //             WidgetStatePropertyAll<Color>(
+                      //                 kThemeBg)),
+                      //     onPressed: () => showLicensePage(
+                      //         applicationLegalese:
+                      //             "Jiaming Meng (net.exoad)",
+                      //         context: context,
+                      //         applicationVersion: kStrVerCode),
+                      //     label: const Text("Info"),
+                      //     icon: const HugeIcon(
+                      //         icon: HugeIcons
+                      //             .strokeRoundedLicenseMaintenance,
+                      //         color: kThemePrimaryFg1)),
+                      TextButton.icon(
+                          style: const ButtonStyle(
+                              foregroundColor:
+                                  WidgetStatePropertyAll<Color>(
+                                      kThemePrimaryFg1),
+                              backgroundColor:
+                                  WidgetStatePropertyAll<Color>(
+                                      kThemeBg)),
+                          onPressed: () async =>
+                              await launchUrlString(kAppGitHubURL),
+                          label: const Text("GitHub"),
+                          icon: const HugeIcon(
+                              icon: HugeIcons.strokeRoundedGithub01,
+                              color: kThemePrimaryFg1)),
                     ])
               ],
             ),

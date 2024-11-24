@@ -18,3 +18,7 @@ class StylizedText extends StatelessWidget {
     return Text(text, style: _style);
   }
 }
+
+extension EasyText on String {
+  Widget get text => Text(this);
+}

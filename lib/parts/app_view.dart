@@ -1,8 +1,8 @@
-import 'package:auto_img/parts/components/text_basis.dart';
 import 'package:auto_img/parts/left_menu_view.dart';
 import 'package:auto_img/shared/layout.dart';
 import 'package:flutter/material.dart';
 import "package:auto_img/shared/theme.dart";
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AppView extends StatelessWidget {
   const AppView({super.key});
@@ -13,7 +13,12 @@ class AppView extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "AutoImg",
       theme: ThemeData(
+          cardColor: kThemeBg,
+          secondaryHeaderColor: kThemePrimaryFg1,
           listTileTheme: const ListTileThemeData(
+              enableFeedback: false,
+              selectedColor: kTheme1,
+              tileColor: kThemeBg,
               visualDensity: VisualDensity.comfortable),
           dividerColor: Colors.transparent,
           dividerTheme: const DividerThemeData(
@@ -50,6 +55,10 @@ class AppView extends StatelessWidget {
                 BorderSide(color: kThemePrimaryFg1),
             labelStyle: TextStyle(color: kThemePrimaryFg1),
           ),
+          scrollbarTheme: const ScrollbarThemeData(
+              thumbColor:
+                  WidgetStatePropertyAll<Color>(Colors.transparent),
+              radius: Radius.circular(kRRArc)),
           appBarTheme: const AppBarTheme(
               surfaceTintColor: kThemeBg,
               backgroundColor: kThemeBg,
@@ -65,16 +74,32 @@ class AppView extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(kTotalAppPadding),
           child: Row(children: <Widget>[
-            const AppLeftMenuView(),
+            Container(
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: kThemePrimaryFg1.withOpacity(0.3)),
+                    borderRadius: BorderRadius.circular(kRRArc),
+                    color: kThemeCmpBg),
+                child: const AppLeftMenuView()),
             Expanded(
               child: Column(
                 children: <Widget>[
-                  AppBar(
-                    title: StylizedText("AutoImg"),
-                  ),
+                  AppBar(),
                   Expanded(
-                    child: Center(
-                      child: StylizedText("Hello, World!"),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                            width: 250,
+                            height: 200,
+                            child: SvgPicture.asset(
+                                "assets/illust/undraw_loading.svg",
+                                height: 200)),
+                        const SizedBox(height: 18),
+                        const Text("No jobs, add one to start"),
+                      ],
                     ),
                   ),
                 ],
