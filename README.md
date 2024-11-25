@@ -1,5 +1,5 @@
 <h1 align="center">
-auto_img
+<img src="./assets//AppIcon.png/" width=36> auto_img
 </h1>
 
 <center>
