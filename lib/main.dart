@@ -15,6 +15,7 @@ void main() {
       if (kRunTests) {
         __tests();
       }
+      logger.info("Registered jobs: ${Jobs.registeredJobs}");
       runApp(const AppView());
     });
   }
@@ -22,22 +23,27 @@ void main() {
 
 void __tests() {
   // Test OutputNameBuilder.simpleRandomName
-  test("Test OutputNameBuilder.simpleRandomName",
-      () => OutputNameBuilder.simpleRandomName(len: 10)("test.jpg", ImgFileTypes.png), null);
+  test(
+      "Test OutputNameBuilder.simpleRandomName",
+      () => OutputNameBuilder.simpleRandomName(len: 10)(
+          "test.jpg", ImgFileTypes.png),
+      null);
   // Test OutputNameBuilder.simpleName
   test(
       "Test OutputNameBuilder.simpleName",
-      () => OutputNameBuilder.simpleName(name: "amogus")("test.jpg", ImgFileTypes.png),
+      () => OutputNameBuilder.simpleName(name: "amogus")(
+          "test.jpg", ImgFileTypes.png),
       ".\\amogus.png");
   // Test OutputNameBuilder.simplePrefix
   test(
       "Test OutputNameBuilder.simplePrefix",
-      () => OutputNameBuilder.simplePrefix(prefix: "test_")("bbbbb.jpg", ImgFileTypes.png),
+      () => OutputNameBuilder.simplePrefix(prefix: "test_")(
+          "bbbbb.jpg", ImgFileTypes.png),
       ".\\test_bbbbb.png");
 }
 
 void test<E>(String testName, E Function() ax, E? expected) {
   E res = ax();
-  print(
+  logger.info(
       "${expected == null || res == expected ? "[OK]" : "[XX] got '$res', expected '$expected' "} - $testName ");
 }

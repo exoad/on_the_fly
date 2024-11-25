@@ -1,4 +1,5 @@
-import 'package:auto_img/core/e_files.dart';
+
+import 'package:auto_img/core/core.dart';
 import 'package:auto_img/core/utils/result.dart';
 import 'package:auto_img/shared/app.dart';
 import 'package:meta/meta.dart';
@@ -12,7 +13,7 @@ abstract class ConvertJob {
   final String canonicalDescription;
   final List<ImgFileTypes> supportedInputs;
   final List<ImgFileTypes> supportedOutputs;
-
+  late final int id;
   final Map<int, ConvertJobInstance> instances;
 
   ConvertJob(
@@ -21,7 +22,10 @@ abstract class ConvertJob {
       required this.canonicalDescription,
       required this.supportedInputs,
       required this.supportedOutputs})
-      : instances = <int, ConvertJobInstance>{};
+      : instances = <int,ConvertJobInstance>{} {
+    assert(supportedInputs.isNotEmpty);
+    assert(supportedOutputs.isNotEmpty);
+  }
 
   ConvertJobInstance get newInst;
 
@@ -52,6 +56,7 @@ abstract class ConvertJobInstance {
   final int
       parentID; // refers to the index of the job in the list of registered jobs
   final bool isContinuous;
+  final bool isAlive;
   final String inputPath;
   final OutputPathHandler outputNameBuilder;
   final List<ImgFileTypes> inputFileTypes;
@@ -63,9 +68,11 @@ abstract class ConvertJobInstance {
       required this.inputPath,
       required this.outputNameBuilder,
       required this.inputFileTypes,
+      this.isAlive =
+          true, // this would be false if we load this for example from a config save
       required this.outputFileType});
 
-  void optionalAction();
+  void pump();
 }
 
 enum JobRequiredFields {

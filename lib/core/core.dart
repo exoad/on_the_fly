@@ -1,14 +1,14 @@
-import 'package:auto_img/core/convert_job.dart';
+import 'package:auto_img/core/jobs.dart';
 
 export "convert_job.dart";
 export "e_files.dart";
+export "jobs.dart";
 
 class AutoImgCore {
   AutoImgCore._();
 
-  late List<ConvertJob> registeredJobs;
-
-  void init() {
-    registeredJobs = <ConvertJob>[];
+  static void init() {
+    Jobs.registerJob(SingleFileJob());
+    Jobs.registerJob(MultiFileJob());
   }
 }

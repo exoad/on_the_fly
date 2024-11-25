@@ -15,10 +15,34 @@ class AppView extends StatelessWidget {
       theme: ThemeData(
           cardColor: kThemeBg,
           secondaryHeaderColor: kThemePrimaryFg1,
+          filledButtonTheme: const FilledButtonThemeData(
+              style: ButtonStyle(
+                  backgroundColor:
+                      WidgetStatePropertyAll<Color>(kTheme1),
+                  iconColor:
+                      WidgetStatePropertyAll<Color>(kThemeBg),
+                  foregroundColor:
+                      WidgetStatePropertyAll<Color>(kThemeBg),
+                  textStyle: WidgetStatePropertyAll<TextStyle>(
+                      TextStyle(
+                          fontFamily: kDefaultFontFamily,
+                          color: kThemeBg,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)))),
           listTileTheme: const ListTileThemeData(
+              subtitleTextStyle: TextStyle(
+                  fontFamily: kDefaultFontFamily,
+                  color: kThemePrimaryFg2,
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal),
+              titleTextStyle: TextStyle(
+                  fontFamily: kStylizedFontFamily,
+                  color: kThemePrimaryFg1,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
               enableFeedback: false,
               selectedColor: kTheme1,
-              tileColor: kThemeBg,
+              tileColor: Color.fromRGBO(172, 172, 172, 0.22),
               visualDensity: VisualDensity.comfortable),
           dividerColor: Colors.transparent,
           dividerTheme: const DividerThemeData(
@@ -37,10 +61,7 @@ class AppView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(kRRArc))),
           iconTheme: const IconThemeData(color: kThemePrimaryFg1),
           scaffoldBackgroundColor: kThemeBg,
-          textSelectionTheme: TextSelectionThemeData(
-              selectionHandleColor: kThemePrimaryFg1,
-              selectionColor: kThemePrimaryFg1.withOpacity(0.5),
-              cursorColor: kThemePrimaryFg1),
+          textSelectionTheme: TextSelectionThemeData(selectionHandleColor: kThemePrimaryFg1, selectionColor: kThemePrimaryFg1.withOpacity(0.5), cursorColor: kThemePrimaryFg1),
           inputDecorationTheme: const InputDecorationTheme(
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: kThemePrimaryFg1),
@@ -55,18 +76,8 @@ class AppView extends StatelessWidget {
                 BorderSide(color: kThemePrimaryFg1),
             labelStyle: TextStyle(color: kThemePrimaryFg1),
           ),
-          scrollbarTheme: const ScrollbarThemeData(
-              thumbColor:
-                  WidgetStatePropertyAll<Color>(Colors.transparent),
-              radius: Radius.circular(kRRArc)),
-          appBarTheme: const AppBarTheme(
-              surfaceTintColor: kThemeBg,
-              backgroundColor: kThemeBg,
-              foregroundColor: kThemePrimaryFg1,
-              titleTextStyle: TextStyle(
-                  color: kThemePrimaryFg1,
-                  fontSize: 24,
-                  fontFamily: kDefaultFontFamily)),
+          scrollbarTheme: const ScrollbarThemeData(thumbColor: WidgetStatePropertyAll<Color>(Colors.transparent), radius: Radius.circular(kRRArc)),
+          appBarTheme: const AppBarTheme(surfaceTintColor: kThemeBg, backgroundColor: kThemeBg, foregroundColor: kThemePrimaryFg1, titleTextStyle: TextStyle(color: kThemePrimaryFg1, fontSize: 24, fontFamily: kDefaultFontFamily)),
           fontFamily: kDefaultFontFamily,
           brightness: Brightness.dark,
           primaryColor: kThemePrimaryFg1),
@@ -89,4 +100,3 @@ class AppView extends StatelessWidget {
     );
   }
 }
-
