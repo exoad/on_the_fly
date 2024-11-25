@@ -1,6 +1,7 @@
 import 'package:auto_img/parts/left_menu_view.dart';
 import 'package:auto_img/parts/right_menu_view.dart';
 import 'package:auto_img/shared/layout.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import "package:auto_img/shared/theme.dart";
 
@@ -19,8 +20,7 @@ class AppView extends StatelessWidget {
               style: ButtonStyle(
                   backgroundColor:
                       WidgetStatePropertyAll<Color>(kTheme1),
-                  iconColor:
-                      WidgetStatePropertyAll<Color>(kThemeBg),
+                  iconColor: WidgetStatePropertyAll<Color>(kThemeBg),
                   foregroundColor:
                       WidgetStatePropertyAll<Color>(kThemeBg),
                   textStyle: WidgetStatePropertyAll<TextStyle>(
@@ -82,21 +82,38 @@ class AppView extends StatelessWidget {
           brightness: Brightness.dark,
           primaryColor: kThemePrimaryFg1),
       home: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(kTotalAppPadding),
-          child: Row(children: <Widget>[
-            Container(
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: kThemePrimaryFg1.withOpacity(0.3)),
-                    borderRadius: BorderRadius.circular(kRRArc),
-                    color: kThemeCmpBg),
-                child: const AppLeftMenuView()),
-            const RightMenuView(),
-          ]),
+        body: WindowBorder(
+          color: kThemePrimaryFg2,
+          width: 1,
+          child: Padding(
+            padding: const EdgeInsets.all(kTotalAppPadding),
+            child: Row(children: <Widget>[
+              Container(
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color: kThemePrimaryFg1.withOpacity(0.3)),
+                      borderRadius: BorderRadius.circular(kRRArc),
+                      color: kThemeCmpBg),
+                  child: const AppLeftMenuView()),
+              const RightMenuView(),
+            ]),
+          ),
         ),
       ),
     );
+  }
+}
+
+class AppWindowTitleButtons extends StatelessWidget {
+  const AppWindowTitleButtons({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: <Widget>[
+      MinimizeWindowButton(colors: kWindowButtonColors3),
+      MaximizeWindowButton(colors: kWindowButtonColors2),
+      CloseWindowButton(colors: kWindowButtonColors3)
+    ]);
   }
 }

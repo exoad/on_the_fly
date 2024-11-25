@@ -9,7 +9,14 @@
             "*.dirt": "groovy",
             "array": "cpp",
             "string_view": "cpp",
-            "initializer_list": "cpp"
+            "initializer_list": "cpp",
+            "cwchar": "cpp",
+            "string": "cpp",
+            "exception": "cpp",
+            "iosfwd": "cpp",
+            "new": "cpp",
+            "stdexcept": "cpp",
+            "type_traits": "cpp"
       },
       "cSpell.words": [
             "webp"

@@ -34,11 +34,16 @@ class AppLeftMenuView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                StylizedText("AutoImg",
-                    style: const TextStyle(
-                        fontSize: 24,
-                        color: kThemePrimaryFg1,
-                        fontWeight: FontWeight.bold)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    StylizedText("AutoImg",
+                        style: const TextStyle(
+                            fontSize: 24,
+                            color: kThemePrimaryFg1,
+                            fontWeight: FontWeight.bold)),
+                  ],
+                ),
                 const Text("Auto convert image files",
                     style: TextStyle(fontSize: 14)),
                 const Text("v$kStrVerCode",
@@ -169,7 +174,7 @@ class AppLeftMenuView extends StatelessWidget {
                               SizedBox(width: 8),
                               Text("Add Job",
                                   style: TextStyle(
-                                    fontSize: 14,
+                                      fontSize: 14,
                                       color: kThemeBg,
                                       fontWeight: FontWeight.normal)),
                             ],

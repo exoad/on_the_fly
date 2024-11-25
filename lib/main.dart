@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:auto_img/core/core.dart';
+import 'package:auto_img/core/utils/strings.dart';
 import 'package:auto_img/parts/app_view.dart';
 import 'package:auto_img/shared/app.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,6 +19,7 @@ void main() {
       }
       logger.info("Registered jobs: ${Jobs.registeredJobs}");
       runApp(const AppView());
+      doWhenWindowReady(appWindow.show);
     });
   }
 }
@@ -40,6 +43,9 @@ void __tests() {
       () => OutputNameBuilder.simplePrefix(prefix: "test_")(
           "bbbbb.jpg", ImgFileTypes.png),
       ".\\test_bbbbb.png");
+  // Test AutoImgStrings.formalize
+  test("Test AutoImgStrings.formalize", () => "test_test".formalize,
+      "Test Test");
 }
 
 void test<E>(String testName, E Function() ax, E? expected) {

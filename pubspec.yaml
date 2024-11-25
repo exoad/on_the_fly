@@ -7,6 +7,7 @@ environment:
   sdk: ^3.5.4
 
 dependencies:
+  bitsdojo_window: ^0.1.6
   blurrycontainer: ^2.1.0
   flutter:
     sdk: flutter
