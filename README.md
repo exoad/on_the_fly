@@ -1,4 +1,11 @@
-# auto_img
+<h1 align="center">
+auto_img
+</h1>
+
+<center>
+<img src="./repo/sc1.png" />
+</center>
+
 
 A desktop app that facilitates automatically converting image formats by watching certain file directories and detecting when unwanted formats are downloaded. By doing so, it saves you the hassle of having to pull up a manual convert (although you can as well via this app).
 
