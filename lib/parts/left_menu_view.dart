@@ -1,7 +1,9 @@
-import 'package:auto_img/core/core.dart';
-import 'package:auto_img/parts/components/text_basis.dart';
-import 'package:auto_img/shared/app.dart';
-import 'package:auto_img/shared/theme.dart';
+import 'package:on_the_fly/core/core.dart';
+import 'package:on_the_fly/core/utils/strings.dart';
+import 'package:on_the_fly/main.dart';
+import 'package:on_the_fly/parts/components/text_basis.dart';
+import 'package:on_the_fly/shared/app.dart';
+import 'package:on_the_fly/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -37,14 +39,14 @@ class AppLeftMenuView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    StylizedText("AutoImg",
+                    StylizedText(kStrAppName,
                         style: const TextStyle(
                             fontSize: 24,
                             color: kThemePrimaryFg1,
                             fontWeight: FontWeight.bold)),
                   ],
                 ),
-                const Text("Auto convert image files",
+                const Text("Auto convert file formats",
                     style: TextStyle(fontSize: 14)),
                 const Text("v$kStrVerCode",
                     style: TextStyle(fontSize: 12)),
@@ -98,7 +100,24 @@ class AppLeftMenuView extends StatelessWidget {
                 dense: false,
                 showTrailingIcon: false,
                 enableFeedback: false,
-                title: Text(j.name),
+                title: Row(
+                  children: <Widget>[
+                    Text(j.name),
+                    const SizedBox(width: 6),
+                    Container(
+                        padding: const EdgeInsets.all(4),
+                        margin: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                            color: kThemeCmpBg,
+                            borderRadius:
+                                BorderRadius.circular(kRRArc)),
+                        child: Text(j.medium.name.formalize,
+                            style: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: kDefaultFontFamily,
+                                color: kTheme1)))
+                  ],
+                ),
                 subtitle: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,

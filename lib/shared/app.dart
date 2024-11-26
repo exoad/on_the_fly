@@ -1,10 +1,11 @@
 import 'dart:math';
 
-import 'package:auto_img/core/core.dart';
+import 'package:on_the_fly/core/core.dart';
 import 'package:logging/logging.dart';
 
+const String kStrAppName = "On The Fly";
 const String kStrVerCode = "0.0.1";
-const String kAppGitHubURL = "https://github.com/exoad/auto_img";
+const String kAppGitHubURL = "https://github.com/exoad/on_the_fly";
 const bool kRunTests = true;
 const bool kAllowDebugWarnings = true;
 late final Random random;

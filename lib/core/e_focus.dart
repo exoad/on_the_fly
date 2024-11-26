@@ -3,3 +3,5 @@ enum JobFocusMethod {
   specific,
   very_specific,
 }
+
+enum JobFocusMedium { image }

@@ -1,9 +1,9 @@
-import 'package:auto_img/parts/left_menu_view.dart';
-import 'package:auto_img/parts/right_menu_view.dart';
-import 'package:auto_img/shared/layout.dart';
+import 'package:on_the_fly/parts/left_menu_view.dart';
+import 'package:on_the_fly/parts/right_menu_view.dart';
+import 'package:on_the_fly/shared/layout.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import "package:auto_img/shared/theme.dart";
+import "package:on_the_fly/shared/theme.dart";
 
 class AppView extends StatelessWidget {
   const AppView({super.key});

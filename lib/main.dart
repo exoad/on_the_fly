@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:auto_img/core/core.dart';
-import 'package:auto_img/core/utils/strings.dart';
-import 'package:auto_img/parts/app_view.dart';
-import 'package:auto_img/shared/app.dart';
+import 'package:on_the_fly/core/core.dart';
+import 'package:on_the_fly/core/utils/strings.dart';
+import 'package:on_the_fly/parts/app_view.dart';
+import 'package:on_the_fly/shared/app.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 

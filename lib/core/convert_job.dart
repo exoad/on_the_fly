@@ -1,7 +1,7 @@
 
-import 'package:auto_img/core/core.dart';
-import 'package:auto_img/core/utils/result.dart';
-import 'package:auto_img/shared/app.dart';
+import 'package:on_the_fly/core/core.dart';
+import 'package:on_the_fly/core/utils/result.dart';
+import 'package:on_the_fly/shared/app.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as paths;
 

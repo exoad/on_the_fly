@@ -1,5 +1,5 @@
-name: auto_img
-description: "A new Flutter project."
+name: on_the_fly
+description: "Auto convert files on the fly"
 publish_to: 'none'
 version: 0.1.0
 

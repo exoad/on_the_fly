@@ -1,4 +1,4 @@
-import 'package:auto_img/parts/app_view.dart';
+import 'package:on_the_fly/parts/app_view.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

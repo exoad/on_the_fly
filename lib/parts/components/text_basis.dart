@@ -1,4 +1,4 @@
-import 'package:auto_img/shared/theme.dart';
+import 'package:on_the_fly/shared/theme.dart';
 import 'package:flutter/material.dart';
 
 class StylizedText extends StatelessWidget {
