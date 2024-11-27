@@ -60,11 +60,9 @@ abstract class Jobs {
 
   List<UIPump<dynamic>> launchUIForm() {
     return <UIPump<dynamic>>[
-      
+
     ];
   }
-
-
 }
 
 class SingleFileJob extends Jobs {
