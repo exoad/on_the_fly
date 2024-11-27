@@ -3,7 +3,7 @@
 </h1>
 
 <h4 align="center">
-  Effortlessly convert image formats in the background.
+  Effortlessly convert file formats in the background.
 </h4>
 
 <p align="center">
