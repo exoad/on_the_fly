@@ -1,6 +1,5 @@
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
-import 'package:on_the_fly/main.dart';
 import 'package:on_the_fly/parts/components/text_basis.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/theme.dart';

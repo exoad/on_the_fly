@@ -1,4 +1,3 @@
-
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
 import 'package:on_the_fly/shared/app.dart';
@@ -22,7 +21,7 @@ abstract class ConvertJob {
       required this.canonicalDescription,
       required this.supportedInputs,
       required this.supportedOutputs})
-      : instances = <int,ConvertJobInstance>{} {
+      : instances = <int, ConvertJobInstance>{} {
     assert(supportedInputs.isNotEmpty);
     assert(supportedOutputs.isNotEmpty);
   }
@@ -85,7 +84,15 @@ enum JobRequiredFields {
 typedef OutputPathHandler = String Function(
     String inputPath, ImgFileTypes outputType);
 
+typedef OutputHandlerDescriptor = ({
+  OutputPathHandler Function(dynamic) fx,
+  String canonicalName,
+  String description
+});
+
 final class OutputNameBuilder {
+  OutputNameBuilder._();
+
   static OutputPathHandler simpleRandomName(
       {String allowedChars =
           "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_",

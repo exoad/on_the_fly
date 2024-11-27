@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:on_the_fly/core/convert_job.dart';
 import 'package:on_the_fly/core/core.dart';
+import 'package:on_the_fly/core/e_focus.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/parts/app_view.dart';
 import 'package:on_the_fly/shared/app.dart';
@@ -18,6 +20,11 @@ void main() {
         __tests();
       }
       logger.info("Registered jobs: ${Jobs.registeredJobs}");
+      for (MapEntry<JobFocusMedium, Iterable<Jobs>> entry
+          in Jobs.getJobsByMediumMap.entries) {
+        logger.info(
+            "Jobs for medium ${entry.key}: ${entry.value.length}");
+      }
       runApp(const AppView());
       doWhenWindowReady(appWindow.show);
     });

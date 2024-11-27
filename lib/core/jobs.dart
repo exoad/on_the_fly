@@ -1,7 +1,23 @@
+import 'package:on_the_fly/core/convert_job.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/e_focus.dart';
+import 'package:on_the_fly/core/utils/form_ui_transfer.dart';
 
-class Jobs {
+class JobInstance {
+  final Jobs parent;
+  final String inputPath;
+  final OutputPathHandler outputPathHandler;
+  final ImgFileTypes outputType;
+
+  const JobInstance({
+    required this.parent,
+    required this.inputPath,
+    required this.outputPathHandler,
+    required this.outputType,
+  });
+}
+
+abstract class Jobs {
   final String name;
   final String description;
   final List<ImgFileTypes> inputTypes;
@@ -9,6 +25,20 @@ class Jobs {
   final JobFocusMedium medium;
 
   static Map<int, Jobs> registeredJobs = <int, Jobs>{};
+
+  static Iterable<Jobs> getJobsByMedium(JobFocusMedium medium) {
+    return registeredJobs.values
+        .where((Jobs element) => element.medium == medium);
+  }
+
+  static Map<JobFocusMedium, Iterable<Jobs>> get getJobsByMediumMap {
+    Map<JobFocusMedium, Iterable<Jobs>> map =
+        <JobFocusMedium, Iterable<Jobs>>{};
+    for (JobFocusMedium medium in JobFocusMedium.values) {
+      map[medium] = getJobsByMedium(medium);
+    }
+    return map;
+  }
 
   static void registerJob<E extends Jobs>(E r) {
     registeredJobs[registeredJobs.length] = r;
@@ -27,6 +57,14 @@ class Jobs {
     assert(inputTypes.isNotEmpty);
     assert(outputTypes.isNotEmpty);
   }
+
+  List<UIPump<dynamic>> launchUIForm() {
+    return <UIPump<dynamic>>[
+      
+    ];
+  }
+
+
 }
 
 class SingleFileJob extends Jobs {
@@ -39,6 +77,19 @@ class SingleFileJob extends Jobs {
           inputTypes: ImgFileTypes.inputTypes,
           outputTypes: ImgFileTypes.outputTypes,
         );
+
+  @override
+  E createInstance<E extends JobInstance>(
+      {required String inputPath,
+      required OutputPathHandler outputPathHandler,
+      required ImgFileTypes outputType}) {
+    return JobInstance(
+      parent: this,
+      inputPath: inputPath,
+      outputPathHandler: outputPathHandler,
+      outputType: outputType,
+    ) as E;
+  }
 }
 
 class MultiFileJob extends Jobs {
@@ -51,4 +102,17 @@ class MultiFileJob extends Jobs {
           inputTypes: ImgFileTypes.inputTypes,
           outputTypes: ImgFileTypes.outputTypes,
         );
+
+  @override
+  E createInstance<E extends JobInstance>(
+      {required String inputPath,
+      required OutputPathHandler outputPathHandler,
+      required ImgFileTypes outputType}) {
+    return JobInstance(
+      parent: this,
+      inputPath: inputPath,
+      outputPathHandler: outputPathHandler,
+      outputType: outputType,
+    ) as E;
+  }
 }

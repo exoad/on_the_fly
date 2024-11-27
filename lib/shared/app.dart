@@ -8,6 +8,7 @@ const String kStrVerCode = "0.0.1";
 const String kAppGitHubURL = "https://github.com/exoad/on_the_fly";
 const bool kRunTests = true;
 const bool kAllowDebugWarnings = true;
+const bool kAllowCrashingStateOnTyping = true;
 late final Random random;
 final Logger logger = Logger("AutoImg");
 Future<void> initConsts() async {
