@@ -1,8 +1,8 @@
-import 'package:flutter/foundation.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class UIForm {
-  final List<UIPump<dynamic>> pumps;
+  final Map<String, UIPump<dynamic>> pumps;
   final String title;
   late int hash;
 
@@ -11,9 +11,9 @@ class UIForm {
   }
 
   static int _calculateHash(
-      List<UIPump<dynamic>> pumps, String title) {
+      Map<String, UIPump<dynamic>> pumps, String title) {
     return Object.hash(title, DateTime.now().millisecondsSinceEpoch,
-        pumps.map((UIPump<dynamic> pump) => pump.label).join(';'));
+        pumps.values.map((UIPump<dynamic> pump) => pump.toString()));
   }
 }
 
@@ -23,7 +23,7 @@ abstract class UIPump<A> {
 
   UIPump({required this.label, required this.defaultValue});
 
-  Widget buildUI(BuildContext context);
+  Widget buildUI(covariant BuildContext context);
 
   @override
   String toString() =>
@@ -45,7 +45,7 @@ class StringInputPump extends UIPump<String> {
   }
 
   @override
-  Widget buildUI(BuildContext context) {
+  Widget buildUI(covariant BuildContext context) {
     return TextFormField(
       onChanged: pump,
       validator: validator,
@@ -54,4 +54,8 @@ class StringInputPump extends UIPump<String> {
       ),
     );
   }
+
+  @override
+  String toString() =>
+      'StringInputPump(pump: $pump, validator: $validator)';
 }

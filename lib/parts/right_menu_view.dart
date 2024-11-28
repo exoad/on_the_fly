@@ -14,11 +14,11 @@ class RightMenuView extends StatelessWidget {
       child: Column(
         children: <Widget>[
           WindowTitleBarBox(
-            child: SizedBox(child: Row(children: <Widget>[
-              Expanded(child: MoveWindow()),
-              const AppWindowTitleButtons()
-            ]))
-          ),
+              child: SizedBox(
+                  child: Row(children: <Widget>[
+            Expanded(child: MoveWindow()),
+            const AppWindowTitleButtons()
+          ]))),
           AppBar(),
           Expanded(
             child: Column(
@@ -28,8 +28,7 @@ class RightMenuView extends StatelessWidget {
                 SizedBox(
                     width: 250,
                     height: 200,
-                    child: SvgPicture.asset(
-                        "assets/illust/undraw_loading.svg",
+                    child: SvgPicture.asset("assets/illust/undraw_loading.svg",
                         height: 200)),
                 const SizedBox(height: 18),
                 const Text("Nothing to do right now..."),

@@ -1,3 +1,4 @@
+import 'package:on_the_fly/core/builtin/media_img.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/parts/components/text_basis.dart';
@@ -47,8 +48,7 @@ class AppLeftMenuView extends StatelessWidget {
                 ),
                 const Text("Auto convert file formats",
                     style: TextStyle(fontSize: 14)),
-                const Text("v$kStrVerCode",
-                    style: TextStyle(fontSize: 12)),
+                const Text("v$kStrVerCode", style: TextStyle(fontSize: 12)),
                 const Spacer(),
                 Wrap(
                     alignment: WrapAlignment.start,
@@ -57,30 +57,24 @@ class AppLeftMenuView extends StatelessWidget {
                     children: <Widget>[
                       TextButton.icon(
                           style: const ButtonStyle(
-                              foregroundColor:
-                                  WidgetStatePropertyAll<Color>(
-                                      kThemePrimaryFg1),
+                              foregroundColor: WidgetStatePropertyAll<Color>(
+                                  kThemePrimaryFg1),
                               backgroundColor:
-                                  WidgetStatePropertyAll<Color>(
-                                      kThemeBg)),
+                                  WidgetStatePropertyAll<Color>(kThemeBg)),
                           onPressed: () => showLicensePage(
-                              applicationLegalese:
-                                  "Jiaming Meng (net.exoad)",
+                              applicationLegalese: "Jiaming Meng (net.exoad)",
                               context: context,
                               applicationVersion: kStrVerCode),
                           label: const Text("Info"),
                           icon: const HugeIcon(
-                              icon: HugeIcons
-                                  .strokeRoundedLicenseMaintenance,
+                              icon: HugeIcons.strokeRoundedLicenseMaintenance,
                               color: kThemePrimaryFg1)),
                       TextButton.icon(
                           style: const ButtonStyle(
-                              foregroundColor:
-                                  WidgetStatePropertyAll<Color>(
-                                      kThemePrimaryFg1),
+                              foregroundColor: WidgetStatePropertyAll<Color>(
+                                  kThemePrimaryFg1),
                               backgroundColor:
-                                  WidgetStatePropertyAll<Color>(
-                                      kThemeBg)),
+                                  WidgetStatePropertyAll<Color>(kThemeBg)),
                           onPressed: () async =>
                               await launchUrlString(kAppGitHubURL),
                           label: const Text("GitHub"),
@@ -93,8 +87,7 @@ class AppLeftMenuView extends StatelessWidget {
           ),
           for (Jobs j in Jobs.registeredJobs.values)
             Padding(
-              padding:
-                  const EdgeInsets.only(left: 6, right: 6, bottom: 8),
+              padding: const EdgeInsets.only(left: 6, right: 6, bottom: 8),
               child: ExpansionTile(
                 dense: false,
                 showTrailingIcon: false,
@@ -108,8 +101,7 @@ class AppLeftMenuView extends StatelessWidget {
                         margin: const EdgeInsets.all(2),
                         decoration: BoxDecoration(
                             color: kThemeCmpBg,
-                            borderRadius:
-                                BorderRadius.circular(kRRArc)),
+                            borderRadius: BorderRadius.circular(kRRArc)),
                         child: Text(j.medium.name.formalize,
                             style: const TextStyle(
                                 fontSize: 12,
@@ -127,13 +119,11 @@ class AppLeftMenuView extends StatelessWidget {
                       children: <Widget>[
                         Text(j.description),
                         const Text("\nSupported Inputs",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold)),
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                         const SizedBox(height: 4),
                         Wrap(
                             runAlignment: WrapAlignment.start,
-                            crossAxisAlignment:
-                                WrapCrossAlignment.start,
+                            crossAxisAlignment: WrapCrossAlignment.start,
                             children: <Widget>[
                               for (ImgFileTypes t in j.inputTypes)
                                 Container(
@@ -142,23 +132,19 @@ class AppLeftMenuView extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         color: kThemeCmpBg,
                                         borderRadius:
-                                            BorderRadius.circular(
-                                                kRRArc)),
+                                            BorderRadius.circular(kRRArc)),
                                     child: Text(t.name,
                                         style: const TextStyle(
-                                            fontFamily:
-                                                kDefaultFontFamily,
+                                            fontFamily: kDefaultFontFamily,
                                             color: kTheme1))),
                             ]),
                         const SizedBox(height: 6),
                         const Text("Supported Outputs",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold)),
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                         const SizedBox(height: 4),
                         Wrap(
                             runAlignment: WrapAlignment.start,
-                            crossAxisAlignment:
-                                WrapCrossAlignment.start,
+                            crossAxisAlignment: WrapCrossAlignment.start,
                             children: <Widget>[
                               for (ImgFileTypes t in j.outputTypes)
                                 Container(
@@ -167,12 +153,10 @@ class AppLeftMenuView extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         color: kThemeCmpBg,
                                         borderRadius:
-                                            BorderRadius.circular(
-                                                kRRArc)),
+                                            BorderRadius.circular(kRRArc)),
                                     child: Text(t.name,
                                         style: const TextStyle(
-                                            fontFamily:
-                                                kDefaultFontFamily,
+                                            fontFamily: kDefaultFontFamily,
                                             color: kTheme2))),
                             ]),
                       ],
@@ -182,12 +166,10 @@ class AppLeftMenuView extends StatelessWidget {
                       child: FilledButton(
                           onPressed: () {},
                           child: const Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               HugeIcon(
-                                  icon:
-                                      HugeIcons.strokeRoundedPlusSign,
+                                  icon: HugeIcons.strokeRoundedPlusSign,
                                   color: kThemeBg),
                               SizedBox(width: 8),
                               Text("Add Job",

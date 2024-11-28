@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:on_the_fly/core/builtin/media_img.dart';
 import 'package:on_the_fly/core/convert_job.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/e_focus.dart';
@@ -22,8 +23,7 @@ void main() {
       logger.info("Registered jobs: ${Jobs.registeredJobs}");
       for (MapEntry<JobFocusMedium, Iterable<Jobs>> entry
           in Jobs.getJobsByMediumMap.entries) {
-        logger.info(
-            "Jobs for medium ${entry.key}: ${entry.value.length}");
+        logger.info("Jobs for medium ${entry.key}: ${entry.value.length}");
       }
       runApp(const AppView());
       doWhenWindowReady(appWindow.show);

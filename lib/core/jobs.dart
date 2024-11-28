@@ -1,19 +1,37 @@
+import 'package:on_the_fly/core/builtin/media_img.dart';
 import 'package:on_the_fly/core/convert_job.dart';
-import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/e_focus.dart';
 import 'package:on_the_fly/core/utils/form_ui_transfer.dart';
 
+class RoutineOrder {
+  late final String identifier;
+  final String filePath;
+  late final ImgFileTypes inputType; // if this is null, we autodetect it
+  final ImgFileTypes outputType;
+  final OutputPathHandler outputPathHandler;
+
+  RoutineOrder({
+    required this.filePath,
+    ImgFileTypes? inputType,
+    required this.outputType,
+    required this.outputPathHandler,
+  }) {
+    identifier =
+        Object.hash(filePath, outputType, outputPathHandler).toString();
+    if (inputType == null) {
+    } else {
+      this.inputType = inputType;
+    }
+  }
+}
+
 class JobInstance {
   final Jobs parent;
-  final String inputPath;
-  final OutputPathHandler outputPathHandler;
-  final ImgFileTypes outputType;
+  final UIForm form;
 
   const JobInstance({
     required this.parent,
-    required this.inputPath,
-    required this.outputPathHandler,
-    required this.outputType,
+    required this.form,
   });
 }
 
@@ -58,11 +76,7 @@ abstract class Jobs {
     assert(outputTypes.isNotEmpty);
   }
 
-  List<UIPump<dynamic>> launchUIForm() {
-    return <UIPump<dynamic>>[
-
-    ];
-  }
+  JobInstance get basis;
 }
 
 class SingleFileJob extends Jobs {
@@ -70,47 +84,34 @@ class SingleFileJob extends Jobs {
       : super(
           name: "Single File",
           medium: JobFocusMedium.image,
-          description:
-              "Converts a single file from one format to another",
+          description: "Converts a single file from one format to another",
           inputTypes: ImgFileTypes.inputTypes,
           outputTypes: ImgFileTypes.outputTypes,
         );
 
   @override
-  E createInstance<E extends JobInstance>(
-      {required String inputPath,
-      required OutputPathHandler outputPathHandler,
-      required ImgFileTypes outputType}) {
-    return JobInstance(
-      parent: this,
-      inputPath: inputPath,
-      outputPathHandler: outputPathHandler,
-      outputType: outputType,
-    ) as E;
-  }
-}
-
-class MultiFileJob extends Jobs {
-  MultiFileJob()
-      : super(
-          name: "Multi File",
-          medium: JobFocusMedium.image,
-          description:
-              "Converts multiple files from one format to another",
-          inputTypes: ImgFileTypes.inputTypes,
-          outputTypes: ImgFileTypes.outputTypes,
-        );
-
-  @override
-  E createInstance<E extends JobInstance>(
-      {required String inputPath,
-      required OutputPathHandler outputPathHandler,
-      required ImgFileTypes outputType}) {
-    return JobInstance(
-      parent: this,
-      inputPath: inputPath,
-      outputPathHandler: outputPathHandler,
-      outputType: outputType,
-    ) as E;
-  }
+  JobInstance get basis => JobInstance(
+        parent: this,
+        form: UIForm(
+          title: "Single File Conversion",
+          pumps: <String, UIPump<dynamic>>{
+            "Input File": StringInputPump(
+              label: "Input File",
+              pump: (String input) {},
+            ),
+            "Output File": StringInputPump(
+              label: "Output File",
+              pump: (String input) {},
+            ),
+            "Input Type": StringInputPump(
+              label: "Input Type",
+              pump: (String input) {},
+            ),
+            "Output Type": StringInputPump(
+              label: "Output Type",
+              pump: (String input) {},
+            ),
+          },
+        ),
+      );
 }

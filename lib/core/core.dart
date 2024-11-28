@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:on_the_fly/core/jobs.dart';
 
 export "e_files.dart";
@@ -8,6 +10,5 @@ class AutoImgCore {
 
   static void init() {
     Jobs.registerJob(SingleFileJob());
-    Jobs.registerJob(MultiFileJob());
   }
 }
