@@ -14,6 +14,17 @@ typedef OutputHandlerDescriptor = ({
 final class OutputNameBuilder {
   OutputNameBuilder._();
 
+  static final Map<String, Function> _registeredOutputHandlers =
+      <String, Function>{
+    "Simple Random Name": simpleRandomName,
+    "Simple Name": simpleName,
+    "Simple Prefix": simplePrefix,
+    "Simple Suffix": simpleSuffix
+  };
+
+  static Map<String, Function> get registeredOutputHandlers =>
+      _registeredOutputHandlers;
+
   static OutputPathHandler simpleRandomName(
       {String allowedChars =
           "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_",
@@ -51,8 +62,6 @@ class FileCandidate {
   final OutputPathHandler outputName;
 
   FileCandidate({required this.inputPath, required this.outputName});
-
-
 }
 
 enum JobStatus {

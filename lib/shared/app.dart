@@ -11,6 +11,12 @@ const String kAppGitHubURL = "https://github.com/exoad/on_the_fly";
 /// for release, this should be false
 const bool kRunTests = true;
 
+/// used in development to run [SandboxView] instead of the main app [AppView]
+///
+/// this is off for release versions, but during dev this is
+/// for seeing how certain visual elements will look
+const bool kRunSandboxView = true;
+
 /// determines whether certain things where type checking or sanity
 /// checks are done should be done or not
 ///
@@ -21,6 +27,11 @@ const bool kRunTests = true;
 /// caused by the bum ass programmer supplying an invalid value
 /// (typo, careless mistake)
 const bool kAllowDebugWarnings = true;
+
+/// whether informational log messages are logged
+///
+/// can be on or off no matter the production state
+const bool kAllowDebugLogs = true;
 late final Random random;
 final Logger logger = Logger("AutoImg");
 

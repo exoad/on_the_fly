@@ -1,10 +1,12 @@
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/parts/components/text_basis.dart';
+import 'package:on_the_fly/parts/events/job_stack.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 /// left side of the app, this is used for displaying all of the jobs that the user can choose from
@@ -181,7 +183,10 @@ class AppLeftMenuView extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       FilledButton(
-                          onPressed: () {}, // TODO: impl job selection
+                          onPressed: () {
+                            Provider.of<GlobalJobStack>(context)
+                                .addJob(SingleImgJob());
+                          }, // TODO: proper impl job selection
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[

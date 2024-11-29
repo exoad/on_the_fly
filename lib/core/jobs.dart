@@ -1,30 +1,9 @@
-import 'package:on_the_fly/core/output_builder.dart';
+import 'package:meta/meta.dart';
 import 'package:on_the_fly/core/e_files.dart';
+import 'package:on_the_fly/core/utils/form_ui_transfer.dart';
 import 'package:on_the_fly/shared/app.dart';
 
-class RoutineOrder<E extends FormatMedium> {
-  late final String identifier;
-  final String filePath;
-  late final E inputType; // if this is null, we autodetect it
-  final E outputType;
-  final OutputPathHandler outputPathHandler;
-
-  RoutineOrder({
-    required this.filePath,
-    E? inputType,
-    required this.outputType,
-    required this.outputPathHandler,
-  }) {
-    identifier =
-        Object.hash(filePath, outputType, outputPathHandler).toString();
-    if (inputType == null) {
-    } else {
-      this.inputType = inputType;
-    }
-  }
-}
-
-class JobInstance<E extends FileFormat> {
+abstract class JobInstance<E extends FileFormat> {
   final Jobs<E> parent;
 
   JobInstance({
@@ -38,6 +17,8 @@ class JobInstance<E extends FileFormat> {
 abstract class Jobs<E extends FileFormat> {
   final String name;
   final String description;
+
+  final OrderForm _orderForm;
 
   /// represents the accepted input types
   final List<E> inputTypes;
@@ -72,26 +53,42 @@ abstract class Jobs<E extends FileFormat> {
 
   int get id => _id;
 
-  Jobs({
-    required this.name,
-    required this.description,
-    required this.inputTypes,
-    required this.outputTypes,
-    required this.mediumName,
-  }) {
+  @nonVirtual
+  OrderForm get orderForm => _orderForm;
+
+  Jobs(
+      {required this.name,
+      required this.description,
+      required this.inputTypes,
+      required this.outputTypes,
+      required this.mediumName,
+      required OrderForm orderForm})
+      : _orderForm = orderForm {
     assert(inputTypes.isNotEmpty);
     assert(outputTypes.isNotEmpty);
   }
+
 }
 
+/// this represents a single convert job for a single image file
 class SingleImgJob extends Jobs<FileFormat> {
   SingleImgJob()
       : super(
-          name: "Single Image",
-          mediumName: ImageMedium.inst.mediumName,
-          description:
-              "Converts a single image file from one format to another",
-          inputTypes: ImageMedium.inst.inputFormats,
-          outputTypes: ImageMedium.inst.outputFormats,
-        );
+            name: "Single Image",
+            mediumName: ImageMedium.inst.mediumName,
+            description:
+                "Converts a single image file from one format to another",
+            inputTypes: ImageMedium.inst.inputFormats,
+            outputTypes: ImageMedium.inst.outputFormats,
+            orderForm: OrderForm(
+                title:
+                    "Single Image Conversion #${Jobs.registeredJobs.length + 1}",
+                onOrder: () {},
+                isAlive: () => true,
+                pumps: <String, UIPump<dynamic>>{
+                  "in_file": StringInputPump(
+                      label: "Input File",
+                      pump: (String input) {},
+                      validator: (String? input) => null),
+                }));
 }
