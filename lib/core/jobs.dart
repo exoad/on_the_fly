@@ -1,18 +1,17 @@
-import 'package:on_the_fly/core/builtin/media_img.dart';
-import 'package:on_the_fly/core/convert_job.dart';
-import 'package:on_the_fly/core/e_focus.dart';
-import 'package:on_the_fly/core/utils/form_ui_transfer.dart';
+import 'package:on_the_fly/core/output_builder.dart';
+import 'package:on_the_fly/core/e_files.dart';
+import 'package:on_the_fly/shared/app.dart';
 
-class RoutineOrder {
+class RoutineOrder<E extends FormatMedium> {
   late final String identifier;
   final String filePath;
-  late final ImgFileTypes inputType; // if this is null, we autodetect it
-  final ImgFileTypes outputType;
+  late final E inputType; // if this is null, we autodetect it
+  final E outputType;
   final OutputPathHandler outputPathHandler;
 
   RoutineOrder({
     required this.filePath,
-    ImgFileTypes? inputType,
+    E? inputType,
     required this.outputType,
     required this.outputPathHandler,
   }) {
@@ -25,93 +24,74 @@ class RoutineOrder {
   }
 }
 
-class JobInstance {
-  final Jobs parent;
-  final UIForm form;
+class JobInstance<E extends FileFormat> {
+  final Jobs<E> parent;
 
-  const JobInstance({
+  JobInstance({
     required this.parent,
-    required this.form,
   });
 }
 
-abstract class Jobs {
+/// a basis for all jobs
+///
+/// [E] represents the type (usually an enum) that can be used to represent the type of the input/output file types.
+abstract class Jobs<E extends FileFormat> {
   final String name;
   final String description;
-  final List<ImgFileTypes> inputTypes;
-  final List<ImgFileTypes> outputTypes;
-  final JobFocusMedium medium;
 
-  static Map<int, Jobs> registeredJobs = <int, Jobs>{};
+  /// represents the accepted input types
+  final List<E> inputTypes;
 
-  static Iterable<Jobs> getJobsByMedium(JobFocusMedium medium) {
-    return registeredJobs.values
-        .where((Jobs element) => element.medium == medium);
-  }
+  /// represents the output types
+  final List<E> outputTypes;
+  final String mediumName;
 
-  static Map<JobFocusMedium, Iterable<Jobs>> get getJobsByMediumMap {
-    Map<JobFocusMedium, Iterable<Jobs>> map =
-        <JobFocusMedium, Iterable<Jobs>>{};
-    for (JobFocusMedium medium in JobFocusMedium.values) {
-      map[medium] = getJobsByMedium(medium);
+  static Map<String, List<Jobs<FileFormat>>> registeredJobs =
+      <String, List<Jobs<FileFormat>>>{};
+
+  static List<Jobs<FileFormat>> getJobsByMedium(String mediumName) {
+    if (!registeredJobs.containsKey(mediumName) && kAllowDebugWarnings) {
+      throw ArgumentError(
+          "Medium Key not found in registered jobs: $mediumName"); // another programmer error ! bruh
     }
-    return map;
+    return registeredJobs[mediumName]!;
   }
 
-  static void registerJob<E extends Jobs>(E r) {
-    registeredJobs[registeredJobs.length] = r;
-    r.id = registeredJobs.length - 1;
+  static Map<String, Iterable<Jobs<FileFormat>>> get getJobsByMediumMap =>
+      registeredJobs;
+
+  static void registerJob(Jobs<FileFormat> r) {
+    if (!registeredJobs.containsKey(r.mediumName)) {
+      registeredJobs[r.mediumName] = <Jobs<FileFormat>>[];
+    }
+    registeredJobs[r.mediumName]!.add(r);
+    r._id = registeredJobs.length - 1;
   }
 
-  late int id;
+  late int _id;
+
+  int get id => _id;
 
   Jobs({
     required this.name,
     required this.description,
     required this.inputTypes,
     required this.outputTypes,
-    required this.medium,
+    required this.mediumName,
   }) {
     assert(inputTypes.isNotEmpty);
     assert(outputTypes.isNotEmpty);
   }
-
-  JobInstance get basis;
 }
 
-class SingleFileJob extends Jobs {
-  SingleFileJob()
+class SingleImgJob extends Jobs<FileFormat> {
+  SingleImgJob()
       : super(
-          name: "Single File",
-          medium: JobFocusMedium.image,
-          description: "Converts a single file from one format to another",
-          inputTypes: ImgFileTypes.inputTypes,
-          outputTypes: ImgFileTypes.outputTypes,
+          name: "Single Image",
+          mediumName: ImageMedium.inst.mediumName,
+          description:
+              "Converts a single image file from one format to another",
+          inputTypes: ImageMedium.inst.inputFormats,
+          outputTypes: ImageMedium.inst.outputFormats,
         );
-
-  @override
-  JobInstance get basis => JobInstance(
-        parent: this,
-        form: UIForm(
-          title: "Single File Conversion",
-          pumps: <String, UIPump<dynamic>>{
-            "Input File": StringInputPump(
-              label: "Input File",
-              pump: (String input) {},
-            ),
-            "Output File": StringInputPump(
-              label: "Output File",
-              pump: (String input) {},
-            ),
-            "Input Type": StringInputPump(
-              label: "Input Type",
-              pump: (String input) {},
-            ),
-            "Output Type": StringInputPump(
-              label: "Output Type",
-              pump: (String input) {},
-            ),
-          },
-        ),
-      );
 }

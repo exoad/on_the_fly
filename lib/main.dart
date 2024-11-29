@@ -1,9 +1,7 @@
 import 'dart:io';
 
-import 'package:on_the_fly/core/builtin/media_img.dart';
-import 'package:on_the_fly/core/convert_job.dart';
+import 'package:on_the_fly/core/output_builder.dart';
 import 'package:on_the_fly/core/core.dart';
-import 'package:on_the_fly/core/e_focus.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/parts/app_view.dart';
 import 'package:on_the_fly/shared/app.dart';
@@ -21,7 +19,7 @@ void main() {
         __tests();
       }
       logger.info("Registered jobs: ${Jobs.registeredJobs}");
-      for (MapEntry<JobFocusMedium, Iterable<Jobs>> entry
+      for (MapEntry<String, Iterable<Jobs<FileFormat>>> entry
           in Jobs.getJobsByMediumMap.entries) {
         logger.info("Jobs for medium ${entry.key}: ${entry.value.length}");
       }
@@ -36,19 +34,19 @@ void __tests() {
   test(
       "Test OutputNameBuilder.simpleRandomName",
       () => OutputNameBuilder.simpleRandomName(len: 10)(
-          "test.jpg", ImgFileTypes.png),
+          "test.jpg", ImageMedium.inst["png"]),
       null);
   // Test OutputNameBuilder.simpleName
   test(
       "Test OutputNameBuilder.simpleName",
       () => OutputNameBuilder.simpleName(name: "amogus")(
-          "test.jpg", ImgFileTypes.png),
+          "test.jpg", ImageMedium.inst["jpg"]),
       ".\\amogus.png");
   // Test OutputNameBuilder.simplePrefix
   test(
       "Test OutputNameBuilder.simplePrefix",
       () => OutputNameBuilder.simplePrefix(prefix: "test_")(
-          "bbbbb.jpg", ImgFileTypes.png),
+          "bbbbb.jpg", ImageMedium.inst["png"]),
       ".\\test_bbbbb.png");
   // Test AutoImgStrings.formalize
   test("Test AutoImgStrings.formalize", () => "test_test".formalize,

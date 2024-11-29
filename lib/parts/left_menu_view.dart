@@ -1,4 +1,3 @@
-import 'package:on_the_fly/core/builtin/media_img.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/parts/components/text_basis.dart';
@@ -85,7 +84,8 @@ class AppLeftMenuView extends StatelessWidget {
               ],
             ),
           ),
-          for (Jobs j in Jobs.registeredJobs.values)
+          for (Jobs<FileFormat> j in Jobs.registeredJobs.values
+              .expand((List<Jobs<FileFormat>> e) => e))
             Padding(
               padding: const EdgeInsets.only(left: 6, right: 6, bottom: 8),
               child: ExpansionTile(
@@ -102,85 +102,92 @@ class AppLeftMenuView extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: kThemeCmpBg,
                             borderRadius: BorderRadius.circular(kRRArc)),
-                        child: Text(j.medium.name.formalize,
+                        child: Text(j.mediumName.formalize,
                             style: const TextStyle(
                                 fontSize: 12,
                                 fontFamily: kDefaultFontFamily,
                                 color: kTheme1)))
                   ],
                 ),
-                subtitle: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(j.description),
-                        const Text("\nSupported Inputs",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 4),
-                        Wrap(
-                            runAlignment: WrapAlignment.start,
-                            crossAxisAlignment: WrapCrossAlignment.start,
-                            children: <Widget>[
-                              for (ImgFileTypes t in j.inputTypes)
-                                Container(
-                                    padding: const EdgeInsets.all(4),
-                                    margin: const EdgeInsets.all(2),
-                                    decoration: BoxDecoration(
-                                        color: kThemeCmpBg,
-                                        borderRadius:
-                                            BorderRadius.circular(kRRArc)),
-                                    child: Text(t.name,
-                                        style: const TextStyle(
-                                            fontFamily: kDefaultFontFamily,
-                                            color: kTheme1))),
-                            ]),
-                        const SizedBox(height: 6),
-                        const Text("Supported Outputs",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 4),
-                        Wrap(
-                            runAlignment: WrapAlignment.start,
-                            crossAxisAlignment: WrapCrossAlignment.start,
-                            children: <Widget>[
-                              for (ImgFileTypes t in j.outputTypes)
-                                Container(
-                                    padding: const EdgeInsets.all(4),
-                                    margin: const EdgeInsets.all(2),
-                                    decoration: BoxDecoration(
-                                        color: kThemeCmpBg,
-                                        borderRadius:
-                                            BorderRadius.circular(kRRArc)),
-                                    child: Text(t.name,
-                                        style: const TextStyle(
-                                            fontFamily: kDefaultFontFamily,
-                                            color: kTheme2))),
-                            ]),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    IntrinsicHeight(
-                      child: FilledButton(
-                          onPressed: () {},
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              HugeIcon(
-                                  icon: HugeIcons.strokeRoundedPlusSign,
-                                  color: kThemeBg),
-                              SizedBox(width: 8),
-                              Text("Add Job",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: kThemeBg,
-                                      fontWeight: FontWeight.normal)),
-                            ],
-                          )),
-                    ),
-                  ],
+                subtitle: Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(j.description),
+                          const Text("\nSupported Inputs",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 4),
+                          Wrap(
+                              runAlignment: WrapAlignment.start,
+                              crossAxisAlignment: WrapCrossAlignment.start,
+                              children: <Widget>[
+                                for (FileFormat t in j.inputTypes)
+                                  Container(
+                                      padding: const EdgeInsets.all(4),
+                                      margin: const EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                          color: kThemeCmpBg,
+                                          borderRadius:
+                                              BorderRadius.circular(kRRArc)),
+                                      child: Text(t.canonicalName,
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: kDefaultFontFamily,
+                                              color: kTheme1))),
+                              ]),
+                          const SizedBox(height: 6),
+                          const Text("Supported Outputs",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 4),
+                          Wrap(
+                              runAlignment: WrapAlignment.start,
+                              crossAxisAlignment: WrapCrossAlignment.start,
+                              children: <Widget>[
+                                for (FileFormat t in j.outputTypes)
+                                  Container(
+                                      padding: const EdgeInsets.all(4),
+                                      margin: const EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                          color: kThemeCmpBg,
+                                          borderRadius:
+                                              BorderRadius.circular(kRRArc)),
+                                      child: Text(t.canonicalName,
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: kDefaultFontFamily,
+                                              color: kTheme2))),
+                              ]),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      IntrinsicHeight(
+                        child: FilledButton(
+                            onPressed: () {},
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                HugeIcon(
+                                    icon: HugeIcons.strokeRoundedPlusSign,
+                                    color: kThemeBg),
+                                SizedBox(width: 8),
+                                Text("Add Job",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: kThemeBg,
+                                        fontWeight: FontWeight.normal)),
+                              ],
+                            )),
+                      ),
+                    ],
+                  ),
                 ),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(kRRArc)),
