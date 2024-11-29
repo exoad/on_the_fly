@@ -5,6 +5,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import "package:on_the_fly/shared/theme.dart";
 
+/// main interface of the app where all of the actions takes place :)
 class AppView extends StatelessWidget {
   const AppView({super.key});
 
@@ -104,7 +105,7 @@ class AppView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(kRRArc),
                       color: kThemeCmpBg),
                   child: const AppLeftMenuView()),
-              const RightMenuView(),
+              const AppRightMenuView(),
             ]),
           ),
         ),

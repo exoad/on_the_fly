@@ -7,6 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+/// left side of the app, this is used for displaying all of the jobs that the user can choose from
+///
+/// it is connected with the [AppRightMenuView] to display the user created jobs selected from this view.
+///
+/// this view also holds the branding of the app at the top of the [Drawer]
 class AppLeftMenuView extends StatelessWidget {
   const AppLeftMenuView({super.key});
 
@@ -18,6 +23,7 @@ class AppLeftMenuView extends StatelessWidget {
         primary: true,
         children: <Widget>[
           DrawerHeader(
+            // app branding section lol
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(kRRArc),
@@ -26,6 +32,7 @@ class AppLeftMenuView extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.centerRight,
                 colors: <Color>[
+                  // YESSSS GRADIENTS, makes the app look so fancy (but is it ?)
                   kTheme1,
                   kTheme2,
                 ],
@@ -83,10 +90,12 @@ class AppLeftMenuView extends StatelessWidget {
                     ])
               ],
             ),
-          ),
-          for (Jobs<FileFormat> j in Jobs.registeredJobs.values
+          ), // end of branding section
+          for (Jobs<FileFormat> j in Jobs.registeredJobs
+              .values // auto loading of all the jobs that are registered from the Jobs class
               .expand((List<Jobs<FileFormat>> e) => e))
             Padding(
+              // title of the job
               padding: const EdgeInsets.only(left: 6, right: 6, bottom: 8),
               child: ExpansionTile(
                 dense: false,
@@ -109,7 +118,10 @@ class AppLeftMenuView extends StatelessWidget {
                                 color: kTheme1)))
                   ],
                 ),
+                // description and like all of the "neat" details of the app such as the supported inputs and outputs formats
                 subtitle: Padding(
+                  // we need this padding (top:8) so the title isn't too close to the subtitle/description
+                  // of this job
                   padding: const EdgeInsets.only(top: 8),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -168,29 +180,28 @@ class AppLeftMenuView extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      IntrinsicHeight(
-                        child: FilledButton(
-                            onPressed: () {},
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                HugeIcon(
-                                    icon: HugeIcons.strokeRoundedPlusSign,
-                                    color: kThemeBg),
-                                SizedBox(width: 8),
-                                Text("Add Job",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: kThemeBg,
-                                        fontWeight: FontWeight.normal)),
-                              ],
-                            )),
-                      ),
+                      FilledButton(
+                          onPressed: () {}, // TODO: impl job selection
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              HugeIcon(
+                                  icon: HugeIcons.strokeRoundedPlusSign,
+                                  color: kThemeBg),
+                              SizedBox(width: 8),
+                              Text("Add Job",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: kThemeBg,
+                                      fontWeight: FontWeight.normal)),
+                            ],
+                          )),
                     ],
                   ),
                 ),
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(kRRArc)),
+                    borderRadius: BorderRadius.circular(
+                        kRRArc)), // this is j for visual purposes
               ),
             )
         ],

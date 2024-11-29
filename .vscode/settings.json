@@ -16,7 +16,8 @@
             "iosfwd": "cpp",
             "new": "cpp",
             "stdexcept": "cpp",
-            "type_traits": "cpp"
+            "type_traits": "cpp",
+            "iostream": "cpp"
       },
       "cSpell.words": [
             "webp"
