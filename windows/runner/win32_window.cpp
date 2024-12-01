@@ -10,14 +10,14 @@ namespace
 #ifndef DWMWA_USE_IMMERSIVE_DARK_MODE
 #       define DWMWA_USE_IMMERSIVE_DARK_MODE 20
 #endif
-
         constexpr const wchar_t kWindowClassName[]=L"FLUTTER_RUNNER_WIN32_WINDOW";
         constexpr const wchar_t kGetPreferredBrightnessRegKey[]=
                 L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize";
         constexpr const wchar_t kGetPreferredBrightnessRegValue[]=L"AppsUseLightTheme";
         static int g_active_window_count=0;
         using EnableNonClientDpiScaling=BOOL __stdcall(HWND hwnd);
-        int Scale(int source,double scale_factor) {
+        int Scale(int source,double scale_factor)
+        {
                 return static_cast<int>(source*scale_factor);
         }
         void EnableFullDpiSupportIfAvailable(HWND hwnd)
@@ -25,8 +25,7 @@ namespace
                 HMODULE user32_module=LoadLibraryA("User32.dll");
                 if (!user32_module)return;
                 auto enable_non_client_dpi_scaling=
-                        reinterpret_cast<EnableNonClientDpiScaling*>(
-                                GetProcAddress(user32_module,"EnableNonClientDpiScaling"));
+                        reinterpret_cast<EnableNonClientDpiScaling*>(GetProcAddress(user32_module,"EnableNonClientDpiScaling"));
                 if (enable_non_client_dpi_scaling!=nullptr)
                         enable_non_client_dpi_scaling(hwnd);
                 FreeLibrary(user32_module);
@@ -63,8 +62,7 @@ const wchar_t* WindowClassRegistrar::GetWindowClass()
                 window_class.cbClsExtra=0;
                 window_class.cbWndExtra=0;
                 window_class.hInstance=GetModuleHandle(nullptr);
-                window_class.hIcon=
-                        LoadIcon(window_class.hInstance,MAKEINTRESOURCE(IDI_APP_ICON));
+                window_class.hIcon=LoadIcon(window_class.hInstance,MAKEINTRESOURCE(IDI_APP_ICON));
                 window_class.hbrBackground=0;
                 window_class.lpszMenuName=nullptr;
                 window_class.lpfnWndProc=Win32Window::WndProc;
@@ -103,10 +101,16 @@ bool Win32Window::Create(const std::wstring& title,const Point& origin,const Siz
         UINT dpi=FlutterDesktopGetDpiForMonitor(monitor);
         double scale_factor=dpi/96.0;
         HWND window=CreateWindow(
-                window_class,title.c_str(),WS_OVERLAPPEDWINDOW,
-                static_cast<int>((GetSystemMetrics(SM_CXSCREEN)/2)-Scale(size.width/2,scale_factor)),static_cast<int>((GetSystemMetrics(SM_CYSCREEN)/2)-Scale(size.height/2,scale_factor)),
-                Scale(size.width,scale_factor),Scale(size.height,scale_factor),
-                nullptr,nullptr,GetModuleHandle(nullptr),this);
+                window_class,title.c_str(),
+                WS_OVERLAPPEDWINDOW,
+                static_cast<int>((GetSystemMetrics(SM_CXSCREEN)/2)-Scale(size.width/2,scale_factor)),
+                static_cast<int>((GetSystemMetrics(SM_CYSCREEN)/2)-Scale(size.height/2,scale_factor)),
+                Scale(size.width,scale_factor),
+                Scale(size.height,scale_factor),
+                nullptr,
+                nullptr,
+                GetModuleHandle(nullptr),this
+        );
         if (!window)
                 return false;
         UpdateTheme(window);
@@ -123,8 +127,11 @@ LRESULT CALLBACK Win32Window::WndProc(HWND const window,UINT const message,WPARA
         if (message==WM_NCCREATE)
         {
                 auto window_struct=reinterpret_cast<CREATESTRUCT*>(lparam);
-                SetWindowLongPtr(window,GWLP_USERDATA,
-                        reinterpret_cast<LONG_PTR>(window_struct->lpCreateParams));
+                SetWindowLongPtr(
+                        window,
+                        GWLP_USERDATA,
+                        reinterpret_cast<LONG_PTR>(window_struct->lpCreateParams)
+                );
                 auto that=static_cast<Win32Window*>(window_struct->lpCreateParams);
                 EnableFullDpiSupportIfAvailable(window);
                 that->window_handle_=window;
@@ -155,8 +162,14 @@ LRESULT Win32Window::MessageHandler(HWND hwnd,UINT const message,WPARAM const wp
         case WM_SIZE: {
                 RECT rect=GetClientArea();
                 if (child_content_!=nullptr)
-                        MoveWindow(child_content_,rect.left,rect.top,rect.right-rect.left,
-                                rect.bottom-rect.top,TRUE);
+                        MoveWindow(
+                                child_content_,
+                                rect.left,
+                                rect.top,
+                                rect.right-rect.left,
+                                rect.bottom-rect.top,
+                                TRUE
+                        );
                 return 0;
         }
         case WM_ACTIVATE:
@@ -183,18 +196,24 @@ void Win32Window::Destroy()
                 WindowClassRegistrar::GetInstance()->UnregisterWindowClass();
 }
 
-Win32Window* Win32Window::GetThisFromHandle(HWND const window) noexcept {
-        return reinterpret_cast<Win32Window*>(
-                GetWindowLongPtr(window,GWLP_USERDATA));
+Win32Window* Win32Window::GetThisFromHandle(HWND const window) noexcept
+{
+        return reinterpret_cast<Win32Window*>(GetWindowLongPtr(window,GWLP_USERDATA));
 }
 
-void Win32Window::SetChildContent(HWND content) {
+void Win32Window::SetChildContent(HWND content)
+{
         child_content_=content;
         SetParent(content,window_handle_);
         RECT frame=GetClientArea();
-        MoveWindow(content,frame.left,frame.top,frame.right-frame.left,
-                frame.bottom-frame.top,true);
-
+        MoveWindow(
+                content,
+                frame.left,
+                frame.top,
+                frame.right-frame.left,
+                frame.bottom-frame.top,
+                true
+        );
         SetFocus(child_content_);
 }
 
@@ -229,15 +248,23 @@ void Win32Window::UpdateTheme(HWND const window)
 {
         DWORD light_mode;
         DWORD light_mode_size=sizeof(light_mode);
-        LSTATUS result=RegGetValue(HKEY_CURRENT_USER,kGetPreferredBrightnessRegKey,
+        LSTATUS result=RegGetValue(
+                HKEY_CURRENT_USER,
+                kGetPreferredBrightnessRegKey,
                 kGetPreferredBrightnessRegValue,
-                RRF_RT_REG_DWORD,nullptr,&light_mode,
-                &light_mode_size);
-
+                RRF_RT_REG_DWORD,
+                nullptr,
+                &light_mode,
+                &light_mode_size
+        );
         if (result==ERROR_SUCCESS)
         {
                 BOOL enable_dark_mode=light_mode==0;
-                DwmSetWindowAttribute(window,DWMWA_USE_IMMERSIVE_DARK_MODE,
-                        &enable_dark_mode,sizeof(enable_dark_mode));
+                DwmSetWindowAttribute(
+                        window,
+                        DWMWA_USE_IMMERSIVE_DARK_MODE,
+                        &enable_dark_mode,
+                        sizeof(enable_dark_mode)
+                );
         }
 }

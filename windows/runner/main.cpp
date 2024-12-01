@@ -18,7 +18,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance,_In_opt_ HINSTANCE prev,_In_ wchar
         project.set_dart_entrypoint_arguments(std::move(command_line_arguments));
         FlutterWindow window(project);
         // it shld be better to use an externally defined header for these values lol
-        if (!window.Create(L"On The Fly",Win32Window::Point((GetSystemMetrics(SM_CXSCREEN)-WINDOW_WIDTH)/2,(GetSystemMetrics(SM_CYSCREEN)-WINDOW_HEIGHT)/2),Win32Window::Size(980,620)))
+        if (!window.Create(
+                        L"On The Fly",
+                        Win32Window::Point((GetSystemMetrics(SM_CXSCREEN)-WINDOW_WIDTH)/2,(GetSystemMetrics(SM_CYSCREEN)-WINDOW_HEIGHT)/2),
+                        Win32Window::Size(980,620)
+                )
+        )
                 return EXIT_FAILURE;
         window.SetQuitOnClose(true);
         ::MSG msg;
