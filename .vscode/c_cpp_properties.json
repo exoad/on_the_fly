@@ -3,16 +3,16 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/windows/**"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "C:\\msys64\\ucrt64\\bin\\gcc.exe",
+            "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
             "cStandard": "c17",
-            "cppStandard": "gnu++17",
+            "cppStandard": "c++20",
             "intelliSenseMode": "windows-gcc-x64"
         }
     ],

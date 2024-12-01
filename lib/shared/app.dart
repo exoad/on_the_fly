@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/services.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:logging/logging.dart';
 
@@ -34,6 +35,10 @@ const bool kAllowDebugWarnings = true;
 const bool kAllowDebugLogs = true;
 late final Random random;
 final Logger logger = Logger("AutoImg");
+
+/// this platform channel basically just checks if the platform
+/// channel is working properly in the hollistic sense
+const MethodChannel mSanityCheck = MethodChannel("net.exoad.on_the_fly/sanity_check");
 
 /// initialize the constants and some other core elements of the app
 /// such as logging as well as the internal registry of the app so
