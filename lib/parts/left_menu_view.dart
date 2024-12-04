@@ -1,9 +1,11 @@
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/formats/images.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
+import 'package:on_the_fly/parts/components/components.dart';
 import 'package:on_the_fly/parts/components/text_basis.dart';
 import 'package:on_the_fly/parts/events/job_stack.dart';
 import 'package:on_the_fly/shared/app.dart';
+import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -21,6 +23,7 @@ class AppLeftMenuView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      clipBehavior: Clip.antiAlias,
       child: ListView(
         physics: const BouncingScrollPhysics(),
         primary: true,
@@ -99,7 +102,7 @@ class AppLeftMenuView extends StatelessWidget {
               .values // auto loading of all the JobDispatcher that are registered from the JobDispatcher class
               .expand((List<JobDispatcher<FileFormat>> e) => e))
             Padding(
-              // title of the job
+              // title of the job dispatcher
               padding: const EdgeInsets.only(left: 6, right: 6, bottom: 8),
               child: ExpansionTile(
                 dense: false,
@@ -186,7 +189,8 @@ class AppLeftMenuView extends StatelessWidget {
                       const SizedBox(height: 16),
                       FilledButton(
                           onPressed: () {
-                            Provider.of<GlobalJobStack>(context, listen: false)
+                            Provider.of<GlobalJobStack>(context,
+                                    listen: false)
                                 .addJob(SingleImgJobDispatcher());
                           }, // TODO: proper impl job selection
                           child: const Row(

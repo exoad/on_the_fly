@@ -1,1 +1,1 @@
-const double kTotalAppPadding = 8;
+const double kDrawerTotalMargin = 8;

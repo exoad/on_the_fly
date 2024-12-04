@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/form_ui_transfer.dart';
+import 'package:on_the_fly/core/utils/result.dart';
 
 final class ImageMedium extends FormatMedium {
   static final ImageMedium inst = ImageMedium();
@@ -67,4 +68,12 @@ class SingleImgJobDispatcher extends JobDispatcher<FileFormat> {
                       pump: (String input) {},
                       validator: (String? input) => null),
                 }));
+}
+
+class ImageRoutineProcessor extends RoutineProcessor<ImageMedium> {
+  @override
+  Future<Result<Null, String>> convert(RoutineOrder<ImageMedium> order) async {
+    // TODO: implement convert
+    throw UnimplementedError();
+  }
 }

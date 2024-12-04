@@ -16,18 +16,19 @@ class AppRightMenuView extends StatelessWidget {
     return Expanded(
       child: Column(
         children: <Widget>[
-          WindowTitleBarBox(
-              child: SizedBox(
-                  child: Row(children: <Widget>[
-            Expanded(
-                child: Stack(
-                    children: <Widget>[const AppTopShelf(), MoveWindow()])),
-            Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(kRRArc),
-                    border: Border.all(color: kThemePrimaryFg2)),
-                child: const AppWindowTitleButtons())
-          ]))),
+          Container(
+            decoration: const BoxDecoration(color: kThemeBg),
+                child: SizedBox(
+            child: WindowTitleBarBox(
+                    child: Row(children: <Widget>[
+              const SizedBox(height: 8),
+              Expanded(
+                  child: Stack(
+                      children: <Widget>[const AppTopShelf(), MoveWindow()])),
+
+              const AppWindowTitleButtons()
+            ]))),
+          ),
           const SizedBox(height: 16),
           if (Provider.of<GlobalJobStack>(context).jobStack.isEmpty)
             Expanded(
@@ -51,17 +52,14 @@ class AppRightMenuView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: ListView.builder(
-                  itemCount:
-                      Provider.of<GlobalJobStack>(context).jobStack.length,
+                  itemCount: Provider.of<GlobalJobStack>(context).jobStack.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
-                      title: Text(Provider.of<GlobalJobStack>(context)
-                          .jobStack[index]
-                          .toString()),
+                      title: Text(
+                          "${Provider.of<GlobalJobStack>(context).jobStack[index]}#${Provider.of<GlobalJobStack>(context).jobStack[index].hashCode}"),
                       onTap: () {
-                        Provider.of<GlobalJobStack>(context, listen: false)
-                            .removeJob(Provider.of<GlobalJobStack>(context)
-                                .jobStack[index]);
+                        Provider.of<GlobalJobStack>(context).removeJob(
+                            Provider.of<GlobalJobStack>(context).jobStack[index]);
                       },
                     );
                   },
@@ -98,7 +96,8 @@ class AppTopShelf extends StatelessWidget {
                   "Jobs: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
                   style: const TextStyle(
                       fontFamily: kStylizedFontFamily,
-                      fontWeight: FontWeight.bold))),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16))),
           const SizedBox(width: 8),
         ]));
   }

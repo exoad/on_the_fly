@@ -100,20 +100,17 @@ class AppView extends StatelessWidget {
           body: WindowBorder(
             color: kThemePrimaryFg2,
             width: 1,
-            child: Padding(
-              padding: const EdgeInsets.all(kTotalAppPadding),
-              child: Row(children: <Widget>[
-                Container(
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: kThemePrimaryFg1.withOpacity(0.3)),
-                        borderRadius: BorderRadius.circular(kRRArc),
-                        color: kThemeCmpBg),
-                    child: const AppLeftMenuView()),
-                const AppRightMenuView(),
-              ]),
-            ),
+            child: Row(children: <Widget>[
+              Container(
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                      border:
+                          Border.all(color: kThemePrimaryFg1.withOpacity(0.3)),
+                      borderRadius: BorderRadius.circular(kRRArc),
+                      color: kThemeCmpBg),
+                  child: const AppLeftMenuView()),
+              const AppRightMenuView(),
+            ]),
           ),
         ),
       ),

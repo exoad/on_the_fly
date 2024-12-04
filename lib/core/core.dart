@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:on_the_fly/core/e_files.dart';
 import 'package:on_the_fly/core/formats/formats.dart';
 import 'package:on_the_fly/core/jobs.dart';
@@ -13,6 +14,7 @@ class AutoImgCore {
   AutoImgCore._();
   static void init() {
     JobDispatcher.registerJobDispatcher(SingleImgJobDispatcher());
+    RoutineParticipant.loadProcessors();
   }
 }
 
@@ -42,16 +44,21 @@ class RoutineOrder<E extends FormatMedium> {
 /// routine orders to the correct routine processor that matches that format
 class RoutineParticipant {
   final int hash;
-  static final Map<dynamic, RoutineProcessor<dynamic>> _processorsRegistry =
-      <dynamic, RoutineProcessor<dynamic>>{};
+  static final Map<Type, RoutineProcessor<FormatMedium>> _processorsRegistry =
+      <Type, RoutineProcessor<FormatMedium>>{};
 
-  static void loadProcessors() {}
+  static void loadProcessors() {
+    _processorsRegistry[ImageMedium] = ImageRoutineProcessor();
+  }
 
   RoutineParticipant(this.hash);
 }
 
 abstract class RoutineProcessor<E extends FormatMedium> {
-  late int hash;
+  covariant late int hash;
+
+  @protected
+  RoutineProcessor();
 
   Future<Result<Null, String>> convert(RoutineOrder<E> order);
 }
