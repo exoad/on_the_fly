@@ -68,5 +68,9 @@
       },
       "cSpell.words": [
             "webp"
-      ]
+],
+"lldb.displayFormat": "auto",
+"lldb.showDisassembly": "auto",
+"lldb.dereferencePointers": true,
+"lldb.consoleMode": "commands"
 }

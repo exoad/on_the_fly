@@ -1,0 +1,113 @@
+** Job Process Flow Chart Diagram (For a singular job process)
+
+      ┌──────────────────┐       ┌──────────────────┐
+      │ Validates the    │◄──────┤Job Dispatcher    │
+      │ inputs from user │       └─────────┬────────┘
+      └──────────────────┘            ▲    │
+                                      │    │
+                 ┌────────────┐       │    │       ┌────────────────────┐
+                 │            │       │    │       │                    │
+                 │ UI Action  ├───────┘    └──────►│Spawn Job Worker    │
+                 │            │                    │                    │
+                 └────────────┘                    └─────┬─────────┬────┘
+                                                         │   ▲     │
+                                                         │   │     │
+                         ┌────────────────────────┐      │   │     │          ┌────────────────────────┐
+                         │ Subscribe to FileSys   │◄─────┘   │     └─────────►│ Spawns a Routine Order │
+                         │ watchdog process       ├──────────┘                └────────┬───────────────┘
+                         └────────────────────────┘                                    │
+                                                                                       │
+                                                                                       │
+                                                     ┌───────────────────┐             │
+                           ┌────────────────┐        │ Routine Processor │◄────────────┘
+                           │  Conversion    │◄───────┤ pushes onto order │
+                           │  agent runs    │        │ queue             │
+                           └─┬─────────┬────┘        └───────────────────┘
+                             │         │
+┌─────────────────────┐      │         │      ┌────────────────────────────┐
+│Reports an invalid   │◄─────┘         └─────►│ Utilizes file participant  │
+│routine order        │                       │ to create or delete files  │
+│(fails)              │                       └────────────────────────────┘
+└─────────────────────┘
+
+Medium
+        A general categorization of file formats, this helps to specialize routine processors
+        - responsible for also defining all of the available file types/extensions that can be read and written to; this is known as the medium rule set
+
+Format
+        Refers to a single file format
+        - within the code, it is detected naively as just the file extension
+
+Format Rule Set
+        Defines a simple enumeration of file types that can go from one to the other and is used by both the frontend and the backend for determinig if the selected format can be transmitted from one to the other.
+        - defines r/w permissions
+        - defines platform support either statically or dynamically via checking if the platform channel hooked up to it is able to be heard from
+
+Watchdog Process
+        Some kind of message pump that is able to supply another consumer with constant information
+        - most of the time used with file systems to watch for changes and notify a consumer of those changes
+        - this is a concept used throughout the program to get data changes from A (the observer) to B (the consumer)
+
+Job Dispatcher
+        Spawns new job workers (either through the user or by the child process)
+        - there should only be ONE instance of each dispatcher per medium
+        - each medium's job dispatcher will manage their own pool of job workers
+
+Job Worker
+        Responsible for describing new routine orders and spawning new routine orders
+        - responsible for scheduling when a routine order should be spawned
+        - responsible for disposing itself
+                - internally, a job worker can never truly delete itself, it can only
+        - responsible for addressing what dispatched it
+                - referring to the parent dispatcher
+        - canonically it is known as a "Job"
+                - listed with specific attributes based on their medium rule set
+                        a. some workers may be one use only meaning they dont require any kind of multi threading to work
+                        b. some workers may be multi use meaning they depend on some kind of watchdog process to keep them from not being zombie workers
+
+        Stale Job Worker - !!!! AVOID !!!!
+                A type of job worker that does not depend on any kind of watchdog process or depends on a watchdog process/pump that has no messages and the worker is stale.
+                - most of the time this could be due to a program issue with an edge case
+                        1. watching for a non-existent folder/file (this could be caused by the original selected folder/file becoming inaccessible)
+                        2. the routine processor that is attached for this worker's medium has an inaccessible DLL or other native piece of code that is now unable to be accessed
+                                - this is very much harder to detect because it requires an additional watchdog process to
+                - FEATURE: There should be a way on startup to scan for job workers that could be potentially invalid with the above cases
+
+Routine Order
+        A description of what a job worker wants to convert
+        - should also be able to auto detect the file type from just the input file path by requesting for the medium's auto detector
+
+File Participant
+        Responsible for spawning and managing the individual job workers
+        - also responsible for creating and deleting files from the file system
+        - responsible for managing routine processors
+
+Routine Pump/Queue
+        A queue within a processor that acts as a buffer of routine orders waiting to be processed.
+        - consumed one by one by the routine processor
+
+Routine Processor
+        A processor that is able to convert convert file formats from one to another.
+        - may incorporate the usage of isolates for faster parallel processing
+        - grouped by their medium as certain mediums may require native platform channels to communciate
+                - some routine processors may utilize both native and also cross platform implementations
+        - most of the time they can just be implemented by using state machines for the detection of the various formats
+        - processors internally utilize an isolate pool in order to minimize isolate startup time and always manages to keep isolates "hot"
+
+Conversion Agent
+        This is usually the backing library and API or program that runs for the conversion of file formats. It is usually implemented alongside the routine processor
+        - this may NOT be implemented alongside the routine processor when the routine processor has multiple implementations for certains formats in the same medium
+
+
+** Modules Hierarchy
+
+OnTheFly
+├── Watchdog Processes
+├── Medium
+│   └── Format
+│       └── Format Rule Set
+├── Job Dispatcher
+│   └── Job Worker
+├── Routine Order
+└── Routine Processor
+    └── Conversion Agent
