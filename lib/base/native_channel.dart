@@ -25,7 +25,7 @@ class BasicNativeChannel {
     }
     return res == null
         ? Result<bool, String>.bad("no result from method invoke.")
-        : Result<bool, String>.good(res);
+        : Result<bool, String>.good(res, "Got result.");
   }
 }
 

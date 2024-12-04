@@ -2,13 +2,14 @@ import 'dart:io';
 
 import 'package:on_the_fly/base/ephemeral.dart';
 import 'package:on_the_fly/base/native_channel.dart';
-import 'package:on_the_fly/core/output_builder.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/parts/app_view.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+
+import 'core/formats/formats.dart';
 
 /// main entry point for the app
 void main() {

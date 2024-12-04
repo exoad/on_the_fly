@@ -1,4 +1,5 @@
 import 'package:on_the_fly/core/core.dart';
+import 'package:on_the_fly/core/formats/images.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/parts/components/text_basis.dart';
 import 'package:on_the_fly/parts/events/job_stack.dart';

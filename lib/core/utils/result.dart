@@ -5,13 +5,13 @@
 /// rather than just a nullable type (Type?)
 final class Result<A, E /*usually this is a string*/ > {
   final A? _payload;
-  final E? message;
+  final E message;
   final bool _good; // bum
 
   Result._(this._payload, this.message, this._good);
 
   /// good job :D
-  factory Result.good(A payload, [E? message]) =>
+  factory Result.good(A payload, E message) =>
       Result<A, E>._(payload, message, true);
 
   /// bad job >:(

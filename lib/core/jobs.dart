@@ -71,25 +71,3 @@ abstract class JobDispatcher<E extends FileFormat> {
   }
 }
 
-/// this represents a single convert job for a single image file
-class SingleImgJobDispatcher extends JobDispatcher<FileFormat> {
-  SingleImgJobDispatcher()
-      : super(
-            name: "Single Image",
-            mediumName: ImageMedium.inst.mediumName,
-            description:
-                "Converts a single image file from one format to another",
-            inputTypes: ImageMedium.inst.inputFormats,
-            outputTypes: ImageMedium.inst.outputFormats,
-            orderForm: OrderForm(
-                title:
-                    "Single Image Conversion #${JobDispatcher.registeredJobDispatchers.length + 1}",
-                onOrder: () {},
-                isAlive: () => true,
-                pumps: <String, UIPump<dynamic>>{
-                  "in_file": StringInputPump(
-                      label: "Input File",
-                      pump: (String input) {},
-                      validator: (String? input) => null),
-                }));
-}

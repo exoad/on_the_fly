@@ -20,10 +20,12 @@ class AppRightMenuView extends StatelessWidget {
               child: SizedBox(
                   child: Row(children: <Widget>[
             Expanded(
-                child: FilledButton(onPressed: () {}, child: const Text("Hi"))),
+                child: Stack(
+                    children: <Widget>[const AppTopShelf(), MoveWindow()])),
             Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(kRRArc)),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(kRRArc),
+                    border: Border.all(color: kThemePrimaryFg2)),
                 child: const AppWindowTitleButtons())
           ]))),
           const SizedBox(height: 16),
@@ -69,5 +71,35 @@ class AppRightMenuView extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class AppTopShelf extends StatelessWidget {
+  const AppTopShelf({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Row(children: <Widget>[
+          Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              height: double.infinity,
+              decoration: BoxDecoration(
+                // border: Border.all(color: kThemePrimaryFg2),
+                borderRadius: BorderRadius.circular(kRRArc),
+                /*gradient: const LinearGradient(
+                      colors: <Color>[kTheme2, kTheme1],
+                      begin: Alignment.topLeft,
+                      end: Alignment.centerRight)*/
+              ),
+              child: Text(
+                  "Jobs: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
+                  style: const TextStyle(
+                      fontFamily: kStylizedFontFamily,
+                      fontWeight: FontWeight.bold))),
+          const SizedBox(width: 8),
+        ]));
   }
 }

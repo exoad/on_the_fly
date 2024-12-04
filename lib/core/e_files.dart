@@ -15,7 +15,7 @@ class FileFormat {
   });
 }
 
-sealed class FormatMedium {
+class FormatMedium {
   final String mediumName;
   final Map<String, FileFormat> _formats;
   final List<FileFormat> _inputTypes;
@@ -51,46 +51,3 @@ sealed class FormatMedium {
   }
 }
 
-final class ImageMedium extends FormatMedium {
-  static final ImageMedium inst = ImageMedium();
-
-  @protected
-  ImageMedium()
-      : super(mediumName: "Image", formats: <String, FileFormat>{
-          "webp": const FileFormat(
-              canonicalName: "WebP",
-              validExtensions: <String>["webp"],
-              canWrite: false,
-              canRead: true),
-          "jpg": const FileFormat(
-              canonicalName: "JPEG",
-              validExtensions: <String>["jpg", "jpeg"],
-              canWrite: true,
-              canRead: true),
-          "bmp": const FileFormat(
-              canonicalName: "BMP",
-              validExtensions: <String>["bmp"],
-              canWrite: true,
-              canRead: true),
-          "ico": const FileFormat(
-              canonicalName: "ICO",
-              validExtensions: <String>["ico"],
-              canWrite: true,
-              canRead: true),
-          "png": const FileFormat(
-              canonicalName: "PNG",
-              validExtensions: <String>["png"],
-              canWrite: true,
-              canRead: true),
-          "gif": const FileFormat(
-              canonicalName: "GIF",
-              validExtensions: <String>["gif"],
-              canWrite: true,
-              canRead: true),
-          "tif": const FileFormat(
-              canonicalName: "TIFF",
-              validExtensions: <String>["tiff"],
-              canWrite: true,
-              canRead: true),
-        });
-}
