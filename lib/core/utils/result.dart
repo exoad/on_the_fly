@@ -1,4 +1,4 @@
-/// Good enough for my usecases hahaha
+/// Good enough for my use cases hahaha
 ///
 /// a basic type that operates similar on java's optional type
 /// which allows for a more explicit and strongly typed value
@@ -19,7 +19,7 @@ final class Result<A, E /*usually this is a string*/ > {
 
   A get payload {
     if (_payload == null || !_good) {
-      throw const _BadResultException("payload is not available!");
+      throw const BadResultException("payload is not available!");
     }
     return _payload;
   }
@@ -29,9 +29,11 @@ final class Result<A, E /*usually this is a string*/ > {
   bool get isBad => !_good;
 }
 
-final class _BadResultException implements Exception {
+/// represents a bad result exception for when the payload doesnt exist or the
+/// result is no good
+final class BadResultException implements Exception {
   final String message;
-  const _BadResultException(this.message);
+  const BadResultException(this.message);
 
   @override
   String toString() => "BadResult: $message";

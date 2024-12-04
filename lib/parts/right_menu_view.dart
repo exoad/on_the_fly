@@ -3,6 +3,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:on_the_fly/parts/events/job_stack.dart';
+import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
 
 class AppRightMenuView extends StatelessWidget {
@@ -18,9 +19,14 @@ class AppRightMenuView extends StatelessWidget {
           WindowTitleBarBox(
               child: SizedBox(
                   child: Row(children: <Widget>[
-            Expanded(child: MoveWindow()),
-            const AppWindowTitleButtons()
+            Expanded(
+                child: FilledButton(onPressed: () {}, child: const Text("Hi"))),
+            Container(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(kRRArc)),
+                child: const AppWindowTitleButtons())
           ]))),
+          const SizedBox(height: 16),
           if (Provider.of<GlobalJobStack>(context).jobStack.isEmpty)
             Expanded(
               child: Column(
@@ -40,20 +46,24 @@ class AppRightMenuView extends StatelessWidget {
             )
           else
             Expanded(
-              child: ListView.builder(
-                itemCount: Provider.of<GlobalJobStack>(context).jobStack.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text(Provider.of<GlobalJobStack>(context)
-                        .jobStack[index]
-                        .toString()),
-                    onTap: () {
-                      Provider.of<GlobalJobStack>(context, listen: false)
-                          .removeJob(Provider.of<GlobalJobStack>(context)
-                              .jobStack[index]);
-                    },
-                  );
-                },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: ListView.builder(
+                  itemCount:
+                      Provider.of<GlobalJobStack>(context).jobStack.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      title: Text(Provider.of<GlobalJobStack>(context)
+                          .jobStack[index]
+                          .toString()),
+                      onTap: () {
+                        Provider.of<GlobalJobStack>(context, listen: false)
+                            .removeJob(Provider.of<GlobalJobStack>(context)
+                                .jobStack[index]);
+                      },
+                    );
+                  },
+                ),
               ),
             ),
         ],

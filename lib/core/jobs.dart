@@ -4,7 +4,7 @@ import 'package:on_the_fly/core/utils/form_ui_transfer.dart';
 import 'package:on_the_fly/shared/app.dart';
 
 abstract class JobInstance<E extends FileFormat> {
-  final Jobs<E> parent;
+  final JobDispatcher<E> parent;
 
   JobInstance({
     required this.parent,
@@ -14,7 +14,7 @@ abstract class JobInstance<E extends FileFormat> {
 /// a basis for all jobs
 ///
 /// [E] represents the type (usually an enum) that can be used to represent the type of the input/output file types.
-abstract class Jobs<E extends FileFormat> {
+abstract class JobDispatcher<E extends FileFormat> {
   final String name;
   final String description;
 
@@ -27,26 +27,28 @@ abstract class Jobs<E extends FileFormat> {
   final List<E> outputTypes;
   final String mediumName;
 
-  static Map<String, List<Jobs<FileFormat>>> registeredJobs =
-      <String, List<Jobs<FileFormat>>>{};
+  static Map<String, List<JobDispatcher<FileFormat>>> registeredJobDispatchers =
+      <String, List<JobDispatcher<FileFormat>>>{};
 
-  static List<Jobs<FileFormat>> getJobsByMedium(String mediumName) {
-    if (!registeredJobs.containsKey(mediumName) && kAllowDebugWarnings) {
+  static List<JobDispatcher<FileFormat>> getJobDispatchersByMedium(
+      String mediumName) {
+    if (!registeredJobDispatchers.containsKey(mediumName) &&
+        kAllowDebugWarnings) {
       throw ArgumentError(
           "Medium Key not found in registered jobs: $mediumName"); // another programmer error ! bruh
     }
-    return registeredJobs[mediumName]!;
+    return registeredJobDispatchers[mediumName]!;
   }
 
-  static Map<String, Iterable<Jobs<FileFormat>>> get getJobsByMediumMap =>
-      registeredJobs;
+  static Map<String, Iterable<JobDispatcher<FileFormat>>>
+      get getJobsByMediumMap => registeredJobDispatchers;
 
-  static void registerJob(Jobs<FileFormat> r) {
-    if (!registeredJobs.containsKey(r.mediumName)) {
-      registeredJobs[r.mediumName] = <Jobs<FileFormat>>[];
+  static void registerJobDispatcher(JobDispatcher<FileFormat> r) {
+    if (!registeredJobDispatchers.containsKey(r.mediumName)) {
+      registeredJobDispatchers[r.mediumName] = <JobDispatcher<FileFormat>>[];
     }
-    registeredJobs[r.mediumName]!.add(r);
-    r._id = registeredJobs.length - 1;
+    registeredJobDispatchers[r.mediumName]!.add(r);
+    r._id = registeredJobDispatchers.length - 1;
   }
 
   late int _id;
@@ -56,7 +58,7 @@ abstract class Jobs<E extends FileFormat> {
   @nonVirtual
   OrderForm get orderForm => _orderForm;
 
-  Jobs(
+  JobDispatcher(
       {required this.name,
       required this.description,
       required this.inputTypes,
@@ -67,12 +69,11 @@ abstract class Jobs<E extends FileFormat> {
     assert(inputTypes.isNotEmpty);
     assert(outputTypes.isNotEmpty);
   }
-
 }
 
 /// this represents a single convert job for a single image file
-class SingleImgJob extends Jobs<FileFormat> {
-  SingleImgJob()
+class SingleImgJobDispatcher extends JobDispatcher<FileFormat> {
+  SingleImgJobDispatcher()
       : super(
             name: "Single Image",
             mediumName: ImageMedium.inst.mediumName,
@@ -82,7 +83,7 @@ class SingleImgJob extends Jobs<FileFormat> {
             outputTypes: ImageMedium.inst.outputFormats,
             orderForm: OrderForm(
                 title:
-                    "Single Image Conversion #${Jobs.registeredJobs.length + 1}",
+                    "Single Image Conversion #${JobDispatcher.registeredJobDispatchers.length + 1}",
                 onOrder: () {},
                 isAlive: () => true,
                 pumps: <String, UIPump<dynamic>>{

@@ -28,3 +28,14 @@ class BasicNativeChannel {
         : Result<bool, String>.good(res);
   }
 }
+
+/// represents an exception that has occurred because of some native
+/// code execution or the lack of.
+class NativeException implements Exception {
+  final String message;
+
+  const NativeException(this.message);
+
+  @override
+  String toString() => "NativeException: $message";
+}

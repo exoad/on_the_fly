@@ -8,7 +8,7 @@ export "jobs.dart";
 class AutoImgCore {
   AutoImgCore._();
   static void init() {
-    Jobs.registerJob(SingleImgJob());
+    JobDispatcher.registerJobDispatcher(SingleImgJobDispatcher());
   }
 }
 

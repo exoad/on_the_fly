@@ -7,11 +7,12 @@ import 'package:on_the_fly/shared/app.dart';
 ///
 /// should be used throughout the app
 class GlobalJobStack with ChangeNotifier {
-  final List<Jobs<FileFormat>> _jobStack = <Jobs<FileFormat>>[];
+  final List<JobDispatcher<FileFormat>> _jobStack =
+      <JobDispatcher<FileFormat>>[];
 
-  List<Jobs<FileFormat>> get jobStack => _jobStack;
+  List<JobDispatcher<FileFormat>> get jobStack => _jobStack;
 
-  void addJob(Jobs<FileFormat> job) {
+  void addJob(JobDispatcher<FileFormat> job) {
     if (kAllowDebugLogs) {
       logger.info("GlobalJobStack adds: $job");
     }
@@ -19,7 +20,7 @@ class GlobalJobStack with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeJob(Jobs<FileFormat> job) {
+  void removeJob(JobDispatcher<FileFormat> job) {
     if (kAllowDebugLogs) {
       logger.info("GlobalJobStack removes: $job");
     }

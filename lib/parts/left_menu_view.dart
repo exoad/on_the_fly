@@ -9,9 +9,9 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-/// left side of the app, this is used for displaying all of the jobs that the user can choose from
+/// left side of the app, this is used for displaying all of the JobDispatcher that the user can choose from
 ///
-/// it is connected with the [AppRightMenuView] to display the user created jobs selected from this view.
+/// it is connected with the [AppRightMenuView] to display the user created JobDispatcher selected from this view.
 ///
 /// this view also holds the branding of the app at the top of the [Drawer]
 class AppLeftMenuView extends StatelessWidget {
@@ -93,9 +93,10 @@ class AppLeftMenuView extends StatelessWidget {
               ],
             ),
           ), // end of branding section
-          for (Jobs<FileFormat> j in Jobs.registeredJobs
-              .values // auto loading of all the jobs that are registered from the Jobs class
-              .expand((List<Jobs<FileFormat>> e) => e))
+          for (JobDispatcher<FileFormat> j in JobDispatcher
+              .registeredJobDispatchers
+              .values // auto loading of all the JobDispatcher that are registered from the JobDispatcher class
+              .expand((List<JobDispatcher<FileFormat>> e) => e))
             Padding(
               // title of the job
               padding: const EdgeInsets.only(left: 6, right: 6, bottom: 8),
@@ -184,8 +185,8 @@ class AppLeftMenuView extends StatelessWidget {
                       const SizedBox(height: 16),
                       FilledButton(
                           onPressed: () {
-                            Provider.of<GlobalJobStack>(context)
-                                .addJob(SingleImgJob());
+                            Provider.of<GlobalJobStack>(context, listen: false)
+                                .addJob(SingleImgJobDispatcher());
                           }, // TODO: proper impl job selection
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,

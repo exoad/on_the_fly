@@ -38,7 +38,8 @@ final Logger logger = Logger("AutoImg");
 
 /// this platform channel basically just checks if the platform
 /// channel is working properly in the hollistic sense
-const MethodChannel mSanityCheck = MethodChannel("net.exoad.on_the_fly/sanity_check");
+const MethodChannel mNativeChannel1 =
+    MethodChannel("net.exoad.on_the_fly/sanity_check");
 
 /// initialize the constants and some other core elements of the app
 /// such as logging as well as the internal registry of the app so
@@ -50,4 +51,37 @@ Future<void> initConsts() async {
   });
   AutoImgCore.init();
   random = Random.secure();
+}
+
+/// a very lightweight helper for showing up warnings and other
+/// related utility functions for the developer when making the app
+class AppDebug {
+  AppDebug._();
+
+  static final AppDebug _singleton = AppDebug._();
+
+  factory AppDebug() => _singleton;
+
+  late int _startUpTimestamp = -1;
+
+  /// registers the startup time (very important !!! not really LOL)
+  set startUpTimestamp(int time) {
+    if (_startUpTimestamp < 0) {
+      _startUpTimestamp = time;
+    } else {
+      logger.warning(
+          "Start Up Timestamp has already been registered to ${DateTime.fromMicrosecondsSinceEpoch(_startUpTimestamp)}. No change.");
+    }
+  }
+
+  /// the startup time of the app
+  int get startUpTimestamp => _startUpTimestamp;
+
+  /// the most basic test function possible LOL, im sorry, not gonna
+  /// use a testing framework for this, not necessary imo (yuh)
+  void test<E>(String testName, E Function() ax, E? expected) {
+    E res = ax();
+    logger.info(
+        "${expected == null || res == expected ? "[OK]" : "[XX] got '$res', expected '$expected' "} - $testName ");
+  }
 }
