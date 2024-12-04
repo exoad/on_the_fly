@@ -1,34 +1,15 @@
-** Job Process Flow Chart Diagram (For a singular job process)
+** Modules Hierarchy
 
-      ┌──────────────────┐       ┌──────────────────┐
-      │ Validates the    │◄──────┤Job Dispatcher    │
-      │ inputs from user │       └─────────┬────────┘
-      └──────────────────┘            ▲    │
-                                      │    │
-                 ┌────────────┐       │    │       ┌────────────────────┐
-                 │            │       │    │       │                    │
-                 │ UI Action  ├───────┘    └──────►│Spawn Job Worker    │
-                 │            │                    │                    │
-                 └────────────┘                    └─────┬─────────┬────┘
-                                                         │   ▲     │
-                                                         │   │     │
-                         ┌────────────────────────┐      │   │     │          ┌────────────────────────┐
-                         │ Subscribe to FileSys   │◄─────┘   │     └─────────►│ Spawns a Routine Order │
-                         │ watchdog process       ├──────────┘                └────────┬───────────────┘
-                         └────────────────────────┘                                    │
-                                                                                       │
-                                                                                       │
-                                                     ┌───────────────────┐             │
-                           ┌────────────────┐        │ Routine Processor │◄────────────┘
-                           │  Conversion    │◄───────┤ pushes onto order │
-                           │  agent runs    │        │ queue             │
-                           └─┬─────────┬────┘        └───────────────────┘
-                             │         │
-┌─────────────────────┐      │         │      ┌────────────────────────────┐
-│Reports an invalid   │◄─────┘         └─────►│ Utilizes file participant  │
-│routine order        │                       │ to create or delete files  │
-│(fails)              │                       └────────────────────────────┘
-└─────────────────────┘
+OnTheFly
+├── Watchdog Processes
+├── Medium
+│   └── Format
+│       └── Format Rule Set
+├── Job Dispatcher
+│   └── Job Worker
+├── Routine Order
+└── Routine Processor
+    └── Conversion Agent
 
 Medium
         A general categorization of file formats, this helps to specialize routine processors
@@ -97,17 +78,3 @@ Routine Processor
 Conversion Agent
         This is usually the backing library and API or program that runs for the conversion of file formats. It is usually implemented alongside the routine processor
         - this may NOT be implemented alongside the routine processor when the routine processor has multiple implementations for certains formats in the same medium
-
-
-** Modules Hierarchy
-
-OnTheFly
-├── Watchdog Processes
-├── Medium
-│   └── Format
-│       └── Format Rule Set
-├── Job Dispatcher
-│   └── Job Worker
-├── Routine Order
-└── Routine Processor
-    └── Conversion Agent
