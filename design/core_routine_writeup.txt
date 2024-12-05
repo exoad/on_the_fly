@@ -27,3 +27,6 @@
 │routine order        │                       │ to create or delete files  │
 │(fails)              │                       └────────────────────────────┘
 └─────────────────────┘
+
+
+This flowchart demonstrates the basic process of a singular (user triggered) action throughout the program.
