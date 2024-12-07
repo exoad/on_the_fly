@@ -5,12 +5,9 @@ import 'package:path/path.dart' as paths;
 typedef OutputPathHandler = String Function(
     String inputPath, FileFormat outputType);
 
-typedef OutputHandlerDescriptor = ({
-  OutputPathHandler Function(dynamic) fx,
-  String canonicalName,
-  String description
-});
-
+/// a generator class for helping with producing proper output names
+///
+/// probably going to be hardcoded with the ui and other ux features
 final class OutputNameBuilder {
   OutputNameBuilder._();
 

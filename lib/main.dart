@@ -44,6 +44,7 @@ void main() {
   }
 }
 
+/// runs the default tests builtin to the app
 void __tests() {
   // Test OutputNameBuilder.simpleRandomName
   AppDebug().test(
@@ -55,8 +56,8 @@ void __tests() {
   AppDebug().test(
       "Test OutputNameBuilder.simpleName",
       () => OutputNameBuilder.simpleName(name: "amogus")(
-          "test.jpg", ImageMedium.inst["jpg"]),
-      ".\\amogus.png");
+          "test.png", ImageMedium.inst["jpg"]),
+      ".\\amogus.jpg");
   // Test OutputNameBuilder.simplePrefix
   AppDebug().test(
       "Test OutputNameBuilder.simplePrefix",

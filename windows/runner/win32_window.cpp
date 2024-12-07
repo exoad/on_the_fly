@@ -145,41 +145,43 @@ LRESULT Win32Window::MessageHandler(HWND hwnd,UINT const message,WPARAM const wp
 {
         switch (message)
         {
-        case WM_DESTROY:
-                window_handle_=nullptr;
-                Destroy();
-                if (quit_on_close_)
-                        PostQuitMessage(0);
-                return 0;
-        case WM_DPICHANGED: {
-                auto newRectSize=reinterpret_cast<RECT*>(lparam);
-                LONG newWidth=newRectSize->right-newRectSize->left;
-                LONG newHeight=newRectSize->bottom-newRectSize->top;
-                SetWindowPos(hwnd,nullptr,newRectSize->left,newRectSize->top,newWidth,
-                        newHeight,SWP_NOZORDER|SWP_NOACTIVATE);
-                return 0;
-        }
-        case WM_SIZE: {
-                RECT rect=GetClientArea();
-                if (child_content_!=nullptr)
-                        MoveWindow(
-                                child_content_,
-                                rect.left,
-                                rect.top,
-                                rect.right-rect.left,
-                                rect.bottom-rect.top,
-                                TRUE
-                        );
-                return 0;
-        }
-        case WM_ACTIVATE:
-                if (child_content_!=nullptr)
-                        SetFocus(child_content_);
-                return 0;
+                case WM_DESTROY:
+                        window_handle_=nullptr;
+                        Destroy();
+                        if (quit_on_close_)
+                                PostQuitMessage(0);
+                        return 0;
+                case WM_DPICHANGED:
+                {
+                        auto newRectSize=reinterpret_cast<RECT*>(lparam);
+                        LONG newWidth=newRectSize->right-newRectSize->left;
+                        LONG newHeight=newRectSize->bottom-newRectSize->top;
+                        SetWindowPos(hwnd,nullptr,newRectSize->left,newRectSize->top,newWidth,
+                                newHeight,SWP_NOZORDER|SWP_NOACTIVATE);
+                        return 0;
+                }
+                case WM_SIZE:
+                {
+                        RECT rect=GetClientArea();
+                        if (child_content_!=nullptr)
+                                MoveWindow(
+                                        child_content_,
+                                        rect.left,
+                                        rect.top,
+                                        rect.right-rect.left,
+                                        rect.bottom-rect.top,
+                                        TRUE
+                                );
+                        return 0;
+                }
+                case WM_ACTIVATE:
+                        if (child_content_!=nullptr)
+                                SetFocus(child_content_);
+                        return 0;
 
-        case WM_DWMCOLORIZATIONCOLORCHANGED:
-                UpdateTheme(hwnd);
-                return 0;
+                case WM_DWMCOLORIZATIONCOLORCHANGED:
+                        UpdateTheme(hwnd);
+                        return 0;
         }
         return DefWindowProc(window_handle_,message,wparam,lparam);
 }

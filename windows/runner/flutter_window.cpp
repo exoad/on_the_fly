@@ -31,11 +31,10 @@ bool FlutterWindow::OnCreate()
         RegisterPlugins(flutter_controller_->engine());
         // initiate the first method channel that we wrote (sanity_check)
         // sanity_check is just a regular method channel for seeing if the channels work properly (ie checking our sanity)
-
         flutter::MethodChannel<> sanity_check(flutter_controller_->engine()->messenger(),"net.exoad.on_the_fly/sanity_check",&flutter::StandardMethodCodec::GetInstance());
         sanity_check.SetMethodCallHandler([](const auto& call,auto result)
         {
-                printf("METHOD_ENCOUNTER: %s",call.method_name());
+                // printf("METHOD_ENCOUNTER: %s",call.method_name()); !! PRONE ERROR
                 if(call.method_name()=="DoesExist")
                         result->Success(true);
 

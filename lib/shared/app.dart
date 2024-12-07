@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/services.dart';
@@ -11,6 +12,15 @@ const String kAppGitHubURL = "https://github.com/exoad/on_the_fly";
 /// runs the tests found in the main() of the app
 /// for release, this should be false
 const bool kRunTests = true;
+
+/// if a test does not run with a correct/expected behavior,
+/// the program will panic and then exit
+const bool kFailedTestsPanic = true;
+
+/// still reports the results of tests that has passed
+///
+/// failed tests will either way still show
+const bool kShowSuccessfulTestResults = true;
 
 /// used in development to run [SandboxView] instead of the main app [AppView]
 ///
@@ -81,7 +91,12 @@ class AppDebug {
   /// use a testing framework for this, not necessary imo (yuh)
   void test<E>(String testName, E Function() ax, E? expected) {
     E res = ax();
-    logger.info(
-        "${expected == null || res == expected ? "[OK]" : "[XX] got '$res', expected '$expected' "} - $testName ");
+    logger.info(// oh YEA WE LOVE INTERPOLATION WITHIN INTERPOLATION
+        "${expected == null || res == expected ? "[OK] ${kShowSuccessfulTestResults ? "'$res'" : ""}" : "[XX] got '$res', expected '$expected' "} - $testName ");
+    if (res != expected && expected != null && kFailedTestsPanic) {
+      // panic due to failed test
+      logger.info("Program exited due to failed test: $testName");
+      exit(-1);
+    }
   }
 }

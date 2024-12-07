@@ -1,7 +1,6 @@
 import 'package:on_the_fly/parts/events/job_stack.dart';
 import 'package:on_the_fly/parts/left_menu_view.dart';
 import 'package:on_the_fly/parts/right_menu_view.dart';
-import 'package:on_the_fly/shared/layout.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import "package:on_the_fly/shared/theme.dart";
@@ -98,18 +97,11 @@ class AppView extends StatelessWidget {
             primaryColor: kThemePrimaryFg1),
         home: Scaffold(
           body: WindowBorder(
-            color: kThemePrimaryFg2,
+            color: kThemeBg,
             width: 1,
-            child: Row(children: <Widget>[
-              Container(
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                      border:
-                          Border.all(color: kThemePrimaryFg1.withOpacity(0.3)),
-                      borderRadius: BorderRadius.circular(kRRArc),
-                      color: kThemeCmpBg),
-                  child: const AppLeftMenuView()),
-              const AppRightMenuView(),
+            child: const Row(children: <Widget>[
+              AppLeftMenuView(),
+              AppRightMenuView(),
             ]),
           ),
         ),

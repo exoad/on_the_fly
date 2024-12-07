@@ -1,3 +1,4 @@
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:on_the_fly/parts/app_view.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +19,13 @@ class AppRightMenuView extends StatelessWidget {
         children: <Widget>[
           Container(
             decoration: const BoxDecoration(color: kThemeBg),
-                child: SizedBox(
-            child: WindowTitleBarBox(
+            child: SizedBox(
+                child: WindowTitleBarBox(
                     child: Row(children: <Widget>[
               const SizedBox(height: 8),
               Expanded(
                   child: Stack(
                       children: <Widget>[const AppTopShelf(), MoveWindow()])),
-
               const AppWindowTitleButtons()
             ]))),
           ),
@@ -47,21 +47,36 @@ class AppRightMenuView extends StatelessWidget {
                 ],
               ),
             )
+                .animate(autoPlay: true)
+                .fadeIn(
+                    curve: Curves.easeInOut,
+                    duration: const Duration(milliseconds: 70))
+                .scale(
+                    curve: Curves.easeInOut,
+                    duration: const Duration(milliseconds: 80))
           else
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: ListView.builder(
-                  itemCount: Provider.of<GlobalJobStack>(context).jobStack.length,
+                  physics: const AlwaysScrollableScrollPhysics(
+                      parent: BouncingScrollPhysics()),
+                  itemCount: Provider.of<GlobalJobStack>(context, listen: false)
+                      .jobStack
+                      .length,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
                       title: Text(
                           "${Provider.of<GlobalJobStack>(context).jobStack[index]}#${Provider.of<GlobalJobStack>(context).jobStack[index].hashCode}"),
                       onTap: () {
-                        Provider.of<GlobalJobStack>(context).removeJob(
-                            Provider.of<GlobalJobStack>(context).jobStack[index]);
+                        Provider.of<GlobalJobStack>(context, listen: false)
+                            .removeJob(Provider.of<GlobalJobStack>(context,
+                                    listen: false)
+                                .jobStack[index]);
                       },
-                    );
+                    ).animate(autoPlay: true).fade(
+                        curve: Curves.easeInOut,
+                        duration: const Duration(milliseconds: 180));
                   },
                 ),
               ),
