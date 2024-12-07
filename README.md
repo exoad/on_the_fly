@@ -37,23 +37,16 @@
 
 ## Acknowledgements
 
-Here is a list of tools and libraries that powers this app as well as making the development process easier. Thank you.
+Here are some of the tools and libraries that make this app possible and greatly simplified the development process.
 
-### gskinner/flutter_animate
+### [gskinner/flutter_animate](https://github.com/gskinner/flutter_animate)
 
 For simplifying the animation creation process and enhance the app's overall smoothness.
 
-[Link](https://github.com/gskinner/flutter_animate)
-
-### flutter
+### [flutter](https://flutter.dev/)
 
 The entirety backbone of the app.
 
-[Link](https://flutter.dev/)
-
-### brendan-duncan/image
+### [brendan-duncan/image](https://github.com/brendan-duncan/image)
 
 For a versatile cross-platform image IO library for Dart.
-
-[Link](https://github.com/brendan-duncan/image)
-
