@@ -11,6 +11,11 @@ abstract class JobInstance<E extends FileFormat> {
   });
 }
 
+abstract class Job<E extends FileFormat> {
+
+  
+}
+
 /// a basis for all jobs
 ///
 /// [E] represents the type (usually an enum) that can be used to represent the type of the input/output file types.
