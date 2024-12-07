@@ -28,6 +28,11 @@ const bool kShowSuccessfulTestResults = true;
 /// for seeing how certain visual elements will look
 const bool kRunSandboxView = true;
 
+/// an immediate mode ui is ran on top of the app that shows important information
+///
+/// (good for debug)
+const bool kShowDebugView = true;
+
 /// determines whether certain things where type checking or sanity
 /// checks are done should be done or not
 ///

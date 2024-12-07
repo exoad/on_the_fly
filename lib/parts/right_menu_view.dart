@@ -3,6 +3,7 @@ import 'package:on_the_fly/parts/app_view.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:on_the_fly/parts/events/debug_events.dart';
 import 'package:on_the_fly/parts/events/job_stack.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
@@ -48,7 +49,14 @@ class AppRightMenuView extends StatelessWidget {
               ),
             )
                 .animate(
-                    autoPlay: true, delay: const Duration(milliseconds: 450))
+                    autoPlay: true,
+                    delay: const Duration(milliseconds: 450),
+                    onComplete: (AnimationController controller) =>
+                        debugSeek(context, false)["no_job_sprite_state"] =
+                            "complete",
+                    onPlay: (AnimationController controller) =>
+                        debugSeek(context, false)["no_job_sprite_state"] =
+                            "playing")
                 .fadeIn(
                     begin: 0,
                     curve: Curves.easeInOut,
@@ -76,6 +84,10 @@ class AppRightMenuView extends StatelessWidget {
                             .removeJob(Provider.of<GlobalJobStack>(context,
                                     listen: false)
                                 .jobStack[index]);
+                        debugSeek(context, false)["job_stack_sz"] =
+                            Provider.of<GlobalJobStack>(context, listen: false)
+                                .jobStack
+                                .length;
                       },
                     ).animate(autoPlay: true).fade(
                         curve: Curves.easeInOut,

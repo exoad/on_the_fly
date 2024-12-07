@@ -8,6 +8,7 @@ const Color kThemePrimaryFg1 = Colors.white;
 const Color kThemePrimaryFg2 = Color.fromARGB(255, 172, 172, 172);
 const Color kTheme1 = Color.fromARGB(255, 255, 38, 103);
 const Color kTheme2 = Color.fromARGB(255, 250, 185, 22);
+const Color kNull = Color.fromARGB(255, 255, 0, 220);
 
 /// this font is usually for like header texts and titles
 const String kStylizedFontFamily = "Playfair Display";

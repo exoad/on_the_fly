@@ -3,6 +3,7 @@ import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/formats/images.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/parts/components/text_basis.dart';
+import 'package:on_the_fly/parts/events/debug_events.dart';
 import 'package:on_the_fly/parts/events/job_stack.dart';
 import 'package:on_the_fly/parts/right_menu_view.dart';
 import 'package:on_the_fly/shared/app.dart';
@@ -159,12 +160,9 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                       ])
                 ],
               ),
-            )
-                .animate(delay: const Duration(milliseconds: 500))
-                .fadeIn(
-                    duration: const Duration(milliseconds: 670),
-                    curve: Curves.easeInOut)
-               , // end of branding section
+            ).animate(delay: const Duration(milliseconds: 500)).fadeIn(
+                duration: const Duration(milliseconds: 670),
+                curve: Curves.easeInOut), // end of branding section
             const Divider(),
             for (JobDispatcher<FileFormat> j in JobDispatcher
                 .registeredJobDispatchers
@@ -261,6 +259,11 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                               Provider.of<GlobalJobStack>(context,
                                       listen: false)
                                   .addJob(SingleImgJobDispatcher());
+                              debugSeek(context, false)["job_stack_sz"] =
+                                  Provider.of<GlobalJobStack>(context,
+                                          listen: false)
+                                      .jobStack
+                                      .length;
                             }, // TODO: proper impl job selection
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -286,7 +289,8 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
               )
                   .animate(delay: const Duration(milliseconds: 400))
                   .moveY(
-                      begin: 20,
+                      begin:
+                          14, // i fucking hate odd numbers so it wasnt 15, bro fuck odd numbers in graphics bruh, idk why i hate odd numbers so fucking much. man, i just dont like them. (i am a d1 odd number hater hatin)
                       end: 0,
                       curve: Curves.easeInOut,
                       duration: const Duration(milliseconds: 600))

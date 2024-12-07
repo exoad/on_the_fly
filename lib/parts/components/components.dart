@@ -13,3 +13,24 @@ class Margin extends StatelessWidget {
     return Container(margin: margin, child: child);
   }
 }
+
+/// should only be used in the debug_layer_view section
+/// of the app, nowhere else
+class CompactTextButton extends StatelessWidget {
+  final String text;
+  final void Function() onPressed;
+
+  const CompactTextButton(this.text, {super.key, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: onPressed,
+        child: InkWell(
+          child: Container(
+              decoration: const BoxDecoration(color: Colors.black),
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+              child: Text(text, style: const TextStyle(color: Colors.white))),
+        ));
+  }
+}
