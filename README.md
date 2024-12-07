@@ -41,7 +41,7 @@ Here are some of the tools and libraries that make this app possible and greatly
 
 ### [gskinner/flutter_animate](https://github.com/gskinner/flutter_animate)
 
-For simplifying the animation creation process and enhance the app's overall smoothness.
+For simplifying the animation creation process and enhancing the app's overall smoothness.
 
 ### [flutter](https://flutter.dev/)
 

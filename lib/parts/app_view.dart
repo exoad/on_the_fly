@@ -99,7 +99,9 @@ class AppView extends StatelessWidget {
           body: WindowBorder(
             color: kThemeBg,
             width: 1,
-            child: const Row(children: <Widget>[
+            child: const Row(
+              
+              children: <Widget>[
               AppLeftMenuView(),
               AppRightMenuView(),
             ]),

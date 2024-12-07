@@ -1,8 +1,10 @@
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/formats/images.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/parts/components/text_basis.dart';
 import 'package:on_the_fly/parts/events/job_stack.dart';
+import 'package:on_the_fly/parts/right_menu_view.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
@@ -157,7 +159,12 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                       ])
                 ],
               ),
-            ), // end of branding section
+            )
+                .animate(delay: const Duration(milliseconds: 500))
+                .fadeIn(
+                    duration: const Duration(milliseconds: 670),
+                    curve: Curves.easeInOut)
+               , // end of branding section
             const Divider(),
             for (JobDispatcher<FileFormat> j in JobDispatcher
                 .registeredJobDispatchers
@@ -277,6 +284,15 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                           kRRArc)), // this is j for visual purposes
                 ),
               )
+                  .animate(delay: const Duration(milliseconds: 400))
+                  .moveY(
+                      begin: 20,
+                      end: 0,
+                      curve: Curves.easeInOut,
+                      duration: const Duration(milliseconds: 600))
+                  .fadeIn(
+                      duration: const Duration(milliseconds: 700),
+                      curve: Curves.easeInOut)
           ],
         ),
       ),

@@ -47,14 +47,16 @@ class AppRightMenuView extends StatelessWidget {
                 ],
               ),
             )
-                .animate(autoPlay: true)
+                .animate(
+                    autoPlay: true, delay: const Duration(milliseconds: 450))
                 .fadeIn(
+                    begin: 0,
                     curve: Curves.easeInOut,
-                    duration: const Duration(milliseconds: 240))
+                    duration: const Duration(milliseconds: 700))
                 .scale(
-                    begin: const Offset(0.9, 0.9),
-                    curve: Curves.easeInOut,
-                    duration: const Duration(milliseconds: 260))
+                    begin: const Offset(0.84, 0.84),
+                    curve: Curves.easeOut,
+                    duration: const Duration(milliseconds: 450))
           else
             Expanded(
               child: Padding(
