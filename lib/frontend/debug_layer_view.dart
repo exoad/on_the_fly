@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/helpers/ranged_incrementor.dart';
-import 'package:on_the_fly/parts/components/components.dart';
-import 'package:on_the_fly/parts/events/debug_events.dart';
+import 'package:on_the_fly/frontend/components/components.dart';
+import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/shared/theme.dart';
 
 class DebugOverlayLayer extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:on_the_fly/base/ephemeral.dart';
 import 'package:on_the_fly/base/native_channel.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
-import 'package:on_the_fly/parts/app_view.dart';
+import 'package:on_the_fly/frontend/app_view.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';

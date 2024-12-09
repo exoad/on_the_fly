@@ -1,8 +1,8 @@
-import 'package:on_the_fly/parts/debug_layer_view.dart';
-import 'package:on_the_fly/parts/events/debug_events.dart';
-import 'package:on_the_fly/parts/events/job_stack.dart';
-import 'package:on_the_fly/parts/left_menu_view.dart';
-import 'package:on_the_fly/parts/right_menu_view.dart';
+import 'package:on_the_fly/frontend/debug_layer_view.dart';
+import 'package:on_the_fly/frontend/events/debug_events.dart';
+import 'package:on_the_fly/frontend/events/job_stack.dart';
+import 'package:on_the_fly/frontend/left_menu_view.dart';
+import 'package:on_the_fly/frontend/right_menu_view.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/shared/app.dart';
