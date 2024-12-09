@@ -52,11 +52,9 @@ class AppRightMenuView extends StatelessWidget {
                     autoPlay: true,
                     delay: const Duration(milliseconds: 450),
                     onComplete: (AnimationController controller) =>
-                        debugSeek(context, false)["no_job_sprite_state"] =
-                            "complete",
+                        debugSeek()["no_job_sprite_state"] = "complete",
                     onPlay: (AnimationController controller) =>
-                        debugSeek(context, false)["no_job_sprite_state"] =
-                            "playing")
+                        debugSeek()["no_job_sprite_state"] = "playing")
                 .fadeIn(
                     begin: 0,
                     curve: Curves.easeInOut,
@@ -84,7 +82,7 @@ class AppRightMenuView extends StatelessWidget {
                             .removeJob(Provider.of<GlobalJobStack>(context,
                                     listen: false)
                                 .jobStack[index]);
-                        debugSeek(context, false)["job_stack_sz"] =
+                        debugSeek()["job_stack_sz"] =
                             Provider.of<GlobalJobStack>(context, listen: false)
                                 .jobStack
                                 .length;

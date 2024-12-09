@@ -23,6 +23,7 @@ class _DebugOverlayLayerState extends State<DebugOverlayLayer> {
     super.initState();
     _loc = Alignment.bottomRight;
     _opacity = RangedIncrementor(initialValue: 0.76, max: 1, min: 0.2);
+    debugSeek().addListener((() => setState(() {})));
   }
 
   @override
@@ -59,12 +60,12 @@ class _DebugOverlayLayerState extends State<DebugOverlayLayer> {
                                     Row(
                                       children: <Widget>[
                                         Text(
-                                            "Debug Layer [${debugSeek(context).dump.length}]",
+                                            "Debug Layer [${debugSeek().dump.length}]",
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.bold)),
                                         const Spacer(),
                                         CompactTextButton(
-                                          "tl",
+                                          "tr",
                                           onPressed: () => setState(
                                               () => _loc = Alignment.topRight),
                                         ),
@@ -137,9 +138,9 @@ class _DebugOverlayLayerState extends State<DebugOverlayLayer> {
                                       height: 1,
                                     ),
                                     const SizedBox(height: 6),
-                                    if (debugSeek(context).dump.isNotEmpty)
+                                    if (debugSeek().dump.isNotEmpty)
                                       for (MapEntry<String, dynamic> entry
-                                          in debugSeek(context).dump.entries)
+                                          in debugSeek().dump.entries)
                                         Text.rich(TextSpan(
                                             text: entry.key,
                                             style: const TextStyle(

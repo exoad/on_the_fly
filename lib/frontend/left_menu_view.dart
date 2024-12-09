@@ -259,7 +259,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                               Provider.of<GlobalJobStack>(context,
                                       listen: false)
                                   .addJob(SingleImgJobDispatcher());
-                              debugSeek(context, false)["job_stack_sz"] =
+                              debugSeek()["job_stack_sz"] =
                                   Provider.of<GlobalJobStack>(context,
                                           listen: false)
                                       .jobStack

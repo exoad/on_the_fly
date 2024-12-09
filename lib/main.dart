@@ -25,6 +25,7 @@ void main() {
       if (kRunTests) {
         __tests();
       }
+      logger.info("kShowDebugView=$kShowDebugView");
       // checking platform channel exists
       if (!await AppEphemeral.sanityCheck()) {
         throw const NativeException(

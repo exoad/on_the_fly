@@ -18,6 +18,16 @@ class RangedIncrementor {
     }
   }
 
+  double operator +(double value) {
+    increment(value);
+    return value;
+  }
+
+  double operator -(double value) {
+    increment(-value);
+    return value;
+  }
+
   set value(double value) {
     if (value > max) {
       _value = max;

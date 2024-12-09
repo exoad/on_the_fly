@@ -33,6 +33,11 @@ const bool kRunSandboxView = true;
 /// (good for debug)
 const bool kShowDebugView = true;
 
+/// turns off debug logging for the debug events dispatcher
+///
+/// see [DebugLayerEvents]
+const bool kSuppressDebugViewLogging = true;
+
 /// determines whether certain things where type checking or sanity
 /// checks are done should be done or not
 ///
