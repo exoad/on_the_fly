@@ -54,13 +54,6 @@ final class OutputNameBuilder {
           "${paths.basenameWithoutExtension(inputPath)}$suffix.${outputType.validExtensions.first}");
 }
 
-class FileCandidate {
-  final String inputPath;
-  final OutputPathHandler outputName;
-
-  FileCandidate({required this.inputPath, required this.outputName});
-}
-
 enum JobStatus {
   completed,
   failed,

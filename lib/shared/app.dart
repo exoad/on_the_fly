@@ -36,7 +36,7 @@ const bool kShowDebugView = true;
 /// turns off debug logging for the debug events dispatcher
 ///
 /// see [DebugLayerEvents]
-const bool kSuppressDebugViewLogging = true;
+const bool kSuppressDebugViewLogging = false;
 
 /// determines whether certain things where type checking or sanity
 /// checks are done should be done or not

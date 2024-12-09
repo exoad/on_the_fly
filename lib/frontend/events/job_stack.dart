@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/core/core.dart';
+import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/shared/app.dart';
 
 // * NOT FINAL IMPL
@@ -7,24 +8,31 @@ import 'package:on_the_fly/shared/app.dart';
 ///
 /// should be used throughout the app
 class GlobalJobStack with ChangeNotifier {
-  final List<JobDispatcher<FileFormat>> _jobStack =
-      <JobDispatcher<FileFormat>>[];
+  static final GlobalJobStack _instance = GlobalJobStack._();
 
-  List<JobDispatcher<FileFormat>> get jobStack => _jobStack;
+  GlobalJobStack._();
 
-  void addJob(JobDispatcher<FileFormat> job) {
+  factory GlobalJobStack() => _instance;
+
+  final List<JobDispatcher> _jobStack = <JobDispatcher>[];
+
+  List<JobDispatcher> get jobStack => _jobStack;
+
+  void addJob(JobDispatcher job) {
     if (kAllowDebugLogs) {
       logger.info("GlobalJobStack adds: $job");
     }
+    debugSeek()["global_job_stack"] = _jobStack.toString();
     _jobStack.add(job);
     notifyListeners();
   }
 
-  void removeJob(JobDispatcher<FileFormat> job) {
+  void removeJob(JobDispatcher job) {
     if (kAllowDebugLogs) {
       logger.info("GlobalJobStack removes: $job");
     }
     _jobStack.remove(job);
+    debugSeek()["global_job_stack"] = _jobStack.toString();
     notifyListeners();
   }
 }

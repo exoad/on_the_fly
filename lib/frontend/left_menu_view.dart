@@ -164,10 +164,9 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                 duration: const Duration(milliseconds: 670),
                 curve: Curves.easeInOut), // end of branding section
             const Divider(),
-            for (JobDispatcher<FileFormat> j in JobDispatcher
-                .registeredJobDispatchers
+            for (JobDispatcher j in JobDispatcher.registeredJobDispatchers
                 .values // auto loading of all the JobDispatcher that are registered from the JobDispatcher class
-                .expand((List<JobDispatcher<FileFormat>> e) => e))
+                .expand((List<JobDispatcher> e) => e))
               Padding(
                 // title of the job dispatcher
                 padding: const EdgeInsets.only(left: 4, right: 0, bottom: 8),
@@ -255,10 +254,11 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                         ),
                         const SizedBox(height: 16),
                         FilledButton(
-                            onPressed: () {
-                              Provider.of<GlobalJobStack>(context,
-                                      listen: false)
-                                  .addJob(SingleImgJobDispatcher());
+                            onPressed: () async {
+                              // Provider.of<GlobalJobStack>(context,
+                              //         listen: false)
+                              //     .addJob(SingleImgJobDispatcher());
+                              await j.buildJob(context);
                               debugSeek()["job_stack_sz"] =
                                   Provider.of<GlobalJobStack>(context,
                                           listen: false)

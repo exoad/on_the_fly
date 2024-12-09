@@ -35,7 +35,7 @@ void main() {
       }
       logger.info("Registered jobs: ${JobDispatcher.registeredJobDispatchers}");
       // lets do a sanity check for all of the registered jobs just in case
-      for (MapEntry<String, Iterable<JobDispatcher<FileFormat>>> entry
+      for (MapEntry<String, Iterable<JobDispatcher>> entry
           in JobDispatcher.getJobsByMediumMap.entries) {
         logger.info("Jobs for medium ${entry.key}: ${entry.value.length}");
       }

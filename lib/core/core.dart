@@ -4,6 +4,8 @@ import 'package:on_the_fly/core/formats/formats.dart';
 import 'package:on_the_fly/core/jobs.dart';
 import 'package:on_the_fly/core/output_builder.dart';
 import 'package:on_the_fly/core/utils/result.dart';
+import 'package:on_the_fly/shared/app.dart';
+import 'package:path/path.dart';
 
 export "e_files.dart";
 export "jobs.dart";
@@ -49,6 +51,12 @@ class RoutineParticipant {
 
   static void loadProcessors() {
     _processorsRegistry[ImageMedium] = ImageRoutineProcessor();
+    logger.info("Loaded ${_processorsRegistry.length} processors:");
+    int i = 1;
+    for (MapEntry<Type, RoutineProcessor<FormatMedium>> entry
+        in _processorsRegistry.entries) {
+      logger.info("\t${i++}) ${entry.key}=${entry.value}");
+    }
   }
 
   RoutineParticipant(this.hash);
@@ -58,7 +66,19 @@ abstract class RoutineProcessor<E extends FormatMedium> {
   covariant late int hash;
 
   @protected
-  RoutineProcessor();
+  RoutineProcessor() {
+    hash = Object.hash(canonicalName, canonicalDescriptor);
+  }
 
+  String get canonicalName;
+
+  String get canonicalDescriptor;
+
+  /// the definition of the result type simply relies on the isGood and isBad methods
+  /// within the result instance itself. the string will still hold a permanent value
+  /// of what happened
   Future<Result<Null, String>> convert(RoutineOrder<E> order);
+
+  @override
+  String toString() => "$canonicalName[$hash] -> $canonicalDescriptor";
 }
