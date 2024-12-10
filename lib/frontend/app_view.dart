@@ -18,7 +18,9 @@ class AppView extends StatelessWidget {
     return MultiProvider(
       providers: <ListenableProvider<dynamic>>[
         ChangeNotifierProvider<GlobalJobStack>(create: (_) => GlobalJobStack()),
-        if(kShowDebugView) ChangeNotifierProvider<DebugLayerEvents>(create: (_) => DebugLayerEvents())
+        if (kShowDebugView)
+          ChangeNotifierProvider<DebugLayerEvents>(
+              create: (_) => DebugLayerEvents())
       ],
       child: Stack(
         alignment: Alignment.center,
@@ -70,12 +72,26 @@ class AppView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(kRRArc)),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(kRRArc))),
+                elevatedButtonTheme: ElevatedButtonThemeData(
+                    style: ButtonStyle(
+                        shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(kRRArc))),
+                        backgroundColor:
+                            const WidgetStatePropertyAll<Color>(kThemeBg),
+                        foregroundColor:
+                            const WidgetStatePropertyAll<Color>(kThemePrimaryFg1))),
+                textButtonTheme: TextButtonThemeData(style: ButtonStyle(surfaceTintColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg1..withOpacity(0.3)), shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))), splashFactory: NoSplash.splashFactory, backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg))),
+                dialogTheme: DialogTheme(
+                  clipBehavior: Clip.antiAlias,
+                  backgroundColor: kThemeBg,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(kRRArc),
+                      side: const BorderSide(color: kThemePrimaryFg1)),
+                ),
                 iconTheme: const IconThemeData(color: kThemePrimaryFg1),
                 scaffoldBackgroundColor: kThemeBg,
-                textSelectionTheme: TextSelectionThemeData(
-                    selectionHandleColor: kThemePrimaryFg1,
-                    selectionColor: kThemePrimaryFg1.withOpacity(0.5),
-                    cursorColor: kThemePrimaryFg1),
+                textSelectionTheme: TextSelectionThemeData(selectionHandleColor: kThemePrimaryFg1, selectionColor: kThemePrimaryFg1.withOpacity(0.5), cursorColor: kThemePrimaryFg1),
                 inputDecorationTheme: const InputDecorationTheme(
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: kThemePrimaryFg1),
@@ -89,18 +105,8 @@ class AppView extends StatelessWidget {
                   activeIndicatorBorder: BorderSide(color: kThemePrimaryFg1),
                   labelStyle: TextStyle(color: kThemePrimaryFg1),
                 ),
-                scrollbarTheme: const ScrollbarThemeData(
-                    thumbColor:
-                        WidgetStatePropertyAll<Color>(Colors.transparent),
-                    radius: Radius.circular(kRRArc)),
-                appBarTheme: const AppBarTheme(
-                    surfaceTintColor: kThemeBg,
-                    backgroundColor: kThemeBg,
-                    foregroundColor: kThemePrimaryFg1,
-                    titleTextStyle: TextStyle(
-                        color: kThemePrimaryFg1,
-                        fontSize: 24,
-                        fontFamily: kDefaultFontFamily)),
+                scrollbarTheme: const ScrollbarThemeData(thumbColor: WidgetStatePropertyAll<Color>(Colors.transparent), radius: Radius.circular(kRRArc)),
+                appBarTheme: const AppBarTheme(surfaceTintColor: kThemeBg, backgroundColor: kThemeBg, foregroundColor: kThemePrimaryFg1, titleTextStyle: TextStyle(color: kThemePrimaryFg1, fontSize: 24, fontFamily: kDefaultFontFamily)),
                 fontFamily: kDefaultFontFamily,
                 brightness: Brightness.dark,
                 primaryColor: kThemePrimaryFg1),

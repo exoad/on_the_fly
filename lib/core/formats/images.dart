@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:meta/meta.dart';
 import 'package:on_the_fly/core/core.dart';
-import 'package:on_the_fly/core/utils/form_ui_transfer.dart';
 import 'package:on_the_fly/core/utils/result.dart';
+import 'package:on_the_fly/shared/theme.dart';
 
 final class ImageMedium extends FormatMedium {
   static final ImageMedium inst = ImageMedium();
@@ -55,48 +51,39 @@ final class ImageMedium extends FormatMedium {
 class SingleImgJobDispatcher extends JobDispatcher {
   SingleImgJobDispatcher()
       : super(
-            name: "Single Image",
-            mediumName: ImageMedium.inst.mediumName,
-            description:
-                "Converts a single image file from one format to another",
-            inputTypes: ImageMedium.inst.inputFormats,
-            outputTypes: ImageMedium.inst.outputFormats,
-            orderForm: OrderForm(
-                title:
-                    "Single Image Conversion #${JobDispatcher.registeredJobDispatchers.length + 1}",
-                onOrder: () {},
-                isAlive: () => true,
-                pumps: <String, UIPump<dynamic>>{
-                  "in_file": StringInputPump(
-                      label: "Input File",
-                      pump: (String input) {},
-                      validator: (String? input) => null),
-                }));
+          name: "Single Image",
+          mediumName: ImageMedium.inst.mediumName,
+          description:
+              "Converts a single image file from one format to another",
+          inputTypes: ImageMedium.inst.inputFormats,
+          outputTypes: ImageMedium.inst.outputFormats,
+        );
 
   @override
   Map<String, dynamic> get jsonForm => <String, dynamic>{
-        'fields': <Map<String, Object>>[
-          <String, Object>{
-            'key': 'inputKey',
-            'type': 'Input',
-            'label': 'Hi Group',
-            'placeholder': "Hi Group flutter",
-            'validator': 'digitsOnly',
-            'required': true,
-            'decoration': const InputDecoration(
-              prefixIcon: Icon(Icons.account_box),
-              border: OutlineInputBorder(),
-            ),
-            'validation': (_) => true,
-            'keyboardType': TextInputType.number
-          },
+        "title": "",
+        "fields": <Map<String, dynamic>>[
+          JobDispatcherFormBuilder.fSingleInputPath("single_img_input_path",
+              "This path should lead to an existing file with read and write access. "),
         ]
       };
 
   @override
-  Future<void> buildJob(BuildContext context) async {
-    super.buildJob(context);
-  }
+  List<Widget> get otherFormWidgets => const <Widget>[
+        Text(
+            "This job converts one image file from one format to another. Once this job finishes convertting, it will be disposed.",
+            style:
+            TextStyle(fontSize: 16, fontFamily: kStylizedFontFamily))
+      ];
+
+  @override
+  Map<String, dynamic> get jsonFormDecorations => const <String, dynamic>{};
+
+  @override
+  void jsonFormOnSave(dynamic res) {}
+
+  @override
+  Map<String, dynamic> get jsonFormValidators => <String, dynamic>{};
 }
 
 class SingleImgJob extends Job {
@@ -112,7 +99,6 @@ class SingleImgJob extends Job {
 
   @override
   Result<Null, String> process() {
-    // TODO: implement process
     throw UnimplementedError();
   }
 }

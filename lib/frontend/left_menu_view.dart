@@ -1,4 +1,5 @@
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/formats/images.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
@@ -253,30 +254,36 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                           ],
                         ),
                         const SizedBox(height: 16),
-                        FilledButton(
+                        TextButton(
                             onPressed: () async {
-                              // Provider.of<GlobalJobStack>(context,
-                              //         listen: false)
-                              //     .addJob(SingleImgJobDispatcher());
-                              await j.buildJob(context);
-                              debugSeek()["job_stack_sz"] =
-                                  Provider.of<GlobalJobStack>(context,
-                                          listen: false)
-                                      .jobStack
-                                      .length;
+                              if (mounted) {
+                                // Provider.of<GlobalJobStack>(context,
+                                //         listen: false)
+                                //     .addJob(SingleImgJobDispatcher());
+                                await j.buildJob(context);
+                                debugSeek()["job_stack_sz"] =
+                                    Provider.of<GlobalJobStack>(context,
+                                            listen: false)
+                                        .jobStack
+                                        .length;
+                              }
                             }, // TODO: proper impl job selection
+                            style: Theme.of(context)
+                                .textButtonTheme
+                                .style!
+                                .copyWith(
+                                    backgroundColor:
+                                        const WidgetStatePropertyAll<Color>(
+                                            kTheme1)),
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                HugeIcon(
-                                    icon: HugeIcons.strokeRoundedPlusSign,
-                                    color: kThemeBg),
+                                Icon(Ionicons.add),
                                 SizedBox(width: 8),
                                 Text("Add Job",
                                     style: TextStyle(
                                         fontSize: 14,
-                                        color: kThemeBg,
-                                        fontWeight: FontWeight.normal)),
+                                        fontWeight: FontWeight.w500)),
                               ],
                             )),
                       ],
