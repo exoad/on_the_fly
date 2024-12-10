@@ -1,7 +1,6 @@
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/core.dart';
-import 'package:on_the_fly/core/formats/images.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/frontend/components/text_basis.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
