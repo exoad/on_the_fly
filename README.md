@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img src="./repo/sc1.png" alt="App Screenshot" width="72%" />
+  <img src="./repo/sc1.png" alt="App Screenshot" width="78%" />
 </p>
 
 ## Supported Formats
