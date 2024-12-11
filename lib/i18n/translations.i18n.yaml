@@ -1,0 +1,12 @@
+file picker:
+  dialog_title_pick_file: Select a file
+  dialog_title_pick_folder: Select a folder
+  launch: Use file picker
+format generic:
+  supported_inputs: Supported Inputs
+  supported_outputs: Supported Outputs
+  push_job: Add this job
+  image: Images
+single img job:
+  canonical_name: Single Image
+  description: Converts a single image file from one format to another

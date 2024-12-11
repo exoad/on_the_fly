@@ -2,12 +2,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:json_to_form/json_schema.dart';
 import 'package:meta/meta.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
+import 'package:on_the_fly/frontend/components/jobs_ui.dart';
 import 'package:on_the_fly/shared/app.dart';
-import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
 
 /// an instance created by a job dispatcher which represents a user
@@ -39,7 +38,7 @@ abstract class Job {
 /// a basis for all jobs
 ///
 /// [E] represents the type (usually an enum) that can be used to represent the type of the input/output file types.
-abstract class JobDispatcher {
+abstract class JobDispatcher implements JobForm {
   final String name;
   final String description;
 
@@ -85,80 +84,6 @@ abstract class JobDispatcher {
       required this.mediumName}) {
     assert(inputTypes.isNotEmpty);
     assert(outputTypes.isNotEmpty);
-  }
-
-  Map<String, dynamic> get jsonForm;
-
-  @mustBeOverridden
-  Map<String, dynamic> get jsonFormValidators => <String, dynamic>{};
-
-  @mustBeOverridden
-  Map<String, dynamic> get jsonFormDecorations => <String, dynamic>{};
-
-  void jsonFormOnChanged(dynamic res) {}
-
-  @mustBeOverridden
-  void jsonFormOnSave(dynamic res) {}
-
-  List<Widget> get otherFormWidgets => const <Widget>[];
-
-  @nonVirtual
-  @protected
-  Future<void> launchForm(
-      BuildContext context, void Function(dynamic val) onSave) async {
-    await showDialog<void>(
-      context: context,
-      builder: (BuildContext context) => Dialog(
-        child: Padding(
-          padding: const EdgeInsets.all(kJobDispatcherFormScaffoldMargin),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text("Create job instance of $name",
-                  style: const TextStyle(
-                      fontSize: 18,
-                      fontFamily: kStylizedFontFamily,
-                      fontWeight: FontWeight.bold)),
-              SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(children: <Widget>[
-                  ...otherFormWidgets,
-                  JsonSchema(
-                    onChanged: jsonFormOnChanged,
-                    actionSave: onSave,
-                    decorations: jsonFormDecorations,
-                    validations: jsonFormValidators,
-                    formMap: jsonForm,
-                  ),
-                ]),
-              ),
-              const SizedBox(height: 16.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  OutlinedButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text("Cancel"),
-                  ),
-                  const SizedBox(width: 6),
-                  TextButton(
-                    onPressed: () {
-                      // todo implement what happens after
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Schedule Job"),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Future<void> buildJob(BuildContext context) async {
-    await launchForm(context, jsonFormOnSave);
   }
 }
 

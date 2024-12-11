@@ -205,8 +205,9 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(j.description),
-                            const Text("\nSupported Inputs",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text("\n${i18n.formatGeneric.supported_inputs}",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold)),
                             const SizedBox(height: 4),
                             Wrap(
                                 runAlignment: WrapAlignment.start,
@@ -228,8 +229,9 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                                 color: kTheme1))),
                                 ]),
                             const SizedBox(height: 6),
-                            const Text("Supported Outputs",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text(i18n.formatGeneric.supported_outputs,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold)),
                             const SizedBox(height: 4),
                             Wrap(
                                 runAlignment: WrapAlignment.start,
@@ -259,7 +261,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                 // Provider.of<GlobalJobStack>(context,
                                 //         listen: false)
                                 //     .addJob(SingleImgJobDispatcher());
-                                await j.buildJob(context);
+                                await j.buildJobFormUI(context);
                                 debugSeek()["job_stack_sz"] =
                                     Provider.of<GlobalJobStack>(context,
                                             listen: false)
@@ -274,13 +276,13 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                     backgroundColor:
                                         const WidgetStatePropertyAll<Color>(
                                             kTheme1)),
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Icon(Ionicons.add),
-                                SizedBox(width: 8),
-                                Text("Add Job",
-                                    style: TextStyle(
+                                const Icon(Ionicons.add),
+                                const SizedBox(width: 8),
+                                Text(i18n.formatGeneric.push_job,
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500)),
                               ],

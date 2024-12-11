@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
-import 'package:on_the_fly/shared/theme.dart';
+import 'package:on_the_fly/frontend/components/jobs_ui.dart';
+import 'package:on_the_fly/shared/app.dart';
 
 final class ImageMedium extends FormatMedium {
   static final ImageMedium inst = ImageMedium();
 
   @protected
   ImageMedium()
-      : super(mediumName: "Image", formats: <String, FileFormat>{
+      : super(mediumName:i18n.formatGeneric.image, formats: <String, FileFormat>{
           "webp": const FileFormat(
               canonicalName: "WebP",
               validExtensions: <String>["webp"],
@@ -51,39 +52,21 @@ final class ImageMedium extends FormatMedium {
 class SingleImgJobDispatcher extends JobDispatcher {
   SingleImgJobDispatcher()
       : super(
-          name: "Single Image",
+          name: i18n.singleImgJob.canonical_name,
           mediumName: ImageMedium.inst.mediumName,
           description:
-              "Converts a single image file from one format to another",
+              i18n.singleImgJob.description,
           inputTypes: ImageMedium.inst.inputFormats,
           outputTypes: ImageMedium.inst.outputFormats,
         );
 
   @override
-  Map<String, dynamic> get jsonForm => <String, dynamic>{
-        "title": "",
-        "fields": <Map<String, dynamic>>[
-          JobDispatcherFormBuilder.fSingleInputPath("single_img_input_path",
-              "This path should lead to an existing file with read and write access. "),
-        ]
-      };
-
-  @override
-  List<Widget> get otherFormWidgets => const <Widget>[
-        Text(
-            "This job converts one image file from one format to another. Once this job finishes convertting, it will be disposed.",
-            style:
-            TextStyle(fontSize: 16, fontFamily: kStylizedFontFamily))
-      ];
-
-  @override
-  Map<String, dynamic> get jsonFormDecorations => const <String, dynamic>{};
-
-  @override
-  void jsonFormOnSave(dynamic res) {}
-
-  @override
-  Map<String, dynamic> get jsonFormValidators => <String, dynamic>{};
+  Future<void> buildJobFormUI(covariant BuildContext context) async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) => const JobCreationDialog(
+            jobName: "Single Image Job", child: Text("Hello")));
+  }
 }
 
 class SingleImgJob extends Job {

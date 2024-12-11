@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:logging/logging.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
+import 'package:on_the_fly/i18n/translations.i18n.dart';
+import 'package:on_the_fly/i18n/translations_zh.i18n.dart';
 
 const String kStrAppName = "On The Fly";
 const String kStrVerCode = "0.0.1";
@@ -29,6 +31,15 @@ const bool kShowSuccessfulTestResults = true;
 /// this is off for release versions, but during dev this is
 /// for seeing how certain visual elements will look
 const bool kRunSandboxView = true;
+
+/// forces a specific locale to be used for the app's internal language
+// ignore: unnecessary_nullable_for_final_variable_declarations
+const String? kForcedLocale = "zh";
+
+/// represents that i18n locale used in the app
+///
+/// modify [kForcedLocale] to operate on this
+late final /*covariant*/ Translations i18n;
 
 /// an immediate mode ui is ran on top of the app that shows important information
 ///
@@ -91,6 +102,13 @@ Future<void> initConsts() async {
     // }
     // debugSeek()["dd"] = buffer.toString();
   });
+  // initialize locale
+  i18n = switch (kForcedLocale ?? Platform.localeName) {
+    (String r) when r.startsWith("zh") => const TranslationsZh(),
+    _ => const Translations(),
+  };
+  logger.info(
+      "Using locale: ${kForcedLocale ?? Platform.localeName} (forced=${kForcedLocale != null})");
   AutoImgCore.init();
   random = Random.secure();
 }
