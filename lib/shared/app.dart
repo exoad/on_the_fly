@@ -1,9 +1,11 @@
+// import 'dart:collection';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/services.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:logging/logging.dart';
+import 'package:on_the_fly/frontend/events/debug_events.dart';
 
 const String kStrAppName = "On The Fly";
 const String kStrVerCode = "0.0.1";
@@ -61,13 +63,33 @@ final Logger logger = Logger("AutoImg");
 const MethodChannel mNativeChannel1 =
     MethodChannel("net.exoad.on_the_fly/sanity_check");
 
+// /// determines how many messages [_loggerQueue] can hold and
+// /// show in the debugview
+// ///
+// /// this should not be used as hollistic logging history
+// const int kLoggerDebugViewRecentFilterDepth = 4;
+
+// late final Queue<String> _loggerQueue;
+
 /// initialize the constants and some other core elements of the app
 /// such as logging as well as the internal registry of the app so
 /// it knows all the registered jobs
 Future<void> initConsts() async {
+  // _loggerQueue = Queue<String>();
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((LogRecord record) {
-    print('${record.level.name}: ${record.time}: ${record.message}');
+    final String built =
+        "${record.level.name}: ${record.time}: ${record.message}";
+    print(built);
+    // if (_loggerQueue.length == kLoggerDebugViewRecentFilterDepth) {
+    //   _loggerQueue.removeFirst();
+    // }
+    // _loggerQueue.addLast(built);
+    // StringBuffer buffer = StringBuffer("log_depth");
+    // for (int i = 0; i < kLoggerDebugViewRecentFilterDepth; i++) {
+    //   buffer.write("$i: $built");
+    // }
+    // debugSeek()["dd"] = buffer.toString();
   });
   AutoImgCore.init();
   random = Random.secure();
