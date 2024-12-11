@@ -85,6 +85,16 @@ class AppGenericsTranslations {
   /// "Auto convert file formats"
   /// ```
   String get canonical_description => """Auto convert file formats""";
+
+  /// ```dart
+  /// "Nothing to do right now..."
+  /// ```
+  String get nothing_to_do => """Nothing to do right now...""";
+
+  /// ```dart
+  /// "Jobs"
+  /// ```
+  String get job_count => """Jobs""";
 }
 
 class FilePickerTranslations {
@@ -151,6 +161,8 @@ class SingleImgJobTranslations {
 Map<String, String> get translationsMap => {
       """app generics.canonical_title""": """OnTheFly""",
       """app generics.canonical_description""": """Auto convert file formats""",
+      """app generics.nothing_to_do""": """Nothing to do right now...""",
+      """app generics.job_count""": """Jobs""",
       """file picker.dialog_title_pick_file""": """Select a file""",
       """file picker.dialog_title_pick_folder""": """Select a folder""",
       """file picker.launch""": """Use file picker""",

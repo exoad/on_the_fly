@@ -1,6 +1,8 @@
 app generics:
   canonical_title: 悄悄转
   canonical_description: 自动背后转换文件器
+  nothing_to_do: 没有事可干…
+  job_count: 任务数量
 file picker:
   dialog_title_pick_file: 选择文件
   dialog_title_pick_folder: 选择文件夹

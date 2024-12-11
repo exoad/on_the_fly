@@ -1,6 +1,8 @@
 app generics:
   canonical_title: OnTheFly
   canonical_description: Auto convert file formats
+  nothing_to_do: Nothing to do right now...
+  job_count: Jobs
 file picker:
   dialog_title_pick_file: Select a file
   dialog_title_pick_folder: Select a folder

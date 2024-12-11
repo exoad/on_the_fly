@@ -87,6 +87,16 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   /// "自动背后转换文件器"
   /// ```
   String get canonical_description => """自动背后转换文件器""";
+
+  /// ```dart
+  /// "没有事可干…"
+  /// ```
+  String get nothing_to_do => """没有事可干…""";
+
+  /// ```dart
+  /// "任务数量"
+  /// ```
+  String get job_count => """任务数量""";
 }
 
 class FilePickerTranslationsZh extends FilePickerTranslations {
@@ -152,6 +162,8 @@ class SingleImgJobTranslationsZh extends SingleImgJobTranslations {
 Map<String, String> get translationsZhMap => {
       """app generics.canonical_title""": """悄悄转""",
       """app generics.canonical_description""": """自动背后转换文件器""",
+      """app generics.nothing_to_do""": """没有事可干…""",
+      """app generics.job_count""": """任务数量""",
       """file picker.dialog_title_pick_file""": """选择文件""",
       """file picker.dialog_title_pick_folder""": """选择文件夹""",
       """file picker.launch""": """使用文件选择器""",

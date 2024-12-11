@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/frontend/events/job_stack.dart';
+import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -44,7 +45,7 @@ class AppRightMenuView extends StatelessWidget {
                           "assets/illust/undraw_loading.svg",
                           height: 200)),
                   const SizedBox(height: 18),
-                  const Text("Nothing to do right now..."),
+                  Text(i18n.appGenerics.nothing_to_do),
                 ],
               ),
             )
@@ -121,7 +122,7 @@ class AppTopShelf extends StatelessWidget {
                       end: Alignment.centerRight)*/
               ),
               child: Text(
-                  "Jobs: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
+                  "${i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
                   style: const TextStyle(
                       fontFamily: kStylizedFontFamily,
                       fontWeight: FontWeight.bold,
