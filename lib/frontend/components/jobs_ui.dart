@@ -25,7 +25,7 @@ class JobCreationDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text("Create job instance of $jobName",
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 18,
                     fontFamily: kStylizedFontFamily,
                     fontWeight: FontWeight.bold)),

@@ -123,7 +123,7 @@ class AppTopShelf extends StatelessWidget {
               ),
               child: Text(
                   "${i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontFamily: kStylizedFontFamily,
                       fontWeight: FontWeight.bold,
                       fontSize: 16))),

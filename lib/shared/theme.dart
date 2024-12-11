@@ -11,7 +11,7 @@ const Color kTheme2 = Color.fromARGB(255, 250, 185, 22);
 const Color kNull = Color.fromARGB(255, 255, 0, 220);
 
 /// this font is usually for like header texts and titles
-const String kStylizedFontFamily = "Playfair Display";
+late final String kStylizedFontFamily;
 
 /// default font used when the [kStylizedFontFamily] is not used
 const String kDefaultFontFamily = "Montserrat";

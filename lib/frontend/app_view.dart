@@ -45,8 +45,8 @@ class AppView extends StatelessWidget {
                             color: kThemeBg,
                             fontSize: 20,
                             fontWeight: FontWeight.bold)))),
-                listTileTheme: const ListTileThemeData(
-                    subtitleTextStyle: TextStyle(
+                listTileTheme:  ListTileThemeData(
+                    subtitleTextStyle: const TextStyle(
                         fontFamily: kDefaultFontFamily,
                         color: kThemePrimaryFg2,
                         fontSize: 14,
@@ -58,7 +58,7 @@ class AppView extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                     enableFeedback: false,
                     selectedColor: kTheme1,
-                    tileColor: Color.fromRGBO(172, 172, 172, 0.22),
+                    tileColor: const Color.fromRGBO(172, 172, 172, 0.22),
                     visualDensity: VisualDensity.comfortable),
                 dividerColor: Colors.transparent,
                 dividerTheme: const DividerThemeData(

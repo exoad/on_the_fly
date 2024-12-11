@@ -7,7 +7,7 @@ class StylizedText extends StatelessWidget {
 
   StylizedText(this.text, {super.key, TextStyle? style})
       : _style = style == null
-            ? const TextStyle(fontFamily: kStylizedFontFamily)
+            ?  TextStyle(fontFamily: kStylizedFontFamily)
             : style.fontFamily == null ||
                     style.fontFamily != kStylizedFontFamily
                 ? style.copyWith(fontFamily: kStylizedFontFamily)

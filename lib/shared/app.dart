@@ -8,6 +8,7 @@ import 'package:logging/logging.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/i18n/translations.i18n.dart';
 import 'package:on_the_fly/i18n/translations_zh.i18n.dart';
+import 'package:on_the_fly/shared/theme.dart';
 
 const String kStrAppName = "On The Fly";
 const String kStrVerCode = "0.0.1";
@@ -109,6 +110,21 @@ Future<void> initConsts() async {
   };
   logger.info(
       "Using locale: ${kForcedLocale ?? Platform.localeName} (forced=${kForcedLocale != null})");
+  // exclude non latin based locales for the stylized font that only works on latin characters
+  kStylizedFontFamily = const <String>[
+    "ar",
+    "zh",
+    "ja",
+    "ko",
+    "ru",
+    "bg",
+    "el",
+    "hi",
+    "he",
+    "th"
+  ].contains(kForcedLocale ?? Platform.localeName.split("_")[0])
+      ? kDefaultFontFamily
+      : "Playfair Display";
   AutoImgCore.init();
   random = Random.secure();
 }

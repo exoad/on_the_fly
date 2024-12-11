@@ -99,7 +99,7 @@ class JobDispatcherFormBuilder {
         "decoration": InputDecoration(
             helper: Text(
                 "$additionalHelperText Example: .\\Downloads\\Cat_Picture.png",
-                style: const TextStyle(
+                style:  TextStyle(
                     fontSize: 14,
                     fontFamily: kStylizedFontFamily,
                     color: kThemePrimaryFg2)),
