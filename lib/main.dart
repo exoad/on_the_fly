@@ -5,6 +5,7 @@ import 'package:on_the_fly/base/native_channel.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/frontend/app_view.dart';
+// import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,11 @@ void main() {
         logger.info("Jobs for medium ${entry.key}: ${entry.value.length}");
       }
       runApp(const AppView());
-      doWhenWindowReady(appWindow.show); // for bitsdojo_window
+      doWhenWindowReady(() {
+        appWindow.show();
+        // eachFrame().take(10).transform(const ComputeFps(2)).listen(
+        //     (num value) => debugSeek()["computed_fps"] = value.toDouble());
+      }); // for bitsdojo_window
     });
   }
 }

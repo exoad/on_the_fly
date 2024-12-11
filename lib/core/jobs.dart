@@ -136,7 +136,7 @@ abstract class JobDispatcher {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  ElevatedButton(
+                  OutlinedButton(
                     onPressed: () => Navigator.of(context).pop(),
                     child: const Text("Cancel"),
                   ),

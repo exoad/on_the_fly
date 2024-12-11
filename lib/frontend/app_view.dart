@@ -81,13 +81,15 @@ class AppView extends StatelessWidget {
                             const WidgetStatePropertyAll<Color>(kThemeBg),
                         foregroundColor:
                             const WidgetStatePropertyAll<Color>(kThemePrimaryFg1))),
+                outlinedButtonTheme: OutlinedButtonThemeData(style: ButtonStyle(shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc), side: const BorderSide(color: kThemePrimaryFg1, width: 1.5))), foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), side: const WidgetStatePropertyAll<BorderSide>(BorderSide(color: kThemePrimaryFg1, width: 1)))),
                 textButtonTheme: TextButtonThemeData(style: ButtonStyle(surfaceTintColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg1..withOpacity(0.3)), shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))), splashFactory: NoSplash.splashFactory, backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg))),
                 dialogTheme: DialogTheme(
                   clipBehavior: Clip.antiAlias,
                   backgroundColor: kThemeBg,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(kRRArc),
-                      side: const BorderSide(color: kThemePrimaryFg1)),
+                      side:
+                          const BorderSide(color: kThemePrimaryFg1, width: 2)),
                 ),
                 iconTheme: const IconThemeData(color: kThemePrimaryFg1),
                 scaffoldBackgroundColor: kThemeBg,
