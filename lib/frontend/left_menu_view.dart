@@ -79,15 +79,15 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      StylizedText(kStrAppName,
+                      StylizedText(i18n.appGenerics.canonical_title,
                           style: const TextStyle(
                               fontSize: 24,
                               color: kThemePrimaryFg1,
                               fontWeight: FontWeight.bold)),
                     ],
                   ),
-                  const Text("Auto convert file formats",
-                      style: TextStyle(fontSize: 14)),
+                  Text(i18n.appGenerics.canonical_description,
+                      style: const TextStyle(fontSize: 14)),
                   const Text("v$kStrVerCode", style: TextStyle(fontSize: 12)),
                   const Spacer(),
                   Wrap(

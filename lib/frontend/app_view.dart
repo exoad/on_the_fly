@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:on_the_fly/frontend/debug_layer_view.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/frontend/events/job_stack.dart';
@@ -26,6 +28,7 @@ class AppView extends StatelessWidget {
         alignment: Alignment.center,
         children: <Widget>[
           MaterialApp(
+            locale: Locale(kForcedLocale ?? Platform.localeName),
             debugShowCheckedModeBanner: false,
             title: "AutoImg",
             theme: ThemeData(

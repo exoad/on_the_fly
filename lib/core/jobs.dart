@@ -2,7 +2,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:meta/meta.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
 import 'package:on_the_fly/frontend/components/jobs_ui.dart';

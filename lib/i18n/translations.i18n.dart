@@ -65,10 +65,26 @@ class Translations {
   const Translations();
   String get locale => "en";
   String get languageCode => "en";
+  AppGenericsTranslations get appGenerics => AppGenericsTranslations(this);
   FilePickerTranslations get filePicker => FilePickerTranslations(this);
   FormatGenericTranslations get formatGeneric =>
       FormatGenericTranslations(this);
   SingleImgJobTranslations get singleImgJob => SingleImgJobTranslations(this);
+}
+
+class AppGenericsTranslations {
+  final Translations _parent;
+  const AppGenericsTranslations(this._parent);
+
+  /// ```dart
+  /// "OnTheFly"
+  /// ```
+  String get canonical_title => """OnTheFly""";
+
+  /// ```dart
+  /// "Auto convert file formats"
+  /// ```
+  String get canonical_description => """Auto convert file formats""";
 }
 
 class FilePickerTranslations {
@@ -133,6 +149,8 @@ class SingleImgJobTranslations {
 }
 
 Map<String, String> get translationsMap => {
+      """app generics.canonical_title""": """OnTheFly""",
+      """app generics.canonical_description""": """Auto convert file formats""",
       """file picker.dialog_title_pick_file""": """Select a file""",
       """file picker.dialog_title_pick_folder""": """Select a folder""",
       """file picker.launch""": """Use file picker""",

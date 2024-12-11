@@ -66,11 +66,27 @@ class TranslationsZh extends Translations {
   const TranslationsZh();
   String get locale => "zh";
   String get languageCode => "zh";
+  AppGenericsTranslationsZh get appGenerics => AppGenericsTranslationsZh(this);
   FilePickerTranslationsZh get filePicker => FilePickerTranslationsZh(this);
   FormatGenericTranslationsZh get formatGeneric =>
       FormatGenericTranslationsZh(this);
   SingleImgJobTranslationsZh get singleImgJob =>
       SingleImgJobTranslationsZh(this);
+}
+
+class AppGenericsTranslationsZh extends AppGenericsTranslations {
+  final TranslationsZh _parent;
+  const AppGenericsTranslationsZh(this._parent) : super(_parent);
+
+  /// ```dart
+  /// "悄悄转"
+  /// ```
+  String get canonical_title => """悄悄转""";
+
+  /// ```dart
+  /// "自动背后转换文件器"
+  /// ```
+  String get canonical_description => """自动背后转换文件器""";
 }
 
 class FilePickerTranslationsZh extends FilePickerTranslations {
@@ -134,6 +150,8 @@ class SingleImgJobTranslationsZh extends SingleImgJobTranslations {
 }
 
 Map<String, String> get translationsZhMap => {
+      """app generics.canonical_title""": """悄悄转""",
+      """app generics.canonical_description""": """自动背后转换文件器""",
       """file picker.dialog_title_pick_file""": """选择文件""",
       """file picker.dialog_title_pick_folder""": """选择文件夹""",
       """file picker.launch""": """使用文件选择器""",
