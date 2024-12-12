@@ -46,7 +46,6 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      shape: const BeveledRectangleBorder(),
       clipBehavior: Clip.antiAlias,
       child: Container(
         decoration:
@@ -58,7 +57,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
           primary: false,
           children: <Widget>[
             DrawerHeader(
-              margin: const EdgeInsets.only(left: 6, bottom: 8, top: 6),
+              margin: const EdgeInsets.only(left: kTotalAppMargin, bottom: 8, top: kTotalAppMargin),
               // app branding section lol
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(kRRArc)),
@@ -169,7 +168,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                 .expand((List<JobDispatcher> e) => e))
               Padding(
                 // title of the job dispatcher
-                padding: const EdgeInsets.only(left: 4, right: 0, bottom: 8),
+                padding: const EdgeInsets.only(left: kTotalAppMargin, right: 0, bottom: 8),
                 child: ExpansionTile(
                   dense: false,
                   showTrailingIcon: false,

@@ -5,6 +5,7 @@ import 'package:on_the_fly/base/native_channel.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/frontend/app_view.dart';
+import 'package:on_the_fly/frontend/events/job_stack.dart';
 // import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
@@ -40,11 +41,15 @@ void main() {
           in JobDispatcher.getJobsByMediumMap.entries) {
         logger.info("Jobs for medium ${entry.key}: ${entry.value.length}");
       }
+      // debugRepaintRainbowEnabled=true;
       runApp(const AppView());
       doWhenWindowReady(() {
         appWindow.show();
         // eachFrame().take(10).transform(const ComputeFps(2)).listen(
         //     (num value) => debugSeek()["computed_fps"] = value.toDouble());
+        for (int i = 0; i < 12; i++) {
+          GlobalJobStack().addJob("$i ---");
+        }
       }); // for bitsdojo_window
     });
   }

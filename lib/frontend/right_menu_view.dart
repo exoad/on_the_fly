@@ -1,12 +1,13 @@
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:on_the_fly/frontend/app_view.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:on_the_fly/frontend/components/debug_sized.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/frontend/events/job_stack.dart';
 import 'package:on_the_fly/shared/app.dart';
+import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -21,20 +22,6 @@ class AppRightMenuView extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Align(
-            alignment: Alignment.topCenter,
-            child: DebugBorderWidget(
-              child: WindowTitleBarBox(
-                  child: Row(children: <Widget>[
-                const AppTopShelf(),
-                Expanded(
-                    child: Stack(children: <Widget>[
-                  DebugBorderWidget(child: MoveWindow())
-                ])),
-                const DebugBorderWidget(child: AppWindowTitleButtons())
-              ])),
-            ),
-          ),
           Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,30 +71,49 @@ class AppRightMenuView extends StatelessWidget {
                                 .jobStack
                                 .length,
                         itemBuilder: (BuildContext context, int index) {
-                          return ListTile(
-                            title: Text(
-                                "${Provider.of<GlobalJobStack>(context).jobStack[index]}#${Provider.of<GlobalJobStack>(context).jobStack[index].hashCode}"),
-                            onTap: () {
-                              Provider.of<GlobalJobStack>(context,
-                                      listen: false)
-                                  .removeJob(Provider.of<GlobalJobStack>(
-                                          context,
-                                          listen: false)
-                                      .jobStack[index]);
-                              debugSeek()["job_stack_sz"] =
-                                  Provider.of<GlobalJobStack>(context,
-                                          listen: false)
-                                      .jobStack
-                                      .length;
-                            },
-                          ).animate(autoPlay: true).fade(
-                              curve: Curves.easeInOut,
-                              duration: const Duration(milliseconds: 180));
+                          return index == 0
+                              ? const SizedBox(height: kWindowShelfHeight)
+                              : ListTile(
+                                  title: Text(
+                                      "${Provider.of<GlobalJobStack>(context).jobStack[index]}#${Provider.of<GlobalJobStack>(context).jobStack[index].hashCode}"),
+                                  onTap: () {
+                                    Provider.of<GlobalJobStack>(context,
+                                            listen: false)
+                                        .removeJob(Provider.of<GlobalJobStack>(
+                                                context,
+                                                listen: false)
+                                            .jobStack[index]);
+                                    debugSeek()["job_stack_sz"] =
+                                        Provider.of<GlobalJobStack>(context,
+                                                listen: false)
+                                            .jobStack
+                                            .length;
+                                  },
+                                ).animate(autoPlay: true).fade(
+                                  curve: Curves.easeInOut,
+                                  duration: const Duration(milliseconds: 180));
                         },
                       ),
                     ),
                   ),
-              ])
+              ]),
+          const Align(
+              alignment: Alignment.topLeft,
+              child: SizedBox(
+                  height: kWindowShelfHeight,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: kTotalAppMargin, left: kTotalAppMargin * 2),
+                    child: AppTopShelf(),
+                  ))),
+          Align(
+            alignment: Alignment.topCenter,
+            child: WindowTitleBarBox(
+                child: Row(children: <Widget>[
+              Expanded(child: MoveWindow()),
+              const AppWindowTitleButtons()
+            ])),
+          ),
         ],
       ),
     );
@@ -119,23 +125,31 @@ class AppTopShelf extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Row(children: <Widget>[
-          Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              height: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(kRRArc),
-              ),
-              child: Text(
-                  "${i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text("${i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
                   style: TextStyle(
                       fontFamily: kStylizedFontFamily,
                       fontWeight: FontWeight.bold,
-                      fontSize: 16))),
-          const SizedBox(width: 8),
-        ]));
+                      fontSize: 16))
+              .blurry(
+                  blur: 10,
+                  elevation: 16,
+                  borderRadius: BorderRadius.circular(kRRArc),
+                  color: kThemePrimaryFg1.withOpacity(0.08)),
+          const SizedBox(width: kTotalAppMargin),
+          Text("${i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
+                  style: TextStyle(
+                      fontFamily: kStylizedFontFamily,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16))
+              .blurry(
+                  blur: 10,
+                  elevation: 16,
+                  borderRadius: BorderRadius.circular(kRRArc),
+                  color: kThemePrimaryFg1.withOpacity(0.08)),
+        ]);
   }
 }

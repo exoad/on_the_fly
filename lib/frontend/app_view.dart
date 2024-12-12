@@ -75,6 +75,8 @@ class AppView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(kRRArc)),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(kRRArc))),
+                        splashColor: kThemePrimaryFg1.withOpacity(0.5
+                        ),
                 elevatedButtonTheme: ElevatedButtonThemeData(
                     style: ButtonStyle(
                         shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
