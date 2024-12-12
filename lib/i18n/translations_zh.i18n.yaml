@@ -13,5 +13,5 @@ format generic:
   push_job: 添加这个程序
   image: 图像类
 single img job:
-  canonical_name: 单个图像
+  canonical_name: 单个图形
   description: 把一个图像文件变成别的文件格式
