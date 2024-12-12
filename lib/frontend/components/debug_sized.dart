@@ -12,6 +12,7 @@ class DebugBorderWidget extends StatelessWidget {
     return DottedBorder(
         padding: EdgeInsets.zero,
         strokeWidth: 2,
+        dashPattern: const <double>[4, 2],
         color: ColorHelper.randomColor(),
         child: child);
   }
