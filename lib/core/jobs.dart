@@ -99,10 +99,7 @@ class JobDispatcherFormBuilder {
         "decoration": InputDecoration(
             helper: Text(
                 "$additionalHelperText Example: .\\Downloads\\Cat_Picture.png",
-                style:  TextStyle(
-                    fontSize: 14,
-                    fontFamily: kStylizedFontFamily,
-                    color: kThemePrimaryFg2)),
+                style: const TextStyle(fontSize: 14, color: kThemePrimaryFg2)),
             suffix: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
               child: FilledButton(

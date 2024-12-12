@@ -45,14 +45,16 @@ class AppView extends StatelessWidget {
                             color: kThemeBg,
                             fontSize: 20,
                             fontWeight: FontWeight.bold)))),
-                listTileTheme:  ListTileThemeData(
+                listTileTheme: ListTileThemeData(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(kRRArc)),
                     subtitleTextStyle: const TextStyle(
                         fontFamily: kDefaultFontFamily,
                         color: kThemePrimaryFg2,
                         fontSize: 14,
                         fontWeight: FontWeight.normal),
                     titleTextStyle: TextStyle(
-                        fontFamily: kStylizedFontFamily,
+
                         color: kThemePrimaryFg1,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
@@ -75,17 +77,14 @@ class AppView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(kRRArc)),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(kRRArc))),
-                        splashColor: kThemePrimaryFg1.withOpacity(0.5
-                        ),
+                splashColor: kThemePrimaryFg1.withOpacity(0.5),
                 elevatedButtonTheme: ElevatedButtonThemeData(
                     style: ButtonStyle(
                         shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(kRRArc))),
-                        backgroundColor:
-                            const WidgetStatePropertyAll<Color>(kThemeBg),
-                        foregroundColor:
-                            const WidgetStatePropertyAll<Color>(kThemePrimaryFg1))),
+                        backgroundColor: const WidgetStatePropertyAll<Color>(kThemeBg),
+                        foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1))),
                 outlinedButtonTheme: OutlinedButtonThemeData(style: ButtonStyle(shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc), side: const BorderSide(color: kThemePrimaryFg1, width: 1.5))), foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), side: const WidgetStatePropertyAll<BorderSide>(BorderSide(color: kThemePrimaryFg1, width: 1)))),
                 textButtonTheme: TextButtonThemeData(style: ButtonStyle(surfaceTintColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg1..withOpacity(0.3)), shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))), splashFactory: NoSplash.splashFactory, backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg))),
                 dialogTheme: DialogTheme(

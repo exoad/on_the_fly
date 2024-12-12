@@ -27,7 +27,7 @@ class JobCreationDialog extends StatelessWidget {
             Text("Create job instance of $jobName",
                 style: TextStyle(
                     fontSize: 18,
-                    fontFamily: kStylizedFontFamily,
+
                     fontWeight: FontWeight.bold)),
             SingleChildScrollView(
               physics: const BouncingScrollPhysics(),

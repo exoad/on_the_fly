@@ -2,7 +2,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
-import 'package:on_the_fly/frontend/components/text_basis.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/frontend/events/job_stack.dart';
 import 'package:on_the_fly/frontend/right_menu_view.dart';
@@ -78,7 +77,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      StylizedText(i18n.appGenerics.canonical_title,
+                      Text(i18n.appGenerics.canonical_title,
                           style: const TextStyle(
                               fontSize: 24,
                               color: kThemePrimaryFg1,

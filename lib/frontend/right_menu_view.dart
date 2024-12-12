@@ -74,6 +74,8 @@ class AppRightMenuView extends StatelessWidget {
                           return index == 0
                               ? const SizedBox(height: kWindowShelfHeight)
                               : ListTile(
+                                  minVerticalPadding:
+                                      kRightSideJobListTileTopBottomPadding,
                                   title: Text(
                                       "${Provider.of<GlobalJobStack>(context).jobStack[index]}#${Provider.of<GlobalJobStack>(context).jobStack[index].hashCode}"),
                                   onTap: () {
@@ -131,7 +133,7 @@ class AppTopShelf extends StatelessWidget {
         children: <Widget>[
           Text("${i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
                   style: TextStyle(
-                      fontFamily: kStylizedFontFamily,
+
                       fontWeight: FontWeight.bold,
                       fontSize: 16))
               .blurry(
@@ -142,7 +144,7 @@ class AppTopShelf extends StatelessWidget {
           const SizedBox(width: kTotalAppMargin),
           Text("${i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
                   style: TextStyle(
-                      fontFamily: kStylizedFontFamily,
+
                       fontWeight: FontWeight.bold,
                       fontSize: 16))
               .blurry(
