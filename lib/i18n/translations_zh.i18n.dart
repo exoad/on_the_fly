@@ -149,9 +149,9 @@ class SingleImgJobTranslationsZh extends SingleImgJobTranslations {
   const SingleImgJobTranslationsZh(this._parent) : super(_parent);
 
   /// ```dart
-  /// "单个图像"
+  /// "单个图形"
   /// ```
-  String get canonical_name => """单个图像""";
+  String get canonical_name => """单个图形""";
 
   /// ```dart
   /// "把一个图像文件变成别的文件格式"
@@ -171,6 +171,6 @@ Map<String, String> get translationsZhMap => {
       """format generic.supported_outputs""": """支持的输出""",
       """format generic.push_job""": """添加这个程序""",
       """format generic.image""": """图像类""",
-      """single img job.canonical_name""": """单个图像""",
+      """single img job.canonical_name""": """单个图形""",
       """single img job.description""": """把一个图像文件变成别的文件格式""",
     };
