@@ -1,21 +1,16 @@
 <h1 align="center">
   <img src="./assets/AppIcon.png" width="36"> OnTheFly
 </h1>
-
-<h4 align="center">
+<h3 align="center">
   Effortlessly convert file formats in the background.
-</h4>
-
-
-
+</h3>
 <p align="center">
-
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/exoad/on_the_fly?style=flat-square&logoColor=%23000&labelColor=%23000&color=%23ff2667"> 
 <img alt="GitHub Release" src="https://img.shields.io/github/v/release/exoad/on_the_fly?include_prereleases&sort=date&style=flat-square&labelColor=%23000&color=%23fab916">
-
+</p>
+<p align="center">
   <strong>OnTheFly</strong> is a lightweight desktop application that simplifies file format conversion, running seamlessly in the background. Currently available for Windows for converting Images, with support for more platforms and more mediums coming soon!
 </p>
-
 <p align="center">
   <img src="./repo/sc1.png" alt="App Screenshot" width="78%" />
 </p>
