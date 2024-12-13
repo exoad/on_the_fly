@@ -14,6 +14,23 @@
   <img src="./repo/sc1.png" alt="App Screenshot" width="78%" />
 </p>
 
+## Downloading
+
+Currently, OnTheFly is **not** stable (in active development) for general consumer use, but keep a watch in the [Releases Tab](https://github.com/exoad/on_the_fly/releases)!
+
+## Building
+
+As previously stated, OnTheFly is **not** stable and is in active development, so expect bugs, undocumented actions, etc.. Additionally, there currently is only support for Windows. Building for any other platforms will produce undefined behavior.
+
+**In order to build, you must have the Flutter SDK downloaded: https://docs.flutter.dev/get-started/install**
+
+1. Clone the repository (`git clone https://github.com/exoad/on_the_fly.git`)
+2. Enter the root directory of the repository
+3. Download all project dependencies: `flutter pub get`
+4. Run the respective Flutter build command for Windows: `flutter build windows --release` (the `--release` flag is used for maximal optimization)
+5. The built artifact can be located in the generated folder `./build/windows/Runner/Release`
+
+
 ## Supported Formats
 
 **Currently there are only implementations for image formats, but more mediums will be added!**
