@@ -6,7 +6,13 @@
   Effortlessly convert file formats in the background.
 </h4>
 
+
+
 <p align="center">
+
+<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/exoad/on_the_fly?style=flat-square&logoColor=%23000&labelColor=%23000&color=%23ff2667"> 
+<img alt="GitHub Release" src="https://img.shields.io/github/v/release/exoad/on_the_fly?include_prereleases&sort=date&style=flat-square&labelColor=%23000&color=%23fab916">
+
   <strong>OnTheFly</strong> is a lightweight desktop application that simplifies file format conversion, running seamlessly in the background. Currently available for Windows for converting Images, with support for more platforms and more mediums coming soon!
 </p>
 
@@ -76,3 +82,9 @@ For a versatile cross-platform image IO library for Dart.
 ### [unDraw](https://undraw.co/)
 
 Providing amazing illustrations within the UI.
+
+### Contributors
+
+<a href="https://github.com/exoad/on_the_fly/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=exoad/on_the_fly" />
+</a>
