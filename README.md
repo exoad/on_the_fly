@@ -38,7 +38,7 @@
 
 This app is currently stable for English, with additional works for Simplified Chinese (中国大陆).
 
-All of the internationalization can be found in [`./lib/i18/*.yaml`](https://github.com/search?q=repo%3Aexoad%2Fon_the_fly+path%3A%2F%5Elib%5C%2Fi18n%5C%2F%2F++language%3AYAML&type=code&l=YAML). If you spot a mistake in the strings or want to make a suggestion, please include it in a pull request! Thank you very much for your contributions :)
+All of the internationalization can be found in [`./lib/i18n/*.yaml`](https://github.com/search?q=repo%3Aexoad%2Fon_the_fly+path%3A%2F%5Elib%5C%2Fi18n%5C%2F%2F++language%3AYAML&type=code&l=YAML). If you spot a mistake in the strings or want to make a suggestion, please include it in a pull request! Thank you very much for your contributions :)
 
 ## Acknowledgements
 
