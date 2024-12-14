@@ -7,6 +7,7 @@
 <p align="center">
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/exoad/on_the_fly?style=flat-square&logoColor=%23000&labelColor=%23000&color=%23ff2667"> 
 <img alt="GitHub Release" src="https://img.shields.io/github/v/release/exoad/on_the_fly?include_prereleases&sort=date&style=flat-square&labelColor=%23000&color=%23fab916">
+<img alt="Windows Builder" src="https://img.shields.io/github/actions/workflow/status/exoad/on_the_fly/windows_builder.yml?style=flat-square">
 </p>
 <p align="center">
   <strong>OnTheFly</strong> is a desktop app that automates file format conversions in the background. Customize it to monitor multiple folders, process images, handle files matching specific regex patterns, and more!
