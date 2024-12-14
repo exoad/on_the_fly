@@ -1,11 +1,11 @@
 <h1 align="center">
-  <img src="./assets/AppIcon.png" width="36"> OnTheFly
+  <img src="https://github.com/exoad/on_the_fly/blob/master/assets/AppIcon.png?raw=true" width="36"> OnTheFly
 </h1>
 <h3 align="center">
   Effortlessly convert file formats in the background.
 </h3>
 <p align="center">
-<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/exoad/on_the_fly?style=flat-square&logoColor=%23000&labelColor=%23000&color=%23ff2667"> 
+<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/exoad/on_the_fly?style=flat-square&logoColor=%23000&labelColor=%23000&color=%23ff2667">
 <img alt="GitHub Release" src="https://img.shields.io/github/v/release/exoad/on_the_fly?include_prereleases&sort=date&style=flat-square&labelColor=%23000&color=%23fab916">
 <img alt="Windows Builder" src="https://img.shields.io/github/actions/workflow/status/exoad/on_the_fly/windows_builder.yml?style=flat-square">
 </p>
@@ -13,7 +13,7 @@
   <strong>OnTheFly</strong> is a desktop app that automates file format conversions in the background. Customize it to monitor multiple folders, process images, handle files matching specific regex patterns, and more!
 </p>
 <p align="center">
-  <img src="./repo/sc1.png" alt="App Screenshot" width="78%" />
+  <img src="https://github.com/exoad/on_the_fly/blob/master/repo/sc1.png?raw=true" alt="App Screenshot" width="78%" />
 </p>
 
 ## Downloading
