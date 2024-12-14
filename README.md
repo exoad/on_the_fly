@@ -24,7 +24,7 @@ Currently, OnTheFly is **not** stable (in active development) for general consum
 
 As previously stated, OnTheFly is **not** stable and is in active development, so expect bugs, undocumented actions, etc.. Additionally, there currently is only support for Windows. Building for any other platforms will produce undefined behavior.
 
-**In order to build, you must have the Flutter SDK downloaded: https://docs.flutter.dev/get-started/install**
+**To build, you must have the Flutter SDK downloaded: https://docs.flutter.dev/get-started/install**
 
 1. Clone the repository (`git clone https://github.com/exoad/on_the_fly.git`)
 2. Enter the root directory of the repository
@@ -32,6 +32,9 @@ As previously stated, OnTheFly is **not** stable and is in active development, s
 4. Run the respective Flutter build command for Windows: `flutter build windows --release` (the `--release` flag is used for maximal optimization)
 5. The built artifact can be located in the generated folder `./build/windows/Runner/Release`
 
+## Documentation
+
+You can check out the documentation [here](https://exoad.github.io/onthefly/api/)
 
 ## Supported Formats
 
