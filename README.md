@@ -9,7 +9,7 @@
 <img alt="GitHub Release" src="https://img.shields.io/github/v/release/exoad/on_the_fly?include_prereleases&sort=date&style=flat-square&labelColor=%23000&color=%23fab916">
 </p>
 <p align="center">
-  <strong>OnTheFly</strong> is a lightweight desktop application that simplifies file format conversion, running seamlessly in the background. Currently available for Windows for converting Images, with support for more platforms and more mediums coming soon!
+  <strong>OnTheFly</strong> is a desktop app that automates file format conversions in the background. Customize it to monitor multiple folders, process images, handle files matching specific regex patterns, and more!
 </p>
 <p align="center">
   <img src="./repo/sc1.png" alt="App Screenshot" width="78%" />
