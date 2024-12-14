@@ -68,7 +68,7 @@ For simplifying the animation creation process and enhancing the app's overall s
 
 ### [flutter](https://flutter.dev/)
 
-The entirety backbone of the app.
+A well built framework that is the backbone of this app.
 
 ### [brendan-duncan/image](https://github.com/brendan-duncan/image)
 
