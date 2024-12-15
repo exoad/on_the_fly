@@ -5,11 +5,13 @@ import 'package:on_the_fly/base/native_channel.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/frontend/app_view.dart';
-import 'package:on_the_fly/frontend/events/job_stack.dart';
+import 'package:on_the_fly/frontend/components/components.dart';
+import 'package:on_the_fly/frontend/events/debug_events.dart';
 // import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:on_the_fly/xt.dart';
 
 import 'core/formats/formats.dart';
 
@@ -45,11 +47,16 @@ void main() {
       runApp(const AppView());
       doWhenWindowReady(() {
         appWindow.show();
-        // eachFrame().take(10).transform(const ComputeFps(2)).listen(
-        //     (num value) => debugSeek()["computed_fps"] = value.toDouble());
-        for (int i = 0; i < 12; i++) {
-          GlobalJobStack().addJob("$i ---");
-        }
+        DebugLayerEvents()["xt"] = Wrap(
+          spacing: 4,
+          runSpacing: 4,
+          children: <Widget>[
+            const CompactTextButton("fx1", onPressed: XtRunners.fx1),
+            const CompactTextButton("fx2", onPressed: XtRunners.fx2),
+            for (String locale in kDefinedLocales) // TODO: fix this pos of not working to change locales
+              CompactTextButton("fx3_$locale", onPressed: () => XtRunners.fx3(locale))
+          ],
+        );
       }); // for bitsdojo_window
     });
   }
@@ -76,6 +83,6 @@ void __tests() {
           "bbbbb.jpg", ImageMedium.inst["png"]),
       ".\\test_bbbbb.png");
   // Test AutoImgStrings.formalize
-  AppDebug().test("Test AutoImgStrings.formalize", () => "test_test".formalize,
-      "Test Test");
+  AppDebug()
+      .test("Test AutoImgStrings.formalize", () => "test_test".formalize, "Test Test");
 }

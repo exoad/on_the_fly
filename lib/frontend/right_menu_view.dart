@@ -5,8 +5,8 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
+import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/frontend/events/job_stack.dart';
-import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
@@ -36,11 +36,13 @@ class AppRightMenuView extends StatelessWidget {
                         SizedBox(
                             width: 250,
                             height: 200,
-                            child: SvgPicture.asset(
-                                "assets/illust/undraw_loading.svg",
+                            child: SvgPicture.asset("assets/illust/undraw_loading.svg",
                                 height: 200)),
                         const SizedBox(height: 18),
-                        Text(i18n.appGenerics.nothing_to_do),
+                        Text(InternationalizationNotifier()
+                            .i18n
+                            .appGenerics
+                            .nothing_to_do),
                       ],
                     ),
                   )
@@ -66,10 +68,9 @@ class AppRightMenuView extends StatelessWidget {
                       child: ListView.builder(
                         physics: const AlwaysScrollableScrollPhysics(
                             parent: BouncingScrollPhysics()),
-                        itemCount:
-                            Provider.of<GlobalJobStack>(context, listen: false)
-                                .jobStack
-                                .length,
+                        itemCount: Provider.of<GlobalJobStack>(context, listen: false)
+                            .jobStack
+                            .length,
                         itemBuilder: (BuildContext context, int index) {
                           return index == 0
                               ? const SizedBox(height: kWindowShelfHeight)
@@ -79,10 +80,8 @@ class AppRightMenuView extends StatelessWidget {
                                   title: Text(
                                       "${Provider.of<GlobalJobStack>(context).jobStack[index]}#${Provider.of<GlobalJobStack>(context).jobStack[index].hashCode}"),
                                   onTap: () {
-                                    Provider.of<GlobalJobStack>(context,
-                                            listen: false)
-                                        .removeJob(Provider.of<GlobalJobStack>(
-                                                context,
+                                    Provider.of<GlobalJobStack>(context, listen: false)
+                                        .removeJob(Provider.of<GlobalJobStack>(context,
                                                 listen: false)
                                             .jobStack[index]);
                                     debugSeek()["job_stack_sz"] =
@@ -104,8 +103,8 @@ class AppRightMenuView extends StatelessWidget {
               child: SizedBox(
                   height: kWindowShelfHeight,
                   child: Padding(
-                    padding: EdgeInsets.only(
-                        top: kTotalAppMargin, left: kTotalAppMargin * 2),
+                    padding:
+                        EdgeInsets.only(top: kTotalAppMargin, left: kTotalAppMargin * 2),
                     child: AppTopShelf(),
                   ))),
           Align(
@@ -131,22 +130,16 @@ class AppTopShelf extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("${i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
-                  style: TextStyle(
-
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16))
+          Text("${InternationalizationNotifier().i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
               .blurry(
                   blur: 10,
                   elevation: 16,
                   borderRadius: BorderRadius.circular(kRRArc),
                   color: kThemePrimaryFg1.withOpacity(0.08)),
           const SizedBox(width: kTotalAppMargin),
-          Text("${i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
-                  style: TextStyle(
-
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16))
+          Text("${InternationalizationNotifier().i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
               .blurry(
                   blur: 10,
                   elevation: 16,

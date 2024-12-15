@@ -34,4 +34,10 @@ class GlobalJobStack with ChangeNotifier {
     debugSeek()["global_job_stack"] = _jobStack.toString();
     notifyListeners();
   }
+
+  void removeAll() /*volatile*/ {
+    while (jobStack.isNotEmpty) {
+      removeJob(jobStack.last);
+    }
+  }
 }

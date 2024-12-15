@@ -3,6 +3,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
+import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/frontend/events/job_stack.dart';
 import 'package:on_the_fly/frontend/right_menu_view.dart';
 import 'package:on_the_fly/shared/app.dart';
@@ -47,16 +48,15 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
     return Drawer(
       clipBehavior: Clip.antiAlias,
       child: Container(
-        decoration:
-            const BoxDecoration(borderRadius: BorderRadius.all(Radius.zero)),
+        decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.zero)),
         child: ListView(
           controller: _listScrollController,
-          physics: const AlwaysScrollableScrollPhysics(
-              parent: BouncingScrollPhysics()),
+          physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
           primary: false,
           children: <Widget>[
             DrawerHeader(
-              margin: const EdgeInsets.only(left: kTotalAppMargin, bottom: 8, top: kTotalAppMargin),
+              margin: const EdgeInsets.only(
+                  left: kTotalAppMargin, bottom: 8, top: kTotalAppMargin),
               // app branding section lol
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(kRRArc)),
@@ -77,14 +77,19 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Text(i18n.appGenerics.canonical_title,
+                      Text(
+                          InternationalizationNotifier().i18n.appGenerics.canonical_title,
                           style: const TextStyle(
                               fontSize: 24,
                               color: kThemePrimaryFg1,
                               fontWeight: FontWeight.bold)),
                     ],
                   ),
-                  Text(i18n.appGenerics.canonical_description,
+                  Text(
+                      InternationalizationNotifier()
+                          .i18n
+                          .appGenerics
+                          .canonical_description,
                       style: const TextStyle(fontSize: 14)),
                   const Text("v$kStrVerCode", style: TextStyle(fontSize: 12)),
                   const Spacer(),
@@ -99,27 +104,23 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                           TextButton.icon(
                               style: const ButtonStyle(
                                   foregroundColor:
-                                      WidgetStatePropertyAll<Color>(
-                                          kThemePrimaryFg1),
+                                      WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
                                   backgroundColor:
                                       WidgetStatePropertyAll<Color>(kThemeBg)),
                               onPressed: () => showLicensePage(
-                                  applicationLegalese:
-                                      "Jiaming Meng (net.exoad)",
+                                  applicationLegalese: "Jiaming Meng (net.exoad)",
                                   context: context,
                                   applicationVersion: kStrVerCode),
                               label: const Text("Info"),
                               icon: const HugeIcon(
-                                  icon:
-                                      HugeIcons.strokeRoundedLicenseMaintenance,
+                                  icon: HugeIcons.strokeRoundedLicenseMaintenance,
                                   color: kThemePrimaryFg1))
                         else
                           IconButton.filled(
                             style: const ButtonStyle(
-                                foregroundColor: WidgetStatePropertyAll<Color>(
-                                    kThemePrimaryFg1),
-                                backgroundColor:
-                                    WidgetStatePropertyAll<Color>(kThemeBg)),
+                                foregroundColor:
+                                    WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
+                                backgroundColor: WidgetStatePropertyAll<Color>(kThemeBg)),
                             icon: const HugeIcon(
                                 icon: HugeIcons.strokeRoundedLicenseMaintenance,
                                 color: kThemePrimaryFg1),
@@ -132,12 +133,10 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                           TextButton.icon(
                               style: const ButtonStyle(
                                   foregroundColor:
-                                      WidgetStatePropertyAll<Color>(
-                                          kThemePrimaryFg1),
+                                      WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
                                   backgroundColor:
                                       WidgetStatePropertyAll<Color>(kThemeBg)),
-                              onPressed: () async =>
-                                  await launchUrlString(kAppGitHubURL),
+                              onPressed: () async => await launchUrlString(kAppGitHubURL),
                               label: const Text("GitHub"),
                               icon: const HugeIcon(
                                   icon: HugeIcons.strokeRoundedGithub01,
@@ -146,12 +145,10 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                           IconButton.filled(
                               style: const ButtonStyle(
                                   foregroundColor:
-                                      WidgetStatePropertyAll<Color>(
-                                          kThemePrimaryFg1),
+                                      WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
                                   backgroundColor:
                                       WidgetStatePropertyAll<Color>(kThemeBg)),
-                              onPressed: () async =>
-                                  await launchUrlString(kAppGitHubURL),
+                              onPressed: () async => await launchUrlString(kAppGitHubURL),
                               icon: const HugeIcon(
                                   icon: HugeIcons.strokeRoundedGithub01,
                                   color: kThemePrimaryFg1)),
@@ -167,7 +164,8 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                 .expand((List<JobDispatcher> e) => e))
               Padding(
                 // title of the job dispatcher
-                padding: const EdgeInsets.only(left: kTotalAppMargin, right: 0, bottom: 8),
+                padding:
+                    const EdgeInsets.only(left: kTotalAppMargin, right: 0, bottom: 8),
                 child: ExpansionTile(
                   dense: false,
                   showTrailingIcon: false,
@@ -203,9 +201,9 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(j.description),
-                            Text("\n${i18n.formatGeneric.supported_inputs}",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold)),
+                            Text(
+                                "\n${InternationalizationNotifier().i18n.formatGeneric.supported_inputs}",
+                                style: const TextStyle(fontWeight: FontWeight.bold)),
                             const SizedBox(height: 4),
                             Wrap(
                                 runAlignment: WrapAlignment.start,
@@ -217,8 +215,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                         margin: const EdgeInsets.all(2),
                                         decoration: BoxDecoration(
                                             color: kThemeCmpBg,
-                                            borderRadius:
-                                                BorderRadius.circular(kRRArc)),
+                                            borderRadius: BorderRadius.circular(kRRArc)),
                                         child: Text(t.canonicalName,
                                             style: const TextStyle(
                                                 fontSize: 12,
@@ -227,9 +224,12 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                                 color: kTheme1))),
                                 ]),
                             const SizedBox(height: 6),
-                            Text(i18n.formatGeneric.supported_outputs,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold)),
+                            Text(
+                                InternationalizationNotifier()
+                                    .i18n
+                                    .formatGeneric
+                                    .supported_outputs,
+                                style: const TextStyle(fontWeight: FontWeight.bold)),
                             const SizedBox(height: 4),
                             Wrap(
                                 runAlignment: WrapAlignment.start,
@@ -241,8 +241,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                         margin: const EdgeInsets.all(2),
                                         decoration: BoxDecoration(
                                             color: kThemeCmpBg,
-                                            borderRadius:
-                                                BorderRadius.circular(kRRArc)),
+                                            borderRadius: BorderRadius.circular(kRRArc)),
                                         child: Text(t.canonicalName,
                                             style: const TextStyle(
                                                 fontSize: 12,
@@ -261,36 +260,34 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                 //     .addJob(SingleImgJobDispatcher());
                                 await j.buildJobFormUI(context);
                                 debugSeek()["job_stack_sz"] =
-                                    Provider.of<GlobalJobStack>(context,
-                                            listen: false)
+                                    Provider.of<GlobalJobStack>(context, listen: false)
                                         .jobStack
                                         .length;
                               }
                             }, // TODO: proper impl job selection
-                            style: Theme.of(context)
-                                .textButtonTheme
-                                .style!
-                                .copyWith(
-                                    backgroundColor:
-                                        const WidgetStatePropertyAll<Color>(
-                                            kTheme1)),
+                            style: Theme.of(context).textButtonTheme.style!.copyWith(
+                                backgroundColor:
+                                    const WidgetStatePropertyAll<Color>(kTheme1)),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 const Icon(Ionicons.add),
                                 const SizedBox(width: 8),
-                                Text(i18n.formatGeneric.push_job,
+                                Text(
+                                    InternationalizationNotifier()
+                                        .i18n
+                                        .formatGeneric
+                                        .push_job,
                                     style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500)),
+                                        fontSize: 14, fontWeight: FontWeight.w500)),
                               ],
                             )),
                       ],
                     ),
                   ),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          kRRArc)), // this is j for visual purposes
+                      borderRadius:
+                          BorderRadius.circular(kRRArc)), // this is j for visual purposes
                 ),
               )
                   .animate(delay: const Duration(milliseconds: 400))

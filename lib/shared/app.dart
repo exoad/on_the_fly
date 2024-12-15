@@ -6,8 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:logging/logging.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
-import 'package:on_the_fly/i18n/translations.i18n.dart';
-import 'package:on_the_fly/i18n/translations_zh.i18n.dart';
+import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 
 const String kStrAppName = "On The Fly";
 const String kStrVerCode = "0.0.1";
@@ -32,19 +31,10 @@ const bool kShowSuccessfulTestResults = true;
 /// for seeing how certain visual elements will look
 const bool kRunSandboxView = true;
 
-/// forces a specific locale to be used for the app's internal language
-// ignore: unnecessary_nullable_for_final_variable_declarations
-const String? kForcedLocale = null;
-
-/// represents that i18n locale used in the app
-///
-/// modify [kForcedLocale] to operate on this
-late final /*covariant*/ Translations i18n;
-
 /// an immediate mode ui is ran on top of the app that shows important information
 ///
 /// (good for debug)
-const bool kShowDebugView = false;
+const bool kShowDebugView = true;
 
 /// turns off debug logging for the debug events dispatcher
 ///
@@ -62,6 +52,11 @@ const bool kSuppressDebugViewLogging = false;
 /// (typo, careless mistake)
 const bool kAllowDebugWarnings = true;
 
+const List<String> kDefinedLocales = <String>[
+  "en", // english - default;unknown
+  "zh"  // simplified chinese
+];
+
 /// whether informational log messages are logged
 ///
 /// can be on or off no matter the production state
@@ -71,8 +66,7 @@ final Logger logger = Logger("AutoImg");
 
 /// this platform channel basically just checks if the platform
 /// channel is working properly in the hollistic sense
-const MethodChannel mNativeChannel1 =
-    MethodChannel("net.exoad.on_the_fly/sanity_check");
+const MethodChannel mNativeChannel1 = MethodChannel("net.exoad.on_the_fly/sanity_check");
 
 // /// determines how many messages [_loggerQueue] can hold and
 // /// show in the debugview
@@ -89,8 +83,7 @@ Future<void> initConsts() async {
   // _loggerQueue = Queue<String>();
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((LogRecord record) {
-    final String built =
-        "${record.level.name}: ${record.time}: ${record.message}";
+    final String built = "${record.level.name}: ${record.time}: ${record.message}";
     print(built);
     // if (_loggerQueue.length == kLoggerDebugViewRecentFilterDepth) {
     //   _loggerQueue.removeFirst();
@@ -103,12 +96,8 @@ Future<void> initConsts() async {
     // debugSeek()["dd"] = buffer.toString();
   });
   // initialize locale
-  i18n = switch (kForcedLocale ?? Platform.localeName) {
-    (String r) when r.startsWith("zh") => const TranslationsZh(),
-    _ => const Translations(),
-  };
-  logger.info(
-      "Using locale: ${kForcedLocale ?? Platform.localeName} (forced=${kForcedLocale != null})");
+  // TODO: will need additional telemetry save options (additonal patterns)
+  InternationalizationNotifier().changeLocale(Platform.localeName);
   // exclude non latin based locales for the stylized font that only works on latin characters
   // kStylizedFontFamily = const <String>[
   //   "ar",

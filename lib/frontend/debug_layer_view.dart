@@ -59,74 +59,70 @@ class _DebugOverlayLayerState extends State<DebugOverlayLayer> {
                                   children: <Widget>[
                                     Row(
                                       children: <Widget>[
-                                        Text(
-                                            "Debug Layer [${debugSeek().dump.length}]",
+                                        Text("Debug Layer [${debugSeek().dump.length}]",
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.bold)),
                                         const Spacer(),
                                         CompactTextButton(
                                           "tr",
-                                          onPressed: () => setState(
-                                              () => _loc = Alignment.topRight),
+                                          onPressed: () =>
+                                              setState(() => _loc = Alignment.topRight),
                                         ),
                                         const SizedBox(width: 4),
                                         CompactTextButton(
                                           "tl",
-                                          onPressed: () => setState(
-                                              () => _loc = Alignment.topLeft),
+                                          onPressed: () =>
+                                              setState(() => _loc = Alignment.topLeft),
                                         ),
                                         const SizedBox(width: 4),
                                         CompactTextButton(
                                           "bl",
-                                          onPressed: () => setState(() =>
-                                              _loc = Alignment.bottomLeft),
+                                          onPressed: () =>
+                                              setState(() => _loc = Alignment.bottomLeft),
                                         ),
                                         const SizedBox(width: 4),
                                         CompactTextButton(
                                           "br",
-                                          onPressed: () => setState(() =>
-                                              _loc = Alignment.bottomRight),
+                                          onPressed: () => setState(
+                                              () => _loc = Alignment.bottomRight),
                                         ),
                                         const SizedBox(width: 4),
                                         CompactTextButton(
                                           "+w",
-                                          onPressed: () => setState(() =>
-                                              _width += _width + 10 >
-                                                      MediaQuery.sizeOf(context)
-                                                          .width
+                                          onPressed: () => setState(() => _width +=
+                                              _width + 10 >
+                                                      MediaQuery.sizeOf(context).width
                                                   ? 0
                                                   : 10),
                                         ),
                                         const SizedBox(width: 4),
                                         CompactTextButton(
                                           "0w",
-                                          onPressed: () =>
-                                              setState(() => _width = 340),
+                                          onPressed: () => setState(() => _width = 340),
                                         ),
                                         const SizedBox(width: 4),
                                         CompactTextButton(
                                           "-w",
-                                          onPressed: () => setState(() =>
-                                              _width -=
-                                                  _width - 10 < 0 ? 0 : 10),
+                                          onPressed: () => setState(
+                                              () => _width -= _width - 10 < 0 ? 0 : 10),
                                         ),
                                         const SizedBox(width: 4),
                                         CompactTextButton(
                                           "+o",
-                                          onPressed: () => setState(
-                                              () => _opacity.increment(0.1)),
+                                          onPressed: () =>
+                                              setState(() => _opacity.increment(0.1)),
                                         ),
                                         const SizedBox(width: 4),
                                         CompactTextButton(
                                           "no", // normal opacity
-                                          onPressed: () => setState(
-                                              () => _opacity.value = 0.76),
+                                          onPressed: () =>
+                                              setState(() => _opacity.value = 0.76),
                                         ),
                                         const SizedBox(width: 4),
                                         CompactTextButton(
                                           "-o",
-                                          onPressed: () => setState(
-                                              () => _opacity.increment(-0.1)),
+                                          onPressed: () =>
+                                              setState(() => _opacity.increment(-0.1)),
                                         ),
                                       ],
                                     ),
@@ -141,22 +137,32 @@ class _DebugOverlayLayerState extends State<DebugOverlayLayer> {
                                     if (debugSeek().dump.isNotEmpty)
                                       for (MapEntry<String, dynamic> entry
                                           in debugSeek().dump.entries)
-                                        Text.rich(TextSpan(
-                                            text: entry.key,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w500),
-                                            children: <InlineSpan>[
-                                              TextSpan(
-                                                  text:
-                                                      ": ${entry.value == null ? "NULL" : entry.value.toString()}",
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w300))
-                                            ]))
-                                    else
-                                      const Text("Nothing to dump...",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.normal))
+                                        if (entry.value is String)
+                                          Text.rich(TextSpan(
+                                              text: entry.key,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w500),
+                                              children: <InlineSpan>[
+                                                TextSpan(
+                                                    text:
+                                                        ": ${entry.value == null ? "NULL" : entry.value.toString()}",
+                                                    style: const TextStyle(
+                                                        fontWeight: FontWeight.w300))
+                                              ]))
+                                        else if (entry.value is Widget)
+                                          Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(entry.key,
+                                                    style: const TextStyle(
+                                                        fontWeight: FontWeight.w500)),
+                                                const SizedBox(width: 4),
+                                                entry.value as Widget,
+                                              ])
+                                        else
+                                          const Text("Nothing to dump...",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.normal))
                                   ],
                                 ))),
                       ),
