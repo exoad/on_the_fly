@@ -10,6 +10,7 @@ dependencies:
   bitsdojo_window: ^0.1.6
   blurrycontainer: ^2.1.0
   build_runner: ^2.4.13
+  card_animation_hover: ^0.0.2
   dotted_border: ^2.1.0
   file_picker: ^8.1.4
   flutter:

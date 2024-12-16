@@ -74,25 +74,35 @@ class AppRightMenuView extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return index == 0
                               ? const SizedBox(height: kWindowShelfHeight)
-                              : ListTile(
-                                  minVerticalPadding:
-                                      kRightSideJobListTileTopBottomPadding,
-                                  title: Text(
-                                      "${Provider.of<GlobalJobStack>(context).jobStack[index]}#${Provider.of<GlobalJobStack>(context).jobStack[index].hashCode}"),
-                                  onTap: () {
-                                    Provider.of<GlobalJobStack>(context, listen: false)
-                                        .removeJob(Provider.of<GlobalJobStack>(context,
-                                                listen: false)
-                                            .jobStack[index]);
-                                    debugSeek()["job_stack_sz"] =
-                                        Provider.of<GlobalJobStack>(context,
-                                                listen: false)
-                                            .jobStack
-                                            .length;
-                                  },
-                                ).animate(autoPlay: true).fade(
-                                  curve: Curves.easeInOut,
-                                  duration: const Duration(milliseconds: 180));
+                              : Padding(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: ListTile(
+                                    title: Text(
+                                        "${Provider.of<GlobalJobStack>(context).jobStack[index]}#${Provider.of<GlobalJobStack>(context).jobStack[index].hashCode}"),
+                                    onTap: () {
+                                      Provider.of<GlobalJobStack>(context, listen: false)
+                                          .removeJob(Provider.of<GlobalJobStack>(context,
+                                                  listen: false)
+                                              .jobStack[index]);
+                                      debugSeek()["job_stack_sz"] =
+                                          Provider.of<GlobalJobStack>(context,
+                                                  listen: false)
+                                              .jobStack
+                                              .length;
+                                    },
+                                  )
+                                      .animate(
+                                          autoPlay: true,
+                                          delay: const Duration(milliseconds: 200))
+                                      .fade(
+                                          curve: Curves.easeInOut,
+                                          duration: const Duration(milliseconds: 300))
+                                      .slideY(
+                                          begin: 5,
+                                          end: 0,
+                                          duration: const Duration(milliseconds: 410),
+                                          curve: Curves.easeInOut),
+                                );
                         },
                       ),
                     ),

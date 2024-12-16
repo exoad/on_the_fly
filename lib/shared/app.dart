@@ -54,7 +54,7 @@ const bool kAllowDebugWarnings = true;
 
 const List<String> kDefinedLocales = <String>[
   "en", // english - default;unknown
-  "zh"  // simplified chinese
+  "zh" // simplified chinese
 ];
 
 /// whether informational log messages are logged
