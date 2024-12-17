@@ -3,12 +3,10 @@ import 'package:flutter_tilt/flutter_tilt.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
-import 'package:on_the_fly/frontend/components/debug_sized.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/frontend/events/job_stack.dart';
 import 'package:on_the_fly/frontend/right_menu_view.dart';
-import 'package:on_the_fly/helpers/color_helper.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
@@ -271,13 +269,40 @@ class CanonicalAdvert extends StatelessWidget {
                   children: <Widget>[
                     Text(InternationalizationNotifier().i18n.appGenerics.canonical_title,
                         style: const TextStyle(
-                            fontSize: 26,
+                            fontSize: 28,
                             color: kThemePrimaryFg1,
                             fontWeight: FontWeight.bold)),
                   ],
                 ),
               )),
-        ]),
+        ]
+            // ], inner: <Widget>[
+            //   Positioned(
+            //       // left and top parameters are derived from DrawerHeader's padding default edgeinsets parameter
+            //       //
+            //       // another thing for these parameters is that if you want initial dropshadows, adjust them with
+            //       // additional offsets
+            //       //
+            //       // to simply just overlay them on the original text without initial dropshadows
+            //       // use "16+kTotalAppMargin"
+            //       left: 16 + kTotalAppMargin,
+            //       top: 16,
+            //       child: TiltParallax(
+            //         size: const Offset(2, 2),
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.start,
+            //           children: <Widget>[
+            //             Text(InternationalizationNotifier().i18n.appGenerics.canonical_title,
+            //                 style: const TextStyle(
+            //                     // fontsize can be out of sync with the bottom layer to add some parallax
+            //                     fontSize: 28,
+            //                     color: kThemeBg,
+            //                     fontWeight: FontWeight.bold)),
+            //           ],
+            //         ),
+            //       )),
+            // ]
+            ),
         child: DrawerHeader(
           margin: const EdgeInsets.only(
               left: kTotalAppMargin, bottom: 8, top: kTotalAppMargin),
@@ -303,7 +328,7 @@ class CanonicalAdvert extends StatelessWidget {
                 children: <Widget>[
                   Text(InternationalizationNotifier().i18n.appGenerics.canonical_title,
                       style: const TextStyle(
-                          fontSize: 26, color: kThemeBg, fontWeight: FontWeight.bold)),
+                          fontSize: 28, color: kThemeBg, fontWeight: FontWeight.bold)),
                 ],
               ),
               Text(InternationalizationNotifier().i18n.appGenerics.canonical_description,
