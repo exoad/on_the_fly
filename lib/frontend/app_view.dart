@@ -52,6 +52,7 @@ class _AppViewContainer extends StatelessWidget {
         MaterialApp(
           debugShowCheckedModeBanner: false,
           title: "AutoImg",
+          locale: Locale(Provider.of<InternationalizationNotifier>(context).i18n.languageCode),
           theme: ThemeData(
               cardColor: kThemeBg,
               secondaryHeaderColor: kThemePrimaryFg1,

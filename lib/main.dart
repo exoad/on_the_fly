@@ -47,14 +47,14 @@ void main() {
       runApp(const AppView());
       doWhenWindowReady(() {
         appWindow.show();
-        DebugLayerEvents()["xt"] = Wrap(
+        DebugLayerEvents()["xt"] = const Wrap(
           spacing: 4,
           runSpacing: 4,
           children: <Widget>[
-            const CompactTextButton("fx1", onPressed: XtRunners.fx1),
-            const CompactTextButton("fx2", onPressed: XtRunners.fx2),
-            for (String locale in kDefinedLocales) // TODO: fix this pos of not working to change locales
-              CompactTextButton("fx3_$locale", onPressed: () => XtRunners.fx3(locale))
+            CompactTextButton("fx1", onPressed: XtRunners.fx1),
+            CompactTextButton("fx2", onPressed: XtRunners.fx2),
+            // for (String locale in kDefinedLocales) // TODO: fix this pos of not working to change locales
+            //   CompactTextButton("fx3_$locale", onPressed: () => XtRunners.fx3(locale))
           ],
         );
       }); // for bitsdojo_window

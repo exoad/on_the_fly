@@ -5,6 +5,7 @@ import 'package:on_the_fly/i18n/translations.i18n.dart';
 import 'package:on_the_fly/i18n/translations_zh.i18n.dart';
 import 'package:on_the_fly/shared/app.dart';
 
+/// ! currently this implementation cannot provide dynamic locale changing
 class InternationalizationNotifier extends ChangeNotifier {
   static final InternationalizationNotifier _singleton =
       InternationalizationNotifier.internal();
