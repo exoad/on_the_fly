@@ -256,7 +256,13 @@ class CanonicalAdvert extends StatelessWidget {
         childLayout: ChildLayout(outer: <Widget>[
           Positioned(
               // left and top parameters are derived from DrawerHeader's padding default edgeinsets parameter
-              left: 16,
+              //
+              // another thing for these parameters is that if you want initial dropshadows, adjust them with
+              // additional offsets
+              //
+              // to simply just overlay them on the original text without initial dropshadows
+              // use "16+kTotalAppMargin"
+              left: 16 + kTotalAppMargin,
               top: 16,
               child: TiltParallax(
                 size: const Offset(14, 14),
@@ -265,12 +271,12 @@ class CanonicalAdvert extends StatelessWidget {
                   children: <Widget>[
                     Text(InternationalizationNotifier().i18n.appGenerics.canonical_title,
                         style: const TextStyle(
-                            fontSize: 24,
+                            fontSize: 26,
                             color: kThemePrimaryFg1,
                             fontWeight: FontWeight.bold)),
                   ],
                 ),
-              ))
+              )),
         ]),
         child: DrawerHeader(
           margin: const EdgeInsets.only(
@@ -296,10 +302,8 @@ class CanonicalAdvert extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Text(InternationalizationNotifier().i18n.appGenerics.canonical_title,
-                      style: TextStyle(
-                          fontSize: 24,
-                          color: kThemePrimaryFg1.darker().darker().darker().darker(),
-                          fontWeight: FontWeight.bold)),
+                      style: const TextStyle(
+                          fontSize: 26, color: kThemeBg, fontWeight: FontWeight.bold)),
                 ],
               ),
               Text(InternationalizationNotifier().i18n.appGenerics.canonical_description,

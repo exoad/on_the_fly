@@ -52,6 +52,7 @@ const bool kSuppressDebugViewLogging = false;
 /// (typo, careless mistake)
 const bool kAllowDebugWarnings = true;
 
+/// hardcoded locale definitions pool
 const List<String> kDefinedLocales = <String>[
   "en", // english - default;unknown
   "zh" // simplified chinese
@@ -97,7 +98,7 @@ Future<void> initConsts() async {
   });
   // initialize locale
   // TODO: will need additional telemetry save options (additonal patterns)
-  InternationalizationNotifier().changeLocale(Platform.localeName);
+  InternationalizationNotifier().changeLocale("zh"); // * CURRENTLY FORCED
   // exclude non latin based locales for the stylized font that only works on latin characters
   // kStylizedFontFamily = const <String>[
   //   "ar",
