@@ -98,7 +98,7 @@ Future<void> initConsts() async {
   });
   // initialize locale
   // TODO: will need additional telemetry save options (additonal patterns)
-  InternationalizationNotifier().changeLocale("zh"); // * CURRENTLY FORCED
+  // InternationalizationNotifier().changeLocale("zh"); // * FORCED LOCALE CHANGE (VOLATILE)
   // exclude non latin based locales for the stylized font that only works on latin characters
   // kStylizedFontFamily = const <String>[
   //   "ar",

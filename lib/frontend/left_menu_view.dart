@@ -225,7 +225,8 @@ class _MouseDodgeHover extends StatelessWidget {
       lightConfig: const LightConfig(disable: true),
       shadowConfig: const ShadowConfig(disable: true),
       tiltConfig: const TiltConfig(
-          angle: 4.2,
+          angle: 2.8,
+          moveCurve: Curves.ease,
           leaveCurve: Curves.easeInOut,
           enableRevert: true,
           enableReverse: true),
@@ -247,7 +248,8 @@ class CanonicalAdvert extends StatelessWidget {
         lightConfig: const LightConfig(disable: true),
         shadowConfig: const ShadowConfig(disable: true),
         tiltConfig: const TiltConfig(
-            angle: 8,
+            angle: 4,
+            moveCurve: Curves.ease,
             leaveCurve: Curves.easeInOut,
             enableRevert: true,
             enableReverse: true),
@@ -261,9 +263,9 @@ class CanonicalAdvert extends StatelessWidget {
               // to simply just overlay them on the original text without initial dropshadows
               // use "16+kTotalAppMargin"
               left: 16 + kTotalAppMargin,
-              top: 16,
+              top: 15,
               child: TiltParallax(
-                size: const Offset(14, 14),
+                size: const Offset(8, 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
