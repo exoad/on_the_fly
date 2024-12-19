@@ -66,43 +66,47 @@ class AppRightMenuView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: ListView.builder(
-                        physics: const AlwaysScrollableScrollPhysics(
-                            parent: BouncingScrollPhysics()),
+                        physics: const BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics()),
                         itemCount: Provider.of<GlobalJobStack>(context, listen: false)
                             .jobStack
                             .length,
                         itemBuilder: (BuildContext context, int index) {
                           return index == 0
                               ? const SizedBox(height: kWindowShelfHeight)
-                              : Padding(
-                                  padding: const EdgeInsets.only(bottom: 8),
-                                  child: ListTile(
-                                    title: Text(
-                                        "${Provider.of<GlobalJobStack>(context).jobStack[index]}#${Provider.of<GlobalJobStack>(context).jobStack[index].hashCode}"),
-                                    onTap: () {
-                                      Provider.of<GlobalJobStack>(context, listen: false)
-                                          .removeJob(Provider.of<GlobalJobStack>(context,
-                                                  listen: false)
-                                              .jobStack[index]);
-                                      debugSeek()["job_stack_sz"] =
+                              : Builder(builder: (BuildContext context) {
+                                  Widget contentW = Padding(
+                                    padding: const EdgeInsets.only(bottom: 8),
+                                    child: ListTile(
+                                      title: Text(
+                                          "${Provider.of<GlobalJobStack>(context).jobStack[index]}#${Provider.of<GlobalJobStack>(context).jobStack[index].hashCode}"),
+                                      onTap: () {
+                                        Provider.of<GlobalJobStack>(context,
+                                                listen: false)
+                                            .removeJob(Provider.of<GlobalJobStack>(
+                                                    context,
+                                                    listen: false)
+                                                .jobStack[index]);
+                                        debugSeek()["job_stack_sz"] =
+                                            Provider.of<GlobalJobStack>(context,
+                                                    listen: false)
+                                                .jobStack
+                                                .length;
+                                      },
+                                    )
+                                  );
+                                  // we add some end padding to the list view scroll
+                                  return index ==
                                           Provider.of<GlobalJobStack>(context,
-                                                  listen: false)
-                                              .jobStack
-                                              .length;
-                                    },
-                                  )
-                                      .animate(
-                                          autoPlay: true,
-                                          delay: const Duration(milliseconds: 200))
-                                      .fade(
-                                          curve: Curves.easeInOut,
-                                          duration: const Duration(milliseconds: 300))
-                                      .slideY(
-                                          begin: 5,
-                                          end: 0,
-                                          duration: const Duration(milliseconds: 410),
-                                          curve: Curves.easeInOut),
-                                );
+                                                      listen: false)
+                                                  .jobStack
+                                                  .length -
+                                              1
+                                      ? Padding(
+                                          padding: const EdgeInsets.only(bottom: 40),
+                                          child: contentW)
+                                      : contentW;
+                                });
                         },
                       ),
                     ),
@@ -147,14 +151,14 @@ class AppTopShelf extends StatelessWidget {
                   elevation: 16,
                   borderRadius: BorderRadius.circular(kRRArc),
                   color: kThemePrimaryFg1.withOpacity(0.08)),
-          const SizedBox(width: kTotalAppMargin),
-          Text("${InternationalizationNotifier().i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
-              .blurry(
-                  blur: 10,
-                  elevation: 16,
-                  borderRadius: BorderRadius.circular(kRRArc),
-                  color: kThemePrimaryFg1.withOpacity(0.08)),
+        //   const SizedBox(width: kTotalAppMargin),
+        //   Text("${InternationalizationNotifier().i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
+        //           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+        //       .blurry(
+        //           blur: 10,
+        //           elevation: 16,
+        //           borderRadius: BorderRadius.circular(kRRArc),
+        //           color: kThemePrimaryFg1.withOpacity(0.08)),
         ]);
   }
 }

@@ -3,16 +3,15 @@ import 'package:flutter_tilt/flutter_tilt.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
-import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/frontend/events/job_stack.dart';
+import 'package:on_the_fly/frontend/job_descriptor.dart';
 import 'package:on_the_fly/frontend/right_menu_view.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 /// left side of the app, this is used for displaying all of the JobDispatcher that the user can choose from
@@ -64,16 +63,41 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
             for (JobDispatcher j in JobDispatcher.registeredJobDispatchers
                 .values // auto loading of all the JobDispatcher that are registered from the JobDispatcher class
                 .expand((List<JobDispatcher> e) => e))
-              _MouseDodgeHover(
-                child: Padding(
-                  // title of the job dispatcher
-                  padding:
-                      const EdgeInsets.only(left: kTotalAppMargin, right: 0, bottom: 8),
-                  child: ExpansionTile(
-                    dense: false,
-                    showTrailingIcon: false,
-                    enableFeedback: false,
-                    title: Row(
+              Padding(
+                // title of the job dispatcher
+                padding:
+                    const EdgeInsets.only(left: kTotalAppMargin, right: 0, bottom: 8),
+                child: ExpansionTile(
+                  onExpansionChanged: (bool showDialog /*funky way to do this*/) async {
+                    if (kAllowDebugLogs) {
+                      logger.info(
+                          "Launch JOB_DISPATCHER_DESC_VIEW for ${j.runtimeType}@$j");
+                    }
+                    await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          int jobsDispatched = 0;
+                          for (dynamic jobs in GlobalJobStack().jobStack) {
+                            if (j.dispatched(jobs)) {
+                              jobsDispatched++;
+                            }
+                          }
+                          return Dialog(
+                            child: Padding(
+                                padding: const EdgeInsets.all(
+                                    kJobDispatcherFormScaffoldMargin),
+                                child: Column(
+                                  children: <Widget>[Text("Amogus: $jobsDispatched")],
+                                )),
+                          );
+                        });
+                  },
+                  dense: false,
+                  showTrailingIcon: false,
+                  enableFeedback: false,
+                  title: JobDispatcherDescriptorView(
+                    dispatcher: j,
+                    child: Row(
                       children: <Widget>[
                         Text(j.name),
                         const SizedBox(width: 6),
@@ -83,129 +107,127 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                             decoration: BoxDecoration(
                                 color: kThemeCmpBg,
                                 borderRadius: BorderRadius.circular(kRRArc)),
-                            child: Text(j.mediumName.formalize,
+                            child: Text(j.formatMedium.mediumName.formalize,
                                 style: const TextStyle(
                                     fontSize: 12,
                                     fontFamily: kDefaultFontFamily,
                                     color: kTheme1)))
                       ],
                     ),
-                    // description and like all of the "neat" details of the app such as the supported inputs and outputs formats
-                    subtitle: Padding(
-                      // we need this padding (top:8) so the title isn't too close to the subtitle/description
-                      // of this job
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(j.description),
-                              Text(
-                                  "\n${InternationalizationNotifier().i18n.formatGeneric.supported_inputs}",
-                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                              const SizedBox(height: 4),
-                              Wrap(
-                                  runAlignment: WrapAlignment.start,
-                                  crossAxisAlignment: WrapCrossAlignment.start,
-                                  children: <Widget>[
-                                    for (FileFormat t in j.inputTypes)
-                                      Container(
-                                          padding: const EdgeInsets.all(4),
-                                          margin: const EdgeInsets.all(2),
-                                          decoration: BoxDecoration(
-                                              color: kThemeCmpBg,
-                                              borderRadius:
-                                                  BorderRadius.circular(kRRArc)),
-                                          child: Text(t.canonicalName,
-                                              style: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontFamily: kDefaultFontFamily,
-                                                  color: kTheme1))),
-                                  ]),
-                              const SizedBox(height: 6),
-                              Text(
-                                  InternationalizationNotifier()
-                                      .i18n
-                                      .formatGeneric
-                                      .supported_outputs,
-                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                              const SizedBox(height: 4),
-                              Wrap(
-                                  runAlignment: WrapAlignment.start,
-                                  crossAxisAlignment: WrapCrossAlignment.start,
-                                  children: <Widget>[
-                                    for (FileFormat t in j.outputTypes)
-                                      Container(
-                                          padding: const EdgeInsets.all(4),
-                                          margin: const EdgeInsets.all(2),
-                                          decoration: BoxDecoration(
-                                              color: kThemeCmpBg,
-                                              borderRadius:
-                                                  BorderRadius.circular(kRRArc)),
-                                          child: Text(t.canonicalName,
-                                              style: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontFamily: kDefaultFontFamily,
-                                                  color: kTheme2))),
-                                  ]),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          TextButton(
-                              onPressed: () async {
-                                if (mounted) {
-                                  // Provider.of<GlobalJobStack>(context,
-                                  //         listen: false)
-                                  //     .addJob(SingleImgJobDispatcher());
-                                  await j.buildJobFormUI(context);
-                                  debugSeek()["job_stack_sz"] =
-                                      Provider.of<GlobalJobStack>(context, listen: false)
-                                          .jobStack
-                                          .length;
-                                }
-                              }, // TODO: proper impl job selection
-                              style: Theme.of(context).textButtonTheme.style!.copyWith(
-                                  backgroundColor:
-                                      const WidgetStatePropertyAll<Color>(kTheme1)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  const Icon(Ionicons.add),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                      InternationalizationNotifier()
-                                          .i18n
-                                          .formatGeneric
-                                          .push_job,
-                                      style: const TextStyle(
-                                          fontSize: 14, fontWeight: FontWeight.w500)),
-                                ],
-                              )),
-                        ],
-                      ),
-                    ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            kRRArc)), // this is j for visual purposes
                   ),
-                )
-                    .animate(delay: const Duration(milliseconds: 400))
-                    .moveY(
-                        begin:
-                            14, // i fucking hate odd numbers so it wasnt 15, bro fuck odd numbers in graphics bruh, idk why i hate odd numbers so fucking much. man, i just dont like them. (i am a d1 odd number hater hatin)
-                        end: 0,
-                        curve: Curves.easeInOut,
-                        duration: const Duration(milliseconds: 600))
-                    .fadeIn(
-                        duration: const Duration(milliseconds: 700),
-                        curve: Curves.easeInOut),
+                  // description and like all of the "neat" details of the app such as the supported inputs and outputs formats
+                  subtitle: Padding(
+                    // we need this padding (top:8) so the title isn't too close to the subtitle/description
+                    // of this job
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(j.description),
+                            Text(
+                                "\n${InternationalizationNotifier().i18n.formatGeneric.supported_inputs}",
+                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 4),
+                            Wrap(
+                                runAlignment: WrapAlignment.start,
+                                crossAxisAlignment: WrapCrossAlignment.start,
+                                children: <Widget>[
+                                  for (FileFormat t in j.inputTypes)
+                                    Container(
+                                        padding: const EdgeInsets.all(4),
+                                        margin: const EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                            color: kThemeCmpBg,
+                                            borderRadius: BorderRadius.circular(kRRArc)),
+                                        child: Text(t.canonicalName,
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                                fontFamily: kDefaultFontFamily,
+                                                color: kTheme1))),
+                                ]),
+                            const SizedBox(height: 6),
+                            Text(
+                                InternationalizationNotifier()
+                                    .i18n
+                                    .formatGeneric
+                                    .supported_outputs,
+                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 4),
+                            Wrap(
+                                runAlignment: WrapAlignment.start,
+                                crossAxisAlignment: WrapCrossAlignment.start,
+                                children: <Widget>[
+                                  for (FileFormat t in j.outputTypes)
+                                    Container(
+                                        padding: const EdgeInsets.all(4),
+                                        margin: const EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                            color: kThemeCmpBg,
+                                            borderRadius: BorderRadius.circular(kRRArc)),
+                                        child: Text(t.canonicalName,
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                                fontFamily: kDefaultFontFamily,
+                                                color: kTheme2))),
+                                ]),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        TextButton(
+                            onPressed: () async {
+                              if (mounted) {
+                                // Provider.of<GlobalJobStack>(context,
+                                //         listen: false)
+                                //     .addJob(SingleImgJobDispatcher());
+                                // await j.buildJobFormUI(context);
+                                // debugSeek()["job_stack_sz"] =
+                                //     Provider.of<GlobalJobStack>(context, listen: false)
+                                //         .jobStack
+                                //         .length;
+                              }
+                            }, // TODO: proper impl job selection
+                            style: Theme.of(context).textButtonTheme.style!.copyWith(
+                                backgroundColor:
+                                    const WidgetStatePropertyAll<Color>(kTheme1)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                const Icon(Ionicons.add),
+                                const SizedBox(width: 8),
+                                Text(
+                                    InternationalizationNotifier()
+                                        .i18n
+                                        .formatGeneric
+                                        .push_job,
+                                    style: const TextStyle(
+                                        fontSize: 14, fontWeight: FontWeight.w500)),
+                              ],
+                            )),
+                      ],
+                    ),
+                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(kRRArc)), // this is j for visual purposes
+                ),
               )
+                  .animate(delay: const Duration(milliseconds: 400))
+                  .moveY(
+                      begin:
+                          14, // i fucking hate odd numbers so it wasnt 15, bro fuck odd numbers in graphics bruh, idk why i hate odd numbers so fucking much. man, i just dont like them. (i am a d1 odd number hater hatin)
+                      end: 0,
+                      curve: Curves.easeInOut,
+                      duration: const Duration(milliseconds: 600))
+                  .fadeIn(
+                      duration: const Duration(milliseconds: 700),
+                      curve: Curves.easeInOut)
           ],
         ),
       ),

@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:logging/logging.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
-import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 
 const String kStrAppName = "On The Fly";
 const String kStrVerCode = "0.0.1";

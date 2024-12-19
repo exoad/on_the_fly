@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
-import 'package:on_the_fly/frontend/components/jobs_ui.dart';
 import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 
 final class ImageMedium extends FormatMedium {
@@ -54,20 +53,23 @@ final class ImageMedium extends FormatMedium {
 class SingleImgJobDispatcher extends JobDispatcher {
   SingleImgJobDispatcher()
       : super(
-          name: InternationalizationNotifier().i18n.singleImgJob.canonical_name,
-          mediumName: ImageMedium.inst.mediumName,
-          description: InternationalizationNotifier().i18n.singleImgJob.description,
           inputTypes: ImageMedium.inst.inputFormats,
           outputTypes: ImageMedium.inst.outputFormats,
         );
 
   @override
-  Future<void> buildJobFormUI(covariant BuildContext context) async {
-    await showDialog(
-        context: context,
-        builder: (BuildContext context) =>
-            const JobCreationDialog(jobName: "Single Image Job", child: Text("Hello")));
+  bool dispatched(covariant dynamic t) {
+    return t.runtimeType == SingleImgJob;
   }
+
+  @override
+  String get description => InternationalizationNotifier().i18n.singleImgJob.description;
+
+  @override
+  FormatMedium get formatMedium => ImageMedium.inst;
+
+  @override
+  String get name => InternationalizationNotifier().i18n.singleImgJob.canonical_name;
 }
 
 class SingleImgJob extends Job {
