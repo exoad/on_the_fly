@@ -33,7 +33,7 @@ const bool kRunSandboxView = true;
 /// an immediate mode ui is ran on top of the app that shows important information
 ///
 /// (good for debug)
-const bool kShowDebugView = true;
+const bool kShowDebugView = false;
 
 /// turns off debug logging for the debug events dispatcher
 ///
