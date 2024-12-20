@@ -87,10 +87,16 @@ abstract class JobDispatcher {
 
   FormatMedium get formatMedium;
 
-  /// canonical. shown when the user clicks to view more about this job
-  /// dispatcher. by default, the normal [name] and [description] will still be
-  /// shown. this method is used to add additional content
-  Widget? get additionalDescriptors => null;
+  // putting this on the burner for now (not impl/used)
+  // /// canonical. shown when the user clicks to view more about this job
+  // /// dispatcher. by default, the normal [name] and [description] will still be
+  // /// shown. this method is used to add additional content
+  // Widget? get additionalDescriptors => null;
+
+  /// an indepth canonical description used by the job dispatcher viewer (the thing that pops up when you click on a job dispatcher on the left menu view)
+  /// its best to often implement and provide description for this method instead of returning either [description]
+  /// or `null`
+  String? get properDescription;
 }
 
 class JobDispatcherFormBuilder {

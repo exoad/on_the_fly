@@ -52,7 +52,8 @@ class _AppViewContainer extends StatelessWidget {
         MaterialApp(
           debugShowCheckedModeBanner: false,
           title: "AutoImg",
-          locale: Locale(Provider.of<InternationalizationNotifier>(context).i18n.languageCode),
+          locale: Locale(
+              Provider.of<InternationalizationNotifier>(context).i18n.languageCode),
           theme: ThemeData(
               cardColor: kThemeBg,
               secondaryHeaderColor: kThemePrimaryFg1,
@@ -96,8 +97,11 @@ class _AppViewContainer extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(kRRArc))),
               splashColor: kThemePrimaryFg1.withOpacity(0.5),
+              buttonTheme: const ButtonThemeData(padding: EdgeInsets.zero),
               elevatedButtonTheme: ElevatedButtonThemeData(
                   style: ButtonStyle(
+                      padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
+                          EdgeInsets.zero),
                       shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(kRRArc))),
@@ -106,9 +110,9 @@ class _AppViewContainer extends StatelessWidget {
                           const WidgetStatePropertyAll<Color>(kThemePrimaryFg1))),
               outlinedButtonTheme: OutlinedButtonThemeData(
                   style: ButtonStyle(
-                      shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(kRRArc),
-                          side: const BorderSide(color: kThemePrimaryFg1, width: 1.5))),
+                      padding:
+                          const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero),
+                      shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc), side: const BorderSide(color: kThemePrimaryFg1, width: 1.5))),
                       foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
                       side: const WidgetStatePropertyAll<BorderSide>(BorderSide(color: kThemePrimaryFg1, width: 1)))),
               textButtonTheme: TextButtonThemeData(style: ButtonStyle(surfaceTintColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg1..withOpacity(0.3)), shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))), splashFactory: NoSplash.splashFactory, backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg))),

@@ -66,6 +66,8 @@ class Translations {
   String get locale => "en";
   String get languageCode => "en";
   AppGenericsTranslations get appGenerics => AppGenericsTranslations(this);
+  CanonicalBitsTranslations get canonicalBits =>
+      CanonicalBitsTranslations(this);
   FilePickerTranslations get filePicker => FilePickerTranslations(this);
   FormatGenericTranslations get formatGeneric =>
       FormatGenericTranslations(this);
@@ -95,6 +97,43 @@ class AppGenericsTranslations {
   /// "Jobs"
   /// ```
   String get job_count => """Jobs""";
+
+  /// ```dart
+  /// "Exit"
+  /// ```
+  String get exit => """Exit""";
+
+  /// ```dart
+  /// "Variants dispatched"
+  /// ```
+  String get dispatched_amount => """Variants dispatched""";
+
+  /// ```dart
+  /// "Description"
+  /// ```
+  String get description => """Description""";
+
+  /// ```dart
+  /// "Supported input file extensions"
+  /// ```
+  String get supported_input_file_extensions =>
+      """Supported input file extensions""";
+
+  /// ```dart
+  /// "Supported output file extensions"
+  /// ```
+  String get supported_output_file_extensions =>
+      """Supported output file extensions""";
+}
+
+class CanonicalBitsTranslations {
+  final Translations _parent;
+  const CanonicalBitsTranslations(this._parent);
+
+  /// ```dart
+  /// "Job Dispatcher"
+  /// ```
+  String get job_dispatcher_formal => """Job Dispatcher""";
 }
 
 class FilePickerTranslations {
@@ -140,6 +179,11 @@ class FormatGenericTranslations {
   /// "Images"
   /// ```
   String get image => """Images""";
+
+  /// ```dart
+  /// "Click for more info"
+  /// ```
+  String get click_to_view_more => """Click for more info""";
 }
 
 class SingleImgJobTranslations {
@@ -156,6 +200,12 @@ class SingleImgJobTranslations {
   /// ```
   String get description =>
       """Converts a single image file from one format to another""";
+
+  /// ```dart
+  /// "This job is a simple way to provide a simple way to convert just one image file from one format to another format. If you want to convert multiple files or watch a folder, you should seek for alternative methods."
+  /// ```
+  String get proper_description =>
+      """This job is a simple way to provide a simple way to convert just one image file from one format to another format. If you want to convert multiple files or watch a folder, you should seek for alternative methods.""";
 }
 
 Map<String, String> get translationsMap => {
@@ -163,6 +213,14 @@ Map<String, String> get translationsMap => {
       """app generics.canonical_description""": """Auto convert file formats""",
       """app generics.nothing_to_do""": """Nothing to do right now...""",
       """app generics.job_count""": """Jobs""",
+      """app generics.exit""": """Exit""",
+      """app generics.dispatched_amount""": """Variants dispatched""",
+      """app generics.description""": """Description""",
+      """app generics.supported_input_file_extensions""":
+          """Supported input file extensions""",
+      """app generics.supported_output_file_extensions""":
+          """Supported output file extensions""",
+      """canonical bits.job_dispatcher_formal""": """Job Dispatcher""",
       """file picker.dialog_title_pick_file""": """Select a file""",
       """file picker.dialog_title_pick_folder""": """Select a folder""",
       """file picker.launch""": """Use file picker""",
@@ -170,7 +228,10 @@ Map<String, String> get translationsMap => {
       """format generic.supported_outputs""": """Supported Outputs""",
       """format generic.push_job""": """Add this job""",
       """format generic.image""": """Images""",
+      """format generic.click_to_view_more""": """Click for more info""",
       """single img job.canonical_name""": """Single Image""",
       """single img job.description""":
           """Converts a single image file from one format to another""",
+      """single img job.proper_description""":
+          """This job is a simple way to provide a simple way to convert just one image file from one format to another format. If you want to convert multiple files or watch a folder, you should seek for alternative methods.""",
     };

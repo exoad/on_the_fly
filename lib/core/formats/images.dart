@@ -70,6 +70,10 @@ class SingleImgJobDispatcher extends JobDispatcher {
 
   @override
   String get name => InternationalizationNotifier().i18n.singleImgJob.canonical_name;
+
+  @override
+  String? get properDescription =>
+      InternationalizationNotifier().i18n.singleImgJob.proper_description;
 }
 
 class SingleImgJob extends Job {

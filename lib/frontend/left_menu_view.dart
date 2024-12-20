@@ -3,15 +3,16 @@ import 'package:flutter_tilt/flutter_tilt.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
+import 'package:on_the_fly/frontend/components/components.dart';
 import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/frontend/events/job_stack.dart';
-import 'package:on_the_fly/frontend/job_descriptor.dart';
 import 'package:on_the_fly/frontend/right_menu_view.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 /// left side of the app, this is used for displaying all of the JobDispatcher that the user can choose from
@@ -65,15 +66,13 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                 .expand((List<JobDispatcher> e) => e))
               Padding(
                 // title of the job dispatcher
-                padding:
-                    const EdgeInsets.only(left: kTotalAppMargin, right: 0, bottom: 8),
-                child: ExpansionTile(
-                  onExpansionChanged: (bool showDialog /*funky way to do this*/) async {
-                    if (kAllowDebugLogs) {
-                      logger.info(
-                          "Launch JOB_DISPATCHER_DESC_VIEW for ${j.runtimeType}@$j");
-                    }
+                padding: const EdgeInsets.only(
+                  left: kTotalAppMargin,
+                ),
+                child: InkWell(
+                  onTap: () async {
                     await showDialog(
+                        useSafeArea: false,
                         context: context,
                         builder: (BuildContext context) {
                           int jobsDispatched = 0;
@@ -82,22 +81,140 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                               jobsDispatched++;
                             }
                           }
-                          return Dialog(
-                            child: Padding(
-                                padding: const EdgeInsets.all(
-                                    kJobDispatcherFormScaffoldMargin),
-                                child: Column(
-                                  children: <Widget>[Text("Amogus: $jobsDispatched")],
-                                )),
-                          );
+                          return ImportanceDialog(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize
+                                .min, // makes sure we dont talk up max vertical space for this dialog
+                            children: <Widget>[
+                              Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          const Icon(Ionicons.bag_outline,
+                                              color: kTheme1),
+                                          const SizedBox(width: 4),
+                                          Text.rich(TextSpan(
+                                              text: j.name,
+                                              style: const TextStyle(
+                                                  fontSize: 22,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: kTheme1),
+                                              children: <InlineSpan>[
+                                                TextSpan(
+                                                    text:
+                                                        " ${Provider.of<InternationalizationNotifier>(context).i18n.canonicalBits.job_dispatcher_formal}",
+                                                    style: const TextStyle(
+                                                        fontWeight: FontWeight.normal,
+                                                        color: kTheme2))
+                                              ]))
+                                        ]),
+                                    Text.rich(TextSpan(
+                                        text: "ID: ",
+                                        style: const TextStyle(
+                                            fontSize: 12, fontWeight: FontWeight.bold),
+                                        children: <InlineSpan>[
+                                          TextSpan(
+                                              text: j.id.toString(),
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontFamily: "Monospaced")),
+                                        ])),
+                                    const SizedBox(height: 12),
+                                    const Divider(color: kThemePrimaryFg1),
+                                    const SizedBox(height: 12),
+                                    Text.rich(TextSpan(
+                                        text: Provider.of<InternationalizationNotifier>(
+                                                context)
+                                            .i18n
+                                            .appGenerics
+                                            .description,
+                                        style: const TextStyle(
+                                            fontSize: 14, fontWeight: FontWeight.bold),
+                                        children: <InlineSpan>[
+                                          TextSpan(
+                                              text: "\n${j.properDescription}",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                  color: kThemePrimaryFg1))
+                                        ])),
+                                    const SizedBox(height: 8),
+                                    Text.rich(TextSpan(
+                                        text: Provider.of<InternationalizationNotifier>(
+                                                context)
+                                            .i18n
+                                            .appGenerics
+                                            .supported_input_file_extensions,
+                                        style: const TextStyle(
+                                            fontSize: 14, fontWeight: FontWeight.bold),
+                                        children: <InlineSpan>[
+                                          TextSpan(
+                                              text:
+                                                  "\n${j.formatMedium.prettyifyInputFormats}",
+                                              style: const TextStyle(
+                                                  fontFamily: "Monospace",
+                                                  fontWeight: FontWeight.normal,
+                                                  color: kThemePrimaryFg1))
+                                        ])),
+                                    const SizedBox(height: 8),
+                                    Text.rich(TextSpan(
+                                        text: Provider.of<InternationalizationNotifier>(
+                                                context)
+                                            .i18n
+                                            .appGenerics
+                                            .supported_output_file_extensions,
+                                        style: const TextStyle(
+                                            fontSize: 14, fontWeight: FontWeight.bold),
+                                        children: <InlineSpan>[
+                                          TextSpan(
+                                              text:
+                                                  "\n${j.formatMedium.prettifyOutputFormats}",
+                                              style: const TextStyle(
+                                                  fontFamily: "Monospace",
+                                                  fontWeight: FontWeight.normal,
+                                                  color: kThemePrimaryFg1))
+                                        ])),
+                                    const SizedBox(height: 8),
+                                    Text.rich(TextSpan(
+                                        text: Provider.of<InternationalizationNotifier>(
+                                                context)
+                                            .i18n
+                                            .appGenerics
+                                            .dispatched_amount,
+                                        style: const TextStyle(
+                                            fontSize: 14, fontWeight: FontWeight.bold),
+                                        children: <InlineSpan>[
+                                          TextSpan(
+                                              text: "\n$jobsDispatched",
+                                              style: const TextStyle(
+                                                  fontFamily: "Monospace",
+                                                  fontWeight: FontWeight.normal,
+                                                  color: kThemePrimaryFg1))
+                                        ])),
+                                  ]),
+                              // no other descriptor elements after this comment plz
+                              const Spacer(),
+                              TextButton(
+                                  onPressed: Navigator.of(context).pop,
+                                  child: Text(
+                                      Provider.of<InternationalizationNotifier>(context)
+                                          .i18n
+                                          .appGenerics
+                                          .exit))
+                            ],
+                          ));
                         });
                   },
-                  dense: false,
-                  showTrailingIcon: false,
-                  enableFeedback: false,
-                  title: JobDispatcherDescriptorView(
-                    dispatcher: j,
-                    child: Row(
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.only(left: 14, right: 14, top: 6),
+                    dense: false,
+                    enableFeedback: false,
+                    title: Row(
                       children: <Widget>[
                         Text(j.name),
                         const SizedBox(width: 6),
@@ -114,13 +231,9 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                     color: kTheme1)))
                       ],
                     ),
-                  ),
-                  // description and like all of the "neat" details of the app such as the supported inputs and outputs formats
-                  subtitle: Padding(
-                    // we need this padding (top:8) so the title isn't too close to the subtitle/description
-                    // of this job
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Column(
+                    // description and like all of the "neat" details of the app such as the supported inputs and outputs formats
+                    subtitle: Column(
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
@@ -129,9 +242,12 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(j.description),
+                            const SizedBox(height: 2),
                             Text(
                                 "\n${InternationalizationNotifier().i18n.formatGeneric.supported_inputs}",
-                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: kThemePrimaryFg1)),
                             const SizedBox(height: 4),
                             Wrap(
                                 runAlignment: WrapAlignment.start,
@@ -157,7 +273,9 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                     .i18n
                                     .formatGeneric
                                     .supported_outputs,
-                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: kThemePrimaryFg1)),
                             const SizedBox(height: 4),
                             Wrap(
                                 runAlignment: WrapAlignment.start,
@@ -179,7 +297,15 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                 ]),
                           ],
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 4),
+                        Text(
+                            Provider.of<InternationalizationNotifier>(context)
+                                .i18n
+                                .formatGeneric
+                                .click_to_view_more,
+                            style:
+                                const TextStyle(fontSize: 12, color: kThemePrimaryFg2)),
+                        const SizedBox(height: 8),
                         TextButton(
                             onPressed: () async {
                               if (mounted) {
@@ -212,10 +338,10 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                             )),
                       ],
                     ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            kRRArc)), // this is j for visual purposes
                   ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(kRRArc)), // this is j for visual purposes
                 ),
               )
                   .animate(delay: const Duration(milliseconds: 400))
@@ -235,27 +361,27 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
   }
 }
 
-class _MouseDodgeHover extends StatelessWidget {
-  final Widget child;
+// class _MouseDodgeHover extends StatelessWidget {
+//   final Widget child;
 
-  const _MouseDodgeHover({required this.child});
+//   const _MouseDodgeHover({required this.child});
 
-  @override
-  Widget build(BuildContext context) {
-    return RepaintBoundary(
-        child: Tilt(
-      lightConfig: const LightConfig(disable: true),
-      shadowConfig: const ShadowConfig(disable: true),
-      tiltConfig: const TiltConfig(
-          angle: 2.8,
-          moveCurve: Curves.ease,
-          leaveCurve: Curves.easeInOut,
-          enableRevert: true,
-          enableReverse: true),
-      child: child,
-    ));
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return RepaintBoundary(
+//         child: Tilt(
+//       lightConfig: const LightConfig(disable: true),
+//       shadowConfig: const ShadowConfig(disable: true),
+//       tiltConfig: const TiltConfig(
+//           angle: 2.8,
+//           moveCurve: Curves.ease,
+//           leaveCurve: Curves.easeInOut,
+//           enableRevert: true,
+//           enableReverse: true),
+//       child: child,
+//     ));
+//   }
+// }
 
 /// describes the drawer header graphic bit
 class CanonicalAdvert extends StatelessWidget {

@@ -67,6 +67,8 @@ class TranslationsZh extends Translations {
   String get locale => "zh";
   String get languageCode => "zh";
   AppGenericsTranslationsZh get appGenerics => AppGenericsTranslationsZh(this);
+  CanonicalBitsTranslationsZh get canonicalBits =>
+      CanonicalBitsTranslationsZh(this);
   FilePickerTranslationsZh get filePicker => FilePickerTranslationsZh(this);
   FormatGenericTranslationsZh get formatGeneric =>
       FormatGenericTranslationsZh(this);
@@ -97,6 +99,41 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   /// "任务数量"
   /// ```
   String get job_count => """任务数量""";
+
+  /// ```dart
+  /// "退出"
+  /// ```
+  String get exit => """退出""";
+
+  /// ```dart
+  /// "调度数量"
+  /// ```
+  String get dispatched_amount => """调度数量""";
+
+  /// ```dart
+  /// "细节"
+  /// ```
+  String get description => """细节""";
+
+  /// ```dart
+  /// "支持的输入文件扩展名"
+  /// ```
+  String get supported_input_file_extensions => """支持的输入文件扩展名""";
+
+  /// ```dart
+  /// "支持的输出文件扩展名"
+  /// ```
+  String get supported_output_file_extensions => """支持的输出文件扩展名""";
+}
+
+class CanonicalBitsTranslationsZh extends CanonicalBitsTranslations {
+  final TranslationsZh _parent;
+  const CanonicalBitsTranslationsZh(this._parent) : super(_parent);
+
+  /// ```dart
+  /// "任务调度"
+  /// ```
+  String get job_dispatcher_formal => """任务调度""";
 }
 
 class FilePickerTranslationsZh extends FilePickerTranslations {
@@ -142,6 +179,11 @@ class FormatGenericTranslationsZh extends FormatGenericTranslations {
   /// "图像类"
   /// ```
   String get image => """图像类""";
+
+  /// ```dart
+  /// "轻触查看更多信息"
+  /// ```
+  String get click_to_view_more => """轻触查看更多信息""";
 }
 
 class SingleImgJobTranslationsZh extends SingleImgJobTranslations {
@@ -157,6 +199,11 @@ class SingleImgJobTranslationsZh extends SingleImgJobTranslations {
   /// "把一个图像文件变成别的文件格式"
   /// ```
   String get description => """把一个图像文件变成别的文件格式""";
+
+  /// ```dart
+  /// "XXXXX"
+  /// ```
+  String get proper_description => """XXXXX""";
 }
 
 Map<String, String> get translationsZhMap => {
@@ -164,6 +211,12 @@ Map<String, String> get translationsZhMap => {
       """app generics.canonical_description""": """自动背后转换文件器""",
       """app generics.nothing_to_do""": """没有事可干…""",
       """app generics.job_count""": """任务数量""",
+      """app generics.exit""": """退出""",
+      """app generics.dispatched_amount""": """调度数量""",
+      """app generics.description""": """细节""",
+      """app generics.supported_input_file_extensions""": """支持的输入文件扩展名""",
+      """app generics.supported_output_file_extensions""": """支持的输出文件扩展名""",
+      """canonical bits.job_dispatcher_formal""": """任务调度""",
       """file picker.dialog_title_pick_file""": """选择文件""",
       """file picker.dialog_title_pick_folder""": """选择文件夹""",
       """file picker.launch""": """使用文件选择器""",
@@ -171,6 +224,8 @@ Map<String, String> get translationsZhMap => {
       """format generic.supported_outputs""": """支持的输出""",
       """format generic.push_job""": """添加这个程序""",
       """format generic.image""": """图像类""",
+      """format generic.click_to_view_more""": """轻触查看更多信息""",
       """single img job.canonical_name""": """单个图像""",
       """single img job.description""": """把一个图像文件变成别的文件格式""",
+      """single img job.proper_description""": """XXXXX""",
     };

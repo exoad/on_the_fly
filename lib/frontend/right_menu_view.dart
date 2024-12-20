@@ -76,25 +76,24 @@ class AppRightMenuView extends StatelessWidget {
                               ? const SizedBox(height: kWindowShelfHeight)
                               : Builder(builder: (BuildContext context) {
                                   Widget contentW = Padding(
-                                    padding: const EdgeInsets.only(bottom: 8),
-                                    child: ListTile(
-                                      title: Text(
-                                          "${Provider.of<GlobalJobStack>(context).jobStack[index]}#${Provider.of<GlobalJobStack>(context).jobStack[index].hashCode}"),
-                                      onTap: () {
-                                        Provider.of<GlobalJobStack>(context,
-                                                listen: false)
-                                            .removeJob(Provider.of<GlobalJobStack>(
-                                                    context,
-                                                    listen: false)
-                                                .jobStack[index]);
-                                        debugSeek()["job_stack_sz"] =
-                                            Provider.of<GlobalJobStack>(context,
-                                                    listen: false)
-                                                .jobStack
-                                                .length;
-                                      },
-                                    )
-                                  );
+                                      padding: const EdgeInsets.only(bottom: 8),
+                                      child: ListTile(
+                                        title: Text(
+                                            "${Provider.of<GlobalJobStack>(context).jobStack[index]}#${Provider.of<GlobalJobStack>(context).jobStack[index].hashCode}"),
+                                        onTap: () {
+                                          Provider.of<GlobalJobStack>(context,
+                                                  listen: false)
+                                              .removeJob(Provider.of<GlobalJobStack>(
+                                                      context,
+                                                      listen: false)
+                                                  .jobStack[index]);
+                                          debugSeek()["job_stack_sz"] =
+                                              Provider.of<GlobalJobStack>(context,
+                                                      listen: false)
+                                                  .jobStack
+                                                  .length;
+                                        },
+                                      ));
                                   // we add some end padding to the list view scroll
                                   return index ==
                                           Provider.of<GlobalJobStack>(context,
@@ -113,14 +112,26 @@ class AppRightMenuView extends StatelessWidget {
                   ),
               ]),
           const Align(
-              alignment: Alignment.topLeft,
-              child: SizedBox(
-                  height: kWindowShelfHeight,
-                  child: Padding(
-                    padding:
-                        EdgeInsets.only(top: kTotalAppMargin, left: kTotalAppMargin * 2),
-                    child: AppTopShelf(),
-                  ))),
+                  alignment: Alignment.topLeft,
+                  child: SizedBox(
+                      height: kWindowShelfHeight,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: kTotalAppMargin, left: kTotalAppMargin * 2),
+                        child: AppTopShelf(),
+                      )))
+              .animate(autoPlay: true, delay: const Duration(milliseconds: 400))
+              .fadeIn(
+                  begin: 0,
+                  curve: Curves.easeInOut,
+                  duration: const Duration(milliseconds: 600),
+                  delay: const Duration(milliseconds: 270))
+              .slideY(
+                  begin: 0.02,
+                  end: 0,
+                  curve: Curves.ease,
+                  duration: const Duration(milliseconds: 500),
+                  delay: const Duration(milliseconds: 230)),
           Align(
             alignment: Alignment.topCenter,
             child: WindowTitleBarBox(
@@ -151,14 +162,14 @@ class AppTopShelf extends StatelessWidget {
                   elevation: 16,
                   borderRadius: BorderRadius.circular(kRRArc),
                   color: kThemePrimaryFg1.withOpacity(0.08)),
-        //   const SizedBox(width: kTotalAppMargin),
-        //   Text("${InternationalizationNotifier().i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
-        //           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
-        //       .blurry(
-        //           blur: 10,
-        //           elevation: 16,
-        //           borderRadius: BorderRadius.circular(kRRArc),
-        //           color: kThemePrimaryFg1.withOpacity(0.08)),
+          //   const SizedBox(width: kTotalAppMargin),
+          //   Text("${InternationalizationNotifier().i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
+          //           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
+          //       .blurry(
+          //           blur: 10,
+          //           elevation: 16,
+          //           borderRadius: BorderRadius.circular(kRRArc),
+          //           color: kThemePrimaryFg1.withOpacity(0.08)),
         ]);
   }
 }

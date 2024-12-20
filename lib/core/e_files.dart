@@ -49,5 +49,32 @@ class FormatMedium {
     }
     return _formats[key]!; // fuck dead code warnings lmao
   }
-}
 
+  String get prettyifyInputFormats {
+    StringBuffer buffer = StringBuffer();
+    for (int i = 0; i < inputFormats.length; i++) {
+      FileFormat f = inputFormats[i];
+      for (int j = 0; j < f.validExtensions.length; j++) {
+        buffer.write("*.${f.validExtensions[j]}");
+        if (!(i == inputFormats.length - 1 && j == f.validExtensions.length - 1)) {
+          buffer.write(", ");
+        }
+      }
+    }
+    return buffer.toString();
+  }
+
+  String get prettifyOutputFormats {
+    StringBuffer buffer = StringBuffer();
+    for (int i = 0; i < outputFormats.length; i++) {
+      FileFormat f = outputFormats[i];
+      for (int j = 0; j < f.validExtensions.length; j++) {
+        buffer.write("*.${f.validExtensions[j]}");
+        if (!(i == outputFormats.length - 1 && j == f.validExtensions.length - 1)) {
+          buffer.write(", ");
+        }
+      }
+    }
+    return buffer.toString();
+  }
+}
