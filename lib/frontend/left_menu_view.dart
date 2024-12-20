@@ -196,6 +196,24 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                                   fontWeight: FontWeight.normal,
                                                   color: kThemePrimaryFg1))
                                         ])),
+                                    const SizedBox(height: 8),
+                                    Text.rich(TextSpan(
+                                        text: Provider.of<InternationalizationNotifier>(
+                                                context)
+                                            .i18n
+                                            .appGenerics
+                                            .processor,
+                                        style: const TextStyle(
+                                            fontSize: 14, fontWeight: FontWeight.bold),
+                                        children: <InlineSpan>[
+                                          TextSpan(
+                                              text:
+                                                  "\n${j.routineProcessor}#${j.routineProcessor.hashCode}",
+                                              style: const TextStyle(
+                                                  fontFamily: "Monospace",
+                                                  fontWeight: FontWeight.normal,
+                                                  color: kThemePrimaryFg1))
+                                        ])),
                                   ]),
                               // no other descriptor elements after this comment plz
                               const Spacer(),

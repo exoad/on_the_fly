@@ -4,6 +4,7 @@ app generics:
   nothing_to_do: Nothing to do right now...
   job_count: Jobs
   exit: Exit
+  processor: Processor
   dispatched_amount: Variants dispatched
   description: Description
   supported_input_file_extensions: Supported input file extensions

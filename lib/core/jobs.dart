@@ -1,11 +1,6 @@
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
 import 'package:on_the_fly/shared/app.dart';
-import 'package:on_the_fly/shared/theme.dart';
 
 /// an instance created by a job dispatcher which represents a user
 /// specified action to run
@@ -97,51 +92,53 @@ abstract class JobDispatcher {
   /// its best to often implement and provide description for this method instead of returning either [description]
   /// or `null`
   String? get properDescription;
+
+  Type get routineProcessor;
 }
 
-class JobDispatcherFormBuilder {
-  JobDispatcherFormBuilder._();
+// class JobDispatcherFormBuilder {
+//   JobDispatcherFormBuilder._();
 
-  static Map<String, dynamic> fSingleInputPath(String key,
-          [String additionalHelperText = ""]) =>
-      <String, dynamic>{
-        "key": key,
-        "type": "Input",
-        "required": true,
-        "label": "Path to input file",
-        "decoration": InputDecoration(
-            helper: Text("$additionalHelperText Example: .\\Downloads\\Cat_Picture.png",
-                style: const TextStyle(fontSize: 14, color: kThemePrimaryFg2)),
-            suffix: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-              child: FilledButton(
-                      onPressed: () async {
-                        await FilePicker.platform.pickFiles(dialogTitle: "Pick file");
-                      }, // todo: incorporate with native file picker and fully implement this
-                      style: ButtonStyle(
-                          shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(kRRArc))),
-                          backgroundColor: const WidgetStatePropertyAll<Color>(kTheme1),
-                          foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg),
-                          visualDensity: VisualDensity.compact),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Icon(
-                            Ionicons.folder_outline,
-                            size: 24,
-                          ),
-                          SizedBox(width: 4),
-                          Text("Use file picker", style: TextStyle(fontSize: 12))
-                        ],
-                      ))
-                  .animate()
-                  .fade(
-                      duration: const Duration(milliseconds: 220),
-                      curve: Curves.easeInOut),
-            ),
-            border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(kRRArc))))
-      };
-}
+//   static Map<String, dynamic> fSingleInputPath(String key,
+//           [String additionalHelperText = ""]) =>
+//       <String, dynamic>{
+//         "key": key,
+//         "type": "Input",
+//         "required": true,
+//         "label": "Path to input file",
+//         "decoration": InputDecoration(
+//             helper: Text("$additionalHelperText Example: .\\Downloads\\Cat_Picture.png",
+//                 style: const TextStyle(fontSize: 14, color: kThemePrimaryFg2)),
+//             suffix: Padding(
+//               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+//               child: FilledButton(
+//                       onPressed: () async {
+//                         await FilePicker.platform.pickFiles(dialogTitle: "Pick file");
+//                       }, // todo: incorporate with native file picker and fully implement this
+//                       style: ButtonStyle(
+//                           shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+//                               RoundedRectangleBorder(
+//                                   borderRadius: BorderRadius.circular(kRRArc))),
+//                           backgroundColor: const WidgetStatePropertyAll<Color>(kTheme1),
+//                           foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg),
+//                           visualDensity: VisualDensity.compact),
+//                       child: const Row(
+//                         mainAxisSize: MainAxisSize.min,
+//                         children: <Widget>[
+//                           Icon(
+//                             Ionicons.folder_outline,
+//                             size: 24,
+//                           ),
+//                           SizedBox(width: 4),
+//                           Text("Use file picker", style: TextStyle(fontSize: 12))
+//                         ],
+//                       ))
+//                   .animate()
+//                   .fade(
+//                       duration: const Duration(milliseconds: 220),
+//                       curve: Curves.easeInOut),
+//             ),
+//             border: const OutlineInputBorder(
+//                 borderRadius: BorderRadius.all(Radius.circular(kRRArc))))
+//       };
+// }

@@ -41,10 +41,20 @@ final class ImageMedium extends FormatMedium {
                   validExtensions: <String>["gif"],
                   canWrite: true,
                   canRead: true),
-              "tif": const FileFormat(
+              "tiff": const FileFormat(
                   canonicalName: "TIFF",
                   validExtensions: <String>["tiff"],
                   canWrite: true,
+                  canRead: true),
+              "tga": const FileFormat(
+                  canonicalName: "TGA",
+                  validExtensions: <String>["tga", "icb"],
+                  canWrite: true,
+                  canRead: true),
+              "psd": const FileFormat(
+                  canonicalName: "PSD",
+                  validExtensions: <String>["psd"],
+                  canWrite: false,
                   canRead: true),
             });
 }
@@ -74,6 +84,9 @@ class SingleImgJobDispatcher extends JobDispatcher {
   @override
   String? get properDescription =>
       InternationalizationNotifier().i18n.singleImgJob.proper_description;
+
+  @override
+  Type get routineProcessor => ImageRoutineProcessor;
 }
 
 class SingleImgJob extends Job {

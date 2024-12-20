@@ -4,6 +4,7 @@ app generics:
   nothing_to_do: 没有事可干…
   job_count: 任务数量
   exit: 退出
+  processor: 处理器
   dispatched_amount: 调度数量
   description: 细节
   supported_input_file_extensions: 支持的输入文件扩展名

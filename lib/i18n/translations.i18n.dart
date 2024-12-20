@@ -104,6 +104,11 @@ class AppGenericsTranslations {
   String get exit => """Exit""";
 
   /// ```dart
+  /// "Processor"
+  /// ```
+  String get processor => """Processor""";
+
+  /// ```dart
   /// "Variants dispatched"
   /// ```
   String get dispatched_amount => """Variants dispatched""";
@@ -214,6 +219,7 @@ Map<String, String> get translationsMap => {
       """app generics.nothing_to_do""": """Nothing to do right now...""",
       """app generics.job_count""": """Jobs""",
       """app generics.exit""": """Exit""",
+      """app generics.processor""": """Processor""",
       """app generics.dispatched_amount""": """Variants dispatched""",
       """app generics.description""": """Description""",
       """app generics.supported_input_file_extensions""":

@@ -106,6 +106,11 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   String get exit => """退出""";
 
   /// ```dart
+  /// "处理器"
+  /// ```
+  String get processor => """处理器""";
+
+  /// ```dart
   /// "调度数量"
   /// ```
   String get dispatched_amount => """调度数量""";
@@ -212,6 +217,7 @@ Map<String, String> get translationsZhMap => {
       """app generics.nothing_to_do""": """没有事可干…""",
       """app generics.job_count""": """任务数量""",
       """app generics.exit""": """退出""",
+      """app generics.processor""": """处理器""",
       """app generics.dispatched_amount""": """调度数量""",
       """app generics.description""": """细节""",
       """app generics.supported_input_file_extensions""": """支持的输入文件扩展名""",
