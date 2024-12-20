@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
@@ -87,10 +89,20 @@ class SingleImgJobDispatcher extends JobDispatcher {
 
   @override
   Type get routineProcessor => ImageRoutineProcessor;
+
+  @override
+  Job produceInitialJobInstance() {
+    return SingleImgJob(inputPath: <String>[Platform.resolvedExecutable]);
+  }
 }
 
 class SingleImgJob extends Job {
-  SingleImgJob({required super.inputPath, required super.outputNameBuilder});
+  late OutputPathHandler outputPathHandler;
+
+  SingleImgJob({required super.inputPath});
+
+  @override
+  OutputPathHandler get outputNameBuilder => outputPathHandler;
 
   @override
   bool canPop() {
@@ -113,9 +125,10 @@ class ImageRoutineProcessor extends RoutineProcessor<ImageMedium> {
   }
 
   @override
-  String get canonicalName => "Builtin Image Processor";
+  String get canonicalName =>
+      InternationalizationNotifier().i18n.builtinImgProcessor.canonical_name;
 
   @override
   String get canonicalDescriptor =>
-      "Used for processing image files such as PNG, JPEG, etc.. This processor is builtin to OnTheFly";
+      InternationalizationNotifier().i18n.builtinImgProcessor.proper_description;
 }

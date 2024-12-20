@@ -9,6 +9,7 @@ app generics:
   description: Description
   supported_input_file_extensions: Supported input file extensions
   supported_output_file_extensions: Supported output file extensions
+  no_impl: No Implementation
 canonical bits:
   job_dispatcher_formal: Job Dispatcher
 file picker:
@@ -25,3 +26,6 @@ single img job:
   canonical_name: Single Image
   description: Converts a single image file from one format to another
   proper_description: This job is a simple way to provide a simple way to convert just one image file from one format to another format. If you want to convert multiple files or watch a folder, you should seek for alternative methods.
+builtin img processor:
+  canonical_name: Builtin Image Processor
+  proper_description: Used for processing image files such as PNG, JPEG, etc.. This processor is builtin to OnTheFly

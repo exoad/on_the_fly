@@ -1,15 +1,22 @@
+import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
+import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/shared/app.dart';
+import 'package:on_the_fly/shared/theme.dart';
+import 'package:provider/provider.dart';
 
 /// an instance created by a job dispatcher which represents a user
 /// specified action to run
 ///
 abstract class Job {
   List<String> inputPath;
-  OutputNameBuilder outputNameBuilder;
 
-  Job({required this.inputPath, required this.outputNameBuilder});
+  Job({required this.inputPath});
+
+  /// processes and generates an output name
+  OutputPathHandler get outputNameBuilder;
 
   /// called when this job instance gets pushed onto the global job stack
   ///
@@ -26,6 +33,17 @@ abstract class Job {
   ///
   /// returns a result which represents the job status
   Result<Null, String> process();
+
+  @mustBeOverridden
+  Widget buildForm(BuildContext context) {
+    return Container(
+        decoration:
+            BoxDecoration(color: kTheme1, borderRadius: BorderRadius.circular(kRRArc)),
+        padding: const EdgeInsets.all(8),
+        child: Center(
+            child: Text(
+                ">>> ${Provider.of<InternationalizationNotifier>(context).i18n.appGenerics.no_impl} <<<")));
+  }
 }
 
 /// a basis for all jobs
@@ -94,6 +112,10 @@ abstract class JobDispatcher {
   String? get properDescription;
 
   Type get routineProcessor;
+
+  /// this function produces an initial instance of this job that MUST be remodified by
+  /// the user.
+  Job produceInitialJobInstance();
 }
 
 // class JobDispatcherFormBuilder {

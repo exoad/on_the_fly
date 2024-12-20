@@ -74,6 +74,8 @@ class TranslationsZh extends Translations {
       FormatGenericTranslationsZh(this);
   SingleImgJobTranslationsZh get singleImgJob =>
       SingleImgJobTranslationsZh(this);
+  BuiltinImgProcessorTranslationsZh get builtinImgProcessor =>
+      BuiltinImgProcessorTranslationsZh(this);
 }
 
 class AppGenericsTranslationsZh extends AppGenericsTranslations {
@@ -129,6 +131,11 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   /// "支持的输出文件扩展名"
   /// ```
   String get supported_output_file_extensions => """支持的输出文件扩展名""";
+
+  /// ```dart
+  /// "无实现"
+  /// ```
+  String get no_impl => """无实现""";
 }
 
 class CanonicalBitsTranslationsZh extends CanonicalBitsTranslations {
@@ -211,6 +218,22 @@ class SingleImgJobTranslationsZh extends SingleImgJobTranslations {
   String get proper_description => """XXXXX""";
 }
 
+class BuiltinImgProcessorTranslationsZh
+    extends BuiltinImgProcessorTranslations {
+  final TranslationsZh _parent;
+  const BuiltinImgProcessorTranslationsZh(this._parent) : super(_parent);
+
+  /// ```dart
+  /// "内置图像处理器"
+  /// ```
+  String get canonical_name => """内置图像处理器""";
+
+  /// ```dart
+  /// "XXXXX"
+  /// ```
+  String get proper_description => """XXXXX""";
+}
+
 Map<String, String> get translationsZhMap => {
       """app generics.canonical_title""": """悄悄转""",
       """app generics.canonical_description""": """自动背后转换文件器""",
@@ -222,6 +245,7 @@ Map<String, String> get translationsZhMap => {
       """app generics.description""": """细节""",
       """app generics.supported_input_file_extensions""": """支持的输入文件扩展名""",
       """app generics.supported_output_file_extensions""": """支持的输出文件扩展名""",
+      """app generics.no_impl""": """无实现""",
       """canonical bits.job_dispatcher_formal""": """任务调度""",
       """file picker.dialog_title_pick_file""": """选择文件""",
       """file picker.dialog_title_pick_folder""": """选择文件夹""",
@@ -234,4 +258,6 @@ Map<String, String> get translationsZhMap => {
       """single img job.canonical_name""": """单个图像""",
       """single img job.description""": """把一个图像文件变成别的文件格式""",
       """single img job.proper_description""": """XXXXX""",
+      """builtin img processor.canonical_name""": """内置图像处理器""",
+      """builtin img processor.proper_description""": """XXXXX""",
     };

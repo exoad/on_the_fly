@@ -81,151 +81,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                               jobsDispatched++;
                             }
                           }
-                          return ImportanceDialog(
-                              child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize
-                                .min, // makes sure we dont talk up max vertical space for this dialog
-                            children: <Widget>[
-                              Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          const Icon(Ionicons.bag_outline,
-                                              color: kTheme1),
-                                          const SizedBox(width: 4),
-                                          Text.rich(TextSpan(
-                                              text: j.name,
-                                              style: const TextStyle(
-                                                  fontSize: 22,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: kTheme1),
-                                              children: <InlineSpan>[
-                                                TextSpan(
-                                                    text:
-                                                        " ${Provider.of<InternationalizationNotifier>(context).i18n.canonicalBits.job_dispatcher_formal}",
-                                                    style: const TextStyle(
-                                                        fontWeight: FontWeight.normal,
-                                                        color: kTheme2))
-                                              ]))
-                                        ]),
-                                    Text.rich(TextSpan(
-                                        text: "ID: ",
-                                        style: const TextStyle(
-                                            fontSize: 12, fontWeight: FontWeight.bold),
-                                        children: <InlineSpan>[
-                                          TextSpan(
-                                              text: j.id.toString(),
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontFamily: "Monospaced")),
-                                        ])),
-                                    const SizedBox(height: 12),
-                                    const Divider(color: kThemePrimaryFg1),
-                                    const SizedBox(height: 12),
-                                    Text.rich(TextSpan(
-                                        text: Provider.of<InternationalizationNotifier>(
-                                                context)
-                                            .i18n
-                                            .appGenerics
-                                            .description,
-                                        style: const TextStyle(
-                                            fontSize: 14, fontWeight: FontWeight.bold),
-                                        children: <InlineSpan>[
-                                          TextSpan(
-                                              text: "\n${j.properDescription}",
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  color: kThemePrimaryFg1))
-                                        ])),
-                                    const SizedBox(height: 8),
-                                    Text.rich(TextSpan(
-                                        text: Provider.of<InternationalizationNotifier>(
-                                                context)
-                                            .i18n
-                                            .appGenerics
-                                            .supported_input_file_extensions,
-                                        style: const TextStyle(
-                                            fontSize: 14, fontWeight: FontWeight.bold),
-                                        children: <InlineSpan>[
-                                          TextSpan(
-                                              text:
-                                                  "\n${j.formatMedium.prettyifyInputFormats}",
-                                              style: const TextStyle(
-                                                  fontFamily: "Monospace",
-                                                  fontWeight: FontWeight.normal,
-                                                  color: kThemePrimaryFg1))
-                                        ])),
-                                    const SizedBox(height: 8),
-                                    Text.rich(TextSpan(
-                                        text: Provider.of<InternationalizationNotifier>(
-                                                context)
-                                            .i18n
-                                            .appGenerics
-                                            .supported_output_file_extensions,
-                                        style: const TextStyle(
-                                            fontSize: 14, fontWeight: FontWeight.bold),
-                                        children: <InlineSpan>[
-                                          TextSpan(
-                                              text:
-                                                  "\n${j.formatMedium.prettifyOutputFormats}",
-                                              style: const TextStyle(
-                                                  fontFamily: "Monospace",
-                                                  fontWeight: FontWeight.normal,
-                                                  color: kThemePrimaryFg1))
-                                        ])),
-                                    const SizedBox(height: 8),
-                                    Text.rich(TextSpan(
-                                        text: Provider.of<InternationalizationNotifier>(
-                                                context)
-                                            .i18n
-                                            .appGenerics
-                                            .dispatched_amount,
-                                        style: const TextStyle(
-                                            fontSize: 14, fontWeight: FontWeight.bold),
-                                        children: <InlineSpan>[
-                                          TextSpan(
-                                              text: "\n$jobsDispatched",
-                                              style: const TextStyle(
-                                                  fontFamily: "Monospace",
-                                                  fontWeight: FontWeight.normal,
-                                                  color: kThemePrimaryFg1))
-                                        ])),
-                                    const SizedBox(height: 8),
-                                    Text.rich(TextSpan(
-                                        text: Provider.of<InternationalizationNotifier>(
-                                                context)
-                                            .i18n
-                                            .appGenerics
-                                            .processor,
-                                        style: const TextStyle(
-                                            fontSize: 14, fontWeight: FontWeight.bold),
-                                        children: <InlineSpan>[
-                                          TextSpan(
-                                              text:
-                                                  "\n${j.routineProcessor}#${j.routineProcessor.hashCode}",
-                                              style: const TextStyle(
-                                                  fontFamily: "Monospace",
-                                                  fontWeight: FontWeight.normal,
-                                                  color: kThemePrimaryFg1))
-                                        ])),
-                                  ]),
-                              // no other descriptor elements after this comment plz
-                              const Spacer(),
-                              TextButton(
-                                  onPressed: Navigator.of(context).pop,
-                                  child: Text(
-                                      Provider.of<InternationalizationNotifier>(context)
-                                          .i18n
-                                          .appGenerics
-                                          .exit))
-                            ],
-                          ));
+                          return _JobDispatcherView(j: j, jobsDispatched: jobsDispatched);
                         });
                   },
                   child: ListTile(
@@ -335,6 +191,8 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                 //     Provider.of<GlobalJobStack>(context, listen: false)
                                 //         .jobStack
                                 //         .length;
+                                Provider.of<GlobalJobStack>(context, listen: false)
+                                    .addJob(j.produceInitialJobInstance());
                               }
                             }, // TODO: proper impl job selection
                             style: Theme.of(context).textButtonTheme.style!.copyWith(
@@ -376,6 +234,143 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
         ),
       ),
     );
+  }
+}
+
+class _JobDispatcherView extends StatelessWidget {
+  const _JobDispatcherView({
+    required this.j,
+    required this.jobsDispatched,
+  });
+
+  final JobDispatcher j;
+  final int jobsDispatched;
+
+  @override
+  Widget build(BuildContext context) {
+    return ImportanceDialog(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize
+          .min, // makes sure we dont talk up max vertical space for this dialog
+      children: <Widget>[
+        SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+                  const Icon(Ionicons.bag_outline, color: kTheme1),
+                  const SizedBox(width: 4),
+                  Text.rich(TextSpan(
+                      text: j.name,
+                      style: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold, color: kTheme1),
+                      children: <InlineSpan>[
+                        TextSpan(
+                            text:
+                                " ${Provider.of<InternationalizationNotifier>(context).i18n.canonicalBits.job_dispatcher_formal}",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.normal, color: kTheme2))
+                      ]))
+                ]),
+                Text.rich(TextSpan(
+                    text: "ID: ",
+                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    children: <InlineSpan>[
+                      TextSpan(
+                          text: j.id.toString(),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.normal, fontFamily: "Monospaced")),
+                    ])),
+                const SizedBox(height: 12),
+                const Divider(color: kThemePrimaryFg1),
+                const SizedBox(height: 12),
+                Text.rich(TextSpan(
+                    text: Provider.of<InternationalizationNotifier>(context)
+                        .i18n
+                        .appGenerics
+                        .description,
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    children: <InlineSpan>[
+                      TextSpan(
+                          text: "\n${j.properDescription}",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.normal, color: kThemePrimaryFg1))
+                    ])),
+                const SizedBox(height: 8),
+                Text.rich(TextSpan(
+                    text: Provider.of<InternationalizationNotifier>(context)
+                        .i18n
+                        .appGenerics
+                        .supported_input_file_extensions,
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    children: <InlineSpan>[
+                      TextSpan(
+                          text: "\n${j.formatMedium.prettyifyInputFormats}",
+                          style: const TextStyle(
+                              fontFamily: "Monospace",
+                              fontWeight: FontWeight.normal,
+                              color: kThemePrimaryFg1))
+                    ])),
+                const SizedBox(height: 8),
+                Text.rich(TextSpan(
+                    text: Provider.of<InternationalizationNotifier>(context)
+                        .i18n
+                        .appGenerics
+                        .supported_output_file_extensions,
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    children: <InlineSpan>[
+                      TextSpan(
+                          text: "\n${j.formatMedium.prettifyOutputFormats}",
+                          style: const TextStyle(
+                              fontFamily: "Monospace",
+                              fontWeight: FontWeight.normal,
+                              color: kThemePrimaryFg1))
+                    ])),
+                const SizedBox(height: 8),
+                Text.rich(TextSpan(
+                    text: Provider.of<InternationalizationNotifier>(context)
+                        .i18n
+                        .appGenerics
+                        .dispatched_amount,
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    children: <InlineSpan>[
+                      TextSpan(
+                          text: "\n$jobsDispatched",
+                          style: const TextStyle(
+                              fontFamily: "Monospace",
+                              fontWeight: FontWeight.normal,
+                              color: kThemePrimaryFg1))
+                    ])),
+                const SizedBox(height: 8),
+                Text.rich(TextSpan(
+                    text: Provider.of<InternationalizationNotifier>(context)
+                        .i18n
+                        .appGenerics
+                        .processor,
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    children: <InlineSpan>[
+                      TextSpan(
+                          text: "\n${j.routineProcessor}#${j.routineProcessor.hashCode}",
+                          style: const TextStyle(
+                              fontFamily: "Monospace",
+                              fontWeight: FontWeight.normal,
+                              color: kThemePrimaryFg1))
+                    ])),
+              ]),
+        ),
+        // no other descriptor elements after this comment plz
+        const Spacer(),
+        TextButton(
+            onPressed: Navigator.of(context).pop,
+            child: Text(
+                Provider.of<InternationalizationNotifier>(context).i18n.appGenerics.exit))
+      ],
+    ));
   }
 }
 

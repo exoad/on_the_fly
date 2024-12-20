@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:on_the_fly/core/jobs.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/shared/app.dart';
 
@@ -13,20 +14,20 @@ class GlobalJobStack with ChangeNotifier {
 
   factory GlobalJobStack() => _instance;
 
-  final List<dynamic> _jobStack = <dynamic>[];
+  final List<Job> _jobStack = <Job>[];
 
-  List<dynamic> get jobStack => _jobStack;
+  List<Job> get jobStack => _jobStack;
 
-  void addJob(dynamic job) {
+  void addJob(Job job) {
     if (kAllowDebugLogs) {
       logger.info("GlobalJobStack adds: $job");
     }
-    debugSeek()["global_job_stack"] = _jobStack.toString();
     _jobStack.add(job);
+    debugSeek()["global_job_stack"] = _jobStack.toString();
     notifyListeners();
   }
 
-  void removeJob(dynamic job) {
+  void removeJob(Job job) {
     if (kAllowDebugLogs) {
       logger.info("GlobalJobStack removes: $job");
     }
@@ -39,5 +40,9 @@ class GlobalJobStack with ChangeNotifier {
     while (jobStack.isNotEmpty) {
       removeJob(jobStack.last);
     }
+  }
+
+  Job operator [](int index) {
+    return _jobStack[index];
   }
 }

@@ -72,6 +72,8 @@ class Translations {
   FormatGenericTranslations get formatGeneric =>
       FormatGenericTranslations(this);
   SingleImgJobTranslations get singleImgJob => SingleImgJobTranslations(this);
+  BuiltinImgProcessorTranslations get builtinImgProcessor =>
+      BuiltinImgProcessorTranslations(this);
 }
 
 class AppGenericsTranslations {
@@ -129,6 +131,11 @@ class AppGenericsTranslations {
   /// ```
   String get supported_output_file_extensions =>
       """Supported output file extensions""";
+
+  /// ```dart
+  /// "No Implementation"
+  /// ```
+  String get no_impl => """No Implementation""";
 }
 
 class CanonicalBitsTranslations {
@@ -213,6 +220,22 @@ class SingleImgJobTranslations {
       """This job is a simple way to provide a simple way to convert just one image file from one format to another format. If you want to convert multiple files or watch a folder, you should seek for alternative methods.""";
 }
 
+class BuiltinImgProcessorTranslations {
+  final Translations _parent;
+  const BuiltinImgProcessorTranslations(this._parent);
+
+  /// ```dart
+  /// "Builtin Image Processor"
+  /// ```
+  String get canonical_name => """Builtin Image Processor""";
+
+  /// ```dart
+  /// "Used for processing image files such as PNG, JPEG, etc.. This processor is builtin to OnTheFly"
+  /// ```
+  String get proper_description =>
+      """Used for processing image files such as PNG, JPEG, etc.. This processor is builtin to OnTheFly""";
+}
+
 Map<String, String> get translationsMap => {
       """app generics.canonical_title""": """OnTheFly""",
       """app generics.canonical_description""": """Auto convert file formats""",
@@ -226,6 +249,7 @@ Map<String, String> get translationsMap => {
           """Supported input file extensions""",
       """app generics.supported_output_file_extensions""":
           """Supported output file extensions""",
+      """app generics.no_impl""": """No Implementation""",
       """canonical bits.job_dispatcher_formal""": """Job Dispatcher""",
       """file picker.dialog_title_pick_file""": """Select a file""",
       """file picker.dialog_title_pick_folder""": """Select a folder""",
@@ -240,4 +264,7 @@ Map<String, String> get translationsMap => {
           """Converts a single image file from one format to another""",
       """single img job.proper_description""":
           """This job is a simple way to provide a simple way to convert just one image file from one format to another format. If you want to convert multiple files or watch a folder, you should seek for alternative methods.""",
+      """builtin img processor.canonical_name""": """Builtin Image Processor""",
+      """builtin img processor.proper_description""":
+          """Used for processing image files such as PNG, JPEG, etc.. This processor is builtin to OnTheFly""",
     };

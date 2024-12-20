@@ -66,48 +66,46 @@ class AppRightMenuView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: ListView.builder(
-                        physics: const BouncingScrollPhysics(
-                            parent: AlwaysScrollableScrollPhysics()),
-                        itemCount: Provider.of<GlobalJobStack>(context, listen: false)
-                            .jobStack
-                            .length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return index == 0
-                              ? const SizedBox(height: kWindowShelfHeight)
-                              : Builder(builder: (BuildContext context) {
-                                  Widget contentW = Padding(
-                                      padding: const EdgeInsets.only(bottom: 8),
-                                      child: ListTile(
-                                        title: Text(
-                                            "${Provider.of<GlobalJobStack>(context).jobStack[index]}#${Provider.of<GlobalJobStack>(context).jobStack[index].hashCode}"),
-                                        onTap: () {
-                                          Provider.of<GlobalJobStack>(context,
-                                                  listen: false)
-                                              .removeJob(Provider.of<GlobalJobStack>(
-                                                      context,
-                                                      listen: false)
-                                                  .jobStack[index]);
-                                          debugSeek()["job_stack_sz"] =
-                                              Provider.of<GlobalJobStack>(context,
-                                                      listen: false)
-                                                  .jobStack
-                                                  .length;
-                                        },
-                                      ));
-                                  // we add some end padding to the list view scroll
-                                  return index ==
-                                          Provider.of<GlobalJobStack>(context,
-                                                      listen: false)
-                                                  .jobStack
-                                                  .length -
-                                              1
-                                      ? Padding(
-                                          padding: const EdgeInsets.only(bottom: 40),
-                                          child: contentW)
-                                      : contentW;
-                                });
-                        },
-                      ),
+                          physics: const BouncingScrollPhysics(
+                              parent: AlwaysScrollableScrollPhysics()),
+                          itemCount: Provider.of<GlobalJobStack>(context, listen: false)
+                              .jobStack
+                              .length,
+                          itemBuilder: (BuildContext context, int index) {
+                            Widget contentW = Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: ListTile(
+                                  title: Provider.of<GlobalJobStack>(context)[index]
+                                      .buildForm(context),
+                                  onTap: () {
+                                    Provider.of<GlobalJobStack>(context, listen: false)
+                                        .removeJob(Provider.of<GlobalJobStack>(context,
+                                                listen: false)
+                                            .jobStack[index]);
+                                    debugSeek()["job_stack_sz"] =
+                                        Provider.of<GlobalJobStack>(context,
+                                                listen: false)
+                                            .jobStack
+                                            .length;
+                                  },
+                                ));
+                            if (index == 0) {
+                              contentW = Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: kWindowShelfHeight * 0.76),
+                                  child: contentW);
+                            }
+                            // we add some end padding to the list view scroll
+                            return index ==
+                                    Provider.of<GlobalJobStack>(context, listen: false)
+                                            .jobStack
+                                            .length -
+                                        1
+                                ? Padding(
+                                    padding: const EdgeInsets.only(bottom: 40),
+                                    child: contentW)
+                                : contentW;
+                          }),
                     ),
                   ),
               ]),
