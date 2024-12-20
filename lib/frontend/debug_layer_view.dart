@@ -4,6 +4,10 @@ import 'package:on_the_fly/frontend/components/components.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/shared/theme.dart';
 
+/// a debug overlay made to be immediate and easy to use as it is entirely
+/// base on a map based data structure and renders custom widgets and other
+/// things on demand. it is also always shown above any ui element including
+/// even the window bar.
 class DebugOverlayLayer extends StatefulWidget {
   const DebugOverlayLayer({
     super.key,

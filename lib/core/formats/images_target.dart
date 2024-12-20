@@ -5,6 +5,9 @@ import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
 import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 
+/// represents the builtin image formats supported by on the fly
+///
+/// see [FormatMedium] for more indepth information
 final class ImageMedium extends FormatMedium {
   static final ImageMedium inst = ImageMedium();
 
@@ -61,7 +64,8 @@ final class ImageMedium extends FormatMedium {
             });
 }
 
-/// this represents a single convert job for a single image file
+/// this represents a dispatcher that produces a [SingleImgJob] instance on demand. it also
+/// facilitates defining the general structure of singleimg jobs
 class SingleImgJobDispatcher extends JobDispatcher {
   SingleImgJobDispatcher()
       : super(
@@ -96,6 +100,7 @@ class SingleImgJobDispatcher extends JobDispatcher {
   }
 }
 
+/// a job instance produced by the [SingleImgJobDispatcher] dispatcher
 class SingleImgJob extends Job {
   late OutputPathHandler outputPathHandler;
 

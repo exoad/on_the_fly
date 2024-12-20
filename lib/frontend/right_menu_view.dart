@@ -37,7 +37,7 @@ class AppRightMenuView extends StatelessWidget {
                             width: 250,
                             height: 200,
                             child: SvgPicture.asset("assets/illust/undraw_loading.svg",
-                                height: 200)),
+                                height: 180)),
                         const SizedBox(height: 18),
                         Text(InternationalizationNotifier()
                             .i18n
@@ -48,7 +48,7 @@ class AppRightMenuView extends StatelessWidget {
                   )
                       .animate(
                           autoPlay: true,
-                          delay: const Duration(milliseconds: 450),
+                          delay: const Duration(milliseconds: 340),
                           onComplete: (AnimationController controller) =>
                               debugSeek()["no_job_sprite_state"] = "complete",
                           onPlay: (AnimationController controller) =>
@@ -60,8 +60,9 @@ class AppRightMenuView extends StatelessWidget {
                       .scale(
                           begin: const Offset(0.84, 0.84),
                           curve: Curves.easeOut,
-                          duration: const Duration(milliseconds: 450))
+                          duration: const Duration(milliseconds: 510))
                 else
+                  // build the job form
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -89,22 +90,23 @@ class AppRightMenuView extends StatelessWidget {
                                             .length;
                                   },
                                 ));
-                            if (index == 0) {
-                              contentW = Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: kWindowShelfHeight * 0.76),
-                                  child: contentW);
-                            }
-                            // we add some end padding to the list view scroll
-                            return index ==
-                                    Provider.of<GlobalJobStack>(context, listen: false)
-                                            .jobStack
-                                            .length -
-                                        1
+                            // we add some end or begin padding to the list view scroll element for this
+                            // job instance form
+                            return index == 0
                                 ? Padding(
-                                    padding: const EdgeInsets.only(bottom: 40),
+                                    padding: const EdgeInsets.only(
+                                        top: kWindowShelfHeight * 0.76),
                                     child: contentW)
-                                : contentW;
+                                : index ==
+                                        Provider.of<GlobalJobStack>(context,
+                                                    listen: false)
+                                                .jobStack
+                                                .length -
+                                            1
+                                    ? Padding(
+                                        padding: const EdgeInsets.only(bottom: 40),
+                                        child: contentW)
+                                    : contentW;
                           }),
                     ),
                   ),

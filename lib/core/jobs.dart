@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:meta/meta.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
@@ -36,13 +37,23 @@ abstract class Job {
 
   @mustBeOverridden
   Widget buildForm(BuildContext context) {
+    // this is a debug no impl error that is shown to alert developers that this part of the code is unfinished
+    //
+    // so pls reimpl this (also dont call super if you do)
     return Container(
         decoration:
             BoxDecoration(color: kTheme1, borderRadius: BorderRadius.circular(kRRArc)),
         padding: const EdgeInsets.all(8),
         child: Center(
-            child: Text(
-                ">>> ${Provider.of<InternationalizationNotifier>(context).i18n.appGenerics.no_impl} <<<")));
+            child: Text.rich(TextSpan(
+                text:
+                    ">>> ${Provider.of<InternationalizationNotifier>(context).i18n.appGenerics.no_impl} <<<\n",
+                children: <InlineSpan>[
+              const WidgetSpan(child: Icon(Ionicons.code_slash)),
+              TextSpan(
+                  text: "\t$runtimeType#$hashCode",
+                  style: const TextStyle(fontWeight: FontWeight.normal))
+            ]))));
   }
 }
 
