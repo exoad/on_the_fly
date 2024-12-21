@@ -7,7 +7,7 @@ class ColorHelper {
   ColorHelper._();
 
   static Color withOpacity(Color color, double opacity) {
-    return color.withOpacity(opacity);
+    return color.withAlpha((opacity * 255).round());
   }
 
   static Color randomColor({double saturation = 0.6, double brightness = 0.75}) {

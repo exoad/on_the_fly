@@ -1,4 +1,3 @@
-
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -64,7 +63,7 @@ class ImportanceDialog extends StatelessWidget {
                         .blurry(
                             borderRadius: BorderRadius.circular(kRRArc),
                             blur: 12,
-                            color: kThemeBg.withOpacity(0.45))
+                            color: kThemeBg.withAlpha((0.45 * 255).round()))
                         .animate()
                         .fadeIn(delay: const Duration(milliseconds: 200)))))
         .animate(delay: const Duration(milliseconds: 200))

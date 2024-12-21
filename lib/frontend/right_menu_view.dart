@@ -80,8 +80,7 @@ class AppRightMenuView extends StatelessWidget {
                                   child: ListTile(
                                     visualDensity: VisualDensity.compact,
                                     title: Provider.of<GlobalJobStack>(context)[index]
-                                        .buildForm(context)
-                                        ,
+                                        .buildForm(context),
                                     onTap: () {
                                       Provider.of<GlobalJobStack>(context, listen: false)
                                           .removeJob(Provider.of<GlobalJobStack>(context,
@@ -145,8 +144,6 @@ class AppRightMenuView extends StatelessWidget {
   }
 }
 
-
-
 class AppTopShelf extends StatelessWidget {
   const AppTopShelf({super.key});
 
@@ -162,7 +159,7 @@ class AppTopShelf extends StatelessWidget {
                   blur: 10,
                   elevation: 16,
                   borderRadius: BorderRadius.circular(kRRArc),
-                  color: kThemePrimaryFg1.withOpacity(0.08)),
+                  color: kThemePrimaryFg1.withAlpha((0.08 * 255).round())),
           //   const SizedBox(width: kTotalAppMargin),
           //   Text("${InternationalizationNotifier().i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
           //           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
