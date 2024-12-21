@@ -62,52 +62,51 @@ class AppRightMenuView extends StatelessWidget {
                           curve: Curves.easeOut,
                           duration: const Duration(milliseconds: 510))
                 else
-                  // build the job form
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: ListView.builder(
-                          physics: const BouncingScrollPhysics(
-                              parent: AlwaysScrollableScrollPhysics()),
-                          itemCount: Provider.of<GlobalJobStack>(context, listen: false)
-                              .jobStack
-                              .length,
-                          itemBuilder: (BuildContext context, int index) {
-                            Widget contentW = Padding(
-                                padding: const EdgeInsets.only(bottom: 8),
-                                child: ListTile(
-                                  title: Provider.of<GlobalJobStack>(context)[index]
-                                      .buildForm(context),
-                                  onTap: () {
-                                    Provider.of<GlobalJobStack>(context, listen: false)
-                                        .removeJob(Provider.of<GlobalJobStack>(context,
-                                                listen: false)
-                                            .jobStack[index]);
-                                    debugSeek()["job_stack_sz"] =
-                                        Provider.of<GlobalJobStack>(context,
-                                                listen: false)
-                                            .jobStack
-                                            .length;
-                                  },
-                                ));
-                            // we add some end or begin padding to the list view scroll element for this
-                            // job instance form
-                            return index == 0
-                                ? Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: kWindowShelfHeight * 0.76),
-                                    child: contentW)
-                                : index ==
-                                        Provider.of<GlobalJobStack>(context,
-                                                    listen: false)
-                                                .jobStack
-                                                .length -
-                                            1
-                                    ? Padding(
-                                        padding: const EdgeInsets.only(bottom: 40),
-                                        child: contentW)
-                                    : contentW;
-                          }),
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: ListView.builder(
+                            itemCount: Provider.of<GlobalJobStack>(context, listen: false)
+                                .jobStack
+                                .length,
+                            clipBehavior: Clip.antiAlias,
+                            reverse: true,
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              Widget contentW = Padding(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: ListTile(
+                                    visualDensity: VisualDensity.compact,
+                                    title: Provider.of<GlobalJobStack>(context)[index]
+                                        .buildForm(context)
+                                        ,
+                                    onTap: () {
+                                      Provider.of<GlobalJobStack>(context, listen: false)
+                                          .removeJob(Provider.of<GlobalJobStack>(context,
+                                                  listen: false)
+                                              .jobStack[index]);
+                                      debugSeek()["job_stack_sz"] =
+                                          Provider.of<GlobalJobStack>(context,
+                                                  listen: false)
+                                              .jobStack
+                                              .length;
+                                    },
+                                  ));
+                              // we add some end or begin padding to the list view scroll element for this
+                              // job instance form
+                              return index ==
+                                      Provider.of<GlobalJobStack>(context, listen: false)
+                                              .jobStack
+                                              .length -
+                                          1
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(top: 40),
+                                      child: contentW)
+                                  : contentW;
+                            }),
+                      ),
                     ),
                   ),
               ]),
@@ -145,6 +144,8 @@ class AppRightMenuView extends StatelessWidget {
     );
   }
 }
+
+
 
 class AppTopShelf extends StatelessWidget {
   const AppTopShelf({super.key});

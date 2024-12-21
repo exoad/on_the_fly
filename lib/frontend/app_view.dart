@@ -96,7 +96,7 @@ class _AppViewContainer extends StatelessWidget {
                       RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc)),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(kRRArc))),
-              splashColor: kThemePrimaryFg1.withOpacity(0.5),
+              splashColor: kThemePrimaryFg1.withAlpha((255 * 0.5).round()),
               buttonTheme: const ButtonThemeData(padding: EdgeInsets.zero),
               elevatedButtonTheme: ElevatedButtonThemeData(
                   style: ButtonStyle(
@@ -115,7 +115,7 @@ class _AppViewContainer extends StatelessWidget {
                       shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc), side: const BorderSide(color: kThemePrimaryFg1, width: 1.5))),
                       foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
                       side: const WidgetStatePropertyAll<BorderSide>(BorderSide(color: kThemePrimaryFg1, width: 1)))),
-              textButtonTheme: TextButtonThemeData(style: ButtonStyle(surfaceTintColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg1..withOpacity(0.3)), shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))), splashFactory: NoSplash.splashFactory, backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg))),
+              textButtonTheme: TextButtonThemeData(style: ButtonStyle(surfaceTintColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg1..withAlpha((255 * 0.3).round())), shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))), splashFactory: NoSplash.splashFactory, backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg))),
               dialogTheme: DialogTheme(
                 clipBehavior: Clip.antiAlias,
                 backgroundColor: kThemeBg,
@@ -125,7 +125,7 @@ class _AppViewContainer extends StatelessWidget {
               ),
               iconTheme: const IconThemeData(color: kThemePrimaryFg1),
               scaffoldBackgroundColor: kThemeBg,
-              textSelectionTheme: TextSelectionThemeData(selectionHandleColor: kThemePrimaryFg1, selectionColor: kThemePrimaryFg1.withOpacity(0.5), cursorColor: kThemePrimaryFg1),
+              textSelectionTheme: TextSelectionThemeData(selectionHandleColor: kThemePrimaryFg1, selectionColor: kThemePrimaryFg1.withAlpha((255 * 0.5).round()), cursorColor: kThemePrimaryFg1),
               inputDecorationTheme: const InputDecorationTheme(
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: kThemePrimaryFg1),

@@ -24,32 +24,59 @@ class ColorHelper {
   }
 }
 
+// ****************************************************************************
+// THE FUCKING CHANGE FROM PROPER NAMES FOR THE COMPONENTS OF A COLOR TO
+// INDIVIDUAL FUCKING LETTERS IS FUCKING STUPID WTF MAINTAINERS ???
+//
+// https://github.com/flutter/flutter/commit/9f66178386f34b0722d3a88717b4d6fddc247ba2#diff-005152dcaaa555ef138ebdd1580cea316c59e82d12563cdb4c8b5bd16c7e6b6dR314
+// SO FUCKING STUPID BRO
+// 3.27.1 PLS FUCKING REVERT THIS SHIT
+//
+// ALSO WHY TF IS THE INDIVIDUAL ATTRIBUTES NOW OUT OF 1.0 ?? WTF IS RELAND
+// UPADTE BRUH, IDC ABOUT MOTHERFUCKING SUPPORTING JUST P3 DISPLAY CODECS ???
+// https://github.com/flutter/flutter/issues/127855
+// WHEN DID WE FUCKING ASK FOR THIS SHIT ????
+//
+// I DONT WANNA REIMPLEMENT MY CODE SUCH THAT I HAVE TO DO A FUCK TON OF (x times
+// 255). INSANE MENACING CHANGE MAINTAINERS !!!
+//
+// CHANGING THE CORE FUNDAMENTALS IS SO FUCKING STUPID (oH baCkwArdS comPAtiBle)
+//
+// suck my dick
+// i dont care about precision loss, it has been prefectly fine for every other
+// framework that has used a normal color definition with 8bit colors
+// ****************************************************************************
+
 extension ColorExtension on Color {
   /// adapted from java.awt.Color's api
+  // this shit does not work, see the above comment
   Color brighter([double factor = 0.7]) {
-    int i = (1.0 / (1.0 - factor)).toInt();
-    if (red == 0 && green == 0 && blue == 0) {
-      return Color.fromARGB(alpha, i, i, i);
+    int i = (1.0 / (1.0 - factor)).round();
+    if (r == 0 && g == 0 && b == 0) {
+      return Color.fromARGB((a * 255).round(), i, i, i);
     }
-    int r = red;
-    int g = green;
-    int b = blue;
-    if (r > 0 && r < i) {
-      r = i;
+    int r_ = (r * 255).round();
+    int b_ = (b * 255).round();
+    int g_ = (g * 255).round();
+    if (r_ > 0 && r_ < i) {
+      r_ = i;
     }
-    if (g > 0 && g < i) {
-      g = i;
+    if (g_ > 0 && g_ < i) {
+      g_ = i;
     }
-    if (b > 0 && b < i) {
-      b = i;
+    if (b_ > 0 && b_ < i) {
+      b_ = i;
     }
-    return Color.fromARGB(min((r / factor).toInt(), 255), min((g / factor).toInt(), 255),
-        min((b / factor).toInt(), 255), alpha);
+    return Color.fromARGB(min((r_ / factor).toInt(), 255),
+        min((g_ / factor).toInt(), 255), min((b_ / factor).toInt(), 255), a.toInt());
   }
 
   // adapted from java.awt.Color's api
   Color darker([double factor = 0.7]) {
-    return Color.fromARGB(alpha, max((red * factor).toInt(), 0),
-        max((green * factor).toInt(), 0), max((blue * factor).toInt(), 0));
+    return Color.fromARGB(
+        (a * 255).round(),
+        max(((r * 255).round() * factor).round(), 0),
+        max(((g * 255).round() * factor).round(), 0),
+        max(((b * 255).round() * factor).round(), 0));
   }
 }
