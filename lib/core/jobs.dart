@@ -8,6 +8,8 @@ import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
 
+import 'package:on_the_fly/core/components/job_component.dart' as j;
+
 /// an instance created by a job dispatcher which represents a user
 /// specified action to run
 ///
@@ -36,24 +38,26 @@ abstract class Job {
   Result<Null, String> process();
 
   @mustBeOverridden
-  Widget buildForm(BuildContext context) {
+  j.JobBody buildForm(BuildContext context) {
     // this is a debug no impl error that is shown to alert developers that this part of the code is unfinished
     //
     // so pls reimpl this (also dont call super if you do)
-    return Container(
-        decoration:
-            BoxDecoration(color: kTheme1, borderRadius: BorderRadius.circular(kRRArc)),
-        padding: const EdgeInsets.all(8),
-        child: Center(
-            child: Text.rich(TextSpan(
-                text:
-                    ">>> ${Provider.of<InternationalizationNotifier>(context).i18n.appGenerics.no_impl} <<<\n",
-                children: <InlineSpan>[
-              const WidgetSpan(child: Icon(Ionicons.code_slash)),
-              TextSpan(
-                  text: "\t$runtimeType#$hashCode",
-                  style: const TextStyle(fontWeight: FontWeight.normal))
-            ]))));
+    return j.JobBody(children: <Widget>[
+      Container(
+          decoration:
+              BoxDecoration(color: kTheme1, borderRadius: BorderRadius.circular(kRRArc)),
+          padding: const EdgeInsets.all(8),
+          child: Center(
+              child: Text.rich(TextSpan(
+                  text:
+                      ">>> ${Provider.of<InternationalizationNotifier>(context).i18n.appGenerics.no_impl} <<<\n",
+                  children: <InlineSpan>[
+                const WidgetSpan(child: Icon(Ionicons.code_slash)),
+                TextSpan(
+                    text: "\t$runtimeType#$hashCode",
+                    style: const TextStyle(fontWeight: FontWeight.normal))
+              ])))),
+    ]);
   }
 }
 

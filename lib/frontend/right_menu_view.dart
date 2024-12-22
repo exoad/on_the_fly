@@ -28,7 +28,7 @@ class AppRightMenuView extends StatelessWidget {
               children: <Widget>[
                 const SizedBox(height: 16),
                 if (Provider.of<GlobalJobStack>(context).jobStack.isEmpty)
-                  Expanded(
+                  RepaintBoundary(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,6 +37,8 @@ class AppRightMenuView extends StatelessWidget {
                             width: 250,
                             height: 200,
                             child: SvgPicture.asset("assets/illust/undraw_loading.svg",
+                                clipBehavior: Clip.antiAlias,
+                                cacheColorFilter: true,
                                 height: 180)),
                         const SizedBox(height: 18),
                         Text(InternationalizationNotifier()
@@ -78,7 +80,7 @@ class AppRightMenuView extends StatelessWidget {
                               Widget contentW = Padding(
                                   padding: const EdgeInsets.only(bottom: 8),
                                   child: ListTile(
-                                    visualDensity: VisualDensity.compact,
+                                    contentPadding: EdgeInsets.zero,
                                     title: Provider.of<GlobalJobStack>(context)[index]
                                         .buildForm(context),
                                     onTap: () {

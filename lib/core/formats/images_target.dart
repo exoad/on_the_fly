@@ -5,6 +5,9 @@ import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
 import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 
+import 'package:on_the_fly/core/components/job_component.dart' as j;
+import 'package:provider/provider.dart';
+
 /// represents the builtin image formats supported by on the fly
 ///
 /// see [FormatMedium] for more indepth information
@@ -120,6 +123,17 @@ class SingleImgJob extends Job {
   @override
   Result<Null, String> process() {
     throw UnimplementedError();
+  }
+
+  @override
+  j.JobBody buildForm(BuildContext context) {
+    return j.JobBody(children: <Widget>[
+      j.JobTitle(
+          title: Provider.of<InternationalizationNotifier>(context)
+              .i18n
+              .singleImgJob
+              .canonical_name),
+    ]);
   }
 }
 

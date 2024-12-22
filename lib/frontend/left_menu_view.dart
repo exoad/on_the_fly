@@ -7,7 +7,6 @@ import 'package:on_the_fly/frontend/components/components.dart';
 import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/frontend/events/job_stack.dart';
 import 'package:on_the_fly/frontend/right_menu_view.dart';
-import 'package:on_the_fly/helpers/basics.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
