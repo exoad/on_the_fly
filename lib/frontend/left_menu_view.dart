@@ -201,7 +201,10 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                const Icon(Ionicons.add),
+                                const Icon(
+                                  Ionicons.add,
+                                  color: kThemeBg,
+                                ),
                                 const SizedBox(width: 8),
                                 Text(
                                     InternationalizationNotifier()
@@ -348,14 +351,13 @@ class _JobDispatcherView extends StatelessWidget {
                     ])),
                 const SizedBox(height: 8),
                 Text.rich(TextSpan(
-                    text: Provider.of<InternationalizationNotifier>(context)
-                        .i18n
-                        .appGenerics
-                        .processor,
+                    text:
+                        "${Provider.of<InternationalizationNotifier>(context).i18n.appGenerics.processor}\n",
                     style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     children: <InlineSpan>[
+                      const WidgetSpan(child: Icon(Icons.memory_rounded, size: 16)),
                       TextSpan(
-                          text: "\n${j.routineProcessor}#${j.routineProcessor.hashCode}",
+                          text: "  ${j.routineProcessor}#${j.routineProcessor.hashCode}",
                           style: const TextStyle(
                               fontFamily: "Monospace",
                               fontWeight: FontWeight.normal,

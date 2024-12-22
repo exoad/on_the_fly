@@ -113,6 +113,7 @@ Future<void> initConsts() async {
   // ].contains(kForcedLocale ?? Platform.localeName.split("_")[0])
   //     ? kDefaultFontFamily
   //     : "Playfair Display";
+  
   AutoImgCore.init();
   random = Random.secure();
 }

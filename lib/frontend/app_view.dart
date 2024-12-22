@@ -123,6 +123,7 @@ class _AppViewContainer extends StatelessWidget {
                     borderRadius: BorderRadius.circular(kRRArc),
                     side: const BorderSide(color: kThemePrimaryFg1, width: 2)),
               ),
+              indicatorColor: kThemePrimaryFg1,
               iconTheme: const IconThemeData(color: kThemePrimaryFg1),
               scaffoldBackgroundColor: kThemeBg,
               textSelectionTheme: TextSelectionThemeData(selectionHandleColor: kThemePrimaryFg1, selectionColor: kThemePrimaryFg1.withAlpha((255 * 0.5).round()), cursorColor: kThemePrimaryFg1),
