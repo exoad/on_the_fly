@@ -3,6 +3,6 @@
 import 'package:flutter/material.dart';
 
 @pragma("vm:prefer-inline")
-void pfcb(void Function(Duration timestamp) fx) {
+void wbpfcb(void Function(Duration timestamp) fx) {
   WidgetsBinding.instance.addPostFrameCallback(fx);
 }

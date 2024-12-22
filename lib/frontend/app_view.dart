@@ -108,13 +108,17 @@ class _AppViewContainer extends StatelessWidget {
                       backgroundColor: const WidgetStatePropertyAll<Color>(kThemeBg),
                       foregroundColor:
                           const WidgetStatePropertyAll<Color>(kThemePrimaryFg1))),
+              tooltipTheme: TooltipThemeData(
+                  textStyle: const TextStyle(color: kThemePrimaryFg1),
+                  preferBelow: false,
+                  waitDuration: const Duration(milliseconds: 1000),
+                  exitDuration: const Duration(milliseconds: 750),
+                  decoration: BoxDecoration(
+                      color: kThemeBg,
+                      border: Border.all(color: kThemePrimaryFg1, width: 1.5),
+                      borderRadius: BorderRadius.circular(kRRArc))),
               outlinedButtonTheme: OutlinedButtonThemeData(
-                  style: ButtonStyle(
-                      padding:
-                          const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero),
-                      shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc), side: const BorderSide(color: kThemePrimaryFg1, width: 1.5))),
-                      foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
-                      side: const WidgetStatePropertyAll<BorderSide>(BorderSide(color: kThemePrimaryFg1, width: 1)))),
+                  style: ButtonStyle(padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero), shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc), side: const BorderSide(color: kThemePrimaryFg1, width: 1.5))), foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), side: const WidgetStatePropertyAll<BorderSide>(BorderSide(color: kThemePrimaryFg1, width: 1)))),
               textButtonTheme: TextButtonThemeData(style: ButtonStyle(surfaceTintColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg1..withAlpha((255 * 0.3).round())), shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))), splashFactory: NoSplash.splashFactory, backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg))),
               dialogTheme: DialogTheme(
                 clipBehavior: Clip.antiAlias,

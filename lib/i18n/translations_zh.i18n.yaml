@@ -10,6 +10,10 @@ app generics:
   supported_input_file_extensions: 支持的输入文件扩展名
   supported_output_file_extensions: 支持的输出文件扩展名
   no_impl: 无实现
+  menu: 菜单
+  github: GitHub
+  third_parties: 第三方许可证
+  author_name: 孟嘉明 (Jack/exoad)
 canonical bits:
   job_dispatcher_formal: 任务调度
 file picker:

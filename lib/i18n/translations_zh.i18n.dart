@@ -136,6 +136,26 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   /// "无实现"
   /// ```
   String get no_impl => """无实现""";
+
+  /// ```dart
+  /// "菜单"
+  /// ```
+  String get menu => """菜单""";
+
+  /// ```dart
+  /// "GitHub"
+  /// ```
+  String get github => """GitHub""";
+
+  /// ```dart
+  /// "第三方许可证"
+  /// ```
+  String get third_parties => """第三方许可证""";
+
+  /// ```dart
+  /// "孟嘉明 (Jack/exoad)"
+  /// ```
+  String get author_name => """孟嘉明 (Jack/exoad)""";
 }
 
 class CanonicalBitsTranslationsZh extends CanonicalBitsTranslations {
@@ -246,6 +266,10 @@ Map<String, String> get translationsZhMap => {
       """app generics.supported_input_file_extensions""": """支持的输入文件扩展名""",
       """app generics.supported_output_file_extensions""": """支持的输出文件扩展名""",
       """app generics.no_impl""": """无实现""",
+      """app generics.menu""": """菜单""",
+      """app generics.github""": """GitHub""",
+      """app generics.third_parties""": """第三方许可证""",
+      """app generics.author_name""": """孟嘉明 (Jack/exoad)""",
       """canonical bits.job_dispatcher_formal""": """任务调度""",
       """file picker.dialog_title_pick_file""": """选择文件""",
       """file picker.dialog_title_pick_folder""": """选择文件夹""",

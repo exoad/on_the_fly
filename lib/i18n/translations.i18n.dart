@@ -136,6 +136,26 @@ class AppGenericsTranslations {
   /// "No Implementation"
   /// ```
   String get no_impl => """No Implementation""";
+
+  /// ```dart
+  /// "Menu"
+  /// ```
+  String get menu => """Menu""";
+
+  /// ```dart
+  /// "GitHub"
+  /// ```
+  String get github => """GitHub""";
+
+  /// ```dart
+  /// "Third party licenses"
+  /// ```
+  String get third_parties => """Third party licenses""";
+
+  /// ```dart
+  /// "Jiaming Meng (Jack/exoad)"
+  /// ```
+  String get author_name => """Jiaming Meng (Jack/exoad)""";
 }
 
 class CanonicalBitsTranslations {
@@ -250,6 +270,10 @@ Map<String, String> get translationsMap => {
       """app generics.supported_output_file_extensions""":
           """Supported output file extensions""",
       """app generics.no_impl""": """No Implementation""",
+      """app generics.menu""": """Menu""",
+      """app generics.github""": """GitHub""",
+      """app generics.third_parties""": """Third party licenses""",
+      """app generics.author_name""": """Jiaming Meng (Jack/exoad)""",
       """canonical bits.job_dispatcher_formal""": """Job Dispatcher""",
       """file picker.dialog_title_pick_file""": """Select a file""",
       """file picker.dialog_title_pick_folder""": """Select a folder""",

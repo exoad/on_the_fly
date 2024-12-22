@@ -10,6 +10,10 @@ app generics:
   supported_input_file_extensions: Supported input file extensions
   supported_output_file_extensions: Supported output file extensions
   no_impl: No Implementation
+  menu: Menu
+  github: GitHub
+  third_parties: Third party licenses
+  author_name: Jiaming Meng (Jack/exoad)
 canonical bits:
   job_dispatcher_formal: Job Dispatcher
 file picker:
