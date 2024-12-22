@@ -40,15 +40,23 @@ readability in this document:
 
 ************************************************************************
 
-[3] "TODO_TITLE" (00/00/0000) exoad
+[3] "No inapp refreshing for i18n changes" (12/22/2024) exoad
 
         Targets:
                 i18n,frontend
 
         Description:
+                Currently, there is a bug in which the frontend is
+                unable to refresh the ui when the locale changes when
+                tested using the appropriate XtRunner function in the
+                builtin debug menu. This can prove detrimental for
+                future development where we need to support in app
+                refreshes for localization changes.
 
         Progress:
                 ACTION_NAME     |       ACTION_TIMESTAMP
+
+
 ------------------------------------------------------------------------
 
 [3] "Implement animations for right_menu  (12/22/2024) exoad
