@@ -12,7 +12,8 @@ class InternationalizationNotifier extends ChangeNotifier {
 
   @protected
   InternationalizationNotifier.internal() : i18n = const Translations() {
-    changeLocale("zh");
+    // changeLocale("zh");
+    changeLocale(Platform.localeName);
   }
 
   /// produces a singleton instance

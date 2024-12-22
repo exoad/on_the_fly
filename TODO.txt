@@ -1,0 +1,75 @@
+********************************* TODO *********************************
+This is a simple todo list regarding the development of the
+
+                        on_the_fly
+
+application. It contains importance as well as a description of that
+feature/bug that requires action. GitHub issues will still be utilized,
+as this format and document is mainly used a "primary" focus for the
+author and any other maintainers.
+
+EDITING THIS FILE BY ANY NON-AUTHORIZED INDIVIDUALS IS NOT ALLOWED, AND
+TODOS ADDED WILL NOT BE CONSIDERED.
+
+************************************************************************
+
+All todos will & must follow the following formatting for the best
+readability in this document:
+
+------------------------------------------------------------------------
+[1..5] "TODO_TITLE" (00/00/0000) AUTHOR
+
+        Targets:
+
+        Description:
+
+        Progress:
+                ACTION_NAME     |       ACTION_TIMESTAMP
+------------------------------------------------------------------------
+
+% Here [1..5] represents the severity level
+        % Min severity of 1 and a max of 5
+
+% "Targets" represents things that this action targets, for example
+  you can write "frontend" that targets the ui of the app
+
+% "Progress" denotes the progress and what has been included, it is not
+  really necessary to write down commit ids and such
+
+% Note that the more recent todos will be placed at the top of the list
+
+************************************************************************
+
+[3] "TODO_TITLE" (00/00/0000) exoad
+
+        Targets:
+                i18n,frontend
+
+        Description:
+
+        Progress:
+                ACTION_NAME     |       ACTION_TIMESTAMP
+------------------------------------------------------------------------
+
+[3] "Implement animations for right_menu  (12/22/2024) exoad
+
+        Targets:
+                frontend,job_dispatching
+
+        Description:
+                Currently, when job instances are inserted into the
+                global job stack, they just appear on the right menu
+                without a smooth transition which can be kind of odd
+                to look at. Implement a safe way to handle these
+                animations as previous attempts have resulted in
+                graphical artifacting.
+
+        Progress:
+                ACTION_NAME     |       ACTION_TIMESTAMP
+
+                (12/20/2024)
+                Failed implementation using the flutter_animate
+                package, but instead produced hella artifacts, such as
+                the background of the job instance lagging behind.
+
+------------------------------------------------------------------------
