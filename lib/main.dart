@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/rendering.dart';
+// import 'package:flutter/rendering.dart';
 import 'package:on_the_fly/base/ephemeral.dart';
 import 'package:on_the_fly/base/native_channel.dart';
 import 'package:on_the_fly/core/core.dart';
@@ -44,7 +44,7 @@ void main() {
           in JobDispatcher.getJobsByMediumMap.entries) {
         logger.info("Jobs for medium ${entry.key}: ${entry.value.length}");
       }
-      debugRepaintRainbowEnabled = true;
+//       debugRepaintRainbowEnabled = true;
       runApp(const AppView());
       doWhenWindowReady(() {
         appWindow.show();

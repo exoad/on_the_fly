@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:on_the_fly/core/components/j_root.dart';
 import 'package:on_the_fly/frontend/components/debug_sized.dart';
-import 'package:on_the_fly/shared/layout.dart';
 
-class JobBody extends StatelessWidget {
+class JobBody extends StatelessWidget implements JobRoot {
   final List<Widget> children;
 
   const JobBody({super.key, required this.children});
