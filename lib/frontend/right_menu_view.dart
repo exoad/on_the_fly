@@ -83,17 +83,17 @@ class AppRightMenuView extends StatelessWidget {
                                     contentPadding: EdgeInsets.zero,
                                     title: Provider.of<GlobalJobStack>(context)[index]
                                         .buildForm(context),
-                                    onTap: () {
-                                      Provider.of<GlobalJobStack>(context, listen: false)
-                                          .removeJob(Provider.of<GlobalJobStack>(context,
-                                                  listen: false)
-                                              .jobStack[index]);
-                                      debugSeek()["job_stack_sz"] =
-                                          Provider.of<GlobalJobStack>(context,
-                                                  listen: false)
-                                              .jobStack
-                                              .length;
-                                    },
+                                    // onTap: () {
+                                    //   Provider.of<GlobalJobStack>(context, listen: false)
+                                    //       .removeJob(Provider.of<GlobalJobStack>(context,
+                                    //               listen: false)
+                                    //           .jobStack[index]);
+                                    //   debugSeek()["job_stack_sz"] =
+                                    //       Provider.of<GlobalJobStack>(context,
+                                    //               listen: false)
+                                    //           .jobStack
+                                    //           .length;
+                                    // },
                                   ));
                               // we add some end or begin padding to the list view scroll element for this
                               // job instance form

@@ -1,6 +1,8 @@
 import 'package:meta/meta.dart';
 import 'package:on_the_fly/shared/app.dart';
 
+/// describes a single instance of a file format, for example, the WAV audio format
+/// is an uncompressed audio format.
 class FileFormat {
   final String canonicalName;
   final List<String> validExtensions;
@@ -13,8 +15,14 @@ class FileFormat {
     required this.canWrite,
     required this.canRead,
   });
+
+  @override
+  String toString() =>
+      "$canonicalName[CanRead=$canRead, CanWrite=$canWrite, ValidExtensions=$validExtensions]";
 }
 
+/// a format medium describes a group of file formats that are related to each other, for example
+/// [ImageMedium] hosts all of the file formats that represent general (bitmap) based images.
 class FormatMedium {
   final String mediumName;
   final Map<String, FileFormat> _formats;
@@ -36,6 +44,13 @@ class FormatMedium {
         _outputTypes.add(entry.value);
       }
     }
+  }
+  @override
+  String toString() => "Medium:$mediumName[In=$_inputTypes, Out=$_outputTypes]";
+
+  /// very naive checker to see if this file format can be converted between the two
+  bool canConvert(FileFormat from, FileFormat to) {
+    return _inputTypes.contains(from) && _outputTypes.contains(to);
   }
 
   List<FileFormat> get inputFormats => _inputTypes;

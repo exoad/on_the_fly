@@ -1,6 +1,7 @@
 import 'dart:io';
 
 // import 'package:flutter/rendering.dart';
+import 'package:objectid/objectid.dart';
 import 'package:on_the_fly/base/ephemeral.dart';
 import 'package:on_the_fly/base/native_channel.dart';
 import 'package:on_the_fly/core/core.dart';
@@ -39,7 +40,7 @@ void main() {
       }
       logger.info("Registered jobs: ${JobDispatcher.registeredJobDispatchers}");
       // lets do a sanity check for all of the registered jobs just in case
-      for (MapEntry<String, Iterable<JobDispatcher>> entry
+      for (MapEntry<Type, Iterable<JobDispatcher>> entry
           in JobDispatcher.getJobsByMediumMap.entries) {
         logger.info("Jobs for medium ${entry.key}: ${entry.value.length}");
       }
@@ -47,13 +48,20 @@ void main() {
       runApp(const AppView());
       doWhenWindowReady(() {
         appWindow.show();
-        DebugLayerEvents()["xt"] =  Wrap(
+        DebugLayerEvents()["xt"] = Wrap(
           spacing: 4,
           runSpacing: 4,
           children: XtRunners.r(),
         );
       }); // for bitsdojo_window
     });
+    _sandbox();
+  }
+}
+
+void _sandbox() {
+  for (int i = 0; i < 100; i++) {
+    logger.info("6f626a_${ObjectId().hexString}");
   }
 }
 
@@ -63,19 +71,19 @@ void __tests() {
   AppDebug().test(
       "Test OutputNameBuilder.simpleRandomName",
       () => OutputNameBuilder.simpleRandomName(len: 10)(
-          "test.jpg", ImageMedium.inst["png"]),
+          "test.jpg", ImageMedium.instance["png"]),
       null);
   // Test OutputNameBuilder.simpleName
   AppDebug().test(
       "Test OutputNameBuilder.simpleName",
       () => OutputNameBuilder.simpleName(name: "amogus")(
-          "test.png", ImageMedium.inst["jpg"]),
+          "test.png", ImageMedium.instance["jpg"]),
       ".\\amogus.jpg");
   // Test OutputNameBuilder.simplePrefix
   AppDebug().test(
       "Test OutputNameBuilder.simplePrefix",
       () => OutputNameBuilder.simplePrefix(prefix: "test_")(
-          "bbbbb.jpg", ImageMedium.inst["png"]),
+          "bbbbb.jpg", ImageMedium.instance["png"]),
       ".\\test_bbbbb.png");
   // Test AutoImgStrings.formalize
   AppDebug()

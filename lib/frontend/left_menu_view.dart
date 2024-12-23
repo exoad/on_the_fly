@@ -131,7 +131,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                       runAlignment: WrapAlignment.start,
                                       crossAxisAlignment: WrapCrossAlignment.start,
                                       children: <Widget>[
-                                        for (FileFormat t in j.inputTypes)
+                                        for (FileFormat t in j.formatMedium.inputFormats)
                                           Container(
                                               padding: const EdgeInsets.all(4),
                                               margin: const EdgeInsets.all(2),
@@ -160,7 +160,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                       runAlignment: WrapAlignment.start,
                                       crossAxisAlignment: WrapCrossAlignment.start,
                                       children: <Widget>[
-                                        for (FileFormat t in j.outputTypes)
+                                        for (FileFormat t in j.formatMedium.outputFormats)
                                           Container(
                                               padding: const EdgeInsets.all(4),
                                               margin: const EdgeInsets.all(2),

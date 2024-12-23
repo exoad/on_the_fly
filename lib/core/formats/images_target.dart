@@ -13,10 +13,10 @@ import 'package:provider/provider.dart';
 ///
 /// see [FormatMedium] for more indepth information
 final class ImageMedium extends FormatMedium {
-  static final ImageMedium inst = ImageMedium();
+  static final ImageMedium instance = ImageMedium._();
 
   @protected
-  ImageMedium()
+  ImageMedium._()
       : super(
             mediumName: InternationalizationNotifier().i18n.formatGeneric.image,
             formats: <String, FileFormat>{
@@ -71,11 +71,7 @@ final class ImageMedium extends FormatMedium {
 /// this represents a dispatcher that produces a [SingleImgJob] instance on demand. it also
 /// facilitates defining the general structure of singleimg jobs
 class SingleImgJobDispatcher extends JobDispatcher {
-  SingleImgJobDispatcher()
-      : super(
-          inputTypes: ImageMedium.inst.inputFormats,
-          outputTypes: ImageMedium.inst.outputFormats,
-        );
+  SingleImgJobDispatcher() : super(formatMedium: ImageMedium.instance);
 
   @override
   bool dispatched(covariant dynamic t) {
@@ -84,9 +80,6 @@ class SingleImgJobDispatcher extends JobDispatcher {
 
   @override
   String get description => InternationalizationNotifier().i18n.singleImgJob.description;
-
-  @override
-  FormatMedium get formatMedium => ImageMedium.inst;
 
   @override
   String get name => InternationalizationNotifier().i18n.singleImgJob.canonical_name;

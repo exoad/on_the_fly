@@ -67,24 +67,19 @@ abstract class Job {
 
   @override
   String toString() {
-    return "$runtimeType@{Hash=$hashId,CreatedAt=${timestamp.toIso8601String()}}";
+    return "$runtimeType[Hash=$hashId, CreatedAt=${timestamp.toIso8601String()}]";
   }
 }
 
-/// a basis for all jobs
-///
-/// [E] represents the type (usually an enum) that can be used to represent the type of the input/output file types.
+/// a basis for all job dispatchers (shit that produces jobs as children)
 abstract class JobDispatcher {
-  /// represents the accepted input types
-  final List<FileFormat> inputTypes;
+  final FormatMedium formatMedium;
 
-  /// represents the output types
-  final List<FileFormat> outputTypes;
+  static Map<Type /* <- restricts (covariant) FormatMedium */, List<JobDispatcher>>
+      registeredJobDispatchers =
+      <Type /* <- extends FormatMedium */, List<JobDispatcher>>{};
 
-  static Map<String, List<JobDispatcher>> registeredJobDispatchers =
-      <String, List<JobDispatcher>>{};
-
-  static List<JobDispatcher> getJobDispatchersByMedium(String mediumName) {
+  static List<JobDispatcher> getJobDispatchersByMedium(Type mediumName) {
     if (!registeredJobDispatchers.containsKey(mediumName) && kAllowDebugWarnings) {
       throw ArgumentError(
           "Medium Key not found in registered jobs: $mediumName"); // another programmer error ! bruh
@@ -92,25 +87,22 @@ abstract class JobDispatcher {
     return registeredJobDispatchers[mediumName]!;
   }
 
-  static Map<String, Iterable<JobDispatcher>> get getJobsByMediumMap =>
-      registeredJobDispatchers;
+  static Map<Type /* <- restricts (covariant) FormatMedium */, Iterable<JobDispatcher>>
+      get getJobsByMediumMap => registeredJobDispatchers;
 
   static void registerJobDispatcher(JobDispatcher r) {
-    if (!registeredJobDispatchers.containsKey(r.formatMedium.mediumName)) {
-      registeredJobDispatchers[r.formatMedium.mediumName] = <JobDispatcher>[];
+    if (!registeredJobDispatchers.containsKey(r.formatMedium.runtimeType)) {
+      registeredJobDispatchers[r.formatMedium.runtimeType] = <JobDispatcher>[];
     }
-    registeredJobDispatchers[r.formatMedium.mediumName]!.add(r);
-    r._id = registeredJobDispatchers.length - 1;
+    registeredJobDispatchers[r.formatMedium.runtimeType]!.add(r);
+    r._id = ObjectId().hexString;
   }
 
-  late int _id;
+  late String _id;
 
-  int get id => _id;
+  String get id => _id;
 
-  JobDispatcher({required this.inputTypes, required this.outputTypes}) {
-    assert(inputTypes.isNotEmpty);
-    assert(outputTypes.isNotEmpty);
-  }
+  JobDispatcher({required this.formatMedium});
 
   /// checks if a given var's runtimeType is of the dispatching (related)
   /// type. the general implementation should be the same throughout all
@@ -122,8 +114,6 @@ abstract class JobDispatcher {
 
   /// canonical
   String get description;
-
-  FormatMedium get formatMedium;
 
   // putting this on the burner for now (not impl/used)
   // /// canonical. shown when the user clicks to view more about this job
@@ -141,6 +131,9 @@ abstract class JobDispatcher {
   /// this function produces an initial instance of this job that MUST be remodified by
   /// the user.
   Job produceInitialJobInstance();
+
+  @override
+  String toString() => "JobDispatcher:$name[ID=$id,RoutProc=$routineProcessor]";
 }
 
 // class JobDispatcherFormBuilder {
