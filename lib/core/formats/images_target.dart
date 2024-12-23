@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/core/core.dart';
+import 'package:on_the_fly/core/utils/date_time.dart';
 import 'package:on_the_fly/core/utils/result.dart';
 import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 
@@ -129,10 +130,12 @@ class SingleImgJob extends Job {
   j.JobBody buildForm(BuildContext context) {
     return j.JobBody(children: <Widget>[
       j.JobTitle(
-          title: Provider.of<InternationalizationNotifier>(context)
-              .i18n
-              .singleImgJob
-              .canonical_name),
+        title: Provider.of<InternationalizationNotifier>(context)
+            .i18n
+            .singleImgJob
+            .canonical_name,
+        subtitle: timestamp.canonicalizedTimeString,
+      ),
     ]);
   }
 }

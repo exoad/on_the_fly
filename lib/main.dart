@@ -6,7 +6,6 @@ import 'package:on_the_fly/base/native_channel.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/frontend/app_view.dart';
-import 'package:on_the_fly/frontend/components/components.dart';
 import 'package:on_the_fly/frontend/events/debug_events.dart';
 // import 'package:on_the_fly/frontend/events/debug_events.dart';
 import 'package:on_the_fly/shared/app.dart';
@@ -48,15 +47,10 @@ void main() {
       runApp(const AppView());
       doWhenWindowReady(() {
         appWindow.show();
-        DebugLayerEvents()["xt"] = const Wrap(
+        DebugLayerEvents()["xt"] =  Wrap(
           spacing: 4,
           runSpacing: 4,
-          children: <Widget>[
-            CompactTextButton("fx1", onPressed: XtRunners.fx1),
-            CompactTextButton("fx2", onPressed: XtRunners.fx2),
-            // for (String locale in kDefinedLocales) // TODO: fix this pos of not working to change locales
-            //   CompactTextButton("fx3_$locale", onPressed: () => XtRunners.fx3(locale))
-          ],
+          children: XtRunners.r(),
         );
       }); // for bitsdojo_window
     });

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:meta/meta.dart';
+import 'package:objectid/objectid.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
 import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
@@ -15,8 +16,12 @@ import 'package:on_the_fly/core/components/job_component.dart' as j;
 ///
 abstract class Job {
   List<String> inputPath;
+  final DateTime timestamp;
+  late final String hashId;
 
-  Job({required this.inputPath});
+  Job({required this.inputPath})
+      : timestamp = DateTime.now(),
+        hashId = ObjectId().hexString;
 
   /// processes and generates an output name
   OutputPathHandler get outputNameBuilder;
@@ -58,6 +63,11 @@ abstract class Job {
                     style: const TextStyle(fontWeight: FontWeight.normal))
               ])))),
     ]);
+  }
+
+  @override
+  String toString() {
+    return "$runtimeType@{Hash=$hashId,CreatedAt=${timestamp.toIso8601String()}}";
   }
 }
 

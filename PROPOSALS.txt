@@ -40,6 +40,34 @@ readability in this document:
 
 ************************************************************************
 
+[4] "Modular Job System" (12/23/2024) exoad
+
+        Targets:
+                job_dispatching,file_conversion
+
+        Description:
+                The current way jobs are implemented is that there is
+                a root instance that all subsequent job instances
+                inherit from. This means that with each new medium
+                and format, there needs to be additional code written
+                for each job child implementation. This todo proposes
+                for a modular/heuristic way to implement jobs where
+                there are either one or multiple job instances that
+                cannot be extended from, but instead all job instances
+                will fall under the same instance but with different
+                parameters altered. This can be daunting to implement
+                and to change from the current implementation though.
+
+                Further research and consideration required as of
+                writing the previous implementation has not even been
+                finalized, implemented, and properly tested.
+
+        Progress:
+                ACTION_NAME     |       ACTION_TIMESTAMP
+
+
+------------------------------------------------------------------------
+
 [3] "No inapp refreshing for i18n changes" (12/22/2024) exoad
 
         Targets:
