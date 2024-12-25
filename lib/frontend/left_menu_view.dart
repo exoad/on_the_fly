@@ -577,12 +577,16 @@ class _CanonicalAdvertState extends State<CanonicalAdvert> {
                                 .i18n
                                 .appGenerics
                                 .github,
-                            child: IconButton.filled(
-                              style: const ButtonStyle(
-                                  foregroundColor:
-                                      WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
+                            child: IconButton(
+                              style: ButtonStyle(
+                                  visualDensity: VisualDensity.standard,
+                                  shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(99999))),
+                                  foregroundColor: const WidgetStatePropertyAll<Color>(
+                                      kThemePrimaryFg1),
                                   backgroundColor:
-                                      WidgetStatePropertyAll<Color>(kThemeBg)),
+                                      const WidgetStatePropertyAll<Color>(kThemeBg)),
                               icon: const HugeIcon(
                                   icon: HugeIcons.strokeRoundedLicenseMaintenance,
                                   color: kThemePrimaryFg1),
@@ -603,12 +607,16 @@ class _CanonicalAdvertState extends State<CanonicalAdvert> {
                                 .i18n
                                 .appGenerics
                                 .third_parties,
-                            child: IconButton.filled(
-                                style: const ButtonStyle(
-                                    foregroundColor:
-                                        WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
+                            child: IconButton(
+                                style: ButtonStyle(
+                                    visualDensity: VisualDensity.standard,
+                                    shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(99999))),
+                                    foregroundColor: const WidgetStatePropertyAll<Color>(
+                                        kThemePrimaryFg1),
                                     backgroundColor:
-                                        WidgetStatePropertyAll<Color>(kThemeBg)),
+                                        const WidgetStatePropertyAll<Color>(kThemeBg)),
                                 onPressed: () async =>
                                     await launchUrlString(kAppGitHubURL),
                                 icon: const HugeIcon(
