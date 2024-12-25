@@ -18,6 +18,23 @@ class Margin extends StatelessWidget {
   }
 }
 
+/// macro class
+class ThemeableTextButton extends TextButton {
+  ThemeableTextButton(
+      {super.key,
+      required super.onPressed,
+      required super.child,
+      required Color bg,
+      TextStyle? textStyle,
+      required Color fg})
+      : super(
+            style: ButtonStyle(
+                iconColor: WidgetStatePropertyAll<Color>(fg),
+                textStyle:
+                    WidgetStatePropertyAll<TextStyle>(textStyle ?? TextStyle(color: fg)),
+                backgroundColor: WidgetStatePropertyAll<Color>(bg)));
+}
+
 /// should only be used in the debug_layer_view section
 /// of the app, nowhere else
 class CompactTextButton extends StatelessWidget {

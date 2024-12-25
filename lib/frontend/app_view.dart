@@ -98,8 +98,22 @@ class _AppViewContainer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(kRRArc))),
               splashColor: kThemePrimaryFg1.withAlpha((255 * 0.5).round()),
               buttonTheme: const ButtonThemeData(padding: EdgeInsets.zero),
+              iconButtonTheme: IconButtonThemeData(
+                  style: ButtonStyle(
+                      splashFactory: InkRipple.splashFactory,
+                      visualDensity: VisualDensity.compact,
+                      shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(kRRArc),
+                      )),
+                      iconColor: const WidgetStatePropertyAll<Color>(kThemeBg),
+                      backgroundColor:
+                          const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
+                      overlayColor:
+                          WidgetStatePropertyAll<Color>(kThemePrimaryFg1.withAlpha(45)))),
               elevatedButtonTheme: ElevatedButtonThemeData(
                   style: ButtonStyle(
+                      splashFactory: NoSplash.splashFactory,
                       padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
                           EdgeInsets.zero),
                       shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
@@ -117,9 +131,8 @@ class _AppViewContainer extends StatelessWidget {
                       color: kThemeBg,
                       border: Border.all(color: kThemePrimaryFg1, width: 1.5),
                       borderRadius: BorderRadius.circular(kRRArc))),
-              outlinedButtonTheme: OutlinedButtonThemeData(
-                  style: ButtonStyle(padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero), shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc), side: const BorderSide(color: kThemePrimaryFg1, width: 1.5))), foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), side: const WidgetStatePropertyAll<BorderSide>(BorderSide(color: kThemePrimaryFg1, width: 1)))),
-              textButtonTheme: TextButtonThemeData(style: ButtonStyle(surfaceTintColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg1..withAlpha((255 * 0.3).round())), shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))), splashFactory: NoSplash.splashFactory, backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg))),
+              outlinedButtonTheme: OutlinedButtonThemeData(style: ButtonStyle(splashFactory: NoSplash.splashFactory, overlayColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg2.withAlpha(40)), iconColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero), shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc), side: const BorderSide(color: kThemePrimaryFg1, width: 1.5))), foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), side: const WidgetStatePropertyAll<BorderSide>(BorderSide(color: kThemePrimaryFg1, width: 1)))),
+              textButtonTheme: TextButtonThemeData(style: ButtonStyle(surfaceTintColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg1..withAlpha((255 * 0.3).round())), overlayColor: WidgetStatePropertyAll<Color>(kThemeBg.withAlpha(34)), iconColor: const WidgetStatePropertyAll<Color>(kThemeBg), shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))), splashFactory: NoSplash.splashFactory, backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1), foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg))),
               dialogTheme: DialogTheme(
                 clipBehavior: Clip.antiAlias,
                 backgroundColor: kThemeBg,
