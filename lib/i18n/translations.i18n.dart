@@ -66,6 +66,8 @@ class Translations {
   String get locale => "en";
   String get languageCode => "en";
   AppGenericsTranslations get appGenerics => AppGenericsTranslations(this);
+  DispatchedJobsTranslations get dispatchedJobs =>
+      DispatchedJobsTranslations(this);
   CanonicalBitsTranslations get canonicalBits =>
       CanonicalBitsTranslations(this);
   FilePickerTranslations get filePicker => FilePickerTranslations(this);
@@ -156,6 +158,21 @@ class AppGenericsTranslations {
   /// "Jiaming Meng (Jack/exoad)"
   /// ```
   String get author_name => """Jiaming Meng (Jack/exoad)""";
+
+  /// ```dart
+  /// "Close"
+  /// ```
+  String get close => """Close""";
+}
+
+class DispatchedJobsTranslations {
+  final Translations _parent;
+  const DispatchedJobsTranslations(this._parent);
+
+  /// ```dart
+  /// "Remove"
+  /// ```
+  String get remove_job_button => """Remove""";
 }
 
 class CanonicalBitsTranslations {
@@ -274,6 +291,8 @@ Map<String, String> get translationsMap => {
       """app generics.github""": """GitHub""",
       """app generics.third_parties""": """Third party licenses""",
       """app generics.author_name""": """Jiaming Meng (Jack/exoad)""",
+      """app generics.close""": """Close""",
+      """dispatched jobs.remove_job_button""": """Remove""",
       """canonical bits.job_dispatcher_formal""": """Job Dispatcher""",
       """file picker.dialog_title_pick_file""": """Select a file""",
       """file picker.dialog_title_pick_folder""": """Select a folder""",

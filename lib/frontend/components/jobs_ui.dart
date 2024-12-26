@@ -13,7 +13,8 @@ class JobCreationDialog extends StatelessWidget {
   final Widget child;
   final String jobName;
 
-  const JobCreationDialog({super.key, required this.child, required this.jobName});
+  const JobCreationDialog(
+      {super.key, required this.child, required this.jobName});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,8 @@ class JobCreationDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text("Create job instance of $jobName",
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(children: <Widget>[child]),
@@ -65,7 +67,8 @@ class FilePickerButton extends StatelessWidget {
             }, // todo: incorporate with native file picker and fully implement this
             style: ButtonStyle(
                 shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))),
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(kRRArc))),
                 backgroundColor: const WidgetStatePropertyAll<Color>(kTheme1),
                 foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg),
                 visualDensity: VisualDensity.compact),
@@ -81,6 +84,8 @@ class FilePickerButton extends StatelessWidget {
               ],
             ))
         .animate()
-        .fade(duration: const Duration(milliseconds: 220), curve: Curves.easeInOut);
+        .fade(
+            duration: const Duration(milliseconds: 220),
+            curve: Curves.easeInOut);
   }
 }

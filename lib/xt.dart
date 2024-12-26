@@ -12,7 +12,8 @@ class FakeJob extends Job {
   FakeJob({super.inputPath = const <String>["..."]});
 
   @override
-  OutputPathHandler get outputNameBuilder => OutputNameBuilder.simpleName(name: "Amogus");
+  OutputPathHandler get outputNameBuilder =>
+      OutputNameBuilder.simpleName(name: "Amogus");
 
   @override
   bool canPop() {
@@ -35,7 +36,8 @@ class FakeJob extends Job {
 class XtRunners {
   XtRunners._();
 
-  static final Map<String, void Function()> xtRunnersExport = <String, void Function()>{
+  static final Map<String, void Function()> xtRunnersExport =
+      <String, void Function()>{
     "fakej": fx1,
     "rmfj": fx2,
     // fx3,
@@ -65,6 +67,7 @@ class XtRunners {
   // }
 
   static void fx4() {
-    logger.info("${ObjectId().hexString} - ${ObjectId.fromTimestamp(DateTime.now())}");
+    logger.info(
+        "${ObjectId().hexString} - ${ObjectId.fromTimestamp(DateTime.now())}");
   }
 }

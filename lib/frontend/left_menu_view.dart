@@ -387,16 +387,20 @@ class _JobDispatcherView extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.topRight,
-          child: IconButton(
-            style: Theme.of(context)
-                .iconButtonTheme
-                .style!
-                .copyWith(backgroundColor: const WidgetStatePropertyAll<Color>(kTheme1)),
-            onPressed: () {
-              logger.info("REMOVE_JOB_DISPATCHER_INFO_VIEW");
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Ionicons.close),
+          child: Tooltip(
+            message: Provider.of<InternationalizationNotifier>(context, listen: false)
+                .i18n
+                .appGenerics
+                .close,
+            child: IconButton(
+              style: Theme.of(context).iconButtonTheme.style!.copyWith(
+                  backgroundColor: const WidgetStatePropertyAll<Color>(kTheme1)),
+              onPressed: () {
+                logger.info("REMOVE_JOB_DISPATCHER_INFO_VIEW");
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(Ionicons.close),
+            ),
           ),
         ),
       ],

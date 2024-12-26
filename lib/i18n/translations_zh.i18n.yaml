@@ -14,6 +14,9 @@ app generics:
   github: GitHub
   third_parties: 第三方许可证
   author_name: 孟嘉明 (Jack/exoad)
+  close: 关
+dispatched jobs:
+  remove_job_button: 删除
 canonical bits:
   job_dispatcher_formal: 任务调度
 file picker:

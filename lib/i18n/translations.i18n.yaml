@@ -14,6 +14,9 @@ app generics:
   github: GitHub
   third_parties: Third party licenses
   author_name: Jiaming Meng (Jack/exoad)
+  close: Close
+dispatched jobs:
+  remove_job_button: Remove
 canonical bits:
   job_dispatcher_formal: Job Dispatcher
 file picker:

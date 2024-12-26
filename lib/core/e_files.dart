@@ -71,7 +71,8 @@ class FormatMedium {
       FileFormat f = inputFormats[i];
       for (int j = 0; j < f.validExtensions.length; j++) {
         buffer.write("*.${f.validExtensions[j]}");
-        if (!(i == inputFormats.length - 1 && j == f.validExtensions.length - 1)) {
+        if (!(i == inputFormats.length - 1 &&
+            j == f.validExtensions.length - 1)) {
           buffer.write(", ");
         }
       }
@@ -85,7 +86,8 @@ class FormatMedium {
       FileFormat f = outputFormats[i];
       for (int j = 0; j < f.validExtensions.length; j++) {
         buffer.write("*.${f.validExtensions[j]}");
-        if (!(i == outputFormats.length - 1 && j == f.validExtensions.length - 1)) {
+        if (!(i == outputFormats.length - 1 &&
+            j == f.validExtensions.length - 1)) {
           buffer.write(", ");
         }
       }

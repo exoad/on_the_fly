@@ -14,7 +14,6 @@ final class FolderRegistry {
 
   static final FolderRegistry i = FolderRegistry._();
 
-  void register(String path,{required bool Function() canRun, required void Function() payload}) {
-    
-  }
+  void register(String path,
+      {required bool Function() canRun, required void Function() payload}) {}
 }

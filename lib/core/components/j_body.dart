@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/shared/layout.dart';
+import 'package:provider/provider.dart';
 // import 'package:on_the_fly/shared/theme.dart';
 
 class JobBody extends StatelessWidget {
   final List<Widget> children;
+  final void Function() onRemoveJob;
 
-  const JobBody({super.key, required this.children});
+  const JobBody({super.key, required this.children, required this.onRemoveJob});
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +27,19 @@ class JobBody extends StatelessWidget {
             const SizedBox(height: 8),
             Row(
                 spacing: kTotalAppMargin,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Expanded(
-                      child: OutlinedButton.icon(
-                          label: const Text("Remove Job"),
-                          icon: const Icon(Ionicons.close),
-                          onPressed: () {})),
-                  Expanded(
-                      child: TextButton(child: const Text("Sigma"), onPressed: () {}))
+                  TextButton.icon(
+                      label: Text(Provider.of<InternationalizationNotifier>(
+                              context,
+                              listen: false)
+                          .i18n
+                          .dispatchedJobs
+                          .remove_job_button),
+                      icon: const Icon(Ionicons.close),
+                      onPressed: onRemoveJob),
                 ])
           ]),
     );

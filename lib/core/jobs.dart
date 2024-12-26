@@ -47,10 +47,10 @@ abstract class Job {
     // this is a debug no impl error that is shown to alert developers that this part of the code is unfinished
     //
     // so pls reimpl this (also dont call super if you do)
-    return j.JobBody(children: <Widget>[
+    return j.JobBody(onRemoveJob: () {}, children: <Widget>[
       Container(
-          decoration:
-              BoxDecoration(color: kTheme1, borderRadius: BorderRadius.circular(kRRArc)),
+          decoration: BoxDecoration(
+              color: kTheme1, borderRadius: BorderRadius.circular(kRRArc)),
           padding: const EdgeInsets.all(8),
           child: Center(
               child: Text.rich(TextSpan(
@@ -75,19 +75,21 @@ abstract class Job {
 abstract class JobDispatcher {
   final FormatMedium formatMedium;
 
-  static Map<Type /* <- restricts (covariant) FormatMedium */, List<JobDispatcher>>
-      registeredJobDispatchers =
+  static Map<Type /* <- restricts (covariant) FormatMedium */,
+          List<JobDispatcher>> registeredJobDispatchers =
       <Type /* <- extends FormatMedium */, List<JobDispatcher>>{};
 
   static List<JobDispatcher> getJobDispatchersByMedium(Type mediumName) {
-    if (!registeredJobDispatchers.containsKey(mediumName) && kAllowDebugWarnings) {
+    if (!registeredJobDispatchers.containsKey(mediumName) &&
+        kAllowDebugWarnings) {
       throw ArgumentError(
           "Medium Key not found in registered jobs: $mediumName"); // another programmer error ! bruh
     }
     return registeredJobDispatchers[mediumName]!;
   }
 
-  static Map<Type /* <- restricts (covariant) FormatMedium */, Iterable<JobDispatcher>>
+  static Map<Type /* <- restricts (covariant) FormatMedium */,
+          Iterable<JobDispatcher>>
       get getJobsByMediumMap => registeredJobDispatchers;
 
   static void registerJobDispatcher(JobDispatcher r) {

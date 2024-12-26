@@ -10,9 +10,11 @@ class ColorHelper {
     return color.withAlpha((opacity * 255).round());
   }
 
-  static Color randomColor({double saturation = 0.6, double brightness = 0.75}) {
+  static Color randomColor(
+      {double saturation = 0.6, double brightness = 0.75}) {
     double hue = random.nextDouble();
-    return HSVColor.fromAHSV(1.0, hue * 360.0, saturation, brightness).toColor();
+    return HSVColor.fromAHSV(1.0, hue * 360.0, saturation, brightness)
+        .toColor();
   }
 
   static List<Color> randomColors(int min, int max) {
@@ -67,8 +69,11 @@ extension ColorExtension on Color {
     if (b_ > 0 && b_ < i) {
       b_ = i;
     }
-    return Color.fromARGB(min((r_ / factor).toInt(), 255),
-        min((g_ / factor).toInt(), 255), min((b_ / factor).toInt(), 255), a.toInt());
+    return Color.fromARGB(
+        min((r_ / factor).toInt(), 255),
+        min((g_ / factor).toInt(), 255),
+        min((b_ / factor).toInt(), 255),
+        a.toInt());
   }
 
   // adapted from java.awt.Color's api

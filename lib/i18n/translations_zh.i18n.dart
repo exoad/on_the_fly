@@ -67,6 +67,8 @@ class TranslationsZh extends Translations {
   String get locale => "zh";
   String get languageCode => "zh";
   AppGenericsTranslationsZh get appGenerics => AppGenericsTranslationsZh(this);
+  DispatchedJobsTranslationsZh get dispatchedJobs =>
+      DispatchedJobsTranslationsZh(this);
   CanonicalBitsTranslationsZh get canonicalBits =>
       CanonicalBitsTranslationsZh(this);
   FilePickerTranslationsZh get filePicker => FilePickerTranslationsZh(this);
@@ -156,6 +158,21 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   /// "孟嘉明 (Jack/exoad)"
   /// ```
   String get author_name => """孟嘉明 (Jack/exoad)""";
+
+  /// ```dart
+  /// "关"
+  /// ```
+  String get close => """关""";
+}
+
+class DispatchedJobsTranslationsZh extends DispatchedJobsTranslations {
+  final TranslationsZh _parent;
+  const DispatchedJobsTranslationsZh(this._parent) : super(_parent);
+
+  /// ```dart
+  /// "删除"
+  /// ```
+  String get remove_job_button => """删除""";
 }
 
 class CanonicalBitsTranslationsZh extends CanonicalBitsTranslations {
@@ -270,6 +287,8 @@ Map<String, String> get translationsZhMap => {
       """app generics.github""": """GitHub""",
       """app generics.third_parties""": """第三方许可证""",
       """app generics.author_name""": """孟嘉明 (Jack/exoad)""",
+      """app generics.close""": """关""",
+      """dispatched jobs.remove_job_button""": """删除""",
       """canonical bits.job_dispatcher_formal""": """任务调度""",
       """file picker.dialog_title_pick_file""": """选择文件""",
       """file picker.dialog_title_pick_folder""": """选择文件夹""",

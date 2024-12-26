@@ -33,7 +33,7 @@ const bool kRunSandboxView = true;
 /// an immediate mode ui is ran on top of the app that shows important information
 ///
 /// (good for debug)
-const bool kShowDebugView = true;
+const bool kShowDebugView = false;
 
 /// turns off debug logging for the debug events dispatcher
 ///
@@ -66,7 +66,8 @@ final Logger logger = Logger("AutoImg");
 
 /// this platform channel basically just checks if the platform
 /// channel is working properly in the hollistic sense
-const MethodChannel mNativeChannel1 = MethodChannel("net.exoad.on_the_fly/sanity_check");
+const MethodChannel mNativeChannel1 =
+    MethodChannel("net.exoad.on_the_fly/sanity_check");
 
 // /// determines how many messages [_loggerQueue] can hold and
 // /// show in the debugview
@@ -83,7 +84,8 @@ Future<void> initConsts() async {
   // _loggerQueue = Queue<String>();
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((LogRecord record) {
-    final String built = "${record.level.name}: ${record.time}: ${record.message}";
+    final String built =
+        "${record.level.name}: ${record.time}: ${record.message}";
     print(built);
     // if (_loggerQueue.length == kLoggerDebugViewRecentFilterDepth) {
     //   _loggerQueue.removeFirst();

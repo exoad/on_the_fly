@@ -1,3 +1,1 @@
-final class FileCandidate {
-
-}
+final class FileCandidate {}

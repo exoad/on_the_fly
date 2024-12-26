@@ -15,7 +15,9 @@ class JobTitle extends StatelessWidget {
       children: <Widget>[
         Text(title,
             style: const TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: kThemePrimaryFg1)),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: kThemePrimaryFg1)),
         const SizedBox(height: 4),
         Row(children: <Widget>[
           const Icon(Ionicons.time_outline, color: kThemePrimaryFg2, size: 14),
@@ -23,10 +25,13 @@ class JobTitle extends StatelessWidget {
           Text.rich(TextSpan(
               text: "Created on: ",
               style: const TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 14, color: kThemePrimaryFg2),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: kThemePrimaryFg2),
               children: <TextSpan>[
                 TextSpan(
-                    text: subtitle, style: const TextStyle(fontWeight: FontWeight.w300))
+                    text: subtitle,
+                    style: const TextStyle(fontWeight: FontWeight.w300))
               ]))
         ])
       ],

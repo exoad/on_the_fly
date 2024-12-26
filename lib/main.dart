@@ -86,6 +86,6 @@ void __tests() {
           "bbbbb.jpg", ImageMedium.instance["png"]),
       ".\\test_bbbbb.png");
   // Test AutoImgStrings.formalize
-  AppDebug()
-      .test("Test AutoImgStrings.formalize", () => "test_test".formalize, "Test Test");
+  AppDebug().test("Test AutoImgStrings.formalize", () => "test_test".formalize,
+      "Test Test");
 }

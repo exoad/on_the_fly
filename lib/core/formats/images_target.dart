@@ -7,6 +7,7 @@ import 'package:on_the_fly/core/utils/result.dart';
 import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 
 import 'package:on_the_fly/core/components/job_component.dart' as j;
+import 'package:on_the_fly/frontend/events/job_stack.dart';
 import 'package:provider/provider.dart';
 
 /// represents the builtin image formats supported by on the fly
@@ -79,10 +80,12 @@ class SingleImgJobDispatcher extends JobDispatcher {
   }
 
   @override
-  String get description => InternationalizationNotifier().i18n.singleImgJob.description;
+  String get description =>
+      InternationalizationNotifier().i18n.singleImgJob.description;
 
   @override
-  String get name => InternationalizationNotifier().i18n.singleImgJob.canonical_name;
+  String get name =>
+      InternationalizationNotifier().i18n.singleImgJob.canonical_name;
 
   @override
   String? get properDescription =>
@@ -121,15 +124,23 @@ class SingleImgJob extends Job {
 
   @override
   j.JobBody buildForm(BuildContext context) {
-    return j.JobBody(children: <Widget>[
-      j.JobTitle(
-        title: Provider.of<InternationalizationNotifier>(context)
-            .i18n
-            .singleImgJob
-            .canonical_name,
-        subtitle: timestamp.canonicalizedTimeString,
-      ),
-    ]);
+    return j.JobBody(
+        onRemoveJob: () =>
+            Provider.of<GlobalJobStack>(context, listen: false).removeJob(this),
+        children: <Widget>[
+          j.JobTitle(
+            title: Provider.of<InternationalizationNotifier>(context)
+                .i18n
+                .singleImgJob
+                .canonical_name,
+            subtitle: timestamp.canonicalizedTimeString,
+          ),
+          const SizedBox(height: 12),
+          j.JobSimpleTextField(
+              canonicalLabel: "Input file",
+              hintLabel: "/Users/Downloads",
+              onChanged: (String str) {})
+        ]);
   }
 }
 
@@ -144,6 +155,8 @@ class ImageRoutineProcessor extends RoutineProcessor<ImageMedium> {
       InternationalizationNotifier().i18n.builtinImgProcessor.canonical_name;
 
   @override
-  String get canonicalDescriptor =>
-      InternationalizationNotifier().i18n.builtinImgProcessor.proper_description;
+  String get canonicalDescriptor => InternationalizationNotifier()
+      .i18n
+      .builtinImgProcessor
+      .proper_description;
 }
