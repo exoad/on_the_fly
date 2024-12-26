@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:on_the_fly/shared/theme.dart';
 
 class JobSimpleTextField extends StatelessWidget {
   final void Function(String str) onChanged;
@@ -29,7 +28,6 @@ class JobSimpleTextField extends StatelessWidget {
           decoration: InputDecoration(
               prefix: leadingChild,
               suffix: trailingChild,
-              label: Text(canonicalLabel),
               hintText: hintLabel),
           onChanged: onChanged,
           validator: validator,

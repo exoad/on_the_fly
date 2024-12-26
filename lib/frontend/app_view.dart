@@ -93,24 +93,24 @@ class _AppViewContainer extends StatelessWidget {
         selectionColor: kThemePrimaryFg1.withAlpha((255 * 0.5).round()),
         cursorColor: kThemePrimaryFg1);
     InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
-        labelStyle: const TextStyle(
-            fontSize: 14, color: kThemePrimaryFg1, fontWeight: FontWeight.bold),
-        hintStyle: const TextStyle(fontSize: 12, color: kThemePrimaryFg2),
-        floatingLabelBehavior: FloatingLabelBehavior.auto,
-        floatingLabelStyle: const TextStyle(
-            fontSize: 12, color: kThemePrimaryFg1, fontWeight: FontWeight.bold),
-        isDense: true,
-        focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: kThemePrimaryFg1),
-            borderRadius: BorderRadius.circular(kRRArc)),
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kThemePrimaryFg2.withAlpha(120)),
-            borderRadius: BorderRadius.circular(kRRArc)),
-        border: OutlineInputBorder(
-            borderSide: BorderSide(color: kThemePrimaryFg2.withAlpha(120)),
-            borderRadius: BorderRadius.circular(kRRArc)),
-        activeIndicatorBorder: BorderSide(color: kThemePrimaryFg2.withAlpha(120)),
-        constraints: const BoxConstraints.tightFor(width: 200));
+      labelStyle: const TextStyle(
+          fontSize: 14, color: kThemePrimaryFg1, fontWeight: FontWeight.bold),
+      hintStyle: const TextStyle(fontSize: 12, color: kThemePrimaryFg2),
+      floatingLabelBehavior: FloatingLabelBehavior.auto,
+      floatingLabelStyle: const TextStyle(
+          fontSize: 12, color: kThemePrimaryFg1, fontWeight: FontWeight.bold),
+      isDense: true,
+      focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: kThemePrimaryFg1),
+          borderRadius: BorderRadius.circular(kRRArc)),
+      enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: kThemePrimaryFg2.withAlpha(120)),
+          borderRadius: BorderRadius.circular(kRRArc)),
+      border: OutlineInputBorder(
+          borderSide: BorderSide(color: kThemePrimaryFg2.withAlpha(120)),
+          borderRadius: BorderRadius.circular(kRRArc)),
+      activeIndicatorBorder: BorderSide(color: kThemePrimaryFg2.withAlpha(120)),
+    );
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
