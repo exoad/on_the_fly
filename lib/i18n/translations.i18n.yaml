@@ -15,6 +15,8 @@ app generics:
   third_parties: Third party licenses
   author_name: Jiaming Meng (Jack/exoad)
   close: Close
+  browse: Browse
+  empty: Empty
 dispatched jobs:
   remove_job_button: Remove
 canonical bits:
@@ -22,7 +24,6 @@ canonical bits:
 file picker:
   dialog_title_pick_file: Select a file
   dialog_title_pick_folder: Select a folder
-  launch: Use file picker
 format generic:
   supported_inputs: Supported Inputs
   supported_outputs: Supported Outputs

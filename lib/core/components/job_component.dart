@@ -7,3 +7,4 @@ library jcomponent;
 export "j_titles.dart";
 export "j_body.dart";
 export "j_fields.dart";
+export "j_prebuilt.dart";

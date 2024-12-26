@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/date_time.dart';
 import 'package:on_the_fly/core/utils/result.dart';
@@ -80,12 +81,10 @@ class SingleImgJobDispatcher extends JobDispatcher {
   }
 
   @override
-  String get description =>
-      InternationalizationNotifier().i18n.singleImgJob.description;
+  String get description => InternationalizationNotifier().i18n.singleImgJob.description;
 
   @override
-  String get name =>
-      InternationalizationNotifier().i18n.singleImgJob.canonical_name;
+  String get name => InternationalizationNotifier().i18n.singleImgJob.canonical_name;
 
   @override
   String? get properDescription =>
@@ -136,10 +135,16 @@ class SingleImgJob extends Job {
             subtitle: timestamp.canonicalizedTimeString,
           ),
           const SizedBox(height: 12),
-          j.JobSimpleTextField(
-              canonicalLabel: "Input file",
-              hintLabel: "/Users/Downloads",
-              onChanged: (String str) {})
+          j.JobPathPickerActionable(
+              filePickerAllowMultiple: false,
+              onChanged: (String str) {},
+              allowedExtensions: List<String>.empty(),
+              canonicalLabel: "Input file path",
+              filePickerLabel:
+                  Provider.of<InternationalizationNotifier>(context, listen: false)
+                      .i18n
+                      .appGenerics
+                      .browse)
         ]);
   }
 }
@@ -155,8 +160,6 @@ class ImageRoutineProcessor extends RoutineProcessor<ImageMedium> {
       InternationalizationNotifier().i18n.builtinImgProcessor.canonical_name;
 
   @override
-  String get canonicalDescriptor => InternationalizationNotifier()
-      .i18n
-      .builtinImgProcessor
-      .proper_description;
+  String get canonicalDescriptor =>
+      InternationalizationNotifier().i18n.builtinImgProcessor.proper_description;
 }

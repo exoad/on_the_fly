@@ -6,3 +6,5 @@ import 'package:flutter/material.dart';
 void wbpfcb(void Function(Duration timestamp) fx) {
   WidgetsBinding.instance.addPostFrameCallback(fx);
 }
+
+enum FileSelectionMode { folder, file }

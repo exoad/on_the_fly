@@ -15,6 +15,8 @@ app generics:
   third_parties: 第三方许可证
   author_name: 孟嘉明 (Jack/exoad)
   close: 关
+  browse: 浏览
+  empty: 空
 dispatched jobs:
   remove_job_button: 删除
 canonical bits:
@@ -22,7 +24,6 @@ canonical bits:
 file picker:
   dialog_title_pick_file: 选择文件
   dialog_title_pick_folder: 选择文件夹
-  launch: 使用文件选择器
 format generic:
   supported_inputs: 支持的输入
   supported_outputs: 支持的输出

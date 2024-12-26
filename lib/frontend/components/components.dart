@@ -30,8 +30,8 @@ class ThemeableTextButton extends TextButton {
       : super(
             style: ButtonStyle(
                 iconColor: WidgetStatePropertyAll<Color>(fg),
-                textStyle: WidgetStatePropertyAll<TextStyle>(
-                    textStyle ?? TextStyle(color: fg)),
+                textStyle:
+                    WidgetStatePropertyAll<TextStyle>(textStyle ?? TextStyle(color: fg)),
                 backgroundColor: WidgetStatePropertyAll<Color>(bg)));
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:on_the_fly/shared/theme.dart';
 
 class JobSimpleTextField extends StatelessWidget {
   final void Function(String str) onChanged;
@@ -19,20 +20,32 @@ class JobSimpleTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6),
-      child: IntrinsicWidth(
-        child: TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          autocorrect: false,
-          decoration: InputDecoration(
-              prefix: leadingChild,
-              suffix: trailingChild,
-              hintText: hintLabel),
-          onChanged: onChanged,
-          validator: validator,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        if (leadingChild != null) leadingChild!,
+        Text(canonicalLabel,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 6),
+            child: TextFormField(
+              style: const TextStyle(fontSize: 14, fontFamily: kDefaultFontFamily),
+              autovalidateMode: AutovalidateMode.always,
+              autocorrect: false,
+              decoration: InputDecoration(hintText: hintLabel),
+              onChanged: onChanged,
+              validator: validator,
+            ),
+          ),
         ),
-      ),
+        if (trailingChild != null)
+          Padding(
+            padding: const EdgeInsets.only(left: 6),
+            child: trailingChild!,
+          )
+      ],
     );
   }
 }

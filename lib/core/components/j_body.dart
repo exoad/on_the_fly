@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/shared/layout.dart';
+import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
+
 // import 'package:on_the_fly/shared/theme.dart';
 
 class JobBody extends StatelessWidget {
@@ -24,7 +26,7 @@ class JobBody extends StatelessWidget {
             //       padding: const EdgeInsets.symmetric(vertical: 8),
             //       child: Divider(color: kThemePrimaryFg2.withAlpha(120), thickness: 1.0),
             //     ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 24),
             Row(
                 spacing: kTotalAppMargin,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -32,8 +34,9 @@ class JobBody extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   TextButton.icon(
-                      label: Text(Provider.of<InternationalizationNotifier>(
-                              context,
+                      style: Theme.of(context).textButtonTheme.style!.copyWith(
+                          backgroundColor: const WidgetStatePropertyAll<Color>(kTheme1)),
+                      label: Text(Provider.of<InternationalizationNotifier>(context,
                               listen: false)
                           .i18n
                           .dispatchedJobs

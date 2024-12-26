@@ -163,6 +163,16 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   /// "关"
   /// ```
   String get close => """关""";
+
+  /// ```dart
+  /// "浏览"
+  /// ```
+  String get browse => """浏览""";
+
+  /// ```dart
+  /// "空"
+  /// ```
+  String get empty => """空""";
 }
 
 class DispatchedJobsTranslationsZh extends DispatchedJobsTranslations {
@@ -198,11 +208,6 @@ class FilePickerTranslationsZh extends FilePickerTranslations {
   /// "选择文件夹"
   /// ```
   String get dialog_title_pick_folder => """选择文件夹""";
-
-  /// ```dart
-  /// "使用文件选择器"
-  /// ```
-  String get launch => """使用文件选择器""";
 }
 
 class FormatGenericTranslationsZh extends FormatGenericTranslations {
@@ -288,11 +293,12 @@ Map<String, String> get translationsZhMap => {
       """app generics.third_parties""": """第三方许可证""",
       """app generics.author_name""": """孟嘉明 (Jack/exoad)""",
       """app generics.close""": """关""",
+      """app generics.browse""": """浏览""",
+      """app generics.empty""": """空""",
       """dispatched jobs.remove_job_button""": """删除""",
       """canonical bits.job_dispatcher_formal""": """任务调度""",
       """file picker.dialog_title_pick_file""": """选择文件""",
       """file picker.dialog_title_pick_folder""": """选择文件夹""",
-      """file picker.launch""": """使用文件选择器""",
       """format generic.supported_inputs""": """支持的输入""",
       """format generic.supported_outputs""": """支持的输出""",
       """format generic.push_job""": """添加这个程序""",

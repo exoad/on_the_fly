@@ -13,11 +13,19 @@ class JobTitle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(title,
-            style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: kThemePrimaryFg1)),
+        ShaderMask(
+          shaderCallback: (Rect bounds) {
+            return const LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              stops: <double>[0.1, 0.9],
+              colors: <Color>[kTheme2, kTheme1],
+            ).createShader(bounds);
+          },
+          child: Text(title,
+              style: const TextStyle(
+                  fontSize: 20, fontWeight: FontWeight.bold, color: kThemePrimaryFg1)),
+        ),
         const SizedBox(height: 4),
         Row(children: <Widget>[
           const Icon(Ionicons.time_outline, color: kThemePrimaryFg2, size: 14),
@@ -25,15 +33,19 @@ class JobTitle extends StatelessWidget {
           Text.rich(TextSpan(
               text: "Created on: ",
               style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: kThemePrimaryFg2),
+                  fontWeight: FontWeight.bold, fontSize: 14, color: kThemePrimaryFg2),
               children: <TextSpan>[
                 TextSpan(
-                    text: subtitle,
-                    style: const TextStyle(fontWeight: FontWeight.w300))
+                    text: subtitle, style: const TextStyle(fontWeight: FontWeight.w300))
               ]))
-        ])
+        ]),
+        // const Padding(
+        //   padding: EdgeInsets.symmetric(vertical: 10),
+        //   child: Divider(
+        //     color: kThemePrimaryFg3,
+        //     thickness: 2,
+        //   ),
+        // ),
       ],
     );
   }

@@ -163,6 +163,16 @@ class AppGenericsTranslations {
   /// "Close"
   /// ```
   String get close => """Close""";
+
+  /// ```dart
+  /// "Browse"
+  /// ```
+  String get browse => """Browse""";
+
+  /// ```dart
+  /// "Empty"
+  /// ```
+  String get empty => """Empty""";
 }
 
 class DispatchedJobsTranslations {
@@ -198,11 +208,6 @@ class FilePickerTranslations {
   /// "Select a folder"
   /// ```
   String get dialog_title_pick_folder => """Select a folder""";
-
-  /// ```dart
-  /// "Use file picker"
-  /// ```
-  String get launch => """Use file picker""";
 }
 
 class FormatGenericTranslations {
@@ -292,11 +297,12 @@ Map<String, String> get translationsMap => {
       """app generics.third_parties""": """Third party licenses""",
       """app generics.author_name""": """Jiaming Meng (Jack/exoad)""",
       """app generics.close""": """Close""",
+      """app generics.browse""": """Browse""",
+      """app generics.empty""": """Empty""",
       """dispatched jobs.remove_job_button""": """Remove""",
       """canonical bits.job_dispatcher_formal""": """Job Dispatcher""",
       """file picker.dialog_title_pick_file""": """Select a file""",
       """file picker.dialog_title_pick_folder""": """Select a folder""",
-      """file picker.launch""": """Use file picker""",
       """format generic.supported_inputs""": """Supported Inputs""",
       """format generic.supported_outputs""": """Supported Outputs""",
       """format generic.push_job""": """Add this job""",

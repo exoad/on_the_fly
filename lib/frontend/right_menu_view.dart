@@ -1,5 +1,6 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_tilt/flutter_tilt.dart';
 import 'package:on_the_fly/frontend/app_view.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
@@ -36,8 +37,7 @@ class AppRightMenuView extends StatelessWidget {
                         SizedBox(
                             width: 250,
                             height: 200,
-                            child: SvgPicture.asset(
-                                "assets/illust/undraw_loading.svg",
+                            child: SvgPicture.asset("assets/illust/undraw_loading.svg",
                                 clipBehavior: Clip.antiAlias,
                                 cacheColorFilter: true,
                                 height: 180)),
@@ -71,8 +71,7 @@ class AppRightMenuView extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.topCenter,
                         child: ListView.builder(
-                            itemCount: Provider.of<GlobalJobStack>(context,
-                                    listen: false)
+                            itemCount: Provider.of<GlobalJobStack>(context, listen: false)
                                 .jobStack
                                 .length,
                             clipBehavior: Clip.antiAlias,
@@ -83,8 +82,7 @@ class AppRightMenuView extends StatelessWidget {
                                   padding: const EdgeInsets.only(bottom: 8),
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Provider.of<GlobalJobStack>(
-                                            context)[index]
+                                    title: Provider.of<GlobalJobStack>(context)[index]
                                         .buildForm(context),
                                     // onTap: () {
                                     //   Provider.of<GlobalJobStack>(context, listen: false)
@@ -101,8 +99,7 @@ class AppRightMenuView extends StatelessWidget {
                               // we add some end or begin padding to the list view scroll element for this
                               // job instance form
                               return index ==
-                                      Provider.of<GlobalJobStack>(context,
-                                                  listen: false)
+                                      Provider.of<GlobalJobStack>(context, listen: false)
                                               .jobStack
                                               .length -
                                           1
@@ -160,8 +157,7 @@ class AppTopShelf extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text("${InternationalizationNotifier().i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16))
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
               .blurry(
                   blur: 10,
                   elevation: 16,

@@ -44,73 +44,82 @@ class _AppViewState extends State<AppView> {
 class _AppViewContainer extends StatelessWidget {
   const _AppViewContainer();
 
+  static final ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
+      style: ButtonStyle(
+          splashFactory: NoSplash.splashFactory,
+          padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero),
+          shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))),
+          backgroundColor: const WidgetStatePropertyAll<Color>(kThemeBg),
+          foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1)));
+  static final TooltipThemeData tooltipThemeData = TooltipThemeData(
+      textStyle: const TextStyle(color: kThemePrimaryFg1),
+      preferBelow: false,
+      waitDuration: const Duration(milliseconds: 1000),
+      exitDuration: const Duration(milliseconds: 750),
+      decoration: BoxDecoration(
+          color: kThemeBg,
+          border: Border.all(color: kThemePrimaryFg1, width: 1.5),
+          borderRadius: BorderRadius.circular(kRRArc)));
+  static final OutlinedButtonThemeData outlinedButtonThemeData = OutlinedButtonThemeData(
+      style: ButtonStyle(
+          splashFactory: NoSplash.splashFactory,
+          overlayColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg2.withAlpha(40)),
+          iconColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
+          padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero),
+          shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(kRRArc),
+              side: const BorderSide(color: kThemePrimaryFg1, width: 2))),
+          foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
+          side: const WidgetStatePropertyAll<BorderSide>(
+              BorderSide(color: kThemePrimaryFg1, width: 1))));
+  static final TextButtonThemeData textButtonThemeData = TextButtonThemeData(
+      style: ButtonStyle(
+          surfaceTintColor: WidgetStatePropertyAll<Color>(
+              kThemePrimaryFg1..withAlpha((255 * 0.3).round())),
+          overlayColor: WidgetStatePropertyAll<Color>(kThemeBg.withAlpha(34)),
+          iconColor: const WidgetStatePropertyAll<Color>(kThemeBg),
+          shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))),
+          splashFactory: NoSplash.splashFactory,
+          backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
+          foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg)));
+  static final TextSelectionThemeData textSelectionThemeData = TextSelectionThemeData(
+      selectionHandleColor: kThemePrimaryFg1,
+      selectionColor: kThemePrimaryFg1.withAlpha((255 * 0.5).round()),
+      cursorColor: kThemePrimaryFg1);
+  static const InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
+    labelStyle:
+        TextStyle(fontSize: 14, color: kThemePrimaryFg1, fontWeight: FontWeight.bold),
+    hintStyle: TextStyle(fontSize: 12, color: kThemePrimaryFg2),
+    contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+    floatingLabelBehavior: FloatingLabelBehavior.auto,
+    floatingLabelStyle:
+        TextStyle(fontSize: 12, color: kThemePrimaryFg1, fontWeight: FontWeight.bold),
+    isDense: true,
+    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kThemePrimaryFg1)),
+    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kThemePrimaryFg3)),
+    border: UnderlineInputBorder(borderSide: BorderSide(color: kThemePrimaryFg3)),
+    activeIndicatorBorder: BorderSide(color: kThemePrimaryFg3),
+  );
+  static final ExpansionTileThemeData expansionTileThemeData = ExpansionTileThemeData(
+      expansionAnimationStyle: AnimationStyle(curve: Curves.easeInExpo),
+      backgroundColor: kThemeOptedComponentFg,
+      iconColor: kThemePrimaryFg1,
+      collapsedIconColor: kTheme1,
+      childrenPadding: const EdgeInsets.only(left: 8, right: 8, top: 10, bottom: 6),
+      collapsedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(kRRArc),
+          side: const BorderSide(color: kThemeOptedComponentFg, width: 1.5)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(kRRArc),
+          side: const BorderSide(color: kThemeOptedComponentBorder, width: 1.5)));
+
   @override
   Widget build(BuildContext context) {
     // if we dont refactor and redfine these as separate variables, `dart format` fucks up
     // the formatting and makes a big mess (like the formatter just gives up formatting lol)
-    ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
-        style: ButtonStyle(
-            splashFactory: NoSplash.splashFactory,
-            padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero),
-            shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))),
-            backgroundColor: const WidgetStatePropertyAll<Color>(kThemeBg),
-            foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1)));
-    TooltipThemeData tooltipThemeData = TooltipThemeData(
-        textStyle: const TextStyle(color: kThemePrimaryFg1),
-        preferBelow: false,
-        waitDuration: const Duration(milliseconds: 1000),
-        exitDuration: const Duration(milliseconds: 750),
-        decoration: BoxDecoration(
-            color: kThemeBg,
-            border: Border.all(color: kThemePrimaryFg1, width: 1.5),
-            borderRadius: BorderRadius.circular(kRRArc)));
-    OutlinedButtonThemeData outlinedButtonThemeData = OutlinedButtonThemeData(
-        style: ButtonStyle(
-            splashFactory: NoSplash.splashFactory,
-            overlayColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg2.withAlpha(40)),
-            iconColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
-            padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero),
-            shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(kRRArc),
-                side: const BorderSide(color: kThemePrimaryFg1, width: 1.5))),
-            foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
-            side: const WidgetStatePropertyAll<BorderSide>(
-                BorderSide(color: kThemePrimaryFg1, width: 1))));
-    TextButtonThemeData textButtonThemeData = TextButtonThemeData(
-        style: ButtonStyle(
-            surfaceTintColor: WidgetStatePropertyAll<Color>(
-                kThemePrimaryFg1..withAlpha((255 * 0.3).round())),
-            overlayColor: WidgetStatePropertyAll<Color>(kThemeBg.withAlpha(34)),
-            iconColor: const WidgetStatePropertyAll<Color>(kThemeBg),
-            shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))),
-            splashFactory: NoSplash.splashFactory,
-            backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
-            foregroundColor: const WidgetStatePropertyAll<Color>(kThemeBg)));
-    TextSelectionThemeData textSelectionThemeData = TextSelectionThemeData(
-        selectionHandleColor: kThemePrimaryFg1,
-        selectionColor: kThemePrimaryFg1.withAlpha((255 * 0.5).round()),
-        cursorColor: kThemePrimaryFg1);
-    InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
-      labelStyle: const TextStyle(
-          fontSize: 14, color: kThemePrimaryFg1, fontWeight: FontWeight.bold),
-      hintStyle: const TextStyle(fontSize: 12, color: kThemePrimaryFg2),
-      floatingLabelBehavior: FloatingLabelBehavior.auto,
-      floatingLabelStyle: const TextStyle(
-          fontSize: 12, color: kThemePrimaryFg1, fontWeight: FontWeight.bold),
-      isDense: true,
-      focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: kThemePrimaryFg1),
-          borderRadius: BorderRadius.circular(kRRArc)),
-      enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: kThemePrimaryFg2.withAlpha(120)),
-          borderRadius: BorderRadius.circular(kRRArc)),
-      border: OutlineInputBorder(
-          borderSide: BorderSide(color: kThemePrimaryFg2.withAlpha(120)),
-          borderRadius: BorderRadius.circular(kRRArc)),
-      activeIndicatorBorder: BorderSide(color: kThemePrimaryFg2.withAlpha(120)),
-    );
+
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
@@ -154,13 +163,7 @@ class _AppViewContainer extends StatelessWidget {
                   shape:
                       RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc)),
                   clipBehavior: Clip.antiAlias),
-              expansionTileTheme: ExpansionTileThemeData(
-                  iconColor: kThemePrimaryFg1,
-                  collapsedIconColor: kTheme1,
-                  collapsedShape:
-                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc)),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(kRRArc))),
+              expansionTileTheme: expansionTileThemeData,
               splashColor: kThemePrimaryFg1.withAlpha((255 * 0.5).round()),
               buttonTheme: const ButtonThemeData(padding: EdgeInsets.zero),
               iconButtonTheme: IconButtonThemeData(
