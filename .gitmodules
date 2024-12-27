@@ -1,3 +1,6 @@
 [submodule "updater"]
 	path = updater
 	url = https://github.com/exoad/onthefly_updater
+[submodule "doc"]
+	path = doc
+	url = https://github.com/exoad/onthefly
