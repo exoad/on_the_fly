@@ -6,7 +6,6 @@ import subprocess
 import time
 import shutil
 import traceback
-import itertools
 
 # configuration stuffs (change if you want to)
 BUILD_OUTPUT_FOLDER_NAME = "BuildArtifacts"
@@ -21,7 +20,6 @@ BUILD_LOG_FILE_NAME = (
 logger = logging.getLogger("OnTheFly_PyBuilder")
 release_build = False
 target_platform = "windows"
-await_spinner = itertools.cycle("-/|\\")
 ephemeral_build_root_folder = None
 
 
@@ -51,7 +49,7 @@ def run_flutter_build(curr_dir: str | None = None) -> int:
     if not curr_dir:
         curr_dir = "."
     start_build_time: float = time.time()
-    logger.info(f"Build started at {start_build_time}")
+    logger.info(f"FLUTTER_BUILD invoked at {time.ctime(start_build_time)}")
     flutter_build: subprocess.CompletedProcess[str] = subprocess.run(
         ["flutter.bat", "build", target_platform, "--release" if release_build else ""],
         cwd=os.path.join(os.getcwd(), curr_dir),
@@ -66,15 +64,27 @@ def run_flutter_build(curr_dir: str | None = None) -> int:
     return flutter_build.returncode
 
 
-def mv_cpyfolders(src: str, dest: str):
+def mv_cpyfolders(src: str, dest: str, force_move=False, cleanup=True):
     logger.info(f"MV_COPY_FOLDERS @@ {src} -> {dest}")
     logger.info(f"SRC_TREE -> {os.listdir(src)}")
     logger.info(f"DEST_TREE (ExpectBlank) -> {os.listdir(dest)}")
-    shutil.copytree(src, dest, symlinks=True, dirs_exist_ok=True)
+    if force_move:
+        for f in os.listdir(src):
+            shutil.move(os.path.join(src, f), dest)
+    else:
+        shutil.copytree(src, dest, symlinks=True, dirs_exist_ok=True)
+    if cleanup:
+        for f in os.listdir(src):
+            if os.path.isfile(os.path.join(src, f)):
+                os.remove(os.path.join(os.getcwd(), src, f))
+            else:
+                shutil.rmtree(os.path.join(src, f))
+        logger.info(f"CLEANED UP {src}")
 
 
 # actual routine processing goes here
 if __name__ == "__main__":
+    start_build_time = time.time()
     formatter = logging.Formatter(
         "%(asctime)s | %(name)s | %(levelname)s $ %(message)s"
     )
@@ -95,6 +105,7 @@ if __name__ == "__main__":
         logger.addHandler(file_handler)
     target_platform = "windows"  # only supporting windows for now
     logger.info("============ BEGIN ============")
+    logger.info(f"Build Started at {time.ctime(start_build_time)}")
     logger.info(f"System PATH: {os.environ['PATH']}")
     logger.info(f"RELEASE_BUILD={release_build}")
     ephemeral_build_root_folder = os.path.join(
@@ -116,4 +127,10 @@ if __name__ == "__main__":
         ephemeral_build_root_folder,
         os.path.join(BUILD_OUTPUT_FOLDER_NAME, BUILD_OUTPUT_FOLDER_ROOT_NAME),
     )
+    end_build_time = time.time()
+    logger.info(
+        f"Build Ended at {time.ctime(end_build_time)}, took {end_build_time - start_build_time}s"
+    )
+    # section for building the updater program
+    
     logger.info("============= END =============")
