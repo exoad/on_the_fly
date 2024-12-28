@@ -4,6 +4,7 @@ import sys
 import logging
 import subprocess
 import time
+import shutil
 import traceback
 import itertools
 
@@ -21,6 +22,7 @@ logger = logging.getLogger("OnTheFly_PyBuilder")
 release_build = False
 target_platform = "windows"
 await_spinner = itertools.cycle("-/|\\")
+ephemeral_build_root_folder = None
 
 
 # build processing subroutines
@@ -44,7 +46,7 @@ def init_build_folder():
         logger.error(f"BUILD_FOLDER @@ Error occured while initting {e}")
 
 
-def run_flutter_build(curr_dir: str | None = None):
+def run_flutter_build(curr_dir: str | None = None) -> int:
     logger.info(f"RUN_FLUTTER_BUILD @@ {curr_dir}")
     if not curr_dir:
         curr_dir = "."
@@ -54,12 +56,21 @@ def run_flutter_build(curr_dir: str | None = None):
         ["flutter.bat", "build", target_platform, "--release" if release_build else ""],
         cwd=os.path.join(os.getcwd(), curr_dir),
         stderr=subprocess.STDOUT,
-        stdout=subprocess.STDOUT,
+        stdout=subprocess.PIPE,
         text=True,
     )
+    # might need to finish some encoding issues with the output
     logger.info(
-        f"FLUTTER_BUILD @@ TOOK: {time.time()-start_build_time} {curr_dir}\nOUTPUT\n{flutter_build}"
+        f"FLUTTER_BUILD @@ TOOK: {time.time()-start_build_time} {curr_dir}\nOUTPUT [{flutter_build.returncode}]\n{flutter_build.stdout}"
     )
+    return flutter_build.returncode
+
+
+def mv_cpyfolders(src: str, dest: str):
+    logger.info(f"MV_COPY_FOLDERS @@ {src} -> {dest}")
+    logger.info(f"SRC_TREE -> {os.listdir(src)}")
+    logger.info(f"DEST_TREE (ExpectBlank) -> {os.listdir(dest)}")
+    shutil.copytree(src, dest, symlinks=True, dirs_exist_ok=True)
 
 
 # actual routine processing goes here
@@ -76,9 +87,9 @@ if __name__ == "__main__":
     # TODO: might have support for other platforms later
     init_build_folder()
     if ALLOW_BUILD_LOG_TO_FILE:
-        file_handler = logging.FileHandler(
-            os.path.join(BUILD_OUTPUT_FOLDER_NAME, BUILD_LOG_FILE_NAME)
-        )
+        logger_path = os.path.join(BUILD_OUTPUT_FOLDER_NAME, BUILD_LOG_FILE_NAME)
+        file_handler = logging.FileHandler(logger_path)
+        open(logger_path, "w").close()
         file_handler.setLevel(logging.DEBUG)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
@@ -86,8 +97,23 @@ if __name__ == "__main__":
     logger.info("============ BEGIN ============")
     logger.info(f"System PATH: {os.environ['PATH']}")
     logger.info(f"RELEASE_BUILD={release_build}")
+    ephemeral_build_root_folder = os.path.join(
+        "build",
+        target_platform,
+        "x64",
+        "runner",
+        "Release" if release_build else "Debug",
+    )
+    logger.info(f"Build location @ {ephemeral_build_root_folder}")
     try:
-        run_flutter_build()
+        if (code := run_flutter_build()) != 0:
+            raise RuntimeError(f"Flutter build returned output code {code}")
+        else:
+            logger.info("flutter_build OK")
     except Exception:
         logger.error(f"{traceback.format_exc()}")
+    mv_cpyfolders(
+        ephemeral_build_root_folder,
+        os.path.join(BUILD_OUTPUT_FOLDER_NAME, BUILD_OUTPUT_FOLDER_ROOT_NAME),
+    )
     logger.info("============= END =============")
