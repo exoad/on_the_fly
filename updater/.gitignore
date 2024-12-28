@@ -1,0 +1,4 @@
+# pyinstaller bundlers
+/dist
+/build
+__pycache__
