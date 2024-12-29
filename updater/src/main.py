@@ -5,11 +5,11 @@ import json
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import webbrowser
-import requests
 import shared_constants as shared
+import audit_base
 
 
-def startapp(is_out_of_date: bool):
+def startapp(audit: audit_base.AuditJSON):
     app = ttk.Window(
         title="OnTheFly Updater",
         minsize=shared.WINDOW_GEOM,
@@ -71,17 +71,33 @@ def startapp(is_out_of_date: bool):
 
 if __name__ == "__main__":
     # TODO: implement a way to fetch the status of the current program
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 1:
         exit(shared.ERRN_NO_CURRENT_VERSION_SUPPLIED)
     curr_ver = sys.argv[1]  # the current installed version code
     audit = requests.get(shared.AUDIT_JSON_URL).json()
     # print(f"{type(audit_res_json)} {audit_res_json}")
-    if isinstance(curr_ver, int):
+    if curr_ver[1:].isdigit() if curr_ver[0] in ("-", "+") else curr_ver.isdigit():
+        curr_ver = int(curr_ver)
         if curr_ver < audit["iteration"]:
             out_of_date = True
         else:
             # launch the program normally
-            
+            audit = audit_base.AuditJSON(
+                iteration=audit["iteration"],
+                version_tag=audit["version_tag"],
+                source_download=audit["source_download"],
+                platform=[
+                    plat
+                    for k, v in audit["platform"].items()
+                    if (
+                        plat := audit_base.PlatformDownloadJSON(
+                            name=k, release_url=v["release_url"], checksum=v["checksum"]
+                        )
+                    )
+                ],
+            )
+            startapp(audit)
+            print(audit)
     else:
         exit(shared.ERRN_NON_NUMERICAL_CURRENT_VERSION)
     # isoutofdate = True
