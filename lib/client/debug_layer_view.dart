@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/helpers/ranged_incrementor.dart';
-import 'package:on_the_fly/frontend/components/components.dart';
-import 'package:on_the_fly/frontend/events/debug_events.dart';
+import 'package:on_the_fly/client/components/components.dart';
+import 'package:on_the_fly/client/events/debug_events.dart';
 import 'package:on_the_fly/shared/theme.dart';
 
 /// a debug overlay made to be immediate and easy to use as it is entirely

@@ -1,7 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
+import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
 

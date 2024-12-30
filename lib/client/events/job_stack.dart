@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/core/jobs.dart';
-import 'package:on_the_fly/frontend/events/debug_events.dart';
+import 'package:on_the_fly/client/events/debug_events.dart';
 import 'package:on_the_fly/shared/app.dart';
 
 // * NOT FINAL IMPL

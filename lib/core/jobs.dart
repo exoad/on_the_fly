@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:objectid/objectid.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
-import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
+import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';

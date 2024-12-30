@@ -5,10 +5,10 @@ import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/date_time.dart';
 import 'package:on_the_fly/core/utils/result.dart';
-import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
+import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 
 import 'package:on_the_fly/core/components/job_component.dart' as j;
-import 'package:on_the_fly/frontend/events/job_stack.dart';
+import 'package:on_the_fly/client/events/job_stack.dart';
 import 'package:provider/provider.dart';
 
 /// represents the builtin image formats supported by on the fly
