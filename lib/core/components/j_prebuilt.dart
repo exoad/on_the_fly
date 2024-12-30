@@ -64,7 +64,9 @@ class _JobPathPickerActionableState extends State<JobPathPickerActionable> {
                   autocorrect: false,
                   decoration: InputDecoration(hintText: widget.hintLabel),
                   onChanged: (String str) => setState(() => _pathContent = str),
-                  validator: (String? str) {},
+                  validator: (String? str) {
+                    return null;
+                  },
                 ),
               ),
             ),

@@ -7,7 +7,7 @@ from ttkbootstrap.constants import *
 import webbrowser
 import shared_constants as shared
 import audit_base
-
+import requests
 
 def startapp(audit: audit_base.AuditJSON):
     app = ttk.Window(

@@ -1,0 +1,26 @@
+import 'package:flutter/material.dart';
+
+mixin class EphemeralListModel<E> {
+  final GlobalKey<AnimatedListState> listKey;
+  final Widget Function(E item, BuildContext context, Animation<double> animation)
+      removedItemBuilder;
+  final List<E> items;
+
+  @protected
+  EphemeralListModel({
+    required this.listKey,
+    required this.removedItemBuilder,
+    List<E>? items,
+  }) : items = items ?? <E>[];
+
+  E pop(int index) {
+    E res = items.removeAt(index);
+    if (res != null) {
+      listKey.currentState!.removeItem(
+          index,
+          (BuildContext context, Animation<double> animation) =>
+              removedItemBuilder(res, context, animation));
+    }
+    return res;
+  }
+}

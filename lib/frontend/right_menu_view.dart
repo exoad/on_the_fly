@@ -1,6 +1,5 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_tilt/flutter_tilt.dart';
 import 'package:on_the_fly/frontend/app_view.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
@@ -70,44 +69,7 @@ class AppRightMenuView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Align(
                         alignment: Alignment.topCenter,
-                        child: ListView.builder(
-                            itemCount: Provider.of<GlobalJobStack>(context, listen: false)
-                                .jobStack
-                                .length,
-                            clipBehavior: Clip.antiAlias,
-                            reverse: true,
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              Widget contentW = Padding(
-                                  padding: const EdgeInsets.only(bottom: 8),
-                                  child: ListTile(
-                                    contentPadding: EdgeInsets.zero,
-                                    title: Provider.of<GlobalJobStack>(context)[index]
-                                        .buildForm(context),
-                                    // onTap: () {
-                                    //   Provider.of<GlobalJobStack>(context, listen: false)
-                                    //       .removeJob(Provider.of<GlobalJobStack>(context,
-                                    //               listen: false)
-                                    //           .jobStack[index]);
-                                    //   debugSeek()["job_stack_sz"] =
-                                    //       Provider.of<GlobalJobStack>(context,
-                                    //               listen: false)
-                                    //           .jobStack
-                                    //           .length;
-                                    // },
-                                  ));
-                              // we add some end or begin padding to the list view scroll element for this
-                              // job instance form
-                              return index ==
-                                      Provider.of<GlobalJobStack>(context, listen: false)
-                                              .jobStack
-                                              .length -
-                                          1
-                                  ? Padding(
-                                      padding: const EdgeInsets.only(top: 40),
-                                      child: contentW)
-                                  : contentW;
-                            }),
+                        child: _JobStackView(),
                       ),
                     ),
                   ),
@@ -144,6 +106,47 @@ class AppRightMenuView extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _JobStackView extends StatelessWidget {
+  final GlobalKey<AnimatedListState> _listKey;
+
+  _JobStackView() : _listKey = GlobalKey<AnimatedListState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedList(
+        initialItemCount:
+            Provider.of<GlobalJobStack>(context, listen: false).jobStack.length,
+        clipBehavior: Clip.antiAlias,
+        reverse: true,
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index, Animation<double> animation) {
+          Widget contentW = Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Provider.of<GlobalJobStack>(context)[index].buildForm(context),
+                // onTap: () {
+                //   Provider.of<GlobalJobStack>(context, listen: false)
+                //       .removeJob(Provider.of<GlobalJobStack>(context,
+                //               listen: false)
+                //           .jobStack[index]);
+                //   debugSeek()["job_stack_sz"] =
+                //       Provider.of<GlobalJobStack>(context,
+                //               listen: false)
+                //           .jobStack
+                //           .length;
+                // },
+              ));
+          // we add some end or begin padding to the list view scroll element for this
+          // job instance form
+          return index ==
+                  Provider.of<GlobalJobStack>(context, listen: false).jobStack.length - 1
+              ? Padding(padding: const EdgeInsets.only(top: 40), child: contentW)
+              : contentW;
+        });
   }
 }
 

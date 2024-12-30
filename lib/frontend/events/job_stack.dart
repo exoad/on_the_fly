@@ -9,12 +9,13 @@ import 'package:on_the_fly/shared/app.dart';
 /// should be used throughout the app
 class GlobalJobStack with ChangeNotifier {
   static final GlobalJobStack _instance = GlobalJobStack._();
+  final List<Job> _jobStack = <Job>[];
+  late Widget Function(Job item, BuildContext context, Animation<double> animation)
+      removeItemBuilder;
+  late GlobalKey<AnimatedListState> listKey;
 
   GlobalJobStack._();
-
   factory GlobalJobStack() => _instance;
-
-  final List<Job> _jobStack = <Job>[];
 
   List<Job> get jobStack => _jobStack;
 
@@ -27,6 +28,7 @@ class GlobalJobStack with ChangeNotifier {
     notifyListeners();
   }
 
+  @Deprecated("Use index removal please !!")
   void removeJob(Job job) {
     if (kAllowDebugLogs) {
       logger.info("GlobalJobStack removes: $job");
@@ -43,6 +45,7 @@ class GlobalJobStack with ChangeNotifier {
   /// otherwise `false` is returned that it wasn't found.
   ///
   /// may not be the most efficient option
+  @Deprecated("dont use this since it calls removeJob(Job)")
   bool removeJobByID(String id) {
     Job? job = getJobById(id);
     if (job != null) {
@@ -56,6 +59,21 @@ class GlobalJobStack with ChangeNotifier {
     while (jobStack.isNotEmpty) {
       removeJob(jobStack.last);
     }
+  }
+
+  Job removeAt(int index) {
+    assert(index < _jobStack.length && index >= 0,
+        "JobStack::removeAt($index) failed, out of range >:(");
+    Job res = _jobStack.removeAt(index);
+    if (listKey.currentState == null) {
+      logger.warning("JobStack::ListKey.CurrentState is NULL (when it shouldn't be)");
+    } else {
+      listKey.currentState!.removeItem(
+          index,
+          (BuildContext context, Animation<double> animation) =>
+              removeItemBuilder(res, context, animation));
+    }
+    return res;
   }
 
   /// returns a job instance within the job stack using the [hashId] present.
