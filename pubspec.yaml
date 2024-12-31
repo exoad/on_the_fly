@@ -47,6 +47,7 @@ flutter:
   assets:
     - assets/
     - assets/illust/
+    - assets/tray/
   fonts:
     - family: Montserrat
       fonts:

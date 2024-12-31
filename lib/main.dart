@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:objectid/objectid.dart';
 import 'package:on_the_fly/base/ephemeral.dart';
 import 'package:on_the_fly/base/native_channel.dart';
+import 'package:on_the_fly/client/tray/tray.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/client/app_view.dart';
@@ -46,7 +47,9 @@ void main() {
       }
 //       debugRepaintRainbowEnabled = true;
       runApp(const AppView());
-      doWhenWindowReady(() {
+
+      doWhenWindowReady(() async {
+        await initSystemTray();
         appWindow.show();
         DebugLayerEvents()["xt"] = Wrap(
           spacing: 4,
@@ -86,6 +89,6 @@ void __tests() {
           "bbbbb.jpg", ImageMedium.instance["png"]),
       ".\\test_bbbbb.png");
   // Test AutoImgStrings.formalize
-  AppDebug().test("Test AutoImgStrings.formalize", () => "test_test".formalize,
-      "Test Test");
+  AppDebug()
+      .test("Test AutoImgStrings.formalize", () => "test_test".formalize, "Test Test");
 }
