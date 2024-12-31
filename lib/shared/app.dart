@@ -85,7 +85,7 @@ Future<void> initConsts() async {
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((LogRecord record) {
     final String built =
-        "${record.level.name}: ${record.time}: ${record.message}";
+        "[${record.level.name}]: ${record.time}: ${record.message}";
     print(built);
     // if (_loggerQueue.length == kLoggerDebugViewRecentFilterDepth) {
     //   _loggerQueue.removeFirst();

@@ -10,6 +10,7 @@ import 'package:on_the_fly/client/events/job_stack.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 
 class AppRightMenuView extends StatelessWidget {
   const AppRightMenuView({
@@ -67,10 +68,7 @@ class AppRightMenuView extends StatelessWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: _JobStackView(),
-                      ),
+                      child: _JobStackView(),
                     ),
                   ),
               ]),
@@ -116,18 +114,21 @@ class _JobStackView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedList(
-        initialItemCount:
-            Provider.of<GlobalJobStack>(context, listen: false).jobStack.length,
-        clipBehavior: Clip.antiAlias,
-        reverse: true,
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index, Animation<double> animation) {
+    final int jobStackLen =
+        Provider.of<GlobalJobStack>(context, listen: false).jobStack.length;
+    return SuperListView.builder(
+        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        itemCount: jobStackLen,
+        itemBuilder: (BuildContext context, int index) {
+          index = (jobStackLen - 1) - index;
           Widget contentW = Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: ListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Provider.of<GlobalJobStack>(context)[index].buildForm(context),
+              padding: const EdgeInsets.only(bottom: kListComponentsSpacing),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).listTileTheme.tileColor,
+                    borderRadius: BorderRadius.circular(kRRArc)),
+                child: Provider.of<GlobalJobStack>(context)[index].buildForm(context),
                 // onTap: () {
                 //   Provider.of<GlobalJobStack>(context, listen: false)
                 //       .removeJob(Provider.of<GlobalJobStack>(context,
@@ -142,10 +143,21 @@ class _JobStackView extends StatelessWidget {
               ));
           // we add some end or begin padding to the list view scroll element for this
           // job instance form
-          return index ==
-                  Provider.of<GlobalJobStack>(context, listen: false).jobStack.length - 1
-              ? Padding(padding: const EdgeInsets.only(top: 40), child: contentW)
-              : contentW;
+          return (index == jobStackLen - 1
+                  ? Padding(padding: const EdgeInsets.only(top: 40), child: contentW)
+                  : contentW)
+              .animate(delay: const Duration(milliseconds: 50), autoPlay: true)
+              .scale(
+                  begin: const Offset(0.97, 0.97),
+                  end: const Offset(1, 1),
+                  curve: Curves.easeInOut,
+                  delay: const Duration(milliseconds: 50),
+                  duration: const Duration(milliseconds: 260))
+              .fadeIn(
+                begin: 0,
+                curve: Curves.easeInOut,
+                duration: const Duration(milliseconds: 260),
+              );
         });
   }
 }

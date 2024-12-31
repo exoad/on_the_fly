@@ -4,3 +4,4 @@ const bool kDrawerHeaderButtonsShowTexts = false;
 const double kJobDispatcherFormScaffoldMargin = 12;
 const double kWindowShelfHeight = 60;
 const double kRightSideJobListTileTopBottomPadding = 6;
+const double kListComponentsSpacing = 8;
