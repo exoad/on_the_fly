@@ -6,6 +6,8 @@ import 'package:on_the_fly/base/ephemeral.dart';
 import 'package:on_the_fly/base/native_channel.dart';
 import 'package:on_the_fly/client/tray/tray.dart';
 import 'package:on_the_fly/core/core.dart';
+import 'package:on_the_fly/client/load_it_n_view.dart';
+import 'package:on_the_fly/client/root_service_view.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/client/app_view.dart';
 import 'package:on_the_fly/client/events/debug_events.dart';
@@ -45,8 +47,12 @@ void main() {
           in JobDispatcher.getJobsByMediumMap.entries) {
         logger.info("Jobs for medium ${entry.key}: ${entry.value.length}");
       }
-//       debugRepaintRainbowEnabled = true;
-      runApp(const AppView());
+      // debugRepaintRainbowEnabled = true;
+      runApp(const RootServiceView(
+        appView: AppView(),
+        loadingView: LoaderHandlerView(),
+        loads: <LoadIt>[],
+      ));
 
       doWhenWindowReady(() async {
         await initSystemTray();

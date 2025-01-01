@@ -173,6 +173,11 @@ class AppGenericsTranslations {
   /// "Empty"
   /// ```
   String get empty => """Empty""";
+
+  /// ```dart
+  /// "Loading"
+  /// ```
+  String get loading => """Loading""";
 }
 
 class DispatchedJobsTranslations {
@@ -299,6 +304,7 @@ Map<String, String> get translationsMap => {
       """app generics.close""": """Close""",
       """app generics.browse""": """Browse""",
       """app generics.empty""": """Empty""",
+      """app generics.loading""": """Loading""",
       """dispatched jobs.remove_job_button""": """Remove""",
       """canonical bits.job_dispatcher_formal""": """Job Dispatcher""",
       """file picker.dialog_title_pick_file""": """Select a file""",

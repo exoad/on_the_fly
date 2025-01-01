@@ -26,17 +26,13 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<InternationalizationNotifier>(
-      lazy: true,
-      create: (_) => InternationalizationNotifier(),
-      child: MultiProvider(
-        providers: <ListenableProvider<dynamic>>[
-          ChangeNotifierProvider<GlobalJobStack>(create: (_) => GlobalJobStack()),
-          if (kShowDebugView)
-            ChangeNotifierProvider<DebugLayerEvents>(create: (_) => DebugLayerEvents())
-        ],
-        child: const _AppViewContainer(),
-      ),
+    return MultiProvider(
+      providers: <ListenableProvider<dynamic>>[
+        ChangeNotifierProvider<GlobalJobStack>(create: (_) => GlobalJobStack()),
+        if (kShowDebugView)
+          ChangeNotifierProvider<DebugLayerEvents>(create: (_) => DebugLayerEvents())
+      ],
+      child: const _AppViewContainer(),
     );
   }
 }

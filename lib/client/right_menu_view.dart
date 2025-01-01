@@ -108,57 +108,65 @@ class AppRightMenuView extends StatelessWidget {
 }
 
 class _JobStackView extends StatelessWidget {
-  final GlobalKey<AnimatedListState> _listKey;
+  // final GlobalKey<AnimatedListState> _listKey;
+  final ScrollController _scrollController;
 
-  _JobStackView() : _listKey = GlobalKey<AnimatedListState>();
+  _JobStackView()
+      :
+        // _listKey = GlobalKey<AnimatedListState>(),
+        _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     final int jobStackLen =
         Provider.of<GlobalJobStack>(context, listen: false).jobStack.length;
-    return SuperListView.builder(
-        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-        itemCount: jobStackLen,
-        itemBuilder: (BuildContext context, int index) {
-          index = (jobStackLen - 1) - index;
-          Widget contentW = Padding(
-              padding: const EdgeInsets.only(bottom: kListComponentsSpacing),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
-                decoration: BoxDecoration(
-                    color: Theme.of(context).listTileTheme.tileColor,
-                    borderRadius: BorderRadius.circular(kRRArc)),
-                child: Provider.of<GlobalJobStack>(context)[index].buildForm(context),
-                // onTap: () {
-                //   Provider.of<GlobalJobStack>(context, listen: false)
-                //       .removeJob(Provider.of<GlobalJobStack>(context,
-                //               listen: false)
-                //           .jobStack[index]);
-                //   debugSeek()["job_stack_sz"] =
-                //       Provider.of<GlobalJobStack>(context,
-                //               listen: false)
-                //           .jobStack
-                //           .length;
-                // },
-              ));
-          // we add some end or begin padding to the list view scroll element for this
-          // job instance form
-          return (index == jobStackLen - 1
-                  ? Padding(padding: const EdgeInsets.only(top: 40), child: contentW)
-                  : contentW)
-              .animate(delay: const Duration(milliseconds: 50), autoPlay: true)
-              .scale(
-                  begin: const Offset(0.97, 0.97),
-                  end: const Offset(1, 1),
+    return Scrollbar(
+      controller: _scrollController,
+      child: SuperListView.builder(
+          controller: _scrollController,
+          physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          itemCount: jobStackLen,
+          itemBuilder: (BuildContext context, int index) {
+            index = (jobStackLen - 1) - index;
+            Widget contentW = Padding(
+                padding: const EdgeInsets.only(bottom: kListComponentsSpacing),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).listTileTheme.tileColor,
+                      borderRadius: BorderRadius.circular(kRRArc)),
+                  child: Provider.of<GlobalJobStack>(context)[index].buildForm(context),
+                  // onTap: () {
+                  //   Provider.of<GlobalJobStack>(context, listen: false)
+                  //       .removeJob(Provider.of<GlobalJobStack>(context,
+                  //               listen: false)
+                  //           .jobStack[index]);
+                  //   debugSeek()["job_stack_sz"] =
+                  //       Provider.of<GlobalJobStack>(context,
+                  //               listen: false)
+                  //           .jobStack
+                  //           .length;
+                  // },
+                ));
+            // we add some end or begin padding to the list view scroll element for this
+            // job instance form
+            return (index == jobStackLen - 1
+                    ? Padding(padding: const EdgeInsets.only(top: 40), child: contentW)
+                    : contentW)
+                .animate(delay: const Duration(milliseconds: 50), autoPlay: true)
+                .scale(
+                    begin: const Offset(0.97, 0.97),
+                    end: const Offset(1, 1),
+                    curve: Curves.easeInOut,
+                    delay: const Duration(milliseconds: 50),
+                    duration: const Duration(milliseconds: 260))
+                .fadeIn(
+                  begin: 0,
                   curve: Curves.easeInOut,
-                  delay: const Duration(milliseconds: 50),
-                  duration: const Duration(milliseconds: 260))
-              .fadeIn(
-                begin: 0,
-                curve: Curves.easeInOut,
-                duration: const Duration(milliseconds: 260),
-              );
-        });
+                  duration: const Duration(milliseconds: 260),
+                );
+          }),
+    );
   }
 }
 

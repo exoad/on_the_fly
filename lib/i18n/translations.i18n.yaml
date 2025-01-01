@@ -17,6 +17,7 @@ app generics:
   close: Close
   browse: Browse
   empty: Empty
+  loading: Loading
 dispatched jobs:
   remove_job_button: Remove
 canonical bits:

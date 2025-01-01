@@ -173,6 +173,11 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   /// "空"
   /// ```
   String get empty => """空""";
+
+  /// ```dart
+  /// "加载中"
+  /// ```
+  String get loading => """加载中""";
 }
 
 class DispatchedJobsTranslationsZh extends DispatchedJobsTranslations {
@@ -295,6 +300,7 @@ Map<String, String> get translationsZhMap => {
       """app generics.close""": """关""",
       """app generics.browse""": """浏览""",
       """app generics.empty""": """空""",
+      """app generics.loading""": """加载中""",
       """dispatched jobs.remove_job_button""": """删除""",
       """canonical bits.job_dispatcher_formal""": """任务调度""",
       """file picker.dialog_title_pick_file""": """选择文件""",
