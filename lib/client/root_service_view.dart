@@ -1,34 +1,52 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
+import 'package:on_the_fly/client/load_it_n_view.dart';
+import 'package:on_the_fly/shared/layout.dart';
 import 'package:provider/provider.dart';
 
-class LoadIt {
-  final Future<void> Function() action;
-  final String displayName;
-
-  const LoadIt(this.displayName, this.action);
-
-  /// used like the standard implied () operator
-  void call() => action();
-}
+// marker interface
+abstract class LoadItServicer implements Widget {}
 
 /// main widget that launchs other views. it is a "servicer" widget since it
 /// manages switching from [LoaderHandlerView] to [AppView] (or any other
 /// subsequently provided widgets)
 class RootServiceView extends StatelessWidget {
-  final Widget loadingView;
   final Widget appView;
-  final List<LoadIt> loads;
 
-  const RootServiceView(
-      {super.key,
-      this.loadingView = const SizedBox.expand(),
-      required this.appView,
-      required this.loads});
+  const RootServiceView({super.key, required this.appView});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<InternationalizationNotifier>(
-        lazy: true, create: (_) => InternationalizationNotifier(), child: loadingView);
+        lazy: true,
+        create: (_) => InternationalizationNotifier(),
+        child: _Switcher(appView: appView));
+  }
+}
+
+class _Switcher extends StatefulWidget {
+  final Widget appView;
+
+  const _Switcher({required this.appView});
+
+  @override
+  State<_Switcher> createState() => _SwitcherState();
+}
+
+class _SwitcherState extends State<_Switcher> {
+  bool completed;
+
+  _SwitcherState() : completed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    // no animations lets go !
+    return completed
+        ? widget.appView
+        : LoaderHandlerView(onDone: () {
+            appWindow.size = kDefaultAppWindowSize;
+            setState(() => completed = true);
+          });
   }
 }

@@ -1,50 +1,124 @@
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
-import 'package:on_the_fly/shared/layout.dart';
-import 'package:on_the_fly/shared/theme.dart';
+import 'package:on_the_fly/client/root_service_view.dart';
 import 'package:provider/provider.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:on_the_fly/shared/theme.dart';
+import 'package:on_the_fly/client/components/c_canvas.dart'; // Assuming this contains your custom painter
+import 'package:on_the_fly/client/components/kinetic_carousel.dart'; // Assuming this is your carousel widget
+import 'package:on_the_fly/client/events/ephemeral_stacks.dart'; // Assuming this is your stack-related logic
+import 'package:on_the_fly/shared/layout.dart'; // Assuming layout and constants are here
 
 const String _kGenericFileImagesPath = "assets/icons";
+const double _kEphemeralLoadingIconSz = 80;
 
-final List<_GenericFileTypeDisplay> _allAssets = <_GenericFileTypeDisplay>[
+const List<_GenericFileTypeDisplay> _allAssets = <_GenericFileTypeDisplay>[
   _GenericFileTypeDisplay("$_kGenericFileImagesPath/generic_file.png"),
   _GenericFileTypeDisplay("$_kGenericFileImagesPath/generic_archive.png"),
   _GenericFileTypeDisplay("$_kGenericFileImagesPath/generic_audio.png"),
   _GenericFileTypeDisplay("$_kGenericFileImagesPath/generic_image.png"),
 ];
 
-class _GenericFileTypeDisplay {
+class _GenericFileTypeDisplay extends StatelessWidget {
   final String asset;
-  double vert;
-  double z;
-  double rotX;
 
-  _GenericFileTypeDisplay(this.asset)
-      : z = 0,
-        rotX = 0,
-        vert = 0;
+  const _GenericFileTypeDisplay(this.asset);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(asset,
+        width: _kEphemeralLoadingIconSz, height: _kEphemeralLoadingIconSz);
+  }
 }
 
-class LoaderHandlerView extends StatefulWidget {
-  const LoaderHandlerView({super.key});
+class LoaderHandlerView extends StatefulWidget implements LoadItServicer {
+  static Map<String, Future<void> Function()> loads = <String, Future<void> Function()>{};
+  final void Function()? onDone;
+
+  const LoaderHandlerView({super.key, this.onDone});
+
+  static Iterable<MapEntry<String, Future<void> Function()>> get loadEntries =>
+      loads.entries;
 
   @override
   State<LoaderHandlerView> createState() => _LoaderHandlerViewState();
 }
 
-class _LoaderHandlerViewState extends State<LoaderHandlerView> {
+class _LoaderHandlerViewState extends State<LoaderHandlerView>
+    with SingleTickerProviderStateMixin {
+  int completed = 1;
+  late AnimationController animationController;
+  late Animation<double> progressAnim;
+  double progress = 0.0;
+
   @override
   void initState() {
     super.initState();
     appWindow.size = kLoadingWindowSize;
-    appWindow.minSize =
-        kLoadingWindowSize; // this might have some adverse effects, if we dont remove it or do something in dispose()
+    appWindow.minSize = kLoadingWindowSize;
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
+    progressAnim = Tween<double>(begin: 0, end: 0)
+        .animate(CurvedAnimation(parent: animationController, curve: Curves.easeInOut));
+    processLoads();
   }
+
+  void processLoads() async {
+    for (MapEntry<String, Future<void> Function()> entry
+        in LoaderHandlerView.loadEntries) {
+      await entry.value();
+      setState(() => _progress(++completed / (LoaderHandlerView.loads.length + 1)));
+    }
+    widget.onDone?.call(); // no use of syntax sugar :)
+  }
+
+  void _progress(double target) {
+    progressAnim = Tween<double>(begin: progress, end: target)
+        .animate(CurvedAnimation(parent: animationController, curve: Curves.easeInOut));
+    progress = target;
+    animationController.reset();
+    animationController.forward();
+  }
+
+  // Future<void> _spawnWorker() async {
+  //   ReceivePort receivePort = ReceivePort();
+  //   receivePort.listen((dynamic message) {
+  //     print("LOADER_ISOLATE_M_PORT: $message");
+  //     if (message is SendPort) {
+  //       _sendPort = message;
+  //       _sendPort.send(<String>[]);
+  //       _isolateReady.complete();
+  //     } else if (message is int) {
+  //       setState(() => completed = message);
+  //     }
+  //   });
+  //   _isolate = await Isolate.spawn(_isolateWorker, receivePort.sendPort);
+  // }
+
+  // static void _isolateWorker(SendPort port) {
+  //   ReceivePort receivePort = ReceivePort();
+  //   port.send(receivePort.sendPort);
+  //   receivePort.listen((dynamic /*List<LoadIt>*/ message) async {
+  //     print("LOADER_ISOLATE_R_PORT: $message");
+  //     if (message is List<String>) {
+  //       print("RECEIVED. ${LoaderHandlerView.loadEntries}");
+  //       int i = 0;
+  //       for (MapEntry<String, void Function()> entry in LoaderHandlerView.loadEntries) {
+  //         print("I: Task ran: ${entry.key}");
+  //         try {
+  //           entry.value();
+  //         } catch (e) {
+  //           print('Error loading task ${entry.key}: $e');
+  //         }
+  //         port.send(++i);
+  //         print("Task ran: ${entry.key}");
+  //       }
+  //     }
+  //   });
+  // }
 
   @override
   void dispose() {
-    appWindow.size = kDefaultAppWindowSize;
+    animationController.dispose();
     super.dispose();
   }
 
@@ -62,49 +136,64 @@ class _LoaderHandlerViewState extends State<LoaderHandlerView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  const LoaderSpinner(),
-                  const SizedBox(height: 69), // funny number for real !
-                  Text(
-                      Provider.of<InternationalizationNotifier>(context)
-                          .i18n
-                          .appGenerics
-                          .loading,
-                      style: const TextStyle(
-                          fontSize: 20,
-                          color: kThemePrimaryFg1,
-                          fontWeight: FontWeight.bold))
+                  const Spacer(),
+                  SizedBox(
+                    height: 200,
+                    width: 200,
+                    child: KineticCarouselAnimator(
+                      period: KineticCarouselAnimator.kPeriod,
+                      radius: _kEphemeralLoadingIconSz * 0.9,
+                      allowScalingUpAnimation: true,
+                      scaleUpAnimationDelay:
+                          KineticCarouselAnimator.kScaleUpAnimationDelay,
+                      scaleUpAnimationDuration:
+                          KineticCarouselAnimator.kScaleUpAnimationDuration,
+                      scaleUpCurve: Curves.easeInOutSine,
+                      scaleUpFactor: KineticCarouselAnimator.kScaleUpFactor,
+                      scaleUpPeriod: KineticCarouselAnimator.kScaleUpPeriod,
+                      children: _allAssets,
+                    ),
+                  ),
+                  const Spacer(),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                            Provider.of<InternationalizationNotifier>(context)
+                                .i18n
+                                .appGenerics
+                                .loading,
+                            style: const TextStyle(
+                                fontSize: 20,
+                                color: kThemePrimaryFg1,
+                                fontWeight: FontWeight.bold)),
+                        const Spacer(),
+                        AnimatedBuilder(
+                            animation: progressAnim,
+                            builder: (BuildContext context, Widget? child) {
+                              return CustomPaint(
+                                  size: Size(
+                                      kLoadingWindowSize.width - (kTotalAppMargin * 2),
+                                      4),
+                                  painter: GradientProgressBarPainter(
+                                      // progress: completed /
+                                      //     (LoaderHandlerView.loads.length + 1),
+                                      progress: progressAnim.value,
+                                      progressGradient: const LinearGradient(
+                                          colors: <Color>[kTheme1, kTheme2],
+                                          stops: <double>[0.36, 0.8],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.centerRight),
+                                      trackColor: kThemeBg));
+                            })
+                      ],
+                    ),
+                  )
                 ],
               ),
             )),
       ),
     );
-  }
-}
-
-class LoaderSpinner extends StatefulWidget {
-  const LoaderSpinner({
-    super.key,
-  });
-
-  @override
-  State<LoaderSpinner> createState() => _LoaderSpinnerState();
-}
-
-class _LoaderSpinnerState extends State<LoaderSpinner> with TickerProviderStateMixin {
-  late AnimationController controller;
-
-  @override
-  void initState() {
-    controller =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 760))
-          ..repeat();
-
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Image.asset(_allAssets.first.asset,
-        width: kLoaderIconSize, height: kLoaderIconSize);
   }
 }

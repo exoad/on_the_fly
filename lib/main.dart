@@ -1,7 +1,6 @@
 import 'dart:io';
 
 // import 'package:flutter/rendering.dart';
-import 'package:objectid/objectid.dart';
 import 'package:on_the_fly/base/ephemeral.dart';
 import 'package:on_the_fly/base/native_channel.dart';
 import 'package:on_the_fly/client/tray/tray.dart';
@@ -48,11 +47,11 @@ void main() {
         logger.info("Jobs for medium ${entry.key}: ${entry.value.length}");
       }
       // debugRepaintRainbowEnabled = true;
-      runApp(const RootServiceView(
-        appView: AppView(),
-        loadingView: LoaderHandlerView(),
-        loads: <LoadIt>[],
-      ));
+      for (int i = 0; i < 10; i++) {
+        LoaderHandlerView.loads["TestDelay$i"] =
+            () => Future<void>.delayed(const Duration(milliseconds: 1000));
+      }
+      runApp(const RootServiceView(appView: AppView()));
 
       doWhenWindowReady(() async {
         await initSystemTray();
@@ -64,13 +63,6 @@ void main() {
         );
       }); // for bitsdojo_window
     });
-    _sandbox();
-  }
-}
-
-void _sandbox() {
-  for (int i = 0; i < 100; i++) {
-    logger.info("6f626a_${ObjectId().hexString}");
   }
 }
 
