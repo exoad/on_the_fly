@@ -1,5 +1,4 @@
 import 'package:ionicons/ionicons.dart';
-import 'package:on_the_fly/client/components/debug_sized.dart';
 import 'package:on_the_fly/client/debug_layer_view.dart';
 import 'package:on_the_fly/client/events/debug_events.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
