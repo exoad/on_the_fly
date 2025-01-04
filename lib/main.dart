@@ -54,16 +54,23 @@ void main() {
       }
       LoaderHandlerView.loads["Load all asset bundles"] = Bundles.loadAllBundles;
       LoaderHandlerView.loads["Parse configurations"] = Bundles.parseConfigurations;
-      runApp(const RootServiceView(appView: AppView()));
-      doWhenWindowReady(() async {
-        await initSystemTray();
-        appWindow.show();
-        DebugLayerEvents()["xt"] = Wrap(
-          spacing: 4,
-          runSpacing: 4,
-          children: XtRunners.r(),
-        );
-      }); // for bitsdojo_window
+      runApp(RootServiceView(
+        appView: const AppView(),
+        onDone: () async {
+          String? initWinState = Bundles.initialWindowState;
+          doWhenWindowReady(() async {
+            if (initWinState == null || initWinState == "gui") {
+              appWindow.show();
+            }
+            DebugLayerEvents()["xt"] = Wrap(
+              spacing: 4,
+              runSpacing: 4,
+              children: XtRunners.r(),
+            );
+          }); // for bitsdojo_window
+          await initSystemTray();
+        },
+      ));
     });
   }
 }

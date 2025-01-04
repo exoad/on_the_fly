@@ -17,7 +17,13 @@ Future<void> initSystemTray() async {
   await menu.buildFrom(<MenuItemBase>[
     MenuItemLabel(
         label: InternationalizationNotifier().i18n.appGenerics.exit,
-        onClicked: (_) => appWindow.close())
+        onClicked: (_) => appWindow.close()),
+    MenuItemLabel(
+        label: InternationalizationNotifier().i18n.appGenerics.open_editor,
+        onClicked: (_) => appWindow.show()),
+    MenuItemLabel(
+        label: InternationalizationNotifier().i18n.appGenerics.hide_editor,
+        onClicked: (_) => appWindow.hide())
   ]);
   await _trayInstance.setContextMenu(menu);
   if (kAllowDebugLogs) {

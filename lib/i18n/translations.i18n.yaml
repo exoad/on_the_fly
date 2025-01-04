@@ -4,6 +4,8 @@ app generics:
   nothing_to_do: Nothing to do right now...
   job_count: Jobs
   exit: Exit
+  open_editor: Open editor
+  hide_editor: Hide editor
   processor: Processor
   dispatched_amount: Variants dispatched
   description: Description

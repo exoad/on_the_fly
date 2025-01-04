@@ -18,12 +18,26 @@ final class Bundles {
   }
 
   static void parseConfigurations() {
-    String localeCode = strings.xpath("//Locale[@code][1]").first.attributes[0].value;
+    String localeCode = strings.xpath("//Locale[@code]").first.attributes[0].value;
     bool validLocale = kDefinedLocales.contains(localeCode);
     logger.info(
         "FOUND_ Locale;code = [${validLocale ? "O" : "X" /*OMG SQUID GAME REFERENCE ?????*/}] $localeCode");
     if (validLocale) {
       InternationalizationNotifier().changeLocale(localeCode);
     }
+  }
+
+  static const List<String> _kValidInitialWindowStates = <String>["tray", "gui"];
+
+  static String? get initialWindowState {
+    String windowState = strings.xpath("//InitialWindowState").first.innerText.toLowerCase();
+    bool validState = false;
+    for (String r in _kValidInitialWindowStates) {
+      if (r == windowState.trim()) {
+        validState = true;
+        break;
+      }
+    }
+    return validState ? windowState : null;
   }
 }

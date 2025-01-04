@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
@@ -13,22 +15,27 @@ abstract class LoadItServicer implements Widget {}
 /// subsequently provided widgets)
 class RootServiceView extends StatelessWidget {
   final Widget appView;
+  final FutureOr<void> Function()? onDone;
 
-  const RootServiceView({super.key, required this.appView});
+  const RootServiceView({super.key, required this.appView, this.onDone});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<InternationalizationNotifier>(
         lazy: true,
         create: (_) => InternationalizationNotifier(),
-        child: _Switcher(appView: appView));
+        child: _Switcher(
+          appView: appView,
+          onDone: onDone,
+        ));
   }
 }
 
 class _Switcher extends StatefulWidget {
   final Widget appView;
+  final FutureOr<void> Function()? onDone;
 
-  const _Switcher({required this.appView});
+  const _Switcher({required this.appView, this.onDone});
 
   @override
   State<_Switcher> createState() => _SwitcherState();
@@ -47,6 +54,7 @@ class _SwitcherState extends State<_Switcher> {
         : LoaderHandlerView(onDone: () {
             appWindow.size = kDefaultAppWindowSize;
             setState(() => completed = true);
+            widget.onDone?.call();
           });
   }
 }

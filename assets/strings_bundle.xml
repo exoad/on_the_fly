@@ -3,6 +3,14 @@
     <!-- This section contains configuration information that can be changed by the user. -->
     <Public>
         <Locale code="zh" />
+        <!--
+        Supports the following values (case insensitive):
+            tray - Starts up in the tray, GUI hidden
+            gui  - Starts up with the GUI and the tray
+        -->
+        <InitialWindowState>
+            tray
+        </InitialWindowState>
     </Public>
     <!-- This section contains program constants that the user (you) really don't need to touch.-->
     <Shared>

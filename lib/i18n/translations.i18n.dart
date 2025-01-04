@@ -110,6 +110,16 @@ class AppGenericsTranslations {
   String get exit => """Exit""";
 
   /// ```dart
+  /// "Open editor"
+  /// ```
+  String get open_editor => """Open editor""";
+
+  /// ```dart
+  /// "Hide editor"
+  /// ```
+  String get hide_editor => """Hide editor""";
+
+  /// ```dart
   /// "Processor"
   /// ```
   String get processor => """Processor""";
@@ -306,6 +316,8 @@ Map<String, String> get translationsMap => {
       """app generics.nothing_to_do""": """Nothing to do right now...""",
       """app generics.job_count""": """Jobs""",
       """app generics.exit""": """Exit""",
+      """app generics.open_editor""": """Open editor""",
+      """app generics.hide_editor""": """Hide editor""",
       """app generics.processor""": """Processor""",
       """app generics.dispatched_amount""": """Variants dispatched""",
       """app generics.description""": """Description""",

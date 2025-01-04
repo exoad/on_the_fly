@@ -4,6 +4,8 @@ app generics:
   nothing_to_do: 没有事可干…
   job_count: 任务数量
   exit: 退出
+  open_editor: 打开编辑器
+  hide_editor: 隐藏编辑器
   processor: 处理器
   dispatched_amount: 调度数量
   description: 细节

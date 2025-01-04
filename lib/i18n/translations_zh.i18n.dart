@@ -112,6 +112,16 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   String get exit => """退出""";
 
   /// ```dart
+  /// "打开编辑器"
+  /// ```
+  String get open_editor => """打开编辑器""";
+
+  /// ```dart
+  /// "隐藏编辑器"
+  /// ```
+  String get hide_editor => """隐藏编辑器""";
+
+  /// ```dart
   /// "处理器"
   /// ```
   String get processor => """处理器""";
@@ -304,6 +314,8 @@ Map<String, String> get translationsZhMap => {
       """app generics.nothing_to_do""": """没有事可干…""",
       """app generics.job_count""": """任务数量""",
       """app generics.exit""": """退出""",
+      """app generics.open_editor""": """打开编辑器""",
+      """app generics.hide_editor""": """隐藏编辑器""",
       """app generics.processor""": """处理器""",
       """app generics.dispatched_amount""": """调度数量""",
       """app generics.description""": """细节""",
