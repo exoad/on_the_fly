@@ -1,8 +1,12 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
+import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
+import 'package:provider/provider.dart';
 
 /// just a simple wrapper around container's margin property to be used like
 /// the normal [Padding] widget
@@ -76,7 +80,37 @@ class ImportanceDialog extends StatelessWidget {
                     child: Padding(
                             padding: const EdgeInsets.all(
                                 8.0), // lol using the default value :D
-                            child: child)
+                            child: Stack(
+                              alignment: Alignment.topLeft,
+                              children: <Widget>[
+                                child,
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: Tooltip(
+                                    message: Provider.of<InternationalizationNotifier>(
+                                            context,
+                                            listen: false)
+                                        .i18n
+                                        .appGenerics
+                                        .close,
+                                    child: IconButton(
+                                      style: Theme.of(context)
+                                          .iconButtonTheme
+                                          .style!
+                                          .copyWith(
+                                              backgroundColor:
+                                                  const WidgetStatePropertyAll<Color>(
+                                                      kTheme1)),
+                                      onPressed: () {
+                                        logger.info("REMOVE_JOB_DISPATCHER_INFO_VIEW");
+                                        Navigator.of(context).pop();
+                                      },
+                                      icon: const Icon(Ionicons.close),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ))
                         .blurry(
                             borderRadius: BorderRadius.circular(kRRArc),
                             blur: 12,

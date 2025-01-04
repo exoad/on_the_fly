@@ -16,10 +16,15 @@ app generics:
   github: GitHub
   third_parties: 第三方许可证
   author_name: 孟嘉明 (Jack/exoad)
-  close: 关
+  close: 关闭
   browse: 浏览
   empty: 空
   loading: 加载中
+  minimize: 最小化
+  maximize: 最大化
+  restore: 恢复
+logger view:
+  rmenu_tooltip: 日志
 dispatched jobs:
   remove_job_button: 删除
 canonical bits:

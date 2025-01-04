@@ -1,3 +1,5 @@
+import 'package:ionicons/ionicons.dart';
+import 'package:on_the_fly/client/components/debug_sized.dart';
 import 'package:on_the_fly/client/debug_layer_view.dart';
 import 'package:on_the_fly/client/events/debug_events.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
@@ -222,15 +224,73 @@ class _AppViewContainer extends StatelessWidget {
   }
 }
 
+// for bitsdojo_window package extension
+enum WindowButtonType {
+  MINIMIZE,
+  MAXIMIZE_RESTORE,
+  CLOSE,
+}
+
+class CustomWindowButton extends StatelessWidget {
+  final void Function() action;
+  final Color color;
+  final IconData icon;
+
+  CustomWindowButton({super.key, required WindowButtonType type, this.color = kTheme1})
+      : action = switch (type) {
+          // i love pattern matching :D
+          WindowButtonType.MINIMIZE => appWindow.minimize,
+          WindowButtonType.MAXIMIZE_RESTORE => appWindow.maximizeOrRestore,
+          WindowButtonType.CLOSE => appWindow.close
+        },
+        icon = switch (type) {
+          // i love pattern matching :D
+          WindowButtonType.MINIMIZE => Ionicons.remove_circle,
+          WindowButtonType.MAXIMIZE_RESTORE => Ionicons.scan_circle,
+          WindowButtonType.CLOSE => Ionicons.close_circle
+        };
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        constraints: const BoxConstraints.expand(width: 24, height: 24),
+        style: const ButtonStyle(
+            padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero),
+            visualDensity: VisualDensity.compact,
+            shape: WidgetStatePropertyAll<CircleBorder>(CircleBorder()),
+            backgroundColor: WidgetStatePropertyAll<Color>(Colors.transparent)),
+        onPressed: action,
+        icon: Icon(icon, color: color));
+  }
+}
+
 class AppWindowTitleButtons extends StatelessWidget {
   const AppWindowTitleButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: <Widget>[
-      MinimizeWindowButton(colors: kWindowButtonColors3),
-      MaximizeWindowButton(colors: kWindowButtonColors2),
-      CloseWindowButton(colors: kWindowButtonColors3)
-    ]);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+      child: Row(spacing: 2, children: <Widget>[
+        Tooltip(
+            message: Provider.of<InternationalizationNotifier>(context)
+                .i18n
+                .appGenerics
+                .minimize,
+            child: CustomWindowButton(
+                type: WindowButtonType.MINIMIZE, color: kThemePrimaryFg1)),
+        Tooltip(
+            message: Provider.of<InternationalizationNotifier>(context)
+                .i18n
+                .appGenerics
+                .maximize,
+            child: CustomWindowButton(
+                type: WindowButtonType.MAXIMIZE_RESTORE, color: kTheme2)),
+        Tooltip(
+            message:
+                Provider.of<InternationalizationNotifier>(context).i18n.appGenerics.close,
+            child: CustomWindowButton(type: WindowButtonType.CLOSE, color: kTheme1))
+      ]),
+    );
   }
 }

@@ -66,6 +66,7 @@ class Translations {
   String get locale => "en";
   String get languageCode => "en";
   AppGenericsTranslations get appGenerics => AppGenericsTranslations(this);
+  LoggerViewTranslations get loggerView => LoggerViewTranslations(this);
   DispatchedJobsTranslations get dispatchedJobs =>
       DispatchedJobsTranslations(this);
   CanonicalBitsTranslations get canonicalBits =>
@@ -190,6 +191,31 @@ class AppGenericsTranslations {
   /// "Loading"
   /// ```
   String get loading => """Loading""";
+
+  /// ```dart
+  /// "Minimize"
+  /// ```
+  String get minimize => """Minimize""";
+
+  /// ```dart
+  /// "Maximize"
+  /// ```
+  String get maximize => """Maximize""";
+
+  /// ```dart
+  /// "Restore"
+  /// ```
+  String get restore => """Restore""";
+}
+
+class LoggerViewTranslations {
+  final Translations _parent;
+  const LoggerViewTranslations(this._parent);
+
+  /// ```dart
+  /// "Logs"
+  /// ```
+  String get rmenu_tooltip => """Logs""";
 }
 
 class DispatchedJobsTranslations {
@@ -334,6 +360,10 @@ Map<String, String> get translationsMap => {
       """app generics.browse""": """Browse""",
       """app generics.empty""": """Empty""",
       """app generics.loading""": """Loading""",
+      """app generics.minimize""": """Minimize""",
+      """app generics.maximize""": """Maximize""",
+      """app generics.restore""": """Restore""",
+      """logger view.rmenu_tooltip""": """Logs""",
       """dispatched jobs.remove_job_button""": """Remove""",
       """canonical bits.job_dispatcher_formal""": """Job Dispatcher""",
       """file picker.dialog_title_pick_file""": """Select a file""",

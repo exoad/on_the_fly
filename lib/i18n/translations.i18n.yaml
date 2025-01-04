@@ -20,6 +20,11 @@ app generics:
   browse: Browse
   empty: Empty
   loading: Loading
+  minimize: Minimize
+  maximize: Maximize
+  restore: Restore
+logger view:
+  rmenu_tooltip: Logs
 dispatched jobs:
   remove_job_button: Remove
 canonical bits:

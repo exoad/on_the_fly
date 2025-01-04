@@ -67,6 +67,7 @@ class TranslationsZh extends Translations {
   String get locale => "zh";
   String get languageCode => "zh";
   AppGenericsTranslationsZh get appGenerics => AppGenericsTranslationsZh(this);
+  LoggerViewTranslationsZh get loggerView => LoggerViewTranslationsZh(this);
   DispatchedJobsTranslationsZh get dispatchedJobs =>
       DispatchedJobsTranslationsZh(this);
   CanonicalBitsTranslationsZh get canonicalBits =>
@@ -172,9 +173,9 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   String get author_name => """孟嘉明 (Jack/exoad)""";
 
   /// ```dart
-  /// "关"
+  /// "关闭"
   /// ```
-  String get close => """关""";
+  String get close => """关闭""";
 
   /// ```dart
   /// "浏览"
@@ -190,6 +191,31 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   /// "加载中"
   /// ```
   String get loading => """加载中""";
+
+  /// ```dart
+  /// "最小化"
+  /// ```
+  String get minimize => """最小化""";
+
+  /// ```dart
+  /// "最大化"
+  /// ```
+  String get maximize => """最大化""";
+
+  /// ```dart
+  /// "恢复"
+  /// ```
+  String get restore => """恢复""";
+}
+
+class LoggerViewTranslationsZh extends LoggerViewTranslations {
+  final TranslationsZh _parent;
+  const LoggerViewTranslationsZh(this._parent) : super(_parent);
+
+  /// ```dart
+  /// "日志"
+  /// ```
+  String get rmenu_tooltip => """日志""";
 }
 
 class DispatchedJobsTranslationsZh extends DispatchedJobsTranslations {
@@ -326,10 +352,14 @@ Map<String, String> get translationsZhMap => {
       """app generics.github""": """GitHub""",
       """app generics.third_parties""": """第三方许可证""",
       """app generics.author_name""": """孟嘉明 (Jack/exoad)""",
-      """app generics.close""": """关""",
+      """app generics.close""": """关闭""",
       """app generics.browse""": """浏览""",
       """app generics.empty""": """空""",
       """app generics.loading""": """加载中""",
+      """app generics.minimize""": """最小化""",
+      """app generics.maximize""": """最大化""",
+      """app generics.restore""": """恢复""",
+      """logger view.rmenu_tooltip""": """日志""",
       """dispatched jobs.remove_job_button""": """删除""",
       """canonical bits.job_dispatcher_formal""": """任务调度""",
       """file picker.dialog_title_pick_file""": """选择文件""",

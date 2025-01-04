@@ -12,6 +12,9 @@ import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:super_sliver_list/super_sliver_list.dart';
 
+/// this side of the app displays the jobs created and other important information
+///
+/// located of course, on the right side of the application
 class AppRightMenuView extends StatelessWidget {
   const AppRightMenuView({
     super.key,
