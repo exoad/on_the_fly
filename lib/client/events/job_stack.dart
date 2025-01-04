@@ -28,7 +28,6 @@ class GlobalJobStack with ChangeNotifier {
     notifyListeners();
   }
 
-  @Deprecated("Use index removal please !!")
   void removeJob(Job job) {
     if (kAllowDebugLogs) {
       logger.info("GlobalJobStack removes: $job");
@@ -45,7 +44,6 @@ class GlobalJobStack with ChangeNotifier {
   /// otherwise `false` is returned that it wasn't found.
   ///
   /// may not be the most efficient option
-  @Deprecated("dont use this since it calls removeJob(Job)")
   bool removeJobByID(String id) {
     Job? job = getJobById(id);
     if (job != null) {

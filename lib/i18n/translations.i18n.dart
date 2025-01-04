@@ -71,6 +71,8 @@ class Translations {
   CanonicalBitsTranslations get canonicalBits =>
       CanonicalBitsTranslations(this);
   FilePickerTranslations get filePicker => FilePickerTranslations(this);
+  PathValidatorTranslations get pathValidator =>
+      PathValidatorTranslations(this);
   FormatGenericTranslations get formatGeneric =>
       FormatGenericTranslations(this);
   SingleImgJobTranslations get singleImgJob => SingleImgJobTranslations(this);
@@ -215,6 +217,21 @@ class FilePickerTranslations {
   String get dialog_title_pick_folder => """Select a folder""";
 }
 
+class PathValidatorTranslations {
+  final Translations _parent;
+  const PathValidatorTranslations(this._parent);
+
+  /// ```dart
+  /// "Path cannot be empty"
+  /// ```
+  String get path_cannot_be_empty => """Path cannot be empty""";
+
+  /// ```dart
+  /// "Provided path is not a file"
+  /// ```
+  String get path_not_valid_file => """Provided path is not a file""";
+}
+
 class FormatGenericTranslations {
   final Translations _parent;
   const FormatGenericTranslations(this._parent);
@@ -309,6 +326,9 @@ Map<String, String> get translationsMap => {
       """canonical bits.job_dispatcher_formal""": """Job Dispatcher""",
       """file picker.dialog_title_pick_file""": """Select a file""",
       """file picker.dialog_title_pick_folder""": """Select a folder""",
+      """path validator.path_cannot_be_empty""": """Path cannot be empty""",
+      """path validator.path_not_valid_file""":
+          """Provided path is not a file""",
       """format generic.supported_inputs""": """Supported Inputs""",
       """format generic.supported_outputs""": """Supported Outputs""",
       """format generic.push_job""": """Add this job""",

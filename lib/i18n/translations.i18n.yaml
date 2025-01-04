@@ -25,6 +25,9 @@ canonical bits:
 file picker:
   dialog_title_pick_file: Select a file
   dialog_title_pick_folder: Select a folder
+path validator:
+  path_cannot_be_empty: Path cannot be empty
+  path_not_valid_file: Provided path is not a file
 format generic:
   supported_inputs: Supported Inputs
   supported_outputs: Supported Outputs

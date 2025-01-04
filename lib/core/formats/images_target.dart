@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:on_the_fly/core/components/j_prebuilt.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/date_time.dart';
 import 'package:on_the_fly/core/utils/result.dart';
@@ -134,8 +135,8 @@ class SingleImgJob extends Job {
             subtitle: timestamp.canonicalizedTimeString,
           ),
           const SizedBox(height: 12),
-          j.JobPathPickerActionable(
-              filePickerAllowMultiple: false,
+          j.JobSinglePathPickerActionable(
+              validator: FilePathValidators.validateFilePath,
               onChanged: (String str) {},
               allowedExtensions: List<String>.empty(),
               canonicalLabel: "Input file path",

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/client/root_service_view.dart';
 import 'package:provider/provider.dart';
@@ -31,12 +33,13 @@ class _GenericFileTypeDisplay extends StatelessWidget {
 }
 
 class LoaderHandlerView extends StatefulWidget implements LoadItServicer {
-  static Map<String, Future<void> Function()> loads = <String, Future<void> Function()>{};
+  static Map<String, FutureOr<void> Function()> loads =
+      <String, FutureOr<void> Function()>{};
   final void Function()? onDone;
 
   const LoaderHandlerView({super.key, this.onDone});
 
-  static Iterable<MapEntry<String, Future<void> Function()>> get loadEntries =>
+  static Iterable<MapEntry<String, FutureOr<void> Function()>> get loadEntries =>
       loads.entries;
 
   @override
@@ -64,7 +67,7 @@ class _LoaderHandlerViewState extends State<LoaderHandlerView>
   }
 
   void processLoads() async {
-    for (MapEntry<String, Future<void> Function()> entry
+    for (MapEntry<String, FutureOr<void> Function()> entry
         in LoaderHandlerView.loadEntries) {
       await entry.value();
       setState(() {
@@ -82,43 +85,6 @@ class _LoaderHandlerViewState extends State<LoaderHandlerView>
     animationController.reset();
     animationController.forward();
   }
-
-  // Future<void> _spawnWorker() async {
-  //   ReceivePort receivePort = ReceivePort();
-  //   receivePort.listen((dynamic message) {
-  //     print("LOADER_ISOLATE_M_PORT: $message");
-  //     if (message is SendPort) {
-  //       _sendPort = message;
-  //       _sendPort.send(<String>[]);
-  //       _isolateReady.complete();
-  //     } else if (message is int) {
-  //       setState(() => completed = message);
-  //     }
-  //   });
-  //   _isolate = await Isolate.spawn(_isolateWorker, receivePort.sendPort);
-  // }
-
-  // static void _isolateWorker(SendPort port) {
-  //   ReceivePort receivePort = ReceivePort();
-  //   port.send(receivePort.sendPort);
-  //   receivePort.listen((dynamic /*List<LoadIt>*/ message) async {
-  //     print("LOADER_ISOLATE_R_PORT: $message");
-  //     if (message is List<String>) {
-  //       print("RECEIVED. ${LoaderHandlerView.loadEntries}");
-  //       int i = 0;
-  //       for (MapEntry<String, void Function()> entry in LoaderHandlerView.loadEntries) {
-  //         print("I: Task ran: ${entry.key}");
-  //         try {
-  //           entry.value();
-  //         } catch (e) {
-  //           print('Error loading task ${entry.key}: $e');
-  //         }
-  //         port.send(++i);
-  //         print("Task ran: ${entry.key}");
-  //       }
-  //     }
-  //   });
-  // }
 
   @override
   void dispose() {
@@ -168,14 +134,13 @@ class _LoaderHandlerViewState extends State<LoaderHandlerView>
                                 .i18n
                                 .appGenerics
                                 .loading,
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 20,
                                 color: kThemePrimaryFg1,
                                 fontWeight: FontWeight.bold)),
                         const SizedBox(height: 10),
                         Text(currentMessage ?? "...",
-                            style:
-                                const TextStyle(fontSize: 14, color: kThemePrimaryFg2)),
+                            style: TextStyle(fontSize: 14, color: kThemePrimaryFg2)),
                         const Spacer(),
                         AnimatedBuilder(
                             animation: progressAnim,
@@ -188,9 +153,9 @@ class _LoaderHandlerViewState extends State<LoaderHandlerView>
                                       // progress: completed /
                                       //     (LoaderHandlerView.loads.length + 1),
                                       progress: progressAnim.value,
-                                      progressGradient: const LinearGradient(
+                                      progressGradient: LinearGradient(
                                           colors: <Color>[kTheme1, kTheme2],
-                                          stops: <double>[0.36, 0.8],
+                                          stops: const <double>[0.36, 0.8],
                                           begin: Alignment.topLeft,
                                           end: Alignment.centerRight),
                                       trackColor: kThemeBg));

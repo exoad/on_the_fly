@@ -25,6 +25,9 @@ canonical bits:
 file picker:
   dialog_title_pick_file: 选择文件
   dialog_title_pick_folder: 选择文件夹
+path validator:
+  path_cannot_be_empty: 路径不能为空
+  path_not_valid_file: 提供的路径不是文件
 format generic:
   supported_inputs: 支持的输入
   supported_outputs: 支持的输出

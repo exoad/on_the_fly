@@ -79,4 +79,21 @@ extension ColorExtension on Color {
         max(((g * 255).round() * factor).round(), 0),
         max(((b * 255).round() * factor).round(), 0));
   }
+
+  // from: https://stackoverflow.com/a/50081214 THANK YOU !!!!
+
+  static Color fromHex(String hexString) {
+    StringBuffer buffer = StringBuffer();
+    if (hexString.length == 6 || hexString.length == 7) {
+      buffer.write('ff');
+    }
+    buffer.write(hexString.replaceFirst('#', ''));
+    return Color(int.parse(buffer.toString(), radix: 16));
+  }
+
+  String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'
+      '${((a * 255) as int).toRadixString(16).padLeft(2, '0')}'
+      '${((r * 255) as int).toRadixString(16).padLeft(2, '0')}'
+      '${((g * 255) as int).toRadixString(16).padLeft(2, '0')}'
+      '${((b * 255) as int).toRadixString(16).padLeft(2, '0')}';
 }

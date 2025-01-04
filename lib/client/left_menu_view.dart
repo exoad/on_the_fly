@@ -592,7 +592,7 @@ class _CanonicalAdvertState extends State<CanonicalAdvert> {
                                   backgroundColor:
                                       const WidgetStatePropertyAll<Color>(kThemeBg)),
                               icon: const HugeIcon(
-                                  icon: HugeIcons.strokeRoundedLicenseMaintenance,
+                                  icon: HugeIcons.strokeRoundedScroll,
                                   color: kThemePrimaryFg1),
                               onPressed: () => showLicensePage(
                                   applicationLegalese:

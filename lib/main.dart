@@ -14,6 +14,7 @@ import 'package:on_the_fly/client/events/debug_events.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:on_the_fly/shared/bundles.dart';
 import 'package:on_the_fly/xt.dart';
 
 import 'core/formats/formats.dart';
@@ -47,12 +48,13 @@ void main() {
         logger.info("Jobs for medium ${entry.key}: ${entry.value.length}");
       }
       // debugRepaintRainbowEnabled = true;
-      for (int i = 0; i < 10; i++) {
+      for (int i = 0; i < 2; i++) {
         LoaderHandlerView.loads["TestDelay$i"] =
-            () => Future<void>.delayed(const Duration(milliseconds: 1000));
+            () => Future<void>.delayed(const Duration(milliseconds: 400));
       }
+      LoaderHandlerView.loads["Load all asset bundles"] = Bundles.loadAllBundles;
+      LoaderHandlerView.loads["Parse configurations"] = Bundles.parseConfigurations;
       runApp(const RootServiceView(appView: AppView()));
-
       doWhenWindowReady(() async {
         await initSystemTray();
         appWindow.show();

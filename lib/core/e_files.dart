@@ -16,6 +16,9 @@ class FileFormat {
     required this.canRead,
   });
 
+  // maybe can be used later for whent eh user wants to override certain file formats
+  void operator +(String extension) => validExtensions.add(extension);
+
   @override
   String toString() =>
       "$canonicalName[CanRead=$canRead, CanWrite=$canWrite, ValidExtensions=$validExtensions]";
@@ -71,8 +74,7 @@ class FormatMedium {
       FileFormat f = inputFormats[i];
       for (int j = 0; j < f.validExtensions.length; j++) {
         buffer.write("*.${f.validExtensions[j]}");
-        if (!(i == inputFormats.length - 1 &&
-            j == f.validExtensions.length - 1)) {
+        if (!(i == inputFormats.length - 1 && j == f.validExtensions.length - 1)) {
           buffer.write(", ");
         }
       }
@@ -86,8 +88,7 @@ class FormatMedium {
       FileFormat f = outputFormats[i];
       for (int j = 0; j < f.validExtensions.length; j++) {
         buffer.write("*.${f.validExtensions[j]}");
-        if (!(i == outputFormats.length - 1 &&
-            j == f.validExtensions.length - 1)) {
+        if (!(i == outputFormats.length - 1 && j == f.validExtensions.length - 1)) {
           buffer.write(", ");
         }
       }

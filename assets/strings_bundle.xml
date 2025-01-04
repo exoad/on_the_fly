@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RootBundle>
+    <!-- This section contains configuration information that can be changed by the user. -->
+    <Public>
+        <Locale code="zh" />
+    </Public>
+    <!-- This section contains program constants that the user (you) really don't need to touch.-->
+    <Shared>
+    </Shared>
+</RootBundle>

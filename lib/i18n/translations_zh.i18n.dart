@@ -72,6 +72,8 @@ class TranslationsZh extends Translations {
   CanonicalBitsTranslationsZh get canonicalBits =>
       CanonicalBitsTranslationsZh(this);
   FilePickerTranslationsZh get filePicker => FilePickerTranslationsZh(this);
+  PathValidatorTranslationsZh get pathValidator =>
+      PathValidatorTranslationsZh(this);
   FormatGenericTranslationsZh get formatGeneric =>
       FormatGenericTranslationsZh(this);
   SingleImgJobTranslationsZh get singleImgJob =>
@@ -215,6 +217,21 @@ class FilePickerTranslationsZh extends FilePickerTranslations {
   String get dialog_title_pick_folder => """选择文件夹""";
 }
 
+class PathValidatorTranslationsZh extends PathValidatorTranslations {
+  final TranslationsZh _parent;
+  const PathValidatorTranslationsZh(this._parent) : super(_parent);
+
+  /// ```dart
+  /// "路径不能为空"
+  /// ```
+  String get path_cannot_be_empty => """路径不能为空""";
+
+  /// ```dart
+  /// "提供的路径不是文件"
+  /// ```
+  String get path_not_valid_file => """提供的路径不是文件""";
+}
+
 class FormatGenericTranslationsZh extends FormatGenericTranslations {
   final TranslationsZh _parent;
   const FormatGenericTranslationsZh(this._parent) : super(_parent);
@@ -305,6 +322,8 @@ Map<String, String> get translationsZhMap => {
       """canonical bits.job_dispatcher_formal""": """任务调度""",
       """file picker.dialog_title_pick_file""": """选择文件""",
       """file picker.dialog_title_pick_folder""": """选择文件夹""",
+      """path validator.path_cannot_be_empty""": """路径不能为空""",
+      """path validator.path_not_valid_file""": """提供的路径不是文件""",
       """format generic.supported_inputs""": """支持的输入""",
       """format generic.supported_outputs""": """支持的输出""",
       """format generic.push_job""": """添加这个程序""",
