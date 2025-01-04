@@ -48,6 +48,7 @@ class _LoaderHandlerViewState extends State<LoaderHandlerView>
   int completed = 1;
   late AnimationController animationController;
   late Animation<double> progressAnim;
+  String? currentMessage;
   double progress = 0.0;
 
   @override
@@ -66,7 +67,10 @@ class _LoaderHandlerViewState extends State<LoaderHandlerView>
     for (MapEntry<String, Future<void> Function()> entry
         in LoaderHandlerView.loadEntries) {
       await entry.value();
-      setState(() => _progress(++completed / (LoaderHandlerView.loads.length + 1)));
+      setState(() {
+        currentMessage = entry.key;
+        _progress(++completed / (LoaderHandlerView.loads.length + 1));
+      });
     }
     widget.onDone?.call(); // no use of syntax sugar :)
   }
@@ -168,6 +172,10 @@ class _LoaderHandlerViewState extends State<LoaderHandlerView>
                                 fontSize: 20,
                                 color: kThemePrimaryFg1,
                                 fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 10),
+                        Text(currentMessage ?? "...",
+                            style:
+                                const TextStyle(fontSize: 14, color: kThemePrimaryFg2)),
                         const Spacer(),
                         AnimatedBuilder(
                             animation: progressAnim,
