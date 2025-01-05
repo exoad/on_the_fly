@@ -3,6 +3,7 @@ import 'dart:io';
 // import 'package:flutter/rendering.dart';
 import 'package:on_the_fly/base/ephemeral.dart';
 import 'package:on_the_fly/base/native_channel.dart';
+import 'package:on_the_fly/base/win_man.dart';
 import 'package:on_the_fly/client/tray/tray.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/client/load_it_n_view.dart';
@@ -35,7 +36,7 @@ void main() {
       }
       logger.info("kShowDebugView=$kShowDebugView");
       // checking platform channel exists
-      if (!await AppEphemeral.sanityCheck()) {
+      if (!await sanityCheck()) {
         throw const NativeException(
             "OnTheFly unable to complete native channel sanity checks!");
       } else {
@@ -53,11 +54,16 @@ void main() {
             () => Future<void>.delayed(const Duration(milliseconds: 400));
       }
       LoaderHandlerView.loads["Load all asset bundles"] = Bundles.loadAllBundles;
-      LoaderHandlerView.loads["Parse configurations"] = Bundles.parseConfigurations;
+      LoaderHandlerView.loads["Parse configurations"] = PublicBundle.parseConfigurations;
+      LoaderHandlerView.loads["WinMan Module Load"] = () {
+        if (PublicBundle.isInitialFocused) {
+          WinMan.I.requestFocus();
+        }
+      };
       runApp(RootServiceView(
         appView: const AppView(),
         onDone: () async {
-          String? initWinState = Bundles.initialWindowState;
+          String? initWinState = PublicBundle.initialWindowState;
           doWhenWindowReady(() async {
             logger.info("initWinState=$initWinState");
             if (initWinState == null || initWinState == "gui") {

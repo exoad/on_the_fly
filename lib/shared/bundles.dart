@@ -17,8 +17,22 @@ final class Bundles {
     logger.info("Strings Bundle loaded ${stringsRaw.length} chars");
   }
 
+  static bool? parseBool(String xPath) =>
+      Bundles.strings
+          .xpath(xPath)
+          .first
+          .innerText
+          .toLowerCase()
+          .replaceAll(RegExp(r"\s+"), "") ==
+      "true";
+}
+
+final class PublicBundle {
+  PublicBundle._();
+
   static void parseConfigurations() {
-    String localeCode = strings.xpath("//Locale[@code]").first.attributes[0].value;
+    String localeCode =
+        Bundles.strings.xpath("//Locale[@code]").first.attributes[0].value;
     bool validLocale = kDefinedLocales.contains(localeCode);
     logger.info(
         "FOUND_ Locale;code = [${validLocale ? "O" : "X" /*OMG SQUID GAME REFERENCE ?????*/}] $localeCode");
@@ -30,7 +44,7 @@ final class Bundles {
   static const List<String> _kValidInitialWindowStates = <String>["tray", "gui"];
 
   static String? get initialWindowState {
-    String windowState = strings
+    String windowState = Bundles.strings
         .xpath("//InitialWindowState")
         .first
         .innerText
@@ -45,4 +59,7 @@ final class Bundles {
     }
     return validState ? windowState : null;
   }
+
+  static bool get isInitialFocused =>
+  Bundles.parseBool("//InitialFocused") ?? false;
 }

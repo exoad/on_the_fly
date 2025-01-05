@@ -27,6 +27,16 @@ class BasicNativeChannel {
         ? Result<bool, String>.bad("no result from method invoke.")
         : Result<bool, String>.good(res, "Got result.");
   }
+
+  static Future<Result<Null, String>> safeInvoke(
+      MethodChannel channel, String methodName) async {
+    try {
+      await channel.invokeMethod<bool>(methodName);
+    } on PlatformException catch (e) {
+      return Result<Null, String>.bad("safeInvokeBool failed: ${e.message}");
+    }
+    return Result<Null, String>.good(null, "Invoked");
+  }
 }
 
 /// represents an exception that has occurred because of some native

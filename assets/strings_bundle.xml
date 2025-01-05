@@ -7,10 +7,22 @@
         Supports the following values (case insensitive):
             tray - Starts up in the tray, GUI hidden
             gui  - Starts up with the GUI and the tray
+
+        Defaults to gui
         -->
         <InitialWindowState>
             gui
         </InitialWindowState>
+        <!--
+        Whether on launch, the window should request focus:
+            true
+            false
+            
+        Defaults to false
+        -->
+        <InitialFocused>
+            true
+        </InitialFocused>
     </Public>
     <!-- This section contains program constants that the user (you) really don't need to touch.-->
     <Shared>

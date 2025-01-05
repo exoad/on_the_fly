@@ -11,8 +11,7 @@ final class Result<A, E /*usually this is a string*/ > {
   Result._(this._payload, this.message, this._good);
 
   /// good job :D
-  factory Result.good(A payload, E message) =>
-      Result<A, E>._(payload, message, true);
+  factory Result.good(A payload, E message) => Result<A, E>._(payload, message, true);
 
   /// bad job >:(
   factory Result.bad(E message) => Result<A, E>._(null, message, false);
@@ -27,6 +26,18 @@ final class Result<A, E /*usually this is a string*/ > {
   bool get isGood => _good;
 
   bool get isBad => !_good;
+
+  void onBad(void Function(E message) consumer) {
+    if (isBad) {
+      consumer(message);
+    }
+  }
+
+  void onGood(void Function(A? payload, E message) consumer) {
+    if (isGood) {
+      consumer(payload, message);
+    }
+  }
 }
 
 /// represents a bad result exception for when the payload doesnt exist or the
