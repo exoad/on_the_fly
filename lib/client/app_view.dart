@@ -111,7 +111,63 @@ class _AppViewContainer extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(kRRArc),
           side: const BorderSide(color: kThemeOptedComponentBorder, width: 1.5)));
-
+  static final ListTileThemeData listTileThemeData = ListTileThemeData(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc)),
+      subtitleTextStyle: const TextStyle(
+          fontFamily: kDefaultFontFamily,
+          color: kThemePrimaryFg2,
+          fontSize: 14,
+          fontWeight: FontWeight.normal),
+      titleTextStyle: const TextStyle(
+          color: kThemePrimaryFg1, fontSize: 20, fontWeight: FontWeight.bold),
+      enableFeedback: false,
+      selectedColor: kTheme1,
+      tileColor: const Color.fromRGBO(172, 172, 172, 0.22),
+      visualDensity: VisualDensity.comfortable);
+  static final IconButtonThemeData iconButtonThemeData = IconButtonThemeData(
+      style: ButtonStyle(
+          splashFactory: InkRipple.splashFactory,
+          visualDensity: VisualDensity.compact,
+          shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(kRRArc),
+          )),
+          iconColor: const WidgetStatePropertyAll<Color>(kThemeBg),
+          backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
+          overlayColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg1.withAlpha(45))));
+  static const ScrollbarThemeData scrollbarThemeData = ScrollbarThemeData(
+      thumbColor: WidgetStatePropertyAll<Color>(Colors.transparent),
+      radius: Radius.circular(kRRArc));
+  static const AppBarTheme appBarTheme = AppBarTheme(
+      surfaceTintColor: kThemeBg,
+      backgroundColor: kThemeBg,
+      foregroundColor: kThemePrimaryFg1,
+      titleTextStyle: TextStyle(
+          color: kThemePrimaryFg1, fontSize: 24, fontFamily: kDefaultFontFamily));
+  static final DialogTheme dialogTheme = DialogTheme(
+      clipBehavior: Clip.antiAlias,
+      backgroundColor: kThemeBg,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(kRRArc),
+          side: const BorderSide(color: kThemePrimaryFg1, width: 2)));
+  static const FilledButtonThemeData filledButtonThemeData = FilledButtonThemeData(
+      style: ButtonStyle(
+          backgroundColor: WidgetStatePropertyAll<Color>(kTheme1),
+          iconColor: WidgetStatePropertyAll<Color>(kThemeBg),
+          foregroundColor: WidgetStatePropertyAll<Color>(kThemeBg),
+          textStyle: WidgetStatePropertyAll<TextStyle>(TextStyle(
+              fontFamily: kDefaultFontFamily,
+              color: kThemeBg,
+              fontSize: 20,
+              fontWeight: FontWeight.bold))));
+  static final DrawerThemeData drawerThemeData = DrawerThemeData(
+      backgroundColor: kThemeBg,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc)),
+      clipBehavior: Clip.antiAlias);
+  static const DividerThemeData dividerThemeData =
+      DividerThemeData(space: 0, thickness: 0, color: Colors.transparent);
+  static const ButtonThemeData buttonThemeData =
+      ButtonThemeData(padding: EdgeInsets.zero);
+  static const IconThemeData iconThemeData = IconThemeData(color: kThemePrimaryFg1);
   @override
   Widget build(BuildContext context) {
     // if we dont refactor and redfine these as separate variables, `dart format` fucks up
@@ -128,81 +184,27 @@ class _AppViewContainer extends StatelessWidget {
           theme: ThemeData(
               cardColor: kThemeBg,
               secondaryHeaderColor: kThemePrimaryFg1,
-              filledButtonTheme: const FilledButtonThemeData(
-                  style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll<Color>(kTheme1),
-                      iconColor: WidgetStatePropertyAll<Color>(kThemeBg),
-                      foregroundColor: WidgetStatePropertyAll<Color>(kThemeBg),
-                      textStyle: WidgetStatePropertyAll<TextStyle>(TextStyle(
-                          fontFamily: kDefaultFontFamily,
-                          color: kThemeBg,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)))),
-              listTileTheme: ListTileThemeData(
-                  shape:
-                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc)),
-                  subtitleTextStyle: const TextStyle(
-                      fontFamily: kDefaultFontFamily,
-                      color: kThemePrimaryFg2,
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal),
-                  titleTextStyle: const TextStyle(
-                      color: kThemePrimaryFg1, fontSize: 20, fontWeight: FontWeight.bold),
-                  enableFeedback: false,
-                  selectedColor: kTheme1,
-                  tileColor: const Color.fromRGBO(172, 172, 172, 0.22),
-                  visualDensity: VisualDensity.comfortable),
+              filledButtonTheme: filledButtonThemeData,
+              listTileTheme: listTileThemeData,
               dividerColor: Colors.transparent,
-              dividerTheme: const DividerThemeData(
-                  space: 0, thickness: 0, color: Colors.transparent),
-              drawerTheme: DrawerThemeData(
-                  backgroundColor: kThemeBg,
-                  shape:
-                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc)),
-                  clipBehavior: Clip.antiAlias),
+              dividerTheme: dividerThemeData,
+              drawerTheme: drawerThemeData,
               expansionTileTheme: expansionTileThemeData,
               splashColor: kThemePrimaryFg1.withAlpha((255 * 0.5).round()),
-              buttonTheme: const ButtonThemeData(padding: EdgeInsets.zero),
-              iconButtonTheme: IconButtonThemeData(
-                  style: ButtonStyle(
-                      splashFactory: InkRipple.splashFactory,
-                      visualDensity: VisualDensity.compact,
-                      shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(kRRArc),
-                      )),
-                      iconColor: const WidgetStatePropertyAll<Color>(kThemeBg),
-                      backgroundColor:
-                          const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
-                      overlayColor:
-                          WidgetStatePropertyAll<Color>(kThemePrimaryFg1.withAlpha(45)))),
+              buttonTheme: buttonThemeData,
+              iconButtonTheme: iconButtonThemeData,
               elevatedButtonTheme: elevatedButtonThemeData,
               tooltipTheme: tooltipThemeData,
               outlinedButtonTheme: outlinedButtonThemeData,
               textButtonTheme: textButtonThemeData,
-              dialogTheme: DialogTheme(
-                clipBehavior: Clip.antiAlias,
-                backgroundColor: kThemeBg,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(kRRArc),
-                    side: const BorderSide(color: kThemePrimaryFg1, width: 2)),
-              ),
+              dialogTheme: dialogTheme,
               indicatorColor: kThemePrimaryFg1,
-              iconTheme: const IconThemeData(color: kThemePrimaryFg1),
+              iconTheme: iconThemeData,
               scaffoldBackgroundColor: kThemeBg,
               textSelectionTheme: textSelectionThemeData,
               inputDecorationTheme: inputDecorationTheme,
-              scrollbarTheme: const ScrollbarThemeData(
-                  thumbColor: WidgetStatePropertyAll<Color>(Colors.transparent),
-                  radius: Radius.circular(kRRArc)),
-              appBarTheme: const AppBarTheme(
-                  surfaceTintColor: kThemeBg,
-                  backgroundColor: kThemeBg,
-                  foregroundColor: kThemePrimaryFg1,
-                  titleTextStyle: TextStyle(
-                      color: kThemePrimaryFg1,
-                      fontSize: 24,
-                      fontFamily: kDefaultFontFamily)),
+              scrollbarTheme: scrollbarThemeData,
+              appBarTheme: appBarTheme,
               fontFamily: kDefaultFontFamily,
               brightness: Brightness.dark,
               primaryColor: kThemePrimaryFg1),
