@@ -24,7 +24,8 @@ Currently, OnTheFly is **not** stable (in active development) for general consum
 
 *For people who want to do it themselves...*
 
-As previously stated, OnTheFly is **not** stable and is in active development, so expect bugs, undocumented actions, etc.. Additionally, there currently is only support for Windows. Building for any other platforms will produce undefined behavior.
+As previously stated, OnTheFly is **not** stable and is in active development, so expect bugs, undocumented actions, etc.. Additionally, there currently is only support for Windows. Building for any other platforms will produce undefined and untested behavior. However,
+as OnTheFly is built on Flutter and Dart, it is very easy to build with the tooling provided.
 
 **To build, you must have the Flutter SDK downloaded: https://docs.flutter.dev/get-started/install**
 
@@ -39,7 +40,7 @@ Make sure you have all of the dependencies required by Flutter. You can check by
 ### Building using Python Script (Windows Only)
 
 [`build.py`](./build.py) is a standardized script for building typically release builds of OnTheFly. It requires Python 3 and up and Flutter to be installed as well as dependencies required
-by Flutter (which you can check with `flutter doctor`)
+by Flutter (which you can check with `flutter doctor`).
 
 By default, running the script with `python build.py` will produce a "non-release" build. To run it with release mode, run it with the `--release` flag (`python build.py --release`). 
 
