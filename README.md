@@ -13,7 +13,7 @@
   <strong>OnTheFly</strong> is a desktop app that automates file format conversions in the background. Customize it to monitor multiple folders, process images, handle files matching specific regex patterns, and more!
 </p>
 <p align="center">
-  <img src="https://github.com/exoad/on_the_fly/blob/master/repo/sc1.png?raw=true" alt="App Screenshot" width="78%" />
+  <img src="https://github.com/exoad/on_the_fly/blob/master/repo/sc_1.png?raw=true" alt="App Screenshot" width="78%" />
 </p>
 
 ## Downloading
