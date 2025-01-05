@@ -23,10 +23,12 @@ app generics:
   minimize: 最小化
   maximize: 最大化
   restore: 恢复
+  clear: 清除
+  scroll_to_bottom: 滚动到底部
+  scroll_to_top: 回到顶部
 logger view:
   rmenu_tooltip: 日志
   title: 日志
-  clear: 清除
 dispatched jobs:
   remove_job_button: 删除
 canonical bits:

@@ -23,10 +23,12 @@ app generics:
   minimize: Minimize
   maximize: Maximize
   restore: Restore
+  clear: Clear
+  scroll_to_bottom: Scroll to bottom
+  scroll_to_top: Scroll to top
 logger view:
   rmenu_tooltip: Logs
   title: Logs
-  clear: Clear
 dispatched jobs:
   remove_job_button: Remove
 canonical bits:

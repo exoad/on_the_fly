@@ -15,34 +15,33 @@ class LoggingView extends StatefulWidget {
 }
 
 class _LogActionButton extends StatelessWidget {
-  final IconData? icon;
+  final IconData icon;
   final String label;
   final Color color;
   final void Function() action;
 
   const _LogActionButton(
       {required this.action,
-      this.icon,
+      required this.icon,
       required this.label,
       // ignore: unused_element
       this.color = kThemePrimaryFg1});
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        style: ButtonStyle(
-            padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
-                EdgeInsets.symmetric(horizontal: 4)),
-            shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))),
-            visualDensity: VisualDensity.compact,
-            backgroundColor: WidgetStatePropertyAll<Color>(color)),
-        onPressed: action,
-        child: Row(children: <Widget>[
-          if (icon != null) Icon(icon),
-          if (icon != null) const SizedBox(width: 4),
-          Text(label, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12))
-        ]));
+    return Tooltip(
+      message: label,
+      child: TextButton(
+          style: ButtonStyle(
+              padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
+                  EdgeInsets.symmetric(horizontal: 4)),
+              shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))),
+              visualDensity: VisualDensity.compact,
+              backgroundColor: WidgetStatePropertyAll<Color>(color)),
+          onPressed: action,
+          child: Icon(icon)),
+    );
   }
 }
 
@@ -84,8 +83,30 @@ class _LoggingViewState extends State<LoggingView> {
               action: () => setState(_logHistory.clear),
               label: Provider.of<InternationalizationNotifier>(context)
                   .i18n
-                  .loggerView
+                  .appGenerics
                   .clear),
+          const SizedBox(width: 6),
+          _LogActionButton(
+              icon: Ionicons.arrow_down,
+              action: () async => await _scrollController.animateTo(
+                  duration: const Duration(milliseconds: 520),
+                  curve: Curves.easeInOut,
+                  _scrollController.position.maxScrollExtent),
+              label: Provider.of<InternationalizationNotifier>(context)
+                  .i18n
+                  .appGenerics
+                  .scroll_to_bottom),
+          const SizedBox(width: 6),
+          _LogActionButton(
+              icon: Ionicons.arrow_up,
+              action: () async => await _scrollController.animateTo(
+                  duration: const Duration(milliseconds: 520),
+                  curve: Curves.easeInOut,
+                  _scrollController.position.minScrollExtent),
+              label: Provider.of<InternationalizationNotifier>(context)
+                  .i18n
+                  .appGenerics
+                  .scroll_to_top),
         ],
       ),
       child: Expanded(
@@ -98,7 +119,6 @@ class _LoggingViewState extends State<LoggingView> {
               return Padding(
                 padding: const EdgeInsets.only(top: 4),
                 child: IntrinsicHeight(
-                  // to make vertical divider show up, thanks to https://stackoverflow.com/a/49388387
                   child: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
                     ConstrainedBox(
                       constraints: const BoxConstraints.expand(width: 26),
@@ -148,13 +168,16 @@ class _LoggingViewState extends State<LoggingView> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                        child: Text(_logHistory[index].message,
-                            softWrap: true,
-                            style: TextStyle(
-                                color: style.color,
-                                fontSize: 12,
-                                fontWeight:
-                                    style.isBold ? FontWeight.bold : FontWeight.normal)),
+                        child: DefaultSelectionStyle(
+                          child: Text(_logHistory[index].message,
+                              softWrap: true,
+                              style: TextStyle(
+                                  color: style.color,
+                                  fontSize: 12,
+                                  fontWeight: style.isBold
+                                      ? FontWeight.bold
+                                      : FontWeight.normal)),
+                        ),
                       ),
                     ),
                   ]),

@@ -206,6 +206,21 @@ class AppGenericsTranslations {
   /// "Restore"
   /// ```
   String get restore => """Restore""";
+
+  /// ```dart
+  /// "Clear"
+  /// ```
+  String get clear => """Clear""";
+
+  /// ```dart
+  /// "Scroll to bottom"
+  /// ```
+  String get scroll_to_bottom => """Scroll to bottom""";
+
+  /// ```dart
+  /// "Scroll to top"
+  /// ```
+  String get scroll_to_top => """Scroll to top""";
 }
 
 class LoggerViewTranslations {
@@ -221,11 +236,6 @@ class LoggerViewTranslations {
   /// "Logs"
   /// ```
   String get title => """Logs""";
-
-  /// ```dart
-  /// "Clear"
-  /// ```
-  String get clear => """Clear""";
 }
 
 class DispatchedJobsTranslations {
@@ -373,9 +383,11 @@ Map<String, String> get translationsMap => {
       """app generics.minimize""": """Minimize""",
       """app generics.maximize""": """Maximize""",
       """app generics.restore""": """Restore""",
+      """app generics.clear""": """Clear""",
+      """app generics.scroll_to_bottom""": """Scroll to bottom""",
+      """app generics.scroll_to_top""": """Scroll to top""",
       """logger view.rmenu_tooltip""": """Logs""",
       """logger view.title""": """Logs""",
-      """logger view.clear""": """Clear""",
       """dispatched jobs.remove_job_button""": """Remove""",
       """canonical bits.job_dispatcher_formal""": """Job Dispatcher""",
       """file picker.dialog_title_pick_file""": """Select a file""",
