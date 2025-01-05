@@ -4,6 +4,7 @@ import 'package:logging/logging.dart';
 import 'package:on_the_fly/client/components/components.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/helpers/color_helper.dart';
+import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -59,7 +60,13 @@ class _LoggingViewState extends State<LoggingView> {
   @override
   void initState() {
     super.initState();
-    _repaint = () => setState(() {});
+    _repaint = () async {
+      setState(() {});
+      await _scrollController.animateTo(
+          duration: const Duration(milliseconds: 520),
+          curve: Curves.easeInOut,
+          _scrollController.position.maxScrollExtent);
+    };
     _scrollController = ScrollController();
   }
 
@@ -107,6 +114,12 @@ class _LoggingViewState extends State<LoggingView> {
                   .i18n
                   .appGenerics
                   .scroll_to_top),
+          const SizedBox(width: 6),
+          _LogActionButton(
+              icon: Ionicons.time,
+              action: () => logger.fine(
+                  "Uptime: ${Duration(milliseconds: DateTime.now().millisecondsSinceEpoch - AppDebug().startUpTimestamp)}"),
+              label: ""),
         ],
       ),
       child: Expanded(

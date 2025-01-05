@@ -101,7 +101,7 @@ class ImportanceDialog extends StatelessWidget {
                                                   const WidgetStatePropertyAll<Color>(
                                                       kTheme1)),
                                       onPressed: () {
-                                        logger.info("REMOVE_JOB_DISPATCHER_INFO_VIEW");
+                                        logger.info("REMOVE_OVERLAY_DIALOG#$hashCode");
                                         Navigator.of(context).pop();
                                       },
                                       icon: const Icon(Ionicons.close),
