@@ -9,7 +9,7 @@
             en - English
             zh - Chinese (Simplified)
         -->
-        <Locale code="zh" />
+        <Locale code="en" />
         <!--
         Supports the following values (case insensitive):
             tray - Starts up in the tray, GUI hidden

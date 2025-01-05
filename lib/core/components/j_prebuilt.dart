@@ -78,6 +78,7 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
               child: Padding(
                 padding: const EdgeInsets.only(left: 6),
                 child: TextFormField(
+                    initialValue: _pathContent,
                     style: const TextStyle(fontSize: 14),
                     autovalidateMode: AutovalidateMode.always,
                     autocorrect: false,

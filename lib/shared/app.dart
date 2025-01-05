@@ -64,7 +64,7 @@ const List<String> kDefinedLocales = <String>[
 /// can be on or off no matter the production state
 const bool kAllowDebugLogs = true;
 late final Random random;
-final Logger logger = Logger("AutoImg");
+final Logger logger = Logger("OnTheFly");
 
 /// this platform channel basically just checks if the platform
 /// channel is working properly in the hollistic sense
@@ -83,8 +83,7 @@ const MethodChannel mNativeChannel1 = MethodChannel("net.exoad.on_the_fly/sanity
 /// it knows all the registered jobs
 Future<void> initConsts() async {
   // _loggerQueue = Queue<String>();
-  Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((LogRecord record) {
+  logger.onRecord.listen((LogRecord record) {
     final String built = "[${record.level.name}]: ${record.time}: ${record.message}";
     print(built);
     // if (_loggerQueue.length == kLoggerDebugViewRecentFilterDepth) {
@@ -98,6 +97,8 @@ Future<void> initConsts() async {
     // debugSeek()["dd"] = buffer.toString();
     pushbackLogRecord(record);
   });
+  hierarchicalLoggingEnabled = true;
+  logger.level = Level.ALL;
   // initialize locale
   // TODO: will need additional telemetry save options (additonal patterns)
   // InternationalizationNotifier().changeLocale("zh"); // * FORCED LOCALE CHANGE (VOLATILE)
