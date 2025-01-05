@@ -59,6 +59,7 @@ void main() {
         onDone: () async {
           String? initWinState = Bundles.initialWindowState;
           doWhenWindowReady(() async {
+            logger.info("initWinState=$initWinState");
             if (initWinState == null || initWinState == "gui") {
               appWindow.show();
             }

@@ -30,10 +30,15 @@ final class Bundles {
   static const List<String> _kValidInitialWindowStates = <String>["tray", "gui"];
 
   static String? get initialWindowState {
-    String windowState = strings.xpath("//InitialWindowState").first.innerText.toLowerCase();
+    String windowState = strings
+        .xpath("//InitialWindowState")
+        .first
+        .innerText
+        .toLowerCase()
+        .replaceAll(RegExp(r"\s+"), "");
     bool validState = false;
     for (String r in _kValidInitialWindowStates) {
-      if (r == windowState.trim()) {
+      if (r == windowState) {
         validState = true;
         break;
       }

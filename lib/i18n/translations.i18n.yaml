@@ -25,6 +25,8 @@ app generics:
   restore: Restore
 logger view:
   rmenu_tooltip: Logs
+  title: Logs
+  clear: Clear
 dispatched jobs:
   remove_job_button: Remove
 canonical bits:

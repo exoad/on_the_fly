@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:on_the_fly/shared/app.dart';
 
@@ -96,4 +97,8 @@ extension ColorExtension on Color {
       '${((r * 255) as int).toRadixString(16).padLeft(2, '0')}'
       '${((g * 255) as int).toRadixString(16).padLeft(2, '0')}'
       '${((b * 255) as int).toRadixString(16).padLeft(2, '0')}';
+
+  Color bipartiteContrast({Color dark = Colors.black, Color light = Colors.white}) {
+    return 0.299 * r + 0.587 * g + 0.223 * b > 0.45 ? dark : light;
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_tilt/flutter_tilt.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:on_the_fly/client/logging_view.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/client/components/components.dart';
@@ -568,7 +569,11 @@ class _CanonicalAdvertState extends State<CanonicalAdvert> {
                                   icon: HugeIcons
                                       .strokeRoundedCode, // might not be the best icon, for some reaosn it doesnt bundle all of the icons from the hugeicon site since i think a preferred iconw ould be like "terminal"
                                   color: kThemePrimaryFg1),
-                              onPressed: () {}, // TODO: impl
+                              onPressed: () => showDialog(
+                                  context: context,
+                                  useSafeArea: false,
+                                  builder: (BuildContext context) =>
+                                      const LoggingView()), // TODO: impl
                             ),
                           ),
                           Tooltip(

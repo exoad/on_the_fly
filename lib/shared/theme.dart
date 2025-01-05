@@ -1,5 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
+import 'package:on_the_fly/helpers/color_helper.dart';
 
 // themes stuff
 const Color kThemeBg = Colors.black;
@@ -51,3 +53,48 @@ final WindowButtonColors kWindowButtonColors3 = WindowButtonColors(
     normal: Colors.transparent,
     mouseDown: Colors.transparent,
     mouseOver: Colors.transparent);
+
+typedef LogStyle = ({Color color, bool isBold, Color foreground});
+
+LogStyle loggingColors(Level level) => switch (level) {
+      Level.WARNING => (
+          color: Colors.amber,
+          isBold: true,
+          foreground: Colors.amber.bipartiteContrast()
+        ),
+      Level.INFO => (
+          color: Colors.white,
+          isBold: false,
+          foreground: Colors.white.bipartiteContrast()
+        ),
+      Level.FINE => (
+          color: Colors.blue[200]!, // im scared about the bang operator
+          isBold: false,
+          foreground: Colors.blue[200]!.bipartiteContrast()
+        ),
+      Level.FINER => (
+          color: Colors.blue[400]!, // im scared about the bang operator
+          isBold: false,
+          foreground: Colors.blue[400]!.bipartiteContrast()
+        ),
+      Level.FINEST => (
+          color: Colors.blue[600]!, // im scared about the bang operator
+          isBold: false,
+          foreground: Colors.blue[400]!.bipartiteContrast()
+        ),
+      Level.SEVERE => (
+          color: Colors.deepOrange,
+          isBold: true,
+          foreground: Colors.deepOrange.bipartiteContrast()
+        ),
+      Level.SHOUT => (
+          color: Colors.white,
+          isBold: true,
+          foreground: Colors.white.bipartiteContrast()
+        ),
+      _ => (
+          color: Colors.green,
+          isBold: false,
+          foreground: Colors.green.bipartiteContrast()
+        )
+    };

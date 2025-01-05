@@ -78,8 +78,7 @@ class ImportanceDialog extends StatelessWidget {
                     height: MediaQuery.sizeOf(context).height * 0.74,
                     width: MediaQuery.sizeOf(context).width * 0.8,
                     child: Padding(
-                            padding: const EdgeInsets.all(
-                                8.0), // lol using the default value :D
+                            padding: const EdgeInsets.all(kTotalAppMargin),
                             child: Stack(
                               alignment: Alignment.topLeft,
                               children: <Widget>[
@@ -127,5 +126,34 @@ class ImportanceDialog extends StatelessWidget {
             begin: 0,
             duration: const Duration(milliseconds: 600),
             curve: Curves.easeInOut);
+  }
+}
+
+class TitledImportanceDialog extends StatelessWidget {
+  final Widget title;
+  final Widget child;
+
+  const TitledImportanceDialog({super.key, required this.title, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return ImportanceDialog(
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                title,
+              ],
+            ),
+            const SizedBox(height: 12),
+            const Divider(color: kThemePrimaryFg1),
+            const SizedBox(height: 12),
+            child,
+          ]),
+    );
   }
 }

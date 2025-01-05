@@ -134,13 +134,14 @@ class _LoaderHandlerViewState extends State<LoaderHandlerView>
                                 .i18n
                                 .appGenerics
                                 .loading,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 20,
                                 color: kThemePrimaryFg1,
                                 fontWeight: FontWeight.bold)),
                         const SizedBox(height: 10),
                         Text(currentMessage ?? "...",
-                            style: TextStyle(fontSize: 14, color: kThemePrimaryFg2)),
+                            style:
+                                const TextStyle(fontSize: 14, color: kThemePrimaryFg2)),
                         const Spacer(),
                         AnimatedBuilder(
                             animation: progressAnim,
@@ -153,9 +154,9 @@ class _LoaderHandlerViewState extends State<LoaderHandlerView>
                                       // progress: completed /
                                       //     (LoaderHandlerView.loads.length + 1),
                                       progress: progressAnim.value,
-                                      progressGradient: LinearGradient(
+                                      progressGradient: const LinearGradient(
                                           colors: <Color>[kTheme1, kTheme2],
-                                          stops: const <double>[0.36, 0.8],
+                                          stops: <double>[0.36, 0.8],
                                           begin: Alignment.topLeft,
                                           end: Alignment.centerRight),
                                       trackColor: kThemeBg));

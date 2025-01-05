@@ -216,6 +216,16 @@ class LoggerViewTranslationsZh extends LoggerViewTranslations {
   /// "日志"
   /// ```
   String get rmenu_tooltip => """日志""";
+
+  /// ```dart
+  /// "日志"
+  /// ```
+  String get title => """日志""";
+
+  /// ```dart
+  /// "清除"
+  /// ```
+  String get clear => """清除""";
 }
 
 class DispatchedJobsTranslationsZh extends DispatchedJobsTranslations {
@@ -360,6 +370,8 @@ Map<String, String> get translationsZhMap => {
       """app generics.maximize""": """最大化""",
       """app generics.restore""": """恢复""",
       """logger view.rmenu_tooltip""": """日志""",
+      """logger view.title""": """日志""",
+      """logger view.clear""": """清除""",
       """dispatched jobs.remove_job_button""": """删除""",
       """canonical bits.job_dispatcher_formal""": """任务调度""",
       """file picker.dialog_title_pick_file""": """选择文件""",

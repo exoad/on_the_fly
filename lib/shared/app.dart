@@ -1,8 +1,10 @@
 // import 'dart:collection';
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/services.dart';
+import 'package:on_the_fly/client/logging_view.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:logging/logging.dart';
 import 'package:on_the_fly/client/events/debug_events.dart';
@@ -94,6 +96,7 @@ Future<void> initConsts() async {
     //   buffer.write("$i: $built");
     // }
     // debugSeek()["dd"] = buffer.toString();
+    pushbackLogRecord(record);
   });
   // initialize locale
   // TODO: will need additional telemetry save options (additonal patterns)
@@ -121,6 +124,10 @@ Future<void> initConsts() async {
 /// a very lightweight helper for showing up warnings and other
 /// related utility functions for the developer when making the app
 class AppDebug {
+  // StreamSubscription<LogRecord> listen(void Function(LogRecord) listener) {
+  //   logger.onRecord.asBroadcastStream().listen(listener);
+  // }
+
   AppDebug._();
 
   static final AppDebug _singleton = AppDebug._();

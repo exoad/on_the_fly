@@ -216,6 +216,16 @@ class LoggerViewTranslations {
   /// "Logs"
   /// ```
   String get rmenu_tooltip => """Logs""";
+
+  /// ```dart
+  /// "Logs"
+  /// ```
+  String get title => """Logs""";
+
+  /// ```dart
+  /// "Clear"
+  /// ```
+  String get clear => """Clear""";
 }
 
 class DispatchedJobsTranslations {
@@ -364,6 +374,8 @@ Map<String, String> get translationsMap => {
       """app generics.maximize""": """Maximize""",
       """app generics.restore""": """Restore""",
       """logger view.rmenu_tooltip""": """Logs""",
+      """logger view.title""": """Logs""",
+      """logger view.clear""": """Clear""",
       """dispatched jobs.remove_job_button""": """Remove""",
       """canonical bits.job_dispatcher_formal""": """Job Dispatcher""",
       """file picker.dialog_title_pick_file""": """Select a file""",
