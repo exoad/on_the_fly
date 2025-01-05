@@ -236,6 +236,11 @@ class LoggerViewTranslations {
   /// "Logs"
   /// ```
   String get title => """Logs""";
+
+  /// ```dart
+  /// "Log uptime"
+  /// ```
+  String get log_uptime => """Log uptime""";
 }
 
 class DispatchedJobsTranslations {
@@ -388,6 +393,7 @@ Map<String, String> get translationsMap => {
       """app generics.scroll_to_top""": """Scroll to top""",
       """logger view.rmenu_tooltip""": """Logs""",
       """logger view.title""": """Logs""",
+      """logger view.log_uptime""": """Log uptime""",
       """dispatched jobs.remove_job_button""": """Remove""",
       """canonical bits.job_dispatcher_formal""": """Job Dispatcher""",
       """file picker.dialog_title_pick_file""": """Select a file""",

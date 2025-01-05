@@ -132,5 +132,5 @@ if __name__ == "__main__":
         f"Build Ended at {time.ctime(end_build_time)}, took {end_build_time - start_build_time}s"
     )
     # section for building the updater program
-    
+
     logger.info("============= END =============")

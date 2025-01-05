@@ -119,7 +119,10 @@ class _LoggingViewState extends State<LoggingView> {
               icon: Ionicons.time,
               action: () => logger.fine(
                   "Uptime: ${Duration(milliseconds: DateTime.now().millisecondsSinceEpoch - AppDebug().startUpTimestamp)}"),
-              label: ""),
+              label: Provider.of<InternationalizationNotifier>(context)
+                  .i18n
+                  .loggerView
+                  .log_uptime),
         ],
       ),
       child: Expanded(

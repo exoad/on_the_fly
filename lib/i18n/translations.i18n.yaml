@@ -29,6 +29,7 @@ app generics:
 logger view:
   rmenu_tooltip: Logs
   title: Logs
+  log_uptime: Log uptime
 dispatched jobs:
   remove_job_button: Remove
 canonical bits:

@@ -29,6 +29,7 @@ app generics:
 logger view:
   rmenu_tooltip: 日志
   title: 日志
+  log_uptime: 记录运行时间
 dispatched jobs:
   remove_job_button: 删除
 canonical bits:

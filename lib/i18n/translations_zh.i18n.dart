@@ -236,6 +236,11 @@ class LoggerViewTranslationsZh extends LoggerViewTranslations {
   /// "日志"
   /// ```
   String get title => """日志""";
+
+  /// ```dart
+  /// "记录运行时间"
+  /// ```
+  String get log_uptime => """记录运行时间""";
 }
 
 class DispatchedJobsTranslationsZh extends DispatchedJobsTranslations {
@@ -384,6 +389,7 @@ Map<String, String> get translationsZhMap => {
       """app generics.scroll_to_top""": """回到顶部""",
       """logger view.rmenu_tooltip""": """日志""",
       """logger view.title""": """日志""",
+      """logger view.log_uptime""": """记录运行时间""",
       """dispatched jobs.remove_job_button""": """删除""",
       """canonical bits.job_dispatcher_formal""": """任务调度""",
       """file picker.dialog_title_pick_file""": """选择文件""",

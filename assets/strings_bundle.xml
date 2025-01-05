@@ -2,7 +2,14 @@
 <RootBundle>
     <!-- This section contains configuration information that can be changed by the user. -->
     <Public>
-        <Locale code="en" />
+        <!--
+        Can be platform default, but by default for this file is "en".
+
+        Supported:
+            en - English
+            zh - Chinese (Simplified)
+        -->
+        <Locale code="zh" />
         <!--
         Supports the following values (case insensitive):
             tray - Starts up in the tray, GUI hidden
@@ -17,7 +24,7 @@
         Whether on launch, the window should request focus:
             true
             false
-            
+
         Defaults to false
         -->
         <InitialFocused>
