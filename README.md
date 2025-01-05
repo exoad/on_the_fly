@@ -22,9 +22,13 @@ Currently, OnTheFly is **not** stable (in active development) for general consum
 
 ## Building
 
+*For people who want to do it themselves...*
+
 As previously stated, OnTheFly is **not** stable and is in active development, so expect bugs, undocumented actions, etc.. Additionally, there currently is only support for Windows. Building for any other platforms will produce undefined behavior.
 
 **To build, you must have the Flutter SDK downloaded: https://docs.flutter.dev/get-started/install**
+
+Make sure you have all of the dependencies required by Flutter. You can check by running the command `flutter doctor`.
 
 1. Clone the repository (`git clone https://github.com/exoad/on_the_fly.git`)
 2. Enter the root directory of the repository
@@ -34,7 +38,8 @@ As previously stated, OnTheFly is **not** stable and is in active development, s
 
 ### Building using Python Script (Windows Only)
 
-[`build.py`](./build.py) is a standardized script for building typically release builds of OnTheFly. It requires Python 3 and up. 
+[`build.py`](./build.py) is a standardized script for building typically release builds of OnTheFly. It requires Python 3 and up and Flutter to be installed as well as dependencies required
+by Flutter (which you can check with `flutter doctor`)
 
 By default, running the script with `python build.py` will produce a "non-release" build. To run it with release mode, run it with the `--release` flag (`python build.py --release`). 
 
@@ -50,6 +55,8 @@ BUILD_LOG_FILE_NAME = (
     "onthefly_pybuilder.log"  # only is used if ALLOW_BUILD_LOG_TO_FILE is also True
 )
 ```
+
+> ⚠️ **Edit the script at your own risk!**
 
 ## Documentation
 
