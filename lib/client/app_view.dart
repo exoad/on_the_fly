@@ -8,6 +8,7 @@ import 'package:on_the_fly/client/right_menu_view.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/shared/app.dart';
+import 'package:on_the_fly/shared/bundles.dart';
 import "package:on_the_fly/shared/theme.dart";
 import 'package:provider/provider.dart';
 
@@ -104,10 +105,11 @@ class _AppViewContainer extends StatelessWidget {
       backgroundColor: kThemeOptedComponentFg,
       iconColor: kThemePrimaryFg1,
       collapsedIconColor: kTheme1,
+      tilePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
       childrenPadding: const EdgeInsets.only(left: 8, right: 8, top: 10, bottom: 6),
       collapsedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(kRRArc),
-          side: const BorderSide(color: kThemeOptedComponentFg, width: 1.5)),
+          side: const BorderSide(color: kThemeOptedComponentBorder, width: 1.5)),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(kRRArc),
           side: const BorderSide(color: kThemeOptedComponentBorder, width: 1.5)));
@@ -122,7 +124,7 @@ class _AppViewContainer extends StatelessWidget {
           color: kThemePrimaryFg1, fontSize: 20, fontWeight: FontWeight.bold),
       enableFeedback: false,
       selectedColor: kTheme1,
-      tileColor: const Color.fromRGBO(172, 172, 172, 0.22),
+      tileColor: kThemeTilePrimary,
       visualDensity: VisualDensity.comfortable);
   static final IconButtonThemeData iconButtonThemeData = IconButtonThemeData(
       style: ButtonStyle(
@@ -230,6 +232,7 @@ enum WindowButtonType {
   MINIMIZE,
   MAXIMIZE_RESTORE,
   CLOSE,
+  HIDE,
 }
 
 class CustomWindowButton extends StatelessWidget {
@@ -242,13 +245,14 @@ class CustomWindowButton extends StatelessWidget {
           // i love pattern matching :D
           WindowButtonType.MINIMIZE => appWindow.minimize,
           WindowButtonType.MAXIMIZE_RESTORE => appWindow.maximizeOrRestore,
-          WindowButtonType.CLOSE => appWindow.close
+          WindowButtonType.CLOSE => appWindow.close,
+          WindowButtonType.HIDE => appWindow.hide
         },
         icon = switch (type) {
           // i love pattern matching :D
           WindowButtonType.MINIMIZE => Ionicons.remove_circle,
           WindowButtonType.MAXIMIZE_RESTORE => Ionicons.scan_circle,
-          WindowButtonType.CLOSE => Ionicons.close_circle
+          WindowButtonType.CLOSE || WindowButtonType.HIDE => Ionicons.close_circle,
         };
 
   @override
@@ -290,7 +294,11 @@ class AppWindowTitleButtons extends StatelessWidget {
         Tooltip(
             message:
                 Provider.of<InternationalizationNotifier>(context).i18n.appGenerics.close,
-            child: CustomWindowButton(type: WindowButtonType.CLOSE, color: kTheme1))
+            child: CustomWindowButton(
+                type: PublicBundle.isMinimizeToTray
+                    ? WindowButtonType.HIDE
+                    : WindowButtonType.CLOSE,
+                color: kTheme1))
       ]),
     );
   }

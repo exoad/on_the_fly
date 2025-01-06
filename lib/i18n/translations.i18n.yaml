@@ -26,6 +26,8 @@ app generics:
   clear: Clear
   scroll_to_bottom: Scroll to bottom
   scroll_to_top: Scroll to top
+  incorrect: Incorrect
+  validating: Validating
 logger view:
   rmenu_tooltip: Logs
   title: Logs

@@ -18,7 +18,6 @@ class JobBody extends StatefulWidget {
 }
 
 class _JobBodyState extends State<JobBody> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -42,7 +41,8 @@ class _JobBodyState extends State<JobBody> {
                   children: <Widget>[
                     TextButton.icon(
                         style: Theme.of(context).textButtonTheme.style!.copyWith(
-                            backgroundColor: const WidgetStatePropertyAll<Color>(kTheme1)),
+                            backgroundColor:
+                                const WidgetStatePropertyAll<Color>(kTheme1)),
                         label: Text(Provider.of<InternationalizationNotifier>(context,
                                 listen: false)
                             .i18n
@@ -54,5 +54,51 @@ class _JobBodyState extends State<JobBody> {
             ]),
       ),
     );
+  }
+}
+
+// tries to replicate the look of the given expansiontile themedata
+class JobContainer extends StatelessWidget {
+  final Widget child;
+
+  const JobContainer({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: Theme.of(context).listTileTheme.contentPadding,
+        decoration: BoxDecoration(
+            color: kThemeTilePrimary,
+            border: Border.all(color: kThemeOptedComponentBorder, width: 1.5),
+            borderRadius: BorderRadius.circular(kRRArc)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          child: child,
+        ));
+  }
+}
+
+class JobTileContainer extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final Widget trailing;
+
+  const JobTileContainer(
+      {super.key, required this.title, required this.subtitle, required this.trailing});
+
+  @override
+  Widget build(BuildContext context) {
+    return JobContainer(
+        child: Row(children: <Widget>[
+      Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(title, style: const TextStyle(fontSize: 18)),
+            Text(subtitle, style: const TextStyle(fontSize: 12, color: kThemePrimaryFg2)),
+          ]),
+      const Spacer(),
+      trailing,
+    ]));
   }
 }

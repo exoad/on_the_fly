@@ -221,6 +221,16 @@ class AppGenericsTranslations {
   /// "Scroll to top"
   /// ```
   String get scroll_to_top => """Scroll to top""";
+
+  /// ```dart
+  /// "Incorrect"
+  /// ```
+  String get incorrect => """Incorrect""";
+
+  /// ```dart
+  /// "Validating"
+  /// ```
+  String get validating => """Validating""";
 }
 
 class LoggerViewTranslations {
@@ -391,6 +401,8 @@ Map<String, String> get translationsMap => {
       """app generics.clear""": """Clear""",
       """app generics.scroll_to_bottom""": """Scroll to bottom""",
       """app generics.scroll_to_top""": """Scroll to top""",
+      """app generics.incorrect""": """Incorrect""",
+      """app generics.validating""": """Validating""",
       """logger view.rmenu_tooltip""": """Logs""",
       """logger view.title""": """Logs""",
       """logger view.log_uptime""": """Log uptime""",

@@ -30,6 +30,16 @@
         <InitialFocused>
             true
         </InitialFocused>
+        <!--
+        Whether when clicking the close button, the app should minimize to tray,
+            true
+            false
+
+        Defaults to true
+        -->
+        <MinimizeToTray>
+            true
+        </MinimizeToTray>
     </Public>
     <!-- This section contains program constants that the user (you) really don't need to touch.-->
     <Shared>

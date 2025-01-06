@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/core/components/j_prebuilt.dart';
+import 'package:on_the_fly/core/components/j_spinner.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/date_time.dart';
 import 'package:on_the_fly/core/utils/result.dart';
@@ -144,7 +145,9 @@ class SingleImgJob extends Job {
                   Provider.of<InternationalizationNotifier>(context, listen: false)
                       .i18n
                       .appGenerics
-                      .browse)
+                      .browse),
+          const SizedBox(height: 6),
+          j.JobSimpleSpinner(chips: <SpinnerChip>[], onSelect: (e) {}, title: "Helo", subtitle: "Amogus")
         ]);
   }
 }

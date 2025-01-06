@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:on_the_fly/client/components/asyncs.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/theme.dart';
@@ -51,6 +52,19 @@ class JobSinglePathPickerActionable extends StatefulWidget {
 class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActionable> {
   String _pathContent = "";
   String? _errnMsg;
+  late TextEditingController _textEditingController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController(text: _errnMsg);
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,24 +91,15 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(left: 6),
-                child: TextFormField(
-                    initialValue: _pathContent,
-                    style: const TextStyle(fontSize: 14),
-                    autovalidateMode: AutovalidateMode.always,
-                    autocorrect: false,
+                child: AsyncTextFormField(
+                    validationDebounce: const Duration(milliseconds: 120),
+                    controller: _textEditingController,
+                    // style: const TextStyle(fontSize: 14),
+                    // autovalidateMode: AutovalidateMode.always,
+                    // autocorrect: false,
                     decoration: InputDecoration(hintText: widget.hintLabel),
-                    onChanged: (String str) => setState(() => _pathContent = str),
-                    validator: (String? value) {
-                      if (value == null) {
-                        return null;
-                      }
-                      if (_errnMsg != null) {
-                        return _errnMsg;
-                      }
-                      widget
-                          .validator(value)
-                          .then((String? message) => setState(() => _errnMsg = message));
-                    }),
+                    // onChanged: (String str) => setState(() => _pathContent = str),
+                    validator: FilePathValidators.validateFilePath),
               ),
             ),
             const SizedBox(width: 6),
@@ -116,7 +121,10 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
                   if (res == null) {
                     logger.info("FilePicker#$hashCode ignored native_picker");
                   } else {
-                    setState(() => _pathContent = res.files[0].path!);
+                    setState(() {
+                      _pathContent = res.files[0].path!;
+                      _textEditingController.text = _pathContent;
+                    });
                   }
                 })
           ])

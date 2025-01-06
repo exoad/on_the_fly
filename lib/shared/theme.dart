@@ -7,6 +7,7 @@ import 'package:on_the_fly/helpers/color_helper.dart';
 const Color kThemeBg = Colors.black;
 const Color kThemeCmpBg = Color.fromARGB(140, 0, 0, 0);
 const Color kThemePrimaryFg1 = Colors.white;
+const Color kThemeTilePrimary = Color.fromRGBO(172, 172, 172, 0.22);
 const Color kThemePrimaryFg2 = Color.fromARGB(255, 172, 172, 172);
 const Color kThemePrimaryFg3 = Color.fromARGB(58, 172, 172, 172);
 // opted components mostly only for things like expansion tiles

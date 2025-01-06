@@ -31,8 +31,11 @@ final class PublicBundle {
   PublicBundle._();
 
   static void parseConfigurations() {
-    String localeCode =
-        Bundles.strings.xpath("//Locale[@code]").first.attributes[0].value;
+    String localeCode = Bundles.strings
+        .xpath("//RootBundle//Public//Locale[@code]")
+        .first
+        .attributes[0]
+        .value;
     bool validLocale = kDefinedLocales.contains(localeCode);
     logger.info(
         "FOUND_ Locale;code = [${validLocale ? "O" : "X" /*OMG SQUID GAME REFERENCE ?????*/}] $localeCode");
@@ -45,7 +48,7 @@ final class PublicBundle {
 
   static String? get initialWindowState {
     String windowState = Bundles.strings
-        .xpath("//InitialWindowState")
+        .xpath("//RootBundle//Public//InitialWindowState")
         .first
         .innerText
         .toLowerCase()
@@ -60,6 +63,9 @@ final class PublicBundle {
     return validState ? windowState : null;
   }
 
+  static bool get isMinimizeToTray =>
+      Bundles.parseBool("//RootBundle//Public//MinimizeToTray") ?? true;
+
   static bool get isInitialFocused =>
-  Bundles.parseBool("//InitialFocused") ?? false;
+      Bundles.parseBool("//RootBundle//Public//InitialFocused") ?? false;
 }

@@ -26,6 +26,8 @@ app generics:
   clear: 清除
   scroll_to_bottom: 滚动到底部
   scroll_to_top: 回到顶部
+  incorrect: 不正确
+  validating: 验证中
 logger view:
   rmenu_tooltip: 日志
   title: 日志

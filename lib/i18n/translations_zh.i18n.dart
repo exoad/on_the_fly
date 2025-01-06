@@ -221,6 +221,16 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   /// "回到顶部"
   /// ```
   String get scroll_to_top => """回到顶部""";
+
+  /// ```dart
+  /// "不正确"
+  /// ```
+  String get incorrect => """不正确""";
+
+  /// ```dart
+  /// "验证中"
+  /// ```
+  String get validating => """验证中""";
 }
 
 class LoggerViewTranslationsZh extends LoggerViewTranslations {
@@ -387,6 +397,8 @@ Map<String, String> get translationsZhMap => {
       """app generics.clear""": """清除""",
       """app generics.scroll_to_bottom""": """滚动到底部""",
       """app generics.scroll_to_top""": """回到顶部""",
+      """app generics.incorrect""": """不正确""",
+      """app generics.validating""": """验证中""",
       """logger view.rmenu_tooltip""": """日志""",
       """logger view.title""": """日志""",
       """logger view.log_uptime""": """记录运行时间""",
