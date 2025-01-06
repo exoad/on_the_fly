@@ -12,6 +12,7 @@ dependencies:
   blurrycontainer: ^2.1.0
   card_animation_hover: ^0.0.2
   dotted_border: ^2.1.0
+  dropdown_button2: ^2.3.9
   file_picker: ^8.1.4
   flutter:
     sdk: flutter

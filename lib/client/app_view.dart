@@ -170,17 +170,18 @@ class _AppViewContainer extends StatelessWidget {
   static const ButtonThemeData buttonThemeData =
       ButtonThemeData(padding: EdgeInsets.zero);
   static const IconThemeData iconThemeData = IconThemeData(color: kThemePrimaryFg1);
-  static final DropdownMenuThemeData dropdownMenuThemeData = DropdownMenuThemeData(
-      textStyle: const TextStyle(color: kThemePrimaryFg1),
-      inputDecorationTheme: const InputDecorationTheme(border: InputBorder.none),
-      menuStyle: MenuStyle(
-          surfaceTintColor: const WidgetStatePropertyAll<Color>(Colors.transparent),
-          backgroundColor: const WidgetStatePropertyAll<Color>(kThemeBg),
-          visualDensity: VisualDensity.compact,
-          shadowColor: const WidgetStatePropertyAll<Color>(Colors.transparent),
-          shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(
-              side: const BorderSide(color: kThemePrimaryFg1, width: 1.5),
-              borderRadius: BorderRadius.circular(kRRArc)))));
+  // static final DropdownMenuThemeData dropdownMenuThemeData = DropdownMenuThemeData(
+  //     textStyle: const TextStyle(color: kThemePrimaryFg1),
+  //     inputDecorationTheme: const InputDecorationTheme(border: InputBorder.none),
+  //     menuStyle: MenuStyle(
+  //         surfaceTintColor: const WidgetStatePropertyAll<Color>(Colors.transparent),
+  //         backgroundColor: const WidgetStatePropertyAll<Color>(kThemeBg),
+  //         visualDensity: VisualDensity.compact,
+  //         shadowColor: const WidgetStatePropertyAll<Color>(Colors.transparent),
+  //         shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(
+  //             side: const BorderSide(color: kTheme2, width: 1.5),
+  //             borderRadius: BorderRadius.circular(kRRArc)))));
+
   @override
   Widget build(BuildContext context) {
     // if we dont refactor and redfine these as separate variables, `dart format` fucks up
@@ -219,7 +220,7 @@ class _AppViewContainer extends StatelessWidget {
               scrollbarTheme: scrollbarThemeData,
               appBarTheme: appBarTheme,
               fontFamily: kDefaultFontFamily,
-              dropdownMenuTheme: dropdownMenuThemeData,
+              // dropdownMenuTheme: dropdownMenuThemeData,
               brightness: Brightness.dark,
               primaryColor: kThemePrimaryFg1),
           home: Scaffold(

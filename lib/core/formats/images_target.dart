@@ -1,10 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image/image.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/components/j_prebuilt.dart';
-import 'package:on_the_fly/core/components/j_spinner.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/date_time.dart';
 import 'package:on_the_fly/core/utils/result.dart';
@@ -156,7 +154,7 @@ class SingleImgJob extends Job {
                       .map((FileFormat format) => (format.canonicalName, format)),
                   const Icon(Ionicons.document, color: kTheme2)),
               onSelect: (e) {},
-              title: "Helo",
+              title: "Output Format",
               subtitle: "Amogus")
         ]);
   }
