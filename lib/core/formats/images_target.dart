@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image/image.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/components/j_prebuilt.dart';
 import 'package:on_the_fly/core/components/j_spinner.dart';
 import 'package:on_the_fly/core/core.dart';
@@ -10,6 +12,7 @@ import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 
 import 'package:on_the_fly/core/components/job_component.dart' as j;
 import 'package:on_the_fly/client/events/job_stack.dart';
+import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
 
 /// represents the builtin image formats supported by on the fly
@@ -147,7 +150,14 @@ class SingleImgJob extends Job {
                       .appGenerics
                       .browse),
           const SizedBox(height: 6),
-          j.JobSimpleSpinner(chips: <SpinnerChip>[], onSelect: (e) {}, title: "Helo", subtitle: "Amogus")
+          j.JobSimpleSpinner<FileFormat>(
+              chips: j.SpinnerChip.fromRelated(
+                  ImageMedium.instance.outputFormats
+                      .map((FileFormat format) => (format.canonicalName, format)),
+                  const Icon(Ionicons.document, color: kTheme2)),
+              onSelect: (e) {},
+              title: "Helo",
+              subtitle: "Amogus")
         ]);
   }
 }
