@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/client/components/asyncs.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
+import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/shared/app.dart';
+import 'package:path/path.dart' as paths;
+import 'package:provider/provider.dart';
 
 final class FilePathValidators {
   FilePathValidators._();
@@ -24,7 +27,8 @@ final class FilePathValidators {
 
 class JobSinglePathPickerActionable extends StatefulWidget {
   final void Function(String str) onChanged;
-  final Future<String?> Function(String? str) validator;
+  // final Future<String?> Function(String? str) validator;
+  final FormatMedium formatMedium;
   final String canonicalLabel;
   final String hintLabel;
   final List<String> allowedExtensions;
@@ -34,9 +38,10 @@ class JobSinglePathPickerActionable extends StatefulWidget {
   const JobSinglePathPickerActionable({
     super.key,
     this.filePickerDialogTitle,
+    required this.formatMedium,
     required this.onChanged,
     required this.allowedExtensions,
-    required this.validator,
+    // required this.validator,
     required this.canonicalLabel,
     this.hintLabel = ".../users/downloads/...",
     required this.filePickerLabel,
@@ -96,6 +101,7 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
                 validationDebounce: const Duration(milliseconds: 120),
                 controller: _textEditingController,
                 decoration: InputDecoration(
+                  alignLabelWithHint: true,
                   labelText: widget.canonicalLabel,
                   hintText: widget.hintLabel,
                   suffix: TextButton.icon(
@@ -130,7 +136,25 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
                     },
                   ),
                 ),
-                validator: widget.validator,
+                validator: (String? value) async {
+                  String? validFile = await FilePathValidators.validateFilePath(value);
+                  if (validFile != null) {
+                    return validFile;
+                  }
+                  String ext = paths.extension(value!).substring(
+                      1); // since paths.extension will return the ".", we need to remove it
+                  if (!widget.formatMedium.isSupportedOutput(ext)) {
+                    // we use bang on value because the previous validateFilePath call has a null check that returns a value to validFile
+                    return (context.mounted
+                            ? Provider.of<InternationalizationNotifier>(context,
+                                listen: false)
+                            : InternationalizationNotifier())
+                        .i18n
+                        .appGenerics
+                        .MIX_is_not_supported(ext);
+                  }
+                  return null;
+                },
               ),
             ),
             const SizedBox(width: 6), // Adds space between the text field and button

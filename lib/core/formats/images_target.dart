@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:on_the_fly/core/components/j_prebuilt.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/date_time.dart';
 import 'package:on_the_fly/core/utils/result.dart';
@@ -11,8 +10,6 @@ import 'package:on_the_fly/core/components/job_component.dart' as j;
 import 'package:on_the_fly/client/events/job_stack.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
-
-import 'package:path/path.dart' as paths;
 
 /// represents the builtin image formats supported by on the fly
 ///
@@ -142,25 +139,7 @@ class SingleImgJob extends Job {
             child: Divider(thickness: 1, color: kThemePrimaryFg3),
           ),
           j.JobSinglePathPickerActionable(
-              validator: (String? value) async {
-                String? validFile = await FilePathValidators.validateFilePath(value);
-                if (validFile != null) {
-                  return validFile;
-                }
-                String ext = paths.extension(value!).substring(
-                    1); // since paths.extension will return the ".", we need to remove it
-                if (!ImageMedium.I.isSupportedOutput(ext)) {
-                  // we use bang on value because the previous validateFilePath call has a null check that returns a value to validFile
-                  return (context.mounted
-                          ? Provider.of<InternationalizationNotifier>(context,
-                              listen: false)
-                          : InternationalizationNotifier())
-                      .i18n
-                      .appGenerics
-                      .MIX_is_not_supported(ext);
-                }
-                return null;
-              },
+              formatMedium: ImageMedium.I,
               onChanged: (String str) {},
               allowedExtensions: List<String>.empty(),
               canonicalLabel: "Input file path",

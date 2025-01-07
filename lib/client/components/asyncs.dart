@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/helpers/basics.dart';
-import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -124,7 +123,7 @@ class _AsyncTextFormField extends State<AsyncTextFormField> {
       locked = false;
       setState(() => validating = true);
       _hint = await widget.validator(value);
-      logger.info(">> $_hint");
+      // logger.info(">> $_hint");
       isDirty = _hint != null;
       setState(IGNORE_INVOKE);
       validating = false;
