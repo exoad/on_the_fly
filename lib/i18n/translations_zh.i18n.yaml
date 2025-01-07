@@ -28,6 +28,7 @@ app generics:
   scroll_to_top: 回到顶部
   incorrect: 不正确
   validating: 验证中
+  MIX_is_not_supported(dynamic item): 不支持 $item
 logger view:
   rmenu_tooltip: 日志
   title: 日志

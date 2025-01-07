@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/helpers/basics.dart';
+import 'package:on_the_fly/shared/app.dart';
+import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
 
 enum AsyncFormStates { VALIDATING, INVALID, VALID, NOTHING }
@@ -11,7 +13,7 @@ enum AsyncFormStates { VALIDATING, INVALID, VALID, NOTHING }
 class AsyncTextFormField extends StatefulWidget {
   final Future<String?> Function(String? value) validator;
   final void Function(String value)? onChanged;
-  final Widget Function(AsyncFormStates state)? suffixIconBuilder;
+  final Widget Function(AsyncFormStates state)? prefixIconBuilder;
   final TextStyle? style;
   final Duration validationDebounce;
   final TextEditingController? controller;
@@ -36,7 +38,7 @@ class AsyncTextFormField extends StatefulWidget {
       this.decoration,
       this.strutStyle,
       this.focusNode,
-      this.suffixIconBuilder,
+      this.prefixIconBuilder,
       this.textAlign = TextAlign.start,
       required this.validationDebounce,
       this.controller,
@@ -61,66 +63,72 @@ class _AsyncTextFormField extends State<AsyncTextFormField> {
   bool isDirty = false;
   String? _hint;
 
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = widget.controller ?? TextEditingController();
+    widget.controller!.addListener(() {
+      _onChanged(widget.controller!.text);
+      setState(IGNORE_INVOKE);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      maxLines: widget.maxLines,
-      textInputAction: TextInputAction.next,
-      textAlign: widget.textAlign,
-      cursorWidth: widget.cursorWidth,
-      initialValue: widget.initialValue,
-      textDirection: widget.textDecoration,
-      strutStyle: widget.strutStyle,
-      focusNode: widget.focusNode,
-      expands: widget.expands,
-      controller: widget.controller,
-      cursorColor: widget.cursorColor,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (String? value) {
-        if (validating) {
-          return widget.validatingMessage ??
-              Provider.of<InternationalizationNotifier>(context)
-                  .i18n
-                  .appGenerics
-                  .validating;
-        } else if (!locked && !isValid) {
-          return _hint ??
-              Provider.of<InternationalizationNotifier>(context)
-                  .i18n
-                  .appGenerics
-                  .incorrect;
-        }
-        return null;
-      },
-      decoration: widget.decoration?.copyWith(
-          suffix: widget.suffixIconBuilder?.call(validating
-              ? AsyncFormStates.VALIDATING
-              : !isValid && isDirty
-                  ? AsyncFormStates.INVALID
-                  : isValid
-                      ? AsyncFormStates.VALID
-                      : AsyncFormStates.NOTHING)),
-      onChanged: (String value) async {
-        isDirty = true;
-        locked = true;
-        cancelTimer();
-        debouncer = Timer(widget.validationDebounce, () async {
-          locked = false;
-          setState(() => validating = true);
-          _hint = await widget.validator(value);
-          isDirty = _hint != null;
-          setState(IGNORE_INVOKE);
-          validating = false;
-        });
-      },
-    );
+        maxLines: widget.maxLines,
+        textInputAction: TextInputAction.next,
+        textAlign: widget.textAlign,
+        cursorWidth: widget.cursorWidth,
+        initialValue: widget.initialValue,
+        textDirection: widget.textDecoration,
+        strutStyle: widget.strutStyle,
+        focusNode: widget.focusNode,
+        expands: widget.expands,
+        controller: _controller,
+        cursorColor: widget.cursorColor,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        style: const TextStyle(fontSize: 14, color: kThemePrimaryFg1),
+        validator: (String? value) {
+          if (validating) {
+            return widget.validatingMessage ??
+                Provider.of<InternationalizationNotifier>(context, listen: false)
+                    .i18n
+                    .appGenerics
+                    .validating;
+          } else if (!locked && !isValid) {
+            return _hint;
+          }
+          return null;
+        },
+        decoration: widget.decoration?.copyWith(
+            prefixIcon: widget.prefixIconBuilder?.call(validating
+                ? AsyncFormStates.VALIDATING
+                : !isValid && isDirty
+                    ? AsyncFormStates.INVALID
+                    : isValid
+                        ? AsyncFormStates.VALID
+                        : AsyncFormStates.NOTHING)),
+        onChanged: _onChanged);
   }
 
-  @pragma("vm:prefer-inline")
-  void cancelTimer() {
+  Future<void> _onChanged(String value) async {
+    isDirty = true;
+    locked = true;
     if (debouncer?.isActive ?? false) {
       debouncer?.cancel();
     }
+    debouncer = Timer(widget.validationDebounce, () async {
+      locked = false;
+      setState(() => validating = true);
+      _hint = await widget.validator(value);
+      logger.info(">> $_hint");
+      isDirty = _hint != null;
+      setState(IGNORE_INVOKE);
+      validating = false;
+    });
   }
 
   @override

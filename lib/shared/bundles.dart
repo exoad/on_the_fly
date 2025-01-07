@@ -30,6 +30,8 @@ final class Bundles {
 final class PublicBundle {
   PublicBundle._();
 
+  static final Map<String, dynamic> _values = <String, dynamic>{};
+
   static void parseConfigurations() {
     String localeCode = Bundles.strings
         .xpath("//RootBundle//Public//Locale[@code]")
@@ -47,6 +49,9 @@ final class PublicBundle {
   static const List<String> _kValidInitialWindowStates = <String>["tray", "gui"];
 
   static String? get initialWindowState {
+    if (_values.containsKey("InitialWindowState")) {
+      return _values["InitialWindowState"];
+    }
     String windowState = Bundles.strings
         .xpath("//RootBundle//Public//InitialWindowState")
         .first
@@ -63,9 +68,11 @@ final class PublicBundle {
     return validState ? windowState : null;
   }
 
-  static bool get isMinimizeToTray =>
-      Bundles.parseBool("//RootBundle//Public//MinimizeToTray") ?? true;
+  static bool get isMinimizeToTray => _values.containsKey("MinimizeToTray")
+      ? _values["MinimizeToTray"] as bool
+      : Bundles.parseBool("//RootBundle//Public//MinimizeToTray") ?? true;
 
-  static bool get isInitialFocused =>
-      Bundles.parseBool("//RootBundle//Public//InitialFocused") ?? false;
+  static bool get isInitialFocused => _values.containsKey("InitialFocused")
+      ? _values["InitialFocused"] as bool
+      : Bundles.parseBool("//RootBundle//Public//InitialFocused") ?? false;
 }

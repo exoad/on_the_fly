@@ -231,6 +231,11 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   /// "验证中"
   /// ```
   String get validating => """验证中""";
+
+  /// ```dart
+  /// "不支持 $item"
+  /// ```
+  String MIX_is_not_supported(dynamic item) => """不支持 $item""";
 }
 
 class LoggerViewTranslationsZh extends LoggerViewTranslations {

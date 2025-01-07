@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/components/j_prebuilt.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/date_time.dart';
@@ -13,11 +12,13 @@ import 'package:on_the_fly/client/events/job_stack.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
 
+import 'package:path/path.dart' as paths;
+
 /// represents the builtin image formats supported by on the fly
 ///
 /// see [FormatMedium] for more indepth information
 final class ImageMedium extends FormatMedium {
-  static final ImageMedium instance = ImageMedium._();
+  static final ImageMedium I = ImageMedium._();
 
   @protected
   ImageMedium._()
@@ -75,7 +76,7 @@ final class ImageMedium extends FormatMedium {
 /// this represents a dispatcher that produces a [SingleImgJob] instance on demand. it also
 /// facilitates defining the general structure of singleimg jobs
 class SingleImgJobDispatcher extends JobDispatcher {
-  SingleImgJobDispatcher() : super(formatMedium: ImageMedium.instance);
+  SingleImgJobDispatcher() : super(formatMedium: ImageMedium.I);
 
   @override
   bool dispatched(covariant dynamic t) {
@@ -136,9 +137,30 @@ class SingleImgJob extends Job {
                 .canonical_name,
             subtitle: timestamp.canonicalizedTimeString,
           ),
-          const SizedBox(height: 12),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 4),
+            child: Divider(thickness: 1, color: kThemePrimaryFg3),
+          ),
           j.JobSinglePathPickerActionable(
-              validator: FilePathValidators.validateFilePath,
+              validator: (String? value) async {
+                String? validFile = await FilePathValidators.validateFilePath(value);
+                if (validFile != null) {
+                  return validFile;
+                }
+                String ext = paths.extension(value!).substring(
+                    1); // since paths.extension will return the ".", we need to remove it
+                if (!ImageMedium.I.isSupportedOutput(ext)) {
+                  // we use bang on value because the previous validateFilePath call has a null check that returns a value to validFile
+                  return (context.mounted
+                          ? Provider.of<InternationalizationNotifier>(context,
+                              listen: false)
+                          : InternationalizationNotifier())
+                      .i18n
+                      .appGenerics
+                      .MIX_is_not_supported(ext);
+                }
+                return null;
+              },
               onChanged: (String str) {},
               allowedExtensions: List<String>.empty(),
               canonicalLabel: "Input file path",

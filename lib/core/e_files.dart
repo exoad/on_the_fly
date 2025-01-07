@@ -60,6 +60,26 @@ class FormatMedium {
 
   List<FileFormat> get outputFormats => _outputTypes;
 
+  bool isSupportedOutput(String ext) {
+    ext = ext.toLowerCase().replaceAll(RegExp(r"\s+"), "");
+    for (FileFormat format in outputFormats) {
+      if (format.validExtensions.contains(ext)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool isSupportedInput(String ext) {
+    ext = ext.toLowerCase().replaceAll(RegExp(r"\s+"), "");
+    for (FileFormat format in inputFormats) {
+      if (format.validExtensions.contains(ext)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   FileFormat operator [](String key) {
     if (!_formats.containsKey(key) && kAllowDebugWarnings) {
       throw ArgumentError(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:on_the_fly/helpers/basics.dart';
 import 'package:on_the_fly/helpers/ranged_incrementor.dart';
 import 'package:on_the_fly/client/components/components.dart';
 import 'package:on_the_fly/client/events/debug_events.dart';
@@ -27,7 +28,7 @@ class _DebugOverlayLayerState extends State<DebugOverlayLayer> {
     super.initState();
     _loc = Alignment.bottomRight;
     _opacity = RangedIncrementor(initialValue: 0.76, max: 1, min: 0.2);
-    debugSeek().addListener((() => setState(() {})));
+    debugSeek().addListener((() => setState(IGNORE_INVOKE)));
   }
 
   @override

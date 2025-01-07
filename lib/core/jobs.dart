@@ -5,6 +5,7 @@ import 'package:objectid/objectid.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/result.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
+import 'package:on_the_fly/helpers/basics.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +48,7 @@ abstract class Job {
     // this is a debug no impl error that is shown to alert developers that this part of the code is unfinished
     //
     // so pls reimpl this (also dont call super if you do)
-    return j.JobBody(onRemoveJob: () {}, children: <Widget>[
+    return j.JobBody(onRemoveJob: IGNORE_INVOKE, children: <Widget>[
       Container(
           decoration: BoxDecoration(
               color: kTheme1, borderRadius: BorderRadius.circular(kRRArc)),

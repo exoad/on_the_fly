@@ -49,13 +49,12 @@ class JobSinglePathPickerActionable extends StatefulWidget {
 
 class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActionable> {
   String _pathContent = "";
-  String? _errnMsg;
   late TextEditingController _textEditingController;
 
   @override
   void initState() {
     super.initState();
-    _textEditingController = TextEditingController(text: _errnMsg);
+    _textEditingController = TextEditingController();
   }
 
   @override
@@ -66,7 +65,6 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
 
   @override
   Widget build(BuildContext context) {
-    bool isPathContentEmpty = _pathContent.isEmpty;
     return
         // ExpansionTile(
         //     visualDensity: VisualDensity.compact,
@@ -86,80 +84,57 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
         //             fontWeight: isPathContentEmpty ? FontWeight.w500 : FontWeight.normal,
         //             color: isPathContentEmpty ? kThemeNeedAction : kThemePrimaryFg2)),
         //     children: <Widget>[
-        Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+        Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Flexible(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                widget.canonicalLabel,
-                style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 18),
-              ),
-              // Text(
-              //   isPathContentEmpty
-              //       ? Provider.of<InternationalizationNotifier>(context, listen: false)
-              //           .i18n
-              //           .appGenerics
-              //           .empty
-              //       : paths.basename(_pathContent),
-              //   softWrap: true,
-              //   style: TextStyle(
-              //     fontSize: 12,
-              //     fontWeight: isPathContentEmpty ? FontWeight.w500 : FontWeight.normal,
-              //     color: isPathContentEmpty ? kThemeNeedAction : kThemePrimaryFg2,
-              //   ),
-              // ),
-            ],
-          ),
-        ),
-        const Spacer(),
-        Expanded(
-          flex: 2, // Adjust the flex value as needed
-          child: Padding(
-            padding: const EdgeInsets.only(left: 6),
-            child: AsyncTextFormField(
-              validationDebounce: const Duration(milliseconds: 120),
-              controller: _textEditingController,
-              decoration: InputDecoration(hintText: widget.hintLabel),
-              validator: FilePathValidators.validateFilePath,
-            ),
-          ),
-        ),
-        const SizedBox(width: 6), // Adds space between the text field and button
-        Align(
-          alignment: Alignment.centerRight,
-          child: TextButton.icon(
-            style: Theme.of(context).textButtonTheme.style!.copyWith(
-                  visualDensity: VisualDensity.compact,
-                  padding: const WidgetStatePropertyAll<EdgeInsets>(
-                    EdgeInsets.symmetric(vertical: 0, horizontal: 6),
+        // Text(widget.canonicalLabel, style: const TextStyle(fontSize: 14)),
+        // const SizedBox(height: 4),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: AsyncTextFormField(
+                validationDebounce: const Duration(milliseconds: 120),
+                controller: _textEditingController,
+                decoration: InputDecoration(
+                  labelText: widget.canonicalLabel,
+                  hintText: widget.hintLabel,
+                  suffix: TextButton.icon(
+                    style: Theme.of(context).textButtonTheme.style!.copyWith(
+                          visualDensity: VisualDensity.compact,
+                          padding: const WidgetStatePropertyAll<EdgeInsets>(
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                          ),
+                        ),
+                    icon: const Icon(Ionicons.folder_outline),
+                    label: Text(
+                      widget.filePickerLabel,
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    onPressed: () async {
+                      FilePickerResult? res = await FilePicker.platform.pickFiles(
+                        allowMultiple: false,
+                        dialogTitle: widget.filePickerDialogTitle,
+                        type: widget.allowedExtensions.isEmpty
+                            ? FileType.any
+                            : FileType.custom,
+                        allowedExtensions: widget.allowedExtensions,
+                      );
+                      if (res == null) {
+                        logger.info("FilePicker#$hashCode ignored native_picker");
+                      } else {
+                        setState(() {
+                          _pathContent = res.files[0].path!;
+                          _textEditingController.text = _pathContent;
+                        });
+                      }
+                    },
                   ),
                 ),
-            icon: const Icon(Ionicons.folder_outline),
-            label: Text(
-              widget.filePickerLabel,
-              style: const TextStyle(fontSize: 14),
+                validator: widget.validator,
+              ),
             ),
-            onPressed: () async {
-              FilePickerResult? res = await FilePicker.platform.pickFiles(
-                allowMultiple: false,
-                dialogTitle: widget.filePickerDialogTitle,
-                type: widget.allowedExtensions.isEmpty ? FileType.any : FileType.custom,
-                allowedExtensions: widget.allowedExtensions,
-              );
-              if (res == null) {
-                logger.info("FilePicker#$hashCode ignored native_picker");
-              } else {
-                setState(() {
-                  _pathContent = res.files[0].path!;
-                  _textEditingController.text = _pathContent;
-                });
-              }
-            },
-          ),
+            const SizedBox(width: 6), // Adds space between the text field and button
+          ],
         ),
       ],
     );

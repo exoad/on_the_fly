@@ -87,14 +87,17 @@ class _AppViewContainer extends StatelessWidget {
       selectionColor: kThemePrimaryFg1.withAlpha((255 * 0.5).round()),
       cursorColor: kThemePrimaryFg1);
   static const InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
+    alignLabelWithHint: true,
     labelStyle:
         TextStyle(fontSize: 14, color: kThemePrimaryFg1, fontWeight: FontWeight.bold),
     hintStyle: TextStyle(fontSize: 12, color: kThemePrimaryFg2),
-    contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+    contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     floatingLabelStyle:
         TextStyle(fontSize: 12, color: kThemePrimaryFg1, fontWeight: FontWeight.bold),
     isDense: true,
+    errorBorder:
+        UnderlineInputBorder(borderSide: BorderSide(color: kThemeNeedAction, width: 2)),
     focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kThemePrimaryFg1)),
     enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kThemePrimaryFg3)),
     border: UnderlineInputBorder(borderSide: BorderSide(color: kThemePrimaryFg3)),

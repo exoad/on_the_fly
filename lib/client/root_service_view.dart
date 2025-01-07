@@ -4,6 +4,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/client/load_it_n_view.dart';
+import 'package:on_the_fly/helpers/basics.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:provider/provider.dart';
 
@@ -55,6 +56,7 @@ class _SwitcherState extends State<_Switcher> {
             appWindow.size = kDefaultAppWindowSize;
             setState(() => completed = true);
             widget.onDone?.call();
+            wbpfcb((_) => setState(IGNORE_INVOKE));
           });
   }
 }

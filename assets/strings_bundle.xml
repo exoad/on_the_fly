@@ -40,6 +40,16 @@
         <MinimizeToTray>
             true
         </MinimizeToTray>
+        <!--
+        Whether certain buttons should try to be just icon (dense) or icons with text (cozy)
+            true
+            false
+
+        Defaults to false
+        -->
+        <PreferDenseActionables>
+            false
+        </PreferDenseActionables>
     </Public>
     <!-- This section contains program constants that the user (you) really don't need to touch.-->
     <Shared>

@@ -27,12 +27,13 @@ class _JobBodyState extends State<JobBody> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+
               ...widget.children,
               //     Padding(
               //       padding: const EdgeInsets.symmetric(vertical: 8),
               //       child: Divider(color: kThemePrimaryFg2.withAlpha(120), thickness: 1.0),
               //     ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 21),
               Row(
                   spacing: kTotalAppMargin,
                   mainAxisAlignment: MainAxisAlignment.end,

@@ -231,6 +231,11 @@ class AppGenericsTranslations {
   /// "Validating"
   /// ```
   String get validating => """Validating""";
+
+  /// ```dart
+  /// "$item is not supported"
+  /// ```
+  String MIX_is_not_supported(dynamic item) => """$item is not supported""";
 }
 
 class LoggerViewTranslations {
