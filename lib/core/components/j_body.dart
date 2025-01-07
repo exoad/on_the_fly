@@ -72,7 +72,7 @@ class JobContainer extends StatelessWidget {
             border: Border.all(color: kThemeOptedComponentBorder, width: 1.5),
             borderRadius: BorderRadius.circular(kRRArc)),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: child,
         ));
   }

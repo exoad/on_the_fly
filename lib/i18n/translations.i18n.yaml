@@ -45,6 +45,7 @@ path validator:
 format generic:
   supported_inputs: Supported Inputs
   supported_outputs: Supported Outputs
+  output_format: Output format
   push_job: Add this job
   image: Images
   click_to_view_more: Click for more info

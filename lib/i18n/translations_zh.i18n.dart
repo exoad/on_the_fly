@@ -318,6 +318,11 @@ class FormatGenericTranslationsZh extends FormatGenericTranslations {
   String get supported_outputs => """支持的输出""";
 
   /// ```dart
+  /// "输出格式"
+  /// ```
+  String get output_format => """输出格式""";
+
+  /// ```dart
   /// "添加这个程序"
   /// ```
   String get push_job => """添加这个程序""";
@@ -410,6 +415,7 @@ Map<String, String> get translationsZhMap => {
       """path validator.path_not_valid_file""": """提供的路径不是文件""",
       """format generic.supported_inputs""": """支持的输入""",
       """format generic.supported_outputs""": """支持的输出""",
+      """format generic.output_format""": """输出格式""",
       """format generic.push_job""": """添加这个程序""",
       """format generic.image""": """图像类""",
       """format generic.click_to_view_more""": """轻触查看更多信息""",

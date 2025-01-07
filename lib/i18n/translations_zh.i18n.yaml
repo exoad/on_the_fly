@@ -45,6 +45,7 @@ path validator:
 format generic:
   supported_inputs: 支持的输入
   supported_outputs: 支持的输出
+  output_format: 输出格式
   push_job: 添加这个程序
   image: 图像类
   click_to_view_more: 轻触查看更多信息

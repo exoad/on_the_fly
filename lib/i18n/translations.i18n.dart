@@ -318,6 +318,11 @@ class FormatGenericTranslations {
   String get supported_outputs => """Supported Outputs""";
 
   /// ```dart
+  /// "Output format"
+  /// ```
+  String get output_format => """Output format""";
+
+  /// ```dart
   /// "Add this job"
   /// ```
   String get push_job => """Add this job""";
@@ -415,6 +420,7 @@ Map<String, String> get translationsMap => {
           """Provided path is not a file""",
       """format generic.supported_inputs""": """Supported Inputs""",
       """format generic.supported_outputs""": """Supported Outputs""",
+      """format generic.output_format""": """Output format""",
       """format generic.push_job""": """Add this job""",
       """format generic.image""": """Images""",
       """format generic.click_to_view_more""": """Click for more info""",

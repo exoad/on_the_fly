@@ -21,26 +21,28 @@ class SpinnerChip<T> {
   }
 }
 
-class JobSimpleSpinner<T> extends StatefulWidget {
+class JobSimpleSpinnerTile<T> extends StatefulWidget {
   final Widget? leadingIcon;
   final String title;
   final String subtitle;
+  final String? hint;
   final List<SpinnerChip<T>> chips;
   final void Function(T? chip) onSelect;
 
-  const JobSimpleSpinner(
+  const JobSimpleSpinnerTile(
       {super.key,
       required this.chips,
       required this.onSelect,
       required this.title,
       this.leadingIcon,
+      this.hint,
       required this.subtitle});
 
   @override
-  State<JobSimpleSpinner<T>> createState() => _JobSimpleSpinnerState<T>();
+  State<JobSimpleSpinnerTile<T>> createState() => _JobSimpleSpinnerTileState<T>();
 }
 
-class _JobSimpleSpinnerState<T> extends State<JobSimpleSpinner<T>> {
+class _JobSimpleSpinnerTileState<T> extends State<JobSimpleSpinnerTile<T>> {
   T? _selected;
 
   @override
@@ -49,13 +51,24 @@ class _JobSimpleSpinnerState<T> extends State<JobSimpleSpinner<T>> {
         title: widget.title,
         subtitle: widget.subtitle,
         trailing: DropdownButton2<T>(
+          hint: widget.hint != null
+              ? Text(widget.hint!,
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal))
+              : null,
           value: _selected,
           underline: const SizedBox(),
+          menuItemStyleData: const MenuItemStyleData(
+              height: 38, padding: EdgeInsets.symmetric(horizontal: 4)),
           dropdownStyleData: DropdownStyleData(
+              padding: const EdgeInsets.all(0),
+              scrollPadding: const EdgeInsets.all(0),
               isOverButton: true,
               decoration: BoxDecoration(
-                  color: kThemeCmpBg, borderRadius: BorderRadius.circular(kRRArc))),
+                  border: Border.all(color: kTheme2, width: 2),
+                  color: kThemeBg,
+                  borderRadius: BorderRadius.circular(kRRArc))),
           buttonStyleData: ButtonStyleData(
+              padding: const EdgeInsets.all(0),
               decoration: BoxDecoration(
                   border: Border.all(color: kTheme2, width: 2),
                   borderRadius: BorderRadius.circular(kRRArc))),

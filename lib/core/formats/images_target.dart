@@ -148,14 +148,6 @@ class SingleImgJob extends Job {
                       .appGenerics
                       .browse),
           const SizedBox(height: 6),
-          j.JobSimpleSpinner<FileFormat>(
-              chips: j.SpinnerChip.fromRelated(
-                  ImageMedium.instance.outputFormats
-                      .map((FileFormat format) => (format.canonicalName, format)),
-                  const Icon(Ionicons.document, color: kTheme2)),
-              onSelect: (e) {},
-              title: "Output Format",
-              subtitle: "Amogus")
         ]);
   }
 }
