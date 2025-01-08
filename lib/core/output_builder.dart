@@ -2,6 +2,10 @@ import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:path/path.dart' as paths;
 
+class OutputBuilder {
+  
+}
+
 typedef OutputPathHandler = String Function(
     String inputPath, FileFormat outputType);
 

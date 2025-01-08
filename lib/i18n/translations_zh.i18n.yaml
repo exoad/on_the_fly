@@ -17,6 +17,7 @@ app generics:
   third_parties: 第三方许可证
   author_name: 孟嘉明 (Jack/exoad)
   close: 关闭
+  folder: 文件夹
   browse: 浏览
   empty: 空
   loading: 加载中
@@ -28,6 +29,7 @@ app generics:
   scroll_to_top: 回到顶部
   incorrect: 不正确
   validating: 验证中
+  format: 格式
   MIX_is_not_supported(dynamic item): 不支持 $item
   start: 开始
 logger view:
@@ -48,7 +50,7 @@ format generic:
   supported_inputs: 支持的输入
   supported_outputs: 支持的输出
   output_format: 输出格式
-  input_file_path: 输入文件路径
+  input_file_path: 输入格式
   output_builder: 输出生成器
   push_job: 添加这个程序
   image: 图像类

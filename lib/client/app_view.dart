@@ -61,8 +61,8 @@ class _AppViewContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(kRRArc)));
   static final OutlinedButtonThemeData outlinedButtonThemeData = OutlinedButtonThemeData(
       style: ButtonStyle(
+          visualDensity: VisualDensity.compact,
           splashFactory: NoSplash.splashFactory,
-          overlayColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg2.withAlpha(40)),
           iconColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
           padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
               EdgeInsets.symmetric(horizontal: 6, vertical: 4)),
@@ -74,9 +74,9 @@ class _AppViewContainer extends StatelessWidget {
               BorderSide(color: kThemePrimaryFg1, width: 1))));
   static final TextButtonThemeData textButtonThemeData = TextButtonThemeData(
       style: ButtonStyle(
+          visualDensity: VisualDensity.compact,
           surfaceTintColor: WidgetStatePropertyAll<Color>(
               kThemePrimaryFg1..withAlpha((255 * 0.3).round())),
-          overlayColor: WidgetStatePropertyAll<Color>(kThemeBg.withAlpha(34)),
           iconColor: const WidgetStatePropertyAll<Color>(kThemeBg),
           shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRRArc))),
@@ -135,14 +135,14 @@ class _AppViewContainer extends StatelessWidget {
       visualDensity: VisualDensity.comfortable);
   static final IconButtonThemeData iconButtonThemeData = IconButtonThemeData(
       style: ButtonStyle(
-          splashFactory: InkRipple.splashFactory,
-          visualDensity: VisualDensity.compact,
-          shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kRRArc),
-          )),
-          iconColor: const WidgetStatePropertyAll<Color>(kThemeBg),
-          backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
-          overlayColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg1.withAlpha(45))));
+    splashFactory: InkRipple.splashFactory,
+    visualDensity: VisualDensity.compact,
+    shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(kRRArc),
+    )),
+    iconColor: const WidgetStatePropertyAll<Color>(kThemeBg),
+    backgroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
+  ));
   static const ScrollbarThemeData scrollbarThemeData = ScrollbarThemeData(
       thumbColor: WidgetStatePropertyAll<Color>(Colors.transparent),
       radius: Radius.circular(kRRArc));

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:on_the_fly/client/components/prefers.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
@@ -50,7 +51,7 @@ class _JobBodyState extends State<JobBody> {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    OutlinedButton.icon(
+                    PrefersOutlinedButtonIcon(
                         style: Theme.of(context).outlinedButtonTheme.style!.copyWith(
                             iconColor: const WidgetStatePropertyAll<Color>(kTheme1),
                             foregroundColor: const WidgetStatePropertyAll<Color>(kTheme1),
@@ -63,7 +64,7 @@ class _JobBodyState extends State<JobBody> {
                             .i18n
                             .dispatchedJobs
                             .remove_job_button)),
-                    TextButton.icon(
+                    PrefersTextButtonIcon(
                         onPressed: widget.onStart,
                         icon: const Icon(Ionicons.play),
                         label: Text(

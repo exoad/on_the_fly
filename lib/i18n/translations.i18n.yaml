@@ -17,6 +17,7 @@ app generics:
   third_parties: Third party licenses
   author_name: Jiaming Meng (Jack/exoad)
   close: Close
+  folder: Folder
   browse: Browse
   empty: Empty
   loading: Loading
@@ -28,6 +29,7 @@ app generics:
   scroll_to_top: Scroll to top
   incorrect: Incorrect
   validating: Validating
+  format: Output
   MIX_is_not_supported(dynamic item): $item is not supported
   start: Start
 logger view:

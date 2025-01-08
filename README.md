@@ -42,7 +42,7 @@ Make sure you have all of the dependencies required by Flutter. You can check by
 [`build.py`](./build.py) is a standardized script for building typically release builds of OnTheFly. It requires Python 3 and up and Flutter to be installed as well as dependencies required
 by Flutter (which you can check with `flutter doctor`).
 
-By default, running the script with `python build.py` will produce a "non-release" build. To run it with release mode, run it with the `--release` flag (`python build.py --release`). 
+By default, running the script with `python build.py` will produce a "non-release" build. To run it with release mode, run it with the `--release` flag (`python build.py --release`).
 
 Furthermore, there are a few parameters you can tweak—for example, the build output locations; all of which you can find in these lines:
 
@@ -108,6 +108,10 @@ For a versatile cross-platform image IO library for Dart.
 ### [unDraw](https://undraw.co/)
 
 Providing amazing illustrations within the UI.
+
+### [flutter/pigeon](https://pub.dev/packages/pigeon)
+
+A versatile and easy to use package to communicate with native code.
 
 ### Contributors
 

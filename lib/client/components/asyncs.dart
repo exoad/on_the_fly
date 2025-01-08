@@ -68,8 +68,8 @@ class _AsyncTextFormField extends State<AsyncTextFormField> {
   void initState() {
     super.initState();
     _controller = widget.controller ?? TextEditingController();
-    widget.controller!.addListener(() {
-      _onChanged(widget.controller!.text);
+    _controller.addListener(() {
+      _onChanged(_controller.text);
       setState(IGNORE_INVOKE);
     });
   }

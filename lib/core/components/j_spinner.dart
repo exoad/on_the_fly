@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:on_the_fly/client/components/prefers.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/theme.dart';
 
@@ -21,16 +22,20 @@ class SpinnerChip<T> {
 }
 
 class JobSimpleSpinner<T> extends StatefulWidget {
-  final Widget? leadingIcon;
+  final String label;
+  final Widget leadingIcon;
   final String? hint;
   final List<SpinnerChip<T>> chips;
+  final bool takeUpVertical;
   final void Function(T? chip) onSelect;
 
   const JobSimpleSpinner(
       {super.key,
+      required this.label,
       required this.chips,
+      this.takeUpVertical = false,
       required this.onSelect,
-      this.leadingIcon,
+      required this.leadingIcon,
       this.hint});
 
   @override
@@ -42,12 +47,32 @@ class _JobSimpleSpinnerState<T> extends State<JobSimpleSpinner<T>> {
 
   @override
   Widget build(BuildContext context) {
+    Widget btn = PrefersTextButtonIcon(
+      label: Text(widget.label),
+      icon: widget.leadingIcon,
+      style: Theme.of(context).textButtonTheme.style!.copyWith(
+            backgroundColor: const WidgetStatePropertyAll<Color>(kTheme2),
+            padding: const WidgetStatePropertyAll<EdgeInsets>(
+              EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+            ),
+          ),
+    );
     return DropdownButton2<T>(
         hint: widget.hint != null
             ? Text(widget.hint!,
                 style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal))
             : null,
         value: _selected,
+        // this method makes it so that using it in a asynctextformfield as a suffixicon will take up max vertical
+        // space in the parent
+        customButton: widget.takeUpVertical
+            ? IntrinsicWidth(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[btn],
+                ),
+              )
+            : btn,
         underline: const SizedBox(),
         menuItemStyleData: const MenuItemStyleData(
             height: 38, padding: EdgeInsets.symmetric(horizontal: 4)),
@@ -58,11 +83,6 @@ class _JobSimpleSpinnerState<T> extends State<JobSimpleSpinner<T>> {
             decoration: BoxDecoration(
                 border: Border.all(color: kTheme2, width: 2),
                 color: kThemeBg,
-                borderRadius: BorderRadius.circular(kRRArc))),
-        buttonStyleData: ButtonStyleData(
-            padding: const EdgeInsets.all(0),
-            decoration: BoxDecoration(
-                border: Border.all(color: kTheme2, width: 2),
                 borderRadius: BorderRadius.circular(kRRArc))),
         items: <DropdownMenuItem<T>>[
           for (SpinnerChip<T> chip in widget.chips)

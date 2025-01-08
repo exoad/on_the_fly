@@ -10,6 +10,7 @@ import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/core/components/job_component.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/shared/app.dart';
+import 'package:on_the_fly/shared/layout.dart';
 import 'package:path/path.dart' as paths;
 import 'package:provider/provider.dart';
 
@@ -89,75 +90,68 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
         //             fontWeight: isPathContentEmpty ? FontWeight.w500 : FontWeight.normal,
         //             color: isPathContentEmpty ? kThemeNeedAction : kThemePrimaryFg2)),
         //     children: <Widget>[
-        Row(
-      children: <Widget>[
-        Expanded(
-          child: AsyncTextFormField(
-            validationDebounce: const Duration(milliseconds: 120),
-            controller: _textEditingController,
-            decoration: InputDecoration(
-              alignLabelWithHint: true,
-              labelText: Provider.of<InternationalizationNotifier>(context)
-                  .i18n
-                  .formatGeneric
-                  .input_file_path,
-              hintText: widget.hintLabel,
-              counterText: _pathContent.length > 1
-                  ? paths.extension(_pathContent).substring(1).toUpperCase()
-                  : "",
-              suffixIcon: PrefersTextButtonIcon(
-                style: Theme.of(context).textButtonTheme.style!.copyWith(
-                      visualDensity: VisualDensity.compact,
-                      padding: const WidgetStatePropertyAll<EdgeInsets>(
-                        EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                      ),
-                    ),
-                icon: const Icon(Ionicons.folder_outline),
-                label: Text(
-                  widget.filePickerLabel,
-                  style: const TextStyle(fontSize: 14),
+        IntrinsicHeight(
+      child: AsyncTextFormField(
+        validationDebounce: const Duration(milliseconds: 120),
+        controller: _textEditingController,
+        decoration: InputDecoration(
+          alignLabelWithHint: true,
+          labelText: Provider.of<InternationalizationNotifier>(context)
+              .i18n
+              .formatGeneric
+              .input_file_path,
+          hintText: widget.hintLabel,
+          counterText: _pathContent.length > 1
+              ? paths.extension(_pathContent).substring(1).toUpperCase()
+              : "",
+          suffixIcon: PrefersTextButtonIcon(
+            style: Theme.of(context).textButtonTheme.style!.copyWith(
+                  padding: const WidgetStatePropertyAll<EdgeInsets>(
+                    EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                  ),
                 ),
-                onPressed: () async {
-                  FilePickerResult? res = await FilePicker.platform.pickFiles(
-                    allowMultiple: false,
-                    dialogTitle: widget.filePickerDialogTitle,
-                    type:
-                        widget.allowedExtensions.isEmpty ? FileType.any : FileType.custom,
-                    allowedExtensions: widget.allowedExtensions,
-                  );
-                  if (res == null) {
-                    logger.info("FilePicker#$hashCode ignored native_picker");
-                  } else {
-                    setState(() {
-                      _pathContent = res.files[0].path!;
-                      _textEditingController.text = _pathContent;
-                    });
-                  }
-                },
-              ),
+            icon: const Icon(Ionicons.folder_outline),
+            label: Text(
+              widget.filePickerLabel,
+              style: const TextStyle(fontSize: 14),
             ),
-            validator: (String? value) async {
-              String? validFile = await FilePathValidators.validateFilePath(value);
-              if (validFile != null) {
-                return validFile;
+            onPressed: () async {
+              FilePickerResult? res = await FilePicker.platform.pickFiles(
+                allowMultiple: false,
+                dialogTitle: widget.filePickerDialogTitle,
+                type: widget.allowedExtensions.isEmpty ? FileType.any : FileType.custom,
+                allowedExtensions: widget.allowedExtensions,
+              );
+              if (res == null) {
+                logger.info("FilePicker#$hashCode ignored native_picker");
+              } else {
+                setState(() {
+                  _pathContent = res.files[0].path!;
+                  _textEditingController.text = _pathContent;
+                });
               }
-              String ext = paths.extension(value!).substring(
-                  1); // since paths.extension will return the ".", we need to remove it
-              if (!widget.formatMedium.isSupportedOutput(ext)) {
-                // we use bang on value because the previous validateFilePath call has a null check that returns a value to validFile
-                return (context.mounted
-                        ? Provider.of<InternationalizationNotifier>(context,
-                            listen: false)
-                        : InternationalizationNotifier())
-                    .i18n
-                    .appGenerics
-                    .MIX_is_not_supported(ext);
-              }
-              return null;
             },
           ),
         ),
-      ],
+        validator: (String? value) async {
+          String? validFile = await FilePathValidators.validateFilePath(value);
+          if (validFile != null) {
+            return validFile;
+          }
+          String ext = paths.extension(value!).substring(
+              1); // since paths.extension will return the ".", we need to remove it
+          if (!widget.formatMedium.isSupportedOutput(ext)) {
+            // we use bang on value because the previous validateFilePath call has a null check that returns a value to validFile
+            return (context.mounted
+                    ? Provider.of<InternationalizationNotifier>(context, listen: false)
+                    : InternationalizationNotifier())
+                .i18n
+                .appGenerics
+                .MIX_is_not_supported(ext);
+          }
+          return null;
+        },
+      ),
     );
 
     // ]);
@@ -203,29 +197,46 @@ class _JobBasicOutputPathBuilderState extends State<JobBasicOutputPathBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: AsyncTextFormField(
-              decoration: InputDecoration(
-                  alignLabelWithHint: true,
-                  suffixIcon: JobSimpleSpinner<FileFormat>(
-                    chips: _chipsPrecache,
-                    onSelect: (FileFormat? format) =>
-                        setState(() => _selectedFormat = format),
-                  ),
-                  label: Text(
-                      Provider.of<InternationalizationNotifier>(context)
-                          .i18n
-                          .formatGeneric
-                          .output_builder,
-                      style: const TextStyle(fontSize: 14))),
-              validator: (String? value) async {
-                return null;
-              },
-              validationDebounce: const Duration(milliseconds: 100)),
-        ),
-      ],
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          PrefersTextButtonIcon(
+              label: Text(Provider.of<InternationalizationNotifier>(context)
+                  .i18n
+                  .appGenerics
+                  .folder),
+              icon: const Icon(Ionicons.file_tray)),
+          const SizedBox(width: kTotalAppMargin),
+          Expanded(
+            child: AsyncTextFormField(
+                decoration: InputDecoration(
+                    alignLabelWithHint: true,
+                    label: Text(
+                        Provider.of<InternationalizationNotifier>(context)
+                            .i18n
+                            .formatGeneric
+                            .output_builder,
+                        style: const TextStyle(fontSize: 14))),
+                validator: (String? value) async {
+                  return "";
+                },
+                validationDebounce: const Duration(milliseconds: 100)),
+          ),
+          const SizedBox(width: kTotalAppMargin),
+          JobSimpleSpinner<FileFormat>(
+            takeUpVertical: true,
+            label: Provider.of<InternationalizationNotifier>(context)
+                .i18n
+                .appGenerics
+                .format,
+            leadingIcon: const Icon(Ionicons.document),
+            chips: _chipsPrecache,
+            onSelect: (FileFormat? format) => setState(() => _selectedFormat = format),
+          )
+        ],
+      ),
     );
   }
 }

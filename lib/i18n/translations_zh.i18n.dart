@@ -178,6 +178,11 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   String get close => """关闭""";
 
   /// ```dart
+  /// "文件夹"
+  /// ```
+  String get folder => """文件夹""";
+
+  /// ```dart
   /// "浏览"
   /// ```
   String get browse => """浏览""";
@@ -231,6 +236,11 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   /// "验证中"
   /// ```
   String get validating => """验证中""";
+
+  /// ```dart
+  /// "格式"
+  /// ```
+  String get format => """格式""";
 
   /// ```dart
   /// "不支持 $item"
@@ -333,9 +343,9 @@ class FormatGenericTranslationsZh extends FormatGenericTranslations {
   String get output_format => """输出格式""";
 
   /// ```dart
-  /// "输入文件路径"
+  /// "输入格式"
   /// ```
-  String get input_file_path => """输入文件路径""";
+  String get input_file_path => """输入格式""";
 
   /// ```dart
   /// "输出生成器"
@@ -413,6 +423,7 @@ Map<String, String> get translationsZhMap => {
       """app generics.third_parties""": """第三方许可证""",
       """app generics.author_name""": """孟嘉明 (Jack/exoad)""",
       """app generics.close""": """关闭""",
+      """app generics.folder""": """文件夹""",
       """app generics.browse""": """浏览""",
       """app generics.empty""": """空""",
       """app generics.loading""": """加载中""",
@@ -424,6 +435,7 @@ Map<String, String> get translationsZhMap => {
       """app generics.scroll_to_top""": """回到顶部""",
       """app generics.incorrect""": """不正确""",
       """app generics.validating""": """验证中""",
+      """app generics.format""": """格式""",
       """app generics.start""": """开始""",
       """logger view.rmenu_tooltip""": """日志""",
       """logger view.title""": """日志""",
@@ -437,7 +449,7 @@ Map<String, String> get translationsZhMap => {
       """format generic.supported_inputs""": """支持的输入""",
       """format generic.supported_outputs""": """支持的输出""",
       """format generic.output_format""": """输出格式""",
-      """format generic.input_file_path""": """输入文件路径""",
+      """format generic.input_file_path""": """输入格式""",
       """format generic.output_builder""": """输出生成器""",
       """format generic.push_job""": """添加这个程序""",
       """format generic.image""": """图像类""",

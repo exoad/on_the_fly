@@ -48,7 +48,7 @@
         Defaults to false
         -->
         <PreferDenseActionables>
-            true
+            false
         </PreferDenseActionables>
     </Public>
     <!-- This section contains program constants that the user (you) really don't need to touch.-->

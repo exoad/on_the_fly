@@ -178,6 +178,11 @@ class AppGenericsTranslations {
   String get close => """Close""";
 
   /// ```dart
+  /// "Folder"
+  /// ```
+  String get folder => """Folder""";
+
+  /// ```dart
   /// "Browse"
   /// ```
   String get browse => """Browse""";
@@ -231,6 +236,11 @@ class AppGenericsTranslations {
   /// "Validating"
   /// ```
   String get validating => """Validating""";
+
+  /// ```dart
+  /// "Output"
+  /// ```
+  String get format => """Output""";
 
   /// ```dart
   /// "$item is not supported"
@@ -417,6 +427,7 @@ Map<String, String> get translationsMap => {
       """app generics.third_parties""": """Third party licenses""",
       """app generics.author_name""": """Jiaming Meng (Jack/exoad)""",
       """app generics.close""": """Close""",
+      """app generics.folder""": """Folder""",
       """app generics.browse""": """Browse""",
       """app generics.empty""": """Empty""",
       """app generics.loading""": """Loading""",
@@ -428,6 +439,7 @@ Map<String, String> get translationsMap => {
       """app generics.scroll_to_top""": """Scroll to top""",
       """app generics.incorrect""": """Incorrect""",
       """app generics.validating""": """Validating""",
+      """app generics.format""": """Output""",
       """app generics.start""": """Start""",
       """logger view.rmenu_tooltip""": """Logs""",
       """logger view.title""": """Logs""",

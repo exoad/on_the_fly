@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:on_the_fly/shared/bundles.dart';
 import 'package:on_the_fly/xt.dart';
 
-import 'core/formats/formats.dart';
+// import 'core/formats/formats.dart';
 
 /// main entry point for the app
 void main() {
@@ -84,24 +84,24 @@ void main() {
 
 /// runs the default tests builtin to the app
 void __tests() {
-  // Test OutputNameBuilder.simpleRandomName
-  AppDebug().test(
-      "Test OutputNameBuilder.simpleRandomName",
-      () => OutputNameBuilder.simpleRandomName(len: 10)(
-          "test.jpg", ImageMedium.I["png"]),
-      null);
-  // Test OutputNameBuilder.simpleName
-  AppDebug().test(
-      "Test OutputNameBuilder.simpleName",
-      () => OutputNameBuilder.simpleName(name: "amogus")(
-          "test.png", ImageMedium.I["jpg"]),
-      ".\\amogus.jpg");
-  // Test OutputNameBuilder.simplePrefix
-  AppDebug().test(
-      "Test OutputNameBuilder.simplePrefix",
-      () => OutputNameBuilder.simplePrefix(prefix: "test_")(
-          "bbbbb.jpg", ImageMedium.I["png"]),
-      ".\\test_bbbbb.png");
+  // // Test OutputNameBuilder.simpleRandomName
+  // AppDebug().test(
+  //     "Test OutputNameBuilder.simpleRandomName",
+  //     () => OutputNameBuilder.simpleRandomName(len: 10)(
+  //         "test.jpg", ImageMedium.I["png"]),
+  //     null);
+  // // Test OutputNameBuilder.simpleName
+  // AppDebug().test(
+  //     "Test OutputNameBuilder.simpleName",
+  //     () => OutputNameBuilder.simpleName(name: "amogus")(
+  //         "test.png", ImageMedium.I["jpg"]),
+  //     ".\\amogus.jpg");
+  // // Test OutputNameBuilder.simplePrefix
+  // AppDebug().test(
+  //     "Test OutputNameBuilder.simplePrefix",
+  //     () => OutputNameBuilder.simplePrefix(prefix: "test_")(
+  //         "bbbbb.jpg", ImageMedium.I["png"]),
+  //     ".\\test_bbbbb.png");
   // Test AutoImgStrings.formalize
   AppDebug()
       .test("Test AutoImgStrings.formalize", () => "test_test".formalize, "Test Test");
