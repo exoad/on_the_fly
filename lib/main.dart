@@ -1,8 +1,6 @@
 import 'dart:io';
 
 // import 'package:flutter/rendering.dart';
-import 'package:on_the_fly/base/ephemeral.dart';
-import 'package:on_the_fly/base/native_channel.dart';
 import 'package:on_the_fly/base/win_man.dart';
 import 'package:on_the_fly/client/tray/tray.dart';
 import 'package:on_the_fly/core/core.dart';
@@ -35,13 +33,7 @@ void main() {
         __tests();
       }
       logger.info("kShowDebugView=$kShowDebugView");
-      // checking platform channel exists
-      if (!await sanityCheck()) {
-        throw const NativeException(
-            "OnTheFly unable to complete native channel sanity checks!");
-      } else {
-        logger.info("Platform channel registered");
-      }
+
       logger.info("Registered jobs: ${JobDispatcher.registeredJobDispatchers}");
       // lets do a sanity check for all of the registered jobs just in case
       for (MapEntry<Type, Iterable<JobDispatcher>> entry

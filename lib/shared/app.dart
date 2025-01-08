@@ -66,10 +66,6 @@ const bool kAllowDebugLogs = true;
 late final Random random;
 final Logger logger = Logger("OnTheFly");
 
-/// this platform channel basically just checks if the platform
-/// channel is working properly in the hollistic sense
-const MethodChannel mNativeChannel1 = MethodChannel("net.exoad.on_the_fly/sanity_check");
-
 // /// determines how many messages [_loggerQueue] can hold and
 // /// show in the debugview
 // ///
