@@ -3,7 +3,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:flutter/services.dart';
 import 'package:on_the_fly/client/logging_view.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:logging/logging.dart';
