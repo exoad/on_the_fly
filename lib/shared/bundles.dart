@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
+import 'package:on_the_fly/helpers/basics.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:xml/xml.dart';
 import 'package:xml/xpath.dart';
@@ -68,11 +69,12 @@ final class PublicBundle {
     return validState ? windowState : null;
   }
 
-  static bool get isMinimizeToTray => _values.containsKey("MinimizeToTray")
-      ? _values["MinimizeToTray"] as bool
-      : Bundles.parseBool("//RootBundle//Public//MinimizeToTray") ?? true;
+  static bool get isMinimizeToTray => _values.getOrDefault("MinimizeToTray",
+      Bundles.parseBool("//RootBundle//Public//MinimizeToTray") ?? true);
 
-  static bool get isInitialFocused => _values.containsKey("InitialFocused")
-      ? _values["InitialFocused"] as bool
-      : Bundles.parseBool("//RootBundle//Public//InitialFocused") ?? false;
+  static bool get isInitialFocused => _values.getOrDefault("InitialFocused",
+      Bundles.parseBool("//RootBundle//Public//InitialFocused") ?? false);
+
+  static bool get preferDenseActionables => _values.getOrDefault("PreferDenseActionables",
+      Bundles.parseBool("//RootBundle//Public//PreferDenseActionables") ?? false);
 }

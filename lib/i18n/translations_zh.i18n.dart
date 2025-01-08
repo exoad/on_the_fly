@@ -236,6 +236,11 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   /// "不支持 $item"
   /// ```
   String MIX_is_not_supported(dynamic item) => """不支持 $item""";
+
+  /// ```dart
+  /// "开始"
+  /// ```
+  String get start => """开始""";
 }
 
 class LoggerViewTranslationsZh extends LoggerViewTranslations {
@@ -328,6 +333,16 @@ class FormatGenericTranslationsZh extends FormatGenericTranslations {
   String get output_format => """输出格式""";
 
   /// ```dart
+  /// "输入文件路径"
+  /// ```
+  String get input_file_path => """输入文件路径""";
+
+  /// ```dart
+  /// "输出生成器"
+  /// ```
+  String get output_builder => """输出生成器""";
+
+  /// ```dart
   /// "添加这个程序"
   /// ```
   String get push_job => """添加这个程序""";
@@ -409,6 +424,7 @@ Map<String, String> get translationsZhMap => {
       """app generics.scroll_to_top""": """回到顶部""",
       """app generics.incorrect""": """不正确""",
       """app generics.validating""": """验证中""",
+      """app generics.start""": """开始""",
       """logger view.rmenu_tooltip""": """日志""",
       """logger view.title""": """日志""",
       """logger view.log_uptime""": """记录运行时间""",
@@ -421,6 +437,8 @@ Map<String, String> get translationsZhMap => {
       """format generic.supported_inputs""": """支持的输入""",
       """format generic.supported_outputs""": """支持的输出""",
       """format generic.output_format""": """输出格式""",
+      """format generic.input_file_path""": """输入文件路径""",
+      """format generic.output_builder""": """输出生成器""",
       """format generic.push_job""": """添加这个程序""",
       """format generic.image""": """图像类""",
       """format generic.click_to_view_more""": """轻触查看更多信息""",

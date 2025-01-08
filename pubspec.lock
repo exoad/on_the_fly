@@ -445,6 +445,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.5.2"
+  interpolation:
+    dependency: "direct main"
+    description:
+      name: interpolation
+      sha256: "6b70243bde8352eca91681d5cb2022fcb8806b3559223c9d3f205b1349e96c5e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.2"
   io:
     dependency: transitive
     description:

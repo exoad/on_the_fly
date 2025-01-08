@@ -10,8 +10,19 @@ import 'package:provider/provider.dart';
 class JobBody extends StatefulWidget {
   final List<Widget> children;
   final void Function() onRemoveJob;
+  final void Function()? onStart;
 
-  const JobBody({super.key, required this.children, required this.onRemoveJob});
+  /// specifies whether a confirmation of any sort should be used when
+  /// this job is requested for removal (this is only for client/user specified
+  /// removal)
+  final bool guardRemove;
+
+  const JobBody(
+      {super.key,
+      required this.children,
+      this.onStart,
+      this.guardRemove = true,
+      required this.onRemoveJob});
 
   @override
   State<JobBody> createState() => _JobBodyState();
@@ -27,7 +38,6 @@ class _JobBodyState extends State<JobBody> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-
               ...widget.children,
               //     Padding(
               //       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -35,22 +45,33 @@ class _JobBodyState extends State<JobBody> {
               //     ),
               const SizedBox(height: 21),
               Row(
-                  spacing: kTotalAppMargin,
+                  spacing: kTotalAppMargin * 2,
                   mainAxisAlignment: MainAxisAlignment.end,
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    TextButton.icon(
-                        style: Theme.of(context).textButtonTheme.style!.copyWith(
-                            backgroundColor:
-                                const WidgetStatePropertyAll<Color>(kTheme1)),
+                    OutlinedButton.icon(
+                        style: Theme.of(context).outlinedButtonTheme.style!.copyWith(
+                            iconColor: const WidgetStatePropertyAll<Color>(kTheme1),
+                            foregroundColor: const WidgetStatePropertyAll<Color>(kTheme1),
+                            side: const WidgetStatePropertyAll<BorderSide>(
+                                BorderSide(color: kTheme1, width: 1))),
+                        onPressed: widget.onRemoveJob,
+                        icon: const Icon(Ionicons.trash_bin),
                         label: Text(Provider.of<InternationalizationNotifier>(context,
                                 listen: false)
                             .i18n
                             .dispatchedJobs
-                            .remove_job_button),
-                        icon: const Icon(Ionicons.close),
-                        onPressed: widget.onRemoveJob),
+                            .remove_job_button)),
+                    TextButton.icon(
+                        onPressed: widget.onStart,
+                        icon: const Icon(Ionicons.play),
+                        label: Text(
+                            Provider.of<InternationalizationNotifier>(context)
+                                .i18n
+                                .appGenerics
+                                .start,
+                            style: const TextStyle(fontWeight: FontWeight.w600)))
                   ])
             ]),
       ),

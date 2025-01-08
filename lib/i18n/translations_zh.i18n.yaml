@@ -29,6 +29,7 @@ app generics:
   incorrect: 不正确
   validating: 验证中
   MIX_is_not_supported(dynamic item): 不支持 $item
+  start: 开始
 logger view:
   rmenu_tooltip: 日志
   title: 日志
@@ -47,6 +48,8 @@ format generic:
   supported_inputs: 支持的输入
   supported_outputs: 支持的输出
   output_format: 输出格式
+  input_file_path: 输入文件路径
+  output_builder: 输出生成器
   push_job: 添加这个程序
   image: 图像类
   click_to_view_more: 轻触查看更多信息

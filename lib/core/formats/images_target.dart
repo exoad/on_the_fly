@@ -8,7 +8,6 @@ import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 
 import 'package:on_the_fly/core/components/job_component.dart' as j;
 import 'package:on_the_fly/client/events/job_stack.dart';
-import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
 
 /// represents the builtin image formats supported by on the fly
@@ -128,27 +127,24 @@ class SingleImgJob extends Job {
             Provider.of<GlobalJobStack>(context, listen: false).removeJob(this),
         children: <Widget>[
           j.JobTitle(
-            title: Provider.of<InternationalizationNotifier>(context)
-                .i18n
-                .singleImgJob
-                .canonical_name,
-            subtitle: timestamp.canonicalizedTimeString,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 4),
-            child: Divider(thickness: 1, color: kThemePrimaryFg3),
-          ),
+              title: Provider.of<InternationalizationNotifier>(context)
+                  .i18n
+                  .singleImgJob
+                  .canonical_name,
+              subtitle: timestamp.canonicalizedTimeString,
+              hash: hashId),
           j.JobSinglePathPickerActionable(
               formatMedium: ImageMedium.I,
               onChanged: (String str) {},
               allowedExtensions: List<String>.empty(),
-              canonicalLabel: "Input file path",
               filePickerLabel:
                   Provider.of<InternationalizationNotifier>(context, listen: false)
                       .i18n
                       .appGenerics
                       .browse),
           const SizedBox(height: 6),
+          j.JobBasicOutputPathBuilder(
+              formats: [], onDone: (_) {}, initialFolder: "Amogus")
         ]);
   }
 }

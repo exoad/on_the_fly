@@ -1,6 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:on_the_fly/core/components/job_component.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/theme.dart';
 
@@ -21,73 +20,65 @@ class SpinnerChip<T> {
   }
 }
 
-class JobSimpleSpinnerTile<T> extends StatefulWidget {
+class JobSimpleSpinner<T> extends StatefulWidget {
   final Widget? leadingIcon;
-  final String title;
-  final String subtitle;
   final String? hint;
   final List<SpinnerChip<T>> chips;
   final void Function(T? chip) onSelect;
 
-  const JobSimpleSpinnerTile(
+  const JobSimpleSpinner(
       {super.key,
       required this.chips,
       required this.onSelect,
-      required this.title,
       this.leadingIcon,
-      this.hint,
-      required this.subtitle});
+      this.hint});
 
   @override
-  State<JobSimpleSpinnerTile<T>> createState() => _JobSimpleSpinnerTileState<T>();
+  State<JobSimpleSpinner<T>> createState() => _JobSimpleSpinnerState<T>();
 }
 
-class _JobSimpleSpinnerTileState<T> extends State<JobSimpleSpinnerTile<T>> {
+class _JobSimpleSpinnerState<T> extends State<JobSimpleSpinner<T>> {
   T? _selected;
 
   @override
   Widget build(BuildContext context) {
-    return JobTileContainer(
-        title: widget.title,
-        subtitle: widget.subtitle,
-        trailing: DropdownButton2<T>(
-          hint: widget.hint != null
-              ? Text(widget.hint!,
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal))
-              : null,
-          value: _selected,
-          underline: const SizedBox(),
-          menuItemStyleData: const MenuItemStyleData(
-              height: 38, padding: EdgeInsets.symmetric(horizontal: 4)),
-          dropdownStyleData: DropdownStyleData(
-              padding: const EdgeInsets.all(0),
-              scrollPadding: const EdgeInsets.all(0),
-              isOverButton: true,
-              decoration: BoxDecoration(
-                  border: Border.all(color: kTheme2, width: 2),
-                  color: kThemeBg,
-                  borderRadius: BorderRadius.circular(kRRArc))),
-          buttonStyleData: ButtonStyleData(
-              padding: const EdgeInsets.all(0),
-              decoration: BoxDecoration(
-                  border: Border.all(color: kTheme2, width: 2),
-                  borderRadius: BorderRadius.circular(kRRArc))),
-          items: <DropdownMenuItem<T>>[
-            for (SpinnerChip<T> chip in widget.chips)
-              DropdownMenuItem<T>(
-                  value: chip.obj,
-                  child: Row(children: <Widget>[
-                    if (chip.icon != null)
-                      chip.icon!, // this bang operator is so fucking retarded
-                    if (chip.icon != null) const SizedBox(width: 4),
-                    Text(chip.title)
-                  ]))
-          ],
-          onChanged: (T? value) {
-            logger.info("SELECTED $value");
-            setState(() => _selected = value);
-            widget.onSelect(_selected);
-          },
-        ));
+    return DropdownButton2<T>(
+        hint: widget.hint != null
+            ? Text(widget.hint!,
+                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal))
+            : null,
+        value: _selected,
+        underline: const SizedBox(),
+        menuItemStyleData: const MenuItemStyleData(
+            height: 38, padding: EdgeInsets.symmetric(horizontal: 4)),
+        dropdownStyleData: DropdownStyleData(
+            padding: const EdgeInsets.all(0),
+            scrollPadding: const EdgeInsets.all(0),
+            isOverButton: true,
+            decoration: BoxDecoration(
+                border: Border.all(color: kTheme2, width: 2),
+                color: kThemeBg,
+                borderRadius: BorderRadius.circular(kRRArc))),
+        buttonStyleData: ButtonStyleData(
+            padding: const EdgeInsets.all(0),
+            decoration: BoxDecoration(
+                border: Border.all(color: kTheme2, width: 2),
+                borderRadius: BorderRadius.circular(kRRArc))),
+        items: <DropdownMenuItem<T>>[
+          for (SpinnerChip<T> chip in widget.chips)
+            DropdownMenuItem<T>(
+                value: chip.obj,
+                child: Row(children: <Widget>[
+                  if (chip.icon != null)
+                    chip.icon!, // this bang operator is so fucking retarded
+                  if (chip.icon != null) const SizedBox(width: 4),
+                  Text(chip.title)
+                ]))
+        ],
+        onChanged: (T? value) {
+          logger.info("SELECTED $value");
+          setState(() => _selected = value);
+          widget.onSelect(_selected);
+        });
   }
 }

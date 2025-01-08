@@ -25,3 +25,20 @@ int genRngTill(int unwanted, int maxRange) {
   }
   return x;
 }
+
+extension MMap<K, V> on Map<K, V> {
+  /// this might return null because the key might exist
+  V? getOrDefault(K key, V value) {
+    if (containsKey(key)) {
+      return this[key];
+    }
+    return value;
+  }
+
+  V? computeIfAbsent(K key, V Function() function) {
+    if (containsKey(key)) {
+      return this[key];
+    }
+    return function();
+  }
+}

@@ -64,7 +64,8 @@ class _AppViewContainer extends StatelessWidget {
           splashFactory: NoSplash.splashFactory,
           overlayColor: WidgetStatePropertyAll<Color>(kThemePrimaryFg2.withAlpha(40)),
           iconColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
-          padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero),
+          padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
+              EdgeInsets.symmetric(horizontal: 6, vertical: 4)),
           shape: WidgetStatePropertyAll<RoundedRectangleBorder>(RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(kRRArc),
               side: const BorderSide(color: kThemePrimaryFg1, width: 2))),
@@ -92,15 +93,18 @@ class _AppViewContainer extends StatelessWidget {
         TextStyle(fontSize: 14, color: kThemePrimaryFg1, fontWeight: FontWeight.bold),
     hintStyle: TextStyle(fontSize: 12, color: kThemePrimaryFg2),
     contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-    floatingLabelBehavior: FloatingLabelBehavior.auto,
-    floatingLabelStyle:
-        TextStyle(fontSize: 12, color: kThemePrimaryFg1, fontWeight: FontWeight.bold),
+    floatingLabelBehavior: FloatingLabelBehavior.always,
+    floatingLabelStyle: TextStyle(
+        fontSize: 14,
+        color: kThemePrimaryFg1,
+        fontWeight: FontWeight.bold,
+        textBaseline: TextBaseline.alphabetic),
     isDense: true,
     errorBorder:
-        UnderlineInputBorder(borderSide: BorderSide(color: kThemeNeedAction, width: 2)),
-    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kThemePrimaryFg1)),
-    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kThemePrimaryFg3)),
-    border: UnderlineInputBorder(borderSide: BorderSide(color: kThemePrimaryFg3)),
+        OutlineInputBorder(borderSide: BorderSide(color: kThemeNeedAction, width: 2)),
+    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: kThemePrimaryFg1)),
+    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: kThemePrimaryFg3)),
+    border: OutlineInputBorder(borderSide: BorderSide(color: kThemePrimaryFg3)),
     activeIndicatorBorder: BorderSide(color: kThemePrimaryFg3),
   );
   static final ExpansionTileThemeData expansionTileThemeData = ExpansionTileThemeData(

@@ -1,6 +1,7 @@
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_tilt/flutter_tilt.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:on_the_fly/client/components/prefers.dart';
 import 'package:on_the_fly/client/logging_view.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/utils/strings.dart';
@@ -185,7 +186,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                   style: const TextStyle(
                                       fontSize: 12, color: kThemePrimaryFg2)),
                               const SizedBox(height: 8),
-                              TextButton(
+                              PrefersTextButtonIcon(
                                   onPressed: () async {
                                     if (mounted) {
                                       // Provider.of<GlobalJobStack>(context,
@@ -207,22 +208,15 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                                           backgroundColor:
                                               const WidgetStatePropertyAll<Color>(
                                                   kTheme1)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      const Icon(
-                                        Ionicons.add,
-                                        color: kThemeBg,
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                          InternationalizationNotifier()
-                                              .i18n
-                                              .formatGeneric
-                                              .push_job,
-                                          style: const TextStyle(
-                                              fontSize: 14, fontWeight: FontWeight.w500)),
-                                    ],
+                                  label: Text(
+                                      InternationalizationNotifier()
+                                          .i18n
+                                          .formatGeneric
+                                          .push_job,
+                                      style: const TextStyle(
+                                          fontSize: 14, fontWeight: FontWeight.w500)),
+                                  icon: const Icon(
+                                    Ionicons.add,
                                   )),
                             ],
                           ),

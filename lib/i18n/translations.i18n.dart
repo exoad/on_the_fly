@@ -236,6 +236,11 @@ class AppGenericsTranslations {
   /// "$item is not supported"
   /// ```
   String MIX_is_not_supported(dynamic item) => """$item is not supported""";
+
+  /// ```dart
+  /// "Start"
+  /// ```
+  String get start => """Start""";
 }
 
 class LoggerViewTranslations {
@@ -328,6 +333,16 @@ class FormatGenericTranslations {
   String get output_format => """Output format""";
 
   /// ```dart
+  /// "Input file path"
+  /// ```
+  String get input_file_path => """Input file path""";
+
+  /// ```dart
+  /// "Output builder"
+  /// ```
+  String get output_builder => """Output builder""";
+
+  /// ```dart
   /// "Add this job"
   /// ```
   String get push_job => """Add this job""";
@@ -413,6 +428,7 @@ Map<String, String> get translationsMap => {
       """app generics.scroll_to_top""": """Scroll to top""",
       """app generics.incorrect""": """Incorrect""",
       """app generics.validating""": """Validating""",
+      """app generics.start""": """Start""",
       """logger view.rmenu_tooltip""": """Logs""",
       """logger view.title""": """Logs""",
       """logger view.log_uptime""": """Log uptime""",
@@ -426,6 +442,8 @@ Map<String, String> get translationsMap => {
       """format generic.supported_inputs""": """Supported Inputs""",
       """format generic.supported_outputs""": """Supported Outputs""",
       """format generic.output_format""": """Output format""",
+      """format generic.input_file_path""": """Input file path""",
+      """format generic.output_builder""": """Output builder""",
       """format generic.push_job""": """Add this job""",
       """format generic.image""": """Images""",
       """format generic.click_to_view_more""": """Click for more info""",
