@@ -2,6 +2,7 @@ import 'dart:io';
 
 // import 'package:flutter/rendering.dart';
 import 'package:on_the_fly/base/win_man.dart';
+import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/client/tray/tray.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/client/load_it_n_view.dart';
@@ -60,6 +61,8 @@ void main() {
             logger.info("initWinState=$initWinState");
             if (initWinState == null || initWinState == "gui") {
               appWindow.show();
+              WinMan.I.setTitle(
+                  InternationalizationNotifier().i18n.appGenerics.canonical_title);
             }
             DebugLayerEvents()["xt"] = Wrap(
               spacing: 4,

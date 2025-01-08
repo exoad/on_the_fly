@@ -11,7 +11,7 @@
 // inherited from by classes that wish to specialize with custom
 // rendering and input handling
 class Win32Window {
- public:
+public:
   struct Point {
     unsigned int x;
     unsigned int y;
@@ -22,7 +22,8 @@ class Win32Window {
     unsigned int width;
     unsigned int height;
     Size(unsigned int width, unsigned int height)
-        : width(width), height(height) {}
+      : width(width), height(height) {
+    }
   };
 
   Win32Window();
@@ -55,14 +56,14 @@ class Win32Window {
   // Return a RECT representing the bounds of the current client area.
   RECT GetClientArea();
 
- protected:
+protected:
   // Processes and route salient window messages for mouse handling,
   // size change and DPI. Delegates handling of these to member overloads that
   // inheriting classes can handle.
   virtual LRESULT MessageHandler(HWND window,
-                                 UINT const message,
-                                 WPARAM const wparam,
-                                 LPARAM const lparam) noexcept;
+    UINT const message,
+    WPARAM const wparam,
+    LPARAM const lparam) noexcept;
 
   // Called when CreateAndShow is called, allowing subclass window-related
   // setup. Subclasses should return false if setup fails.
@@ -71,7 +72,7 @@ class Win32Window {
   // Called when Destroy is called.
   virtual void OnDestroy();
 
- private:
+private:
   friend class WindowClassRegistrar;
 
   // OS callback called by message pump. Handles the WM_NCCREATE message which
@@ -80,9 +81,9 @@ class Win32Window {
   // responds to changes in DPI. All other messages are handled by
   // MessageHandler.
   static LRESULT CALLBACK WndProc(HWND const window,
-                                  UINT const message,
-                                  WPARAM const wparam,
-                                  LPARAM const lparam) noexcept;
+    UINT const message,
+    WPARAM const wparam,
+    LPARAM const lparam) noexcept;
 
   // Retrieves a class instance pointer for |window|
   static Win32Window* GetThisFromHandle(HWND const window) noexcept;

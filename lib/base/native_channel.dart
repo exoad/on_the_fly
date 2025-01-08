@@ -28,10 +28,12 @@ class BasicNativeChannel {
         : Result<bool, String>.good(res, "Got result.");
   }
 
-  static Future<Result<Null, String>> safeInvoke(
-      MethodChannel channel, String methodName) async {
+  static Future<Result<Null, String>> safeInvoke(MethodChannel channel, String methodName,
+      [Map<String, dynamic>? arguments]) async {
     try {
-      await channel.invokeMethod<bool>(methodName);
+      await (arguments != null && arguments.isNotEmpty
+          ? channel.invokeMethod<void>(methodName, arguments)
+          : channel.invokeMethod<void>(methodName));
     } on PlatformException catch (e) {
       return Result<Null, String>.bad("safeInvokeBool failed: ${e.message}");
     }

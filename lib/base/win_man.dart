@@ -13,15 +13,14 @@ final class WinMan {
   WinMan._() : _mNative = const MethodChannel("net.exoad.on_the_fly/win_man");
 
   Future<void> requestFocus() async {
-    (await BasicNativeChannel.safeInvoke(_mNative, _kFocusKey))
-        .onBad((String message) => logger.warning("WINMAN_FAIL_INVOKE: $message"));
+    (await BasicNativeChannel.safeInvoke(_mNative, _kFocusKey)).onBad((String message) =>
+        logger.warning("WINMAN_FAIL_INVOKE: (requestFocus) $message"));
   }
 
   Future<void> setTitle(String title) async {
-    try {
-      await _mNative.invokeMapMethod(_kSetTitleKey, <String, String>{"title": title});
-    } on PlatformException catch (e) {
-      logger.severe(e.message);
-    }
+    (await BasicNativeChannel.safeInvoke(
+            _mNative, _kSetTitleKey, <String, dynamic>{"title": title}))
+        .onBad((String message) =>
+            logger.warning("WINMAN_FAIL_INVOKE: (setTitle($title)) $message"));
   }
 }

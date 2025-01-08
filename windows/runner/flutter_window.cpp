@@ -30,28 +30,17 @@ bool FlutterWindow::OnCreate()
     if (!flutter_controller_->engine() || !flutter_controller_->view())
         return false;
     RegisterPlugins(flutter_controller_->engine());
-    // initiate the first method channel that we wrote (sanity_check)
-    // sanity_check is just a regular method channel for seeing if the channels work properly (ie checking our sanity)
-    flutter::MethodChannel<> sanity_check(
-        flutter_controller_->engine()->messenger(),
-        "net.exoad.on_the_fly/sanity_check",
-        &flutter::StandardMethodCodec::GetInstance()
-    );
-    sanity_check.SetMethodCallHandler([](const auto& call, auto result)
-        {
-            // printf("METHOD_ENCOUNTER: %s",call.method_name()); !! PRONE ERROR
-            if (call.method_name() == "DoesExist")
-                result->Success(true);
-        });
     flutter::MethodChannel<> win_man(
         flutter_controller_->engine()->messenger(),
         "net.exoad.on_the_fly/win_man",
         &flutter::StandardMethodCodec::GetInstance()
     );
-    win_man.SetMethodCallHandler([&](const auto& call, auto result)
+    std::cout << "HELLO";
+    win_man.SetMethodCallHandler([&](const flutter::MethodCall<>& call, std::unique_ptr<flutter::MethodResult<>> result)
         {
             if (call.method_name() == "focus")
             {
+                std::cout << "WIN_MAN_INVOKE_FOCUS";
                 SetForegroundWindow(flutter_controller_->view()->GetNativeWindow());
                 result->Success();
             }
@@ -66,7 +55,8 @@ bool FlutterWindow::OnCreate()
                         std::string title_Str = std::get<std::string>(title->second);
                         SetWindowText(
                             flutter_controller_->view()->GetNativeWindow(),
-                            std::wstring(title_Str.begin(), title_Str.end()).c_str());
+                            (LPCWSTR)title_Str.c_str());
+                        result->Success();
                     }
                 }
             }
@@ -83,8 +73,8 @@ bool FlutterWindow::OnCreate()
                     auto height = args->find(flutter::EncodableValue("height"));
                     if (width != args->end() && height != args->end())
                     {
-                        unsigned int w = std::get<unsigned int>(width->second);
-                        unsigned int h = std::get<unsigned int>(height->second);
+                        int w = std::get<int>(width->second);
+                        int h = std::get<int>(height->second);
                         RECT r;
                         GetWindowRect(flutter_controller_->view()->GetNativeWindow(), &r);
                         Point where = Win32Window::Point((GetSystemMetrics(SM_CXSCREEN) - (r.right - r.left)) / 2, (GetSystemMetrics(SM_CXSCREEN) - (r.bottom - r.top)) / 2);
@@ -97,8 +87,10 @@ bool FlutterWindow::OnCreate()
                             static_cast<int>((where.y) - static_cast<int>(h / 2, scale_factor)),
                             static_cast<int>(w, scale_factor),
                             static_cast<int>(h, scale_factor),
-                            NULL
+                            SWP_NOSENDCHANGING
                         );
+                        EndDeferWindowPos(hdwp);
+                        result->Success();
                     }
                 }
             }
