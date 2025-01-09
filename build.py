@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # Default build file used
 import os
 import sys
