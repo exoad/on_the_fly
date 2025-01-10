@@ -143,7 +143,7 @@ class SingleImgJob extends Job {
                       .i18n
                       .appGenerics
                       .browse),
-          const SizedBox(height: 18),
+          const SizedBox(height: 12),
           j.JobBasicOutputPathBuilder(
               chipIcon: const Icon(Ionicons.image),
               formats: ImageMedium.I.outputFormats,

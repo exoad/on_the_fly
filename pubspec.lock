@@ -405,6 +405,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      sha256: b9c29a161230ee03d3ccf545097fccd9b87a5264228c5d348202e0f0c28f9010
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.2"
   http_multi_server:
     dependency: transitive
     description:
@@ -685,6 +693,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.5.0"
+  recase:
+    dependency: transitive
+    description:
+      name: recase
+      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   rxdart:
     dependency: transitive
     description:
@@ -786,6 +802,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  template_engine:
+    dependency: "direct main"
+    description:
+      name: template_engine
+      sha256: bf6f75e2daadffd4f627df7e5813fb928cc0d5a0577b916fda121d0e480fcb39
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   term_glyph:
     dependency: transitive
     description:

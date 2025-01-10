@@ -9,15 +9,21 @@ class FileFormat {
   final bool canWrite;
   final bool canRead;
 
-  const FileFormat({
-    required this.canonicalName,
-    required this.validExtensions,
-    required this.canWrite,
-    required this.canRead,
-  });
+  /// formats in the same [FormatMedium] that are both Read and Write incompatible
+  /// with this format
+  final List<FileFormat> incompatible;
+
+  const FileFormat(
+      {required this.canonicalName,
+      required this.validExtensions,
+      required this.canWrite,
+      required this.canRead,
+      this.incompatible = const <FileFormat>[]});
 
   // maybe can be used later for whent eh user wants to override certain file formats
   void operator +(String extension) => validExtensions.add(extension);
+
+  bool isCompatible(covariant FileFormat format) => incompatible.contains(format);
 
   @override
   String toString() =>
