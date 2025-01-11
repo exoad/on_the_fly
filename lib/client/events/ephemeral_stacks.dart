@@ -22,7 +22,12 @@ class InternationalizationNotifier extends ChangeNotifier {
   covariant Translations i18n;
 
   static Translations findLocaleModule([String? localeName]) {
-    return switch (localeName ?? Platform.localeName) {
+    localeName = localeName ?? Platform.localeName;
+    localeMap = switch (localeName) {
+      (String r) when r.startsWith("zh") => translationsZhMap,
+      _ => translationsMap, // default and unsupported
+    };
+    return switch (localeName) {
       (String r) when r.startsWith("zh") => const TranslationsZh(),
       _ => const Translations(), // default and unsupported
     };

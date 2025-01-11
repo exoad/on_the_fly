@@ -22,6 +22,41 @@ class Margin extends StatelessWidget {
   }
 }
 
+/// a helper class for simplifying building gradient stuffs :)
+extension Gradientify on Widget {
+  Widget gradientify(
+      {List<Color>? colors,
+      required List<double> stops,
+      required Alignment begin,
+      required Alignment end,
+      TextStyle? style}) {
+    colors ??= <Color>[kTheme1, kTheme2]..shuffle();
+    return ShaderMask(
+        shaderCallback: (Rect rect) =>
+            LinearGradient(colors: colors!, stops: stops, begin: begin, end: end)
+                .createShader(rect),
+        child: this);
+  }
+}
+
+
+class ColoredRRect extends StatelessWidget {
+  final double radius;
+  final Color color;
+  final Widget child;
+
+  const ColoredRRect(
+      {super.key, this.radius = kRRArc, required this.color, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration:
+            BoxDecoration(color: color, borderRadius: BorderRadius.circular(radius)),
+        child: child);
+  }
+}
+
 /// macro class
 class ThemeableTextButton extends TextButton {
   ThemeableTextButton(

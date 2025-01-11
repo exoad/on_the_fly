@@ -1,15 +1,8 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/core/core.dart';
-import 'package:on_the_fly/core/utils/date_time.dart';
-import 'package:on_the_fly/core/utils/result.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 
-import 'package:on_the_fly/core/components/job_component.dart' as j;
-import 'package:on_the_fly/client/events/job_stack.dart';
-import 'package:provider/provider.dart';
 
 /// represents the builtin image formats supported by on the fly
 ///
@@ -70,100 +63,64 @@ final class ImageMedium extends FormatMedium {
             });
 }
 
-/// this represents a dispatcher that produces a [SingleImgJob] instance on demand. it also
-/// facilitates defining the general structure of singleimg jobs
-class SingleImgJobDispatcher extends JobDispatcher {
-  SingleImgJobDispatcher() : super(formatMedium: ImageMedium.I);
+// /// a job instance produced by the [SingleImgJobDispatcher] dispatcher
+// class SingleImgJob extends Job {
 
-  @override
-  bool dispatched(covariant dynamic t) {
-    return t.runtimeType == SingleImgJob;
-  }
+//   SingleImgJob({required super.inputPath});
 
-  @override
-  String get description => InternationalizationNotifier().i18n.singleImgJob.description;
+//   @override
+//   bool canPop() {
+//     return true;
+//   }
 
-  @override
-  String get name => InternationalizationNotifier().i18n.singleImgJob.canonical_name;
+//   @override
+//   Result<Null, String> process() {
+//     throw UnimplementedError();
+//   }
 
-  @override
-  String? get properDescription =>
-      InternationalizationNotifier().i18n.singleImgJob.proper_description;
+//   @override
+//   j.JobBody buildForm(BuildContext context) {
+//     return j.JobBody(
+//         onRemoveJob: () =>
+//             Provider.of<GlobalJobStack>(context, listen: false).removeJob(this),
+//         children: <Widget>[
+//           j.JobTitle(
+//               title: Provider.of<InternationalizationNotifier>(context)
+//                   .i18n
+//                   .singleImgJob
+//                   .canonical_name,
+//               subtitle: timestamp.canonicalizedTimeString,
+//               hash: hashId),
+//           j.JobSinglePathPickerActionable(
+//               formatMedium: ImageMedium.I,
+//               onChanged: (String str) {},
+//               allowedExtensions: List<String>.empty(),
+//               filePickerLabel:
+//                   Provider.of<InternationalizationNotifier>(context, listen: false)
+//                       .i18n
+//                       .appGenerics
+//                       .browse),
+//           const SizedBox(height: 12),
+//           j.JobBasicOutputPathBuilder(
+//               chipIcon: const Icon(Ionicons.image),
+//               formats: ImageMedium.I.outputFormats,
+//               onDone: (_) {},
+//               initialFolder: "Amogus")
+//         ]);
+//   }
+// }
 
-  @override
-  Type get routineProcessor => ImageRoutineProcessor;
+// class ImageRoutineProcessor extends RoutineProcessor<ImageMedium> {
+//   @override
+//   Future<Result<Null, String>> convert(RoutineOrder<ImageMedium> order) async {
+//     throw UnimplementedError();
+//   }
 
-  @override
-  Job produceInitialJobInstance() {
-    return SingleImgJob(inputPath: <String>[Platform.resolvedExecutable]);
-  }
-}
+//   @override
+//   String get canonicalName =>
+//       InternationalizationNotifier().i18n.builtinImgProcessor.canonical_name;
 
-/// a job instance produced by the [SingleImgJobDispatcher] dispatcher
-class SingleImgJob extends Job {
-  late OutputPathHandler outputPathHandler;
-
-  SingleImgJob({required super.inputPath});
-
-  @override
-  OutputPathHandler get outputNameBuilder => outputPathHandler;
-
-  @override
-  bool canPop() {
-    return true;
-  }
-
-  @override
-  void onPush() {}
-
-  @override
-  Result<Null, String> process() {
-    throw UnimplementedError();
-  }
-
-  @override
-  j.JobBody buildForm(BuildContext context) {
-    return j.JobBody(
-        onRemoveJob: () =>
-            Provider.of<GlobalJobStack>(context, listen: false).removeJob(this),
-        children: <Widget>[
-          j.JobTitle(
-              title: Provider.of<InternationalizationNotifier>(context)
-                  .i18n
-                  .singleImgJob
-                  .canonical_name,
-              subtitle: timestamp.canonicalizedTimeString,
-              hash: hashId),
-          j.JobSinglePathPickerActionable(
-              formatMedium: ImageMedium.I,
-              onChanged: (String str) {},
-              allowedExtensions: List<String>.empty(),
-              filePickerLabel:
-                  Provider.of<InternationalizationNotifier>(context, listen: false)
-                      .i18n
-                      .appGenerics
-                      .browse),
-          const SizedBox(height: 12),
-          j.JobBasicOutputPathBuilder(
-              chipIcon: const Icon(Ionicons.image),
-              formats: ImageMedium.I.outputFormats,
-              onDone: (_) {},
-              initialFolder: "Amogus")
-        ]);
-  }
-}
-
-class ImageRoutineProcessor extends RoutineProcessor<ImageMedium> {
-  @override
-  Future<Result<Null, String>> convert(RoutineOrder<ImageMedium> order) async {
-    throw UnimplementedError();
-  }
-
-  @override
-  String get canonicalName =>
-      InternationalizationNotifier().i18n.builtinImgProcessor.canonical_name;
-
-  @override
-  String get canonicalDescriptor =>
-      InternationalizationNotifier().i18n.builtinImgProcessor.proper_description;
-}
+//   @override
+//   String get canonicalDescriptor =>
+//       InternationalizationNotifier().i18n.builtinImgProcessor.proper_description;
+// }

@@ -4,7 +4,6 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:on_the_fly/client/logging_view.dart';
-import 'package:on_the_fly/core/core.dart';
 import 'package:logging/logging.dart';
 import 'package:on_the_fly/client/events/debug_events.dart';
 
@@ -63,6 +62,7 @@ const List<String> kDefinedLocales = <String>[
 /// can be on or off no matter the production state
 const bool kAllowDebugLogs = true;
 late final Random random;
+late Map<String, String> localeMap;
 final Logger logger = Logger("OnTheFly");
 
 // /// determines how many messages [_loggerQueue] can hold and
@@ -113,7 +113,6 @@ Future<void> initConsts() async {
   //     ? kDefaultFontFamily
   //     : "Playfair Display";
 
-  AutoImgCore.init();
   random = Random.secure();
 }
 

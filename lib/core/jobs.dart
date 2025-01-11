@@ -17,20 +17,14 @@ import 'package:on_the_fly/core/components/job_component.dart' as j;
 ///
 abstract class Job {
   List<String> inputPath;
+  String? customizableName;
   final DateTime timestamp;
+  final String outputTemplate;
   late final String hashId;
 
-  Job({required this.inputPath})
+  Job({required this.inputPath, this.customizableName, required this.outputTemplate})
       : timestamp = DateTime.now(),
         hashId = ObjectId().hexString;
-
-  /// processes and generates an output name
-  OutputPathHandler get outputNameBuilder;
-
-  /// called when this job instance gets pushed onto the global job stack
-  ///
-  /// should not any kind of processing work as this fucks up the scheduler
-  void onPush();
 
   /// called by the global job stack to determine if this job can be popped
   ///
@@ -50,8 +44,8 @@ abstract class Job {
     // so pls reimpl this (also dont call super if you do)
     return j.JobBody(onRemoveJob: IGNORE_INVOKE, children: <Widget>[
       Container(
-          decoration: BoxDecoration(
-              color: kTheme1, borderRadius: BorderRadius.circular(kRRArc)),
+          decoration:
+              BoxDecoration(color: kTheme1, borderRadius: BorderRadius.circular(kRRArc)),
           padding: const EdgeInsets.all(8),
           child: Center(
               child: Text.rich(TextSpan(
@@ -76,21 +70,19 @@ abstract class Job {
 abstract class JobDispatcher {
   final FormatMedium formatMedium;
 
-  static Map<Type /* <- restricts (covariant) FormatMedium */,
-          List<JobDispatcher>> registeredJobDispatchers =
+  static Map<Type /* <- restricts (covariant) FormatMedium */, List<JobDispatcher>>
+      registeredJobDispatchers =
       <Type /* <- extends FormatMedium */, List<JobDispatcher>>{};
 
   static List<JobDispatcher> getJobDispatchersByMedium(Type mediumName) {
-    if (!registeredJobDispatchers.containsKey(mediumName) &&
-        kAllowDebugWarnings) {
+    if (!registeredJobDispatchers.containsKey(mediumName) && kAllowDebugWarnings) {
       throw ArgumentError(
           "Medium Key not found in registered jobs: $mediumName"); // another programmer error ! bruh
     }
     return registeredJobDispatchers[mediumName]!;
   }
 
-  static Map<Type /* <- restricts (covariant) FormatMedium */,
-          Iterable<JobDispatcher>>
+  static Map<Type /* <- restricts (covariant) FormatMedium */, Iterable<JobDispatcher>>
       get getJobsByMediumMap => registeredJobDispatchers;
 
   static void registerJobDispatcher(JobDispatcher r) {

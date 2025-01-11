@@ -32,6 +32,7 @@ app generics:
   format: 格式
   MIX_is_not_supported(dynamic item): 不支持 $item
   start: 开始
+  incompatible_with: 不适配
 logger view:
   rmenu_tooltip: 日志
   title: 日志
@@ -55,10 +56,13 @@ format generic:
   push_job: 添加这个程序
   image: 图像类
   click_to_view_more: 轻触查看更多信息
-single img job:
-  canonical_name: 单个图像
-  description: 把一个图像文件变成别的文件格式
-  proper_description: XXXXX
+# single img job:
+#   canonical_name: 单个图像
+#   description: 把一个图像文件变成别的文件格式
+#   proper_description: 这项工作是提供一种简单的方法，将单个图像文件从一种格式转换为另一种格式。如果您想转换多个文件或监控文件夹，请寻找其他替代方法。
 builtin img processor:
   canonical_name: 内置图像处理器
-  proper_description: XXXXX
+  proper_description: 用于处理图像文件，例如 PNG、JPEG 等。此处理器内置于悄悄转中。
+job style adverts:
+  single_file_title: 单个文件
+  single_file_description: 这项工作提供了一种简单的方法，将单个文件从一种格式转换为另一种格式。如果您需要转换多个文件或监控文件夹，请寻找其他替代方法。

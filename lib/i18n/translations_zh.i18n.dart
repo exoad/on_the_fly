@@ -77,10 +77,10 @@ class TranslationsZh extends Translations {
       PathValidatorTranslationsZh(this);
   FormatGenericTranslationsZh get formatGeneric =>
       FormatGenericTranslationsZh(this);
-  SingleImgJobTranslationsZh get singleImgJob =>
-      SingleImgJobTranslationsZh(this);
   BuiltinImgProcessorTranslationsZh get builtinImgProcessor =>
       BuiltinImgProcessorTranslationsZh(this);
+  JobStyleAdvertsTranslationsZh get jobStyleAdverts =>
+      JobStyleAdvertsTranslationsZh(this);
 }
 
 class AppGenericsTranslationsZh extends AppGenericsTranslations {
@@ -251,6 +251,11 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   /// "开始"
   /// ```
   String get start => """开始""";
+
+  /// ```dart
+  /// "不适配"
+  /// ```
+  String get incompatible_with => """不适配""";
 }
 
 class LoggerViewTranslationsZh extends LoggerViewTranslations {
@@ -368,26 +373,6 @@ class FormatGenericTranslationsZh extends FormatGenericTranslations {
   String get click_to_view_more => """轻触查看更多信息""";
 }
 
-class SingleImgJobTranslationsZh extends SingleImgJobTranslations {
-  final TranslationsZh _parent;
-  const SingleImgJobTranslationsZh(this._parent) : super(_parent);
-
-  /// ```dart
-  /// "单个图像"
-  /// ```
-  String get canonical_name => """单个图像""";
-
-  /// ```dart
-  /// "把一个图像文件变成别的文件格式"
-  /// ```
-  String get description => """把一个图像文件变成别的文件格式""";
-
-  /// ```dart
-  /// "XXXXX"
-  /// ```
-  String get proper_description => """XXXXX""";
-}
-
 class BuiltinImgProcessorTranslationsZh
     extends BuiltinImgProcessorTranslations {
   final TranslationsZh _parent;
@@ -399,9 +384,25 @@ class BuiltinImgProcessorTranslationsZh
   String get canonical_name => """内置图像处理器""";
 
   /// ```dart
-  /// "XXXXX"
+  /// "用于处理图像文件，例如 PNG、JPEG 等。此处理器内置于悄悄转中。"
   /// ```
-  String get proper_description => """XXXXX""";
+  String get proper_description => """用于处理图像文件，例如 PNG、JPEG 等。此处理器内置于悄悄转中。""";
+}
+
+class JobStyleAdvertsTranslationsZh extends JobStyleAdvertsTranslations {
+  final TranslationsZh _parent;
+  const JobStyleAdvertsTranslationsZh(this._parent) : super(_parent);
+
+  /// ```dart
+  /// "单个文件"
+  /// ```
+  String get single_file_title => """单个文件""";
+
+  /// ```dart
+  /// "这项工作提供了一种简单的方法，将单个文件从一种格式转换为另一种格式。如果您需要转换多个文件或监控文件夹，请寻找其他替代方法。"
+  /// ```
+  String get single_file_description =>
+      """这项工作提供了一种简单的方法，将单个文件从一种格式转换为另一种格式。如果您需要转换多个文件或监控文件夹，请寻找其他替代方法。""";
 }
 
 Map<String, String> get translationsZhMap => {
@@ -437,6 +438,7 @@ Map<String, String> get translationsZhMap => {
       """app generics.validating""": """验证中""",
       """app generics.format""": """格式""",
       """app generics.start""": """开始""",
+      """app generics.incompatible_with""": """不适配""",
       """logger view.rmenu_tooltip""": """日志""",
       """logger view.title""": """日志""",
       """logger view.log_uptime""": """记录运行时间""",
@@ -454,9 +456,10 @@ Map<String, String> get translationsZhMap => {
       """format generic.push_job""": """添加这个程序""",
       """format generic.image""": """图像类""",
       """format generic.click_to_view_more""": """轻触查看更多信息""",
-      """single img job.canonical_name""": """单个图像""",
-      """single img job.description""": """把一个图像文件变成别的文件格式""",
-      """single img job.proper_description""": """XXXXX""",
       """builtin img processor.canonical_name""": """内置图像处理器""",
-      """builtin img processor.proper_description""": """XXXXX""",
+      """builtin img processor.proper_description""":
+          """用于处理图像文件，例如 PNG、JPEG 等。此处理器内置于悄悄转中。""",
+      """job style adverts.single_file_title""": """单个文件""",
+      """job style adverts.single_file_description""":
+          """这项工作提供了一种简单的方法，将单个文件从一种格式转换为另一种格式。如果您需要转换多个文件或监控文件夹，请寻找其他替代方法。""",
     };

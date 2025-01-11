@@ -4,10 +4,9 @@ import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/client/components/prefers.dart';
 import 'package:on_the_fly/client/logging_view.dart';
 import 'package:on_the_fly/core/core.dart';
-import 'package:on_the_fly/core/utils/strings.dart';
+import 'package:on_the_fly/core/job/job_base.dart';
 import 'package:on_the_fly/client/components/components.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
-import 'package:on_the_fly/client/events/job_stack.dart';
 import 'package:on_the_fly/client/right_menu_view.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
@@ -36,8 +35,6 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
   void initState() {
     super.initState();
     _listScrollController = ScrollController();
-    // _listScrollController.addListener(() => logger.info(
-    //     "ATTACHED=${_listScrollController.hasClients} ; OFFSET=${_listScrollController.offset}"));
   }
 
   @override
@@ -65,119 +62,34 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                 primary: false,
                 shrinkWrap: true,
                 children: <Widget>[
-                  for (JobDispatcher j in JobDispatcher.registeredJobDispatchers
-                      .values // auto loading of all the JobDispatcher that are registered from the JobDispatcher class
-                      .expand((List<JobDispatcher> e) => e))
+                  for (MapEntry<String, JobAdvert> advert
+                      in ConversionService.adverts.entries)
                     Padding(
-                      // title of the job dispatcher
+                      // this part was originally scraped from an older format-segregated approach
                       padding: const EdgeInsets.only(
                         left: kTotalAppMargin,
                       ),
                       child: InkWell(
                         onTap: () async {
-                          await showDialog(
-                              useSafeArea: false,
-                              context: context,
-                              builder: (BuildContext context) {
-                                int jobsDispatched = 0;
-                                for (dynamic jobs in GlobalJobStack().jobStack) {
-                                  if (j.dispatched(jobs)) {
-                                    jobsDispatched++;
-                                  }
-                                }
-                                return _JobDispatcherView(
-                                    j: j, jobsDispatched: jobsDispatched);
-                              });
+                          // TODO: implement this shit
                         },
                         child: ListTile(
                           contentPadding:
                               const EdgeInsets.only(left: 14, right: 14, top: 6),
-                          title: Row(
-                            children: <Widget>[
-                              Text(j.name),
-                              const SizedBox(width: 6),
-                              Container(
-                                  padding: const EdgeInsets.all(4),
-                                  margin: const EdgeInsets.all(2),
-                                  decoration: BoxDecoration(
-                                      color: kThemeCmpBg,
-                                      borderRadius: BorderRadius.circular(kRRArc)),
-                                  child: Text(j.formatMedium.mediumName.formalize,
-                                      style: const TextStyle(
-                                          fontSize: 12,
-                                          fontFamily: kDefaultFontFamily,
-                                          color: kTheme1)))
-                            ],
-                          ),
+                          title: Text(advert.value.title.value).gradientify(
+                              stops: const <double>[0.4, 0.5],
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight),
                           // description and like all of the "neat" details of the app such as the supported inputs and outputs formats
                           subtitle: Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(j.description),
-                                  const SizedBox(height: 2),
-                                  Text(
-                                      "\n${InternationalizationNotifier().i18n.formatGeneric.supported_inputs}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: kThemePrimaryFg1)),
-                                  const SizedBox(height: 4),
-                                  Wrap(
-                                      runAlignment: WrapAlignment.start,
-                                      crossAxisAlignment: WrapCrossAlignment.start,
-                                      children: <Widget>[
-                                        for (FileFormat t in j.formatMedium.inputFormats)
-                                          Container(
-                                              padding: const EdgeInsets.all(4),
-                                              margin: const EdgeInsets.all(2),
-                                              decoration: BoxDecoration(
-                                                  color: kThemeCmpBg,
-                                                  borderRadius:
-                                                      BorderRadius.circular(kRRArc)),
-                                              child: Text(t.canonicalName,
-                                                  style: const TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontFamily: kDefaultFontFamily,
-                                                      color: kTheme1))),
-                                      ]),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                      InternationalizationNotifier()
-                                          .i18n
-                                          .formatGeneric
-                                          .supported_outputs,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: kThemePrimaryFg1)),
-                                  const SizedBox(height: 4),
-                                  Wrap(
-                                      runAlignment: WrapAlignment.start,
-                                      crossAxisAlignment: WrapCrossAlignment.start,
-                                      children: <Widget>[
-                                        for (FileFormat t in j.formatMedium.outputFormats)
-                                          Container(
-                                              padding: const EdgeInsets.all(4),
-                                              margin: const EdgeInsets.all(2),
-                                              decoration: BoxDecoration(
-                                                  color: kThemeCmpBg,
-                                                  borderRadius:
-                                                      BorderRadius.circular(kRRArc)),
-                                              child: Text(t.canonicalName,
-                                                  style: const TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontFamily: kDefaultFontFamily,
-                                                      color: kTheme2))),
-                                      ]),
-                                ],
-                              ),
                               const SizedBox(height: 4),
+                              Text(advert.value.description.value,
+                                  style: const TextStyle(color: kThemePrimaryFg1)),
+                              const SizedBox(height: 10),
                               Text(
                                   Provider.of<InternationalizationNotifier>(context)
                                       .i18n
@@ -189,16 +101,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                               PrefersTextButtonIcon(
                                   onPressed: () async {
                                     if (mounted) {
-                                      // Provider.of<GlobalJobStack>(context,
-                                      //         listen: false)
-                                      //     .addJob(SingleImgJobDispatcher());
-                                      // await j.buildJobFormUI(context);
-                                      // debugSeek()["job_stack_sz"] =
-                                      //     Provider.of<GlobalJobStack>(context, listen: false)
-                                      //         .jobStack
-                                      //         .length;
-                                      Provider.of<GlobalJobStack>(context, listen: false)
-                                          .addJob(j.produceInitialJobInstance());
+                                      // TODO: implement this shit
                                     }
                                   }, // TODO: proper impl job selection
                                   style: Theme.of(context)
@@ -245,158 +148,6 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
     );
   }
 }
-
-class _JobDispatcherView extends StatelessWidget {
-  const _JobDispatcherView({
-    required this.j,
-    required this.jobsDispatched,
-  });
-
-  final JobDispatcher j;
-  final int jobsDispatched;
-
-  @override
-  Widget build(BuildContext context) {
-    return ImportanceDialog(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize
-          .min, // makes sure we dont talk up max vertical space for this dialog
-      children: <Widget>[
-        SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-                  const Icon(Ionicons.bag_outline, color: kTheme1),
-                  const SizedBox(width: 4),
-                  Text.rich(TextSpan(
-                      text: j.name,
-                      style: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold, color: kTheme1),
-                      children: <InlineSpan>[
-                        TextSpan(
-                            text:
-                                " ${Provider.of<InternationalizationNotifier>(context).i18n.canonicalBits.job_dispatcher_formal}",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.normal, color: kTheme2))
-                      ])),
-                ]),
-                Text.rich(TextSpan(
-                    text: "ID: ",
-                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                    children: <InlineSpan>[
-                      TextSpan(
-                          text: j.id.toString(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.normal, fontFamily: "Monospaced")),
-                    ])),
-                const SizedBox(height: 12),
-                const Divider(color: kThemePrimaryFg1),
-                const SizedBox(height: 12),
-                Text.rich(TextSpan(
-                    text: Provider.of<InternationalizationNotifier>(context)
-                        .i18n
-                        .appGenerics
-                        .description,
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                    children: <InlineSpan>[
-                      TextSpan(
-                          text: "\n${j.properDescription}",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.normal, color: kThemePrimaryFg1))
-                    ])),
-                const SizedBox(height: 8),
-                Text.rich(TextSpan(
-                    text: Provider.of<InternationalizationNotifier>(context)
-                        .i18n
-                        .appGenerics
-                        .supported_input_file_extensions,
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                    children: <InlineSpan>[
-                      TextSpan(
-                          text: "\n${j.formatMedium.prettyifyInputFormats}",
-                          style: const TextStyle(
-                              fontFamily: "Monospace",
-                              fontWeight: FontWeight.normal,
-                              color: kThemePrimaryFg1))
-                    ])),
-                const SizedBox(height: 8),
-                Text.rich(TextSpan(
-                    text: Provider.of<InternationalizationNotifier>(context)
-                        .i18n
-                        .appGenerics
-                        .supported_output_file_extensions,
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                    children: <InlineSpan>[
-                      TextSpan(
-                          text: "\n${j.formatMedium.prettifyOutputFormats}",
-                          style: const TextStyle(
-                              fontFamily: "Monospace",
-                              fontWeight: FontWeight.normal,
-                              color: kThemePrimaryFg1))
-                    ])),
-                const SizedBox(height: 8),
-                Text.rich(TextSpan(
-                    text: Provider.of<InternationalizationNotifier>(context)
-                        .i18n
-                        .appGenerics
-                        .dispatched_amount,
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                    children: <InlineSpan>[
-                      TextSpan(
-                          text: "\n$jobsDispatched",
-                          style: const TextStyle(
-                              fontFamily: "Monospace",
-                              fontWeight: FontWeight.normal,
-                              color: kThemePrimaryFg1))
-                    ])),
-                const SizedBox(height: 8),
-                Text.rich(TextSpan(
-                    text:
-                        "${Provider.of<InternationalizationNotifier>(context).i18n.appGenerics.processor}\n",
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                    children: <InlineSpan>[
-                      const WidgetSpan(child: Icon(Icons.memory_rounded, size: 16)),
-                      TextSpan(
-                          text: " ${j.routineProcessor}#${j.routineProcessor.hashCode}",
-                          style: const TextStyle(
-                              fontFamily: "Monospace",
-                              fontWeight: FontWeight.normal,
-                              color: kThemePrimaryFg1))
-                    ])),
-              ]),
-        ),
-      ],
-    ));
-  }
-}
-
-// class _MouseDodgeHover extends StatelessWidget {
-//   final Widget child;
-
-//   const _MouseDodgeHover({required this.child});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return RepaintBoundary(
-//         child: Tilt(
-//       lightConfig: const LightConfig(disable: true),
-//       shadowConfig: const ShadowConfig(disable: true),
-//       tiltConfig: const TiltConfig(
-//           angle: 2.8,
-//           moveCurve: Curves.ease,
-//           leaveCurve: Curves.easeInOut,
-//           enableRevert: true,
-//           enableReverse: true),
-//       child: child,
-//     ));
-//   }
-// }
 
 /// describes the drawer header graphic bit
 class CanonicalAdvert extends StatefulWidget {
@@ -467,34 +218,7 @@ class _CanonicalAdvertState extends State<CanonicalAdvert> {
                     ],
                   ),
                 )),
-          ]
-              // ], inner: <Widget>[
-              //   Positioned(
-              //       // left and top parameters are derived from DrawerHeader's padding default edgeinsets parameter
-              //       //
-              //       // another thing for these parameters is that if you want initial dropshadows, adjust them with
-              //       // additional offsets
-              //       //
-              //       // to simply just overlay them on the original text without initial dropshadows
-              //       // use "16+kTotalAppMargin"
-              //       left: 16 + kTotalAppMargin,
-              //       top: 16,
-              //       child: TiltParallax(
-              //         size: const Offset(2, 2),
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.start,
-              //           children: <Widget>[
-              //             Text(InternationalizationNotifier().i18n.appGenerics.canonical_title,
-              //                 style: const TextStyle(
-              //                     // fontsize can be out of sync with the bottom layer to add some parallax
-              //                     fontSize: 28,
-              //                     color: kThemeBg,
-              //                     fontWeight: FontWeight.bold)),
-              //           ],
-              //         ),
-              //       )),
-              // ]
-              ),
+          ]),
           child: DrawerHeader(
               margin: const EdgeInsets.only(
                   left: kTotalAppMargin, bottom: 8, top: kTotalAppMargin),
