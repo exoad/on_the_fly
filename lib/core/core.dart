@@ -3,7 +3,6 @@ import 'package:on_the_fly/helpers/i18n.dart';
 
 export "e_files.dart";
 export "jobs.dart";
-export "output_builder.dart";
 export "folder_watchdog.dart";
 
 class ConversionService {
@@ -12,6 +11,12 @@ class ConversionService {
   static final Map<String, JobAdvert> adverts = <String, JobAdvert>{
     "net.exoad.single_file": JobAdvert(
         title: LocaleProducer.key("job style adverts.single_file_title"),
-        description: LocaleProducer.key("job style adverts.single_file_description"))
+        description: LocaleProducer.key("job style adverts.single_file_description")),
+    "net.exoad.multiple_files": JobAdvert(
+        title: LocaleProducer.key("job style adverts.multiple_files_title"),
+        description: LocaleProducer.key("job style adverts.multiple_files_description")),
+    "net.exoad.watch_folder": JobAdvert(
+        title: LocaleProducer.key("job style adverts.watch_folder_title"),
+        description: LocaleProducer.key("job style adverts.watch_folder_description")),
   };
 }

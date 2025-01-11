@@ -1,8 +1,6 @@
 // import 'package:on_the_fly/frontend/events/ephemeral_stacks.dart';
 import 'package:flutter/material.dart';
 import 'package:objectid/objectid.dart';
-import 'package:on_the_fly/core/core.dart';
-import 'package:on_the_fly/core/utils/result.dart';
 import 'package:on_the_fly/client/components/components.dart';
 import 'package:on_the_fly/client/events/job_stack.dart';
 import 'package:on_the_fly/shared/app.dart';

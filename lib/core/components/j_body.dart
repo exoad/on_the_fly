@@ -6,8 +6,6 @@ import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
 
-// import 'package:on_the_fly/shared/theme.dart';
-
 class JobBody extends StatefulWidget {
   final List<Widget> children;
   final void Function() onRemoveJob;
@@ -40,10 +38,6 @@ class _JobBodyState extends State<JobBody> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               ...widget.children,
-              //     Padding(
-              //       padding: const EdgeInsets.symmetric(vertical: 8),
-              //       child: Divider(color: kThemePrimaryFg2.withAlpha(120), thickness: 1.0),
-              //     ),
               const SizedBox(height: 21),
               Row(
                   spacing: kTotalAppMargin * 2,

@@ -394,15 +394,39 @@ class JobStyleAdvertsTranslationsZh extends JobStyleAdvertsTranslations {
   const JobStyleAdvertsTranslationsZh(this._parent) : super(_parent);
 
   /// ```dart
+  /// "点击查看更多操作"
+  /// ```
+  String get adverts_click_for_more_actions => """点击查看更多操作""";
+
+  /// ```dart
   /// "单个文件"
   /// ```
   String get single_file_title => """单个文件""";
 
   /// ```dart
-  /// "这项工作提供了一种简单的方法，将单个文件从一种格式转换为另一种格式。如果您需要转换多个文件或监控文件夹，请寻找其他替代方法。"
+  /// "将一个文件从一种格式转换为另一种格式。"
   /// ```
-  String get single_file_description =>
-      """这项工作提供了一种简单的方法，将单个文件从一种格式转换为另一种格式。如果您需要转换多个文件或监控文件夹，请寻找其他替代方法。""";
+  String get single_file_description => """将一个文件从一种格式转换为另一种格式。""";
+
+  /// ```dart
+  /// "多个文件"
+  /// ```
+  String get multiple_files_title => """多个文件""";
+
+  /// ```dart
+  /// "将多个相同格式的文件转换为另一种文件格式。"
+  /// ```
+  String get multiple_files_description => """将多个相同格式的文件转换为另一种文件格式。""";
+
+  /// ```dart
+  /// "文件夹监视"
+  /// ```
+  String get watch_folder_title => """文件夹监视""";
+
+  /// ```dart
+  /// "自动将文件夹内特定格式的文件转换为另一种格式。"
+  /// ```
+  String get watch_folder_description => """自动将文件夹内特定格式的文件转换为另一种格式。""";
 }
 
 Map<String, String> get translationsZhMap => {
@@ -459,7 +483,14 @@ Map<String, String> get translationsZhMap => {
       """builtin img processor.canonical_name""": """内置图像处理器""",
       """builtin img processor.proper_description""":
           """用于处理图像文件，例如 PNG、JPEG 等。此处理器内置于悄悄转中。""",
+      """job style adverts.adverts_click_for_more_actions""": """点击查看更多操作""",
       """job style adverts.single_file_title""": """单个文件""",
       """job style adverts.single_file_description""":
-          """这项工作提供了一种简单的方法，将单个文件从一种格式转换为另一种格式。如果您需要转换多个文件或监控文件夹，请寻找其他替代方法。""",
+          """将一个文件从一种格式转换为另一种格式。""",
+      """job style adverts.multiple_files_title""": """多个文件""",
+      """job style adverts.multiple_files_description""":
+          """将多个相同格式的文件转换为另一种文件格式。""",
+      """job style adverts.watch_folder_title""": """文件夹监视""",
+      """job style adverts.watch_folder_description""":
+          """自动将文件夹内特定格式的文件转换为另一种格式。""",
     };

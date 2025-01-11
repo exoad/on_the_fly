@@ -26,7 +26,7 @@ class Margin extends StatelessWidget {
 extension Gradientify on Widget {
   Widget gradientify(
       {List<Color>? colors,
-      required List<double> stops,
+      List<double>? stops,
       required Alignment begin,
       required Alignment end,
       TextStyle? style}) {
@@ -38,7 +38,6 @@ extension Gradientify on Widget {
         child: this);
   }
 }
-
 
 class ColoredRRect extends StatelessWidget {
   final double radius;

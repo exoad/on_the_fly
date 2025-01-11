@@ -64,5 +64,10 @@ builtin img processor:
   canonical_name: 内置图像处理器
   proper_description: 用于处理图像文件，例如 PNG、JPEG 等。此处理器内置于悄悄转中。
 job style adverts:
+  adverts_click_for_more_actions: 点击查看更多操作
   single_file_title: 单个文件
-  single_file_description: 这项工作提供了一种简单的方法，将单个文件从一种格式转换为另一种格式。如果您需要转换多个文件或监控文件夹，请寻找其他替代方法。
+  single_file_description: 将一个文件从一种格式转换为另一种格式。
+  multiple_files_title: 多个文件
+  multiple_files_description: 将多个相同格式的文件转换为另一种文件格式。
+  watch_folder_title: 文件夹监视
+  watch_folder_description: 自动将文件夹内特定格式的文件转换为另一种格式。

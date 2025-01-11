@@ -395,15 +395,42 @@ class JobStyleAdvertsTranslations {
   const JobStyleAdvertsTranslations(this._parent);
 
   /// ```dart
+  /// "Click for more actions"
+  /// ```
+  String get adverts_click_for_more_actions => """Click for more actions""";
+
+  /// ```dart
   /// "Single File"
   /// ```
   String get single_file_title => """Single File""";
 
   /// ```dart
-  /// "This job is a simple way to provide a simple way to convert just one file from one format to another format. If you want to convert multiple files or watch a folder, you should seek for alternative methods."
+  /// "Convert one file from one format to another format."
   /// ```
   String get single_file_description =>
-      """This job is a simple way to provide a simple way to convert just one file from one format to another format. If you want to convert multiple files or watch a folder, you should seek for alternative methods.""";
+      """Convert one file from one format to another format.""";
+
+  /// ```dart
+  /// "Multiple Files"
+  /// ```
+  String get multiple_files_title => """Multiple Files""";
+
+  /// ```dart
+  /// "Convert multiple files of the same format medium to another file format"
+  /// ```
+  String get multiple_files_description =>
+      """Convert multiple files of the same format medium to another file format""";
+
+  /// ```dart
+  /// "Watch Folder"
+  /// ```
+  String get watch_folder_title => """Watch Folder""";
+
+  /// ```dart
+  /// "Automatically convert files with specific formats to another format within a folder."
+  /// ```
+  String get watch_folder_description =>
+      """Automatically convert files with specific formats to another format within a folder.""";
 }
 
 Map<String, String> get translationsMap => {
@@ -463,7 +490,15 @@ Map<String, String> get translationsMap => {
       """builtin img processor.canonical_name""": """Builtin Image Processor""",
       """builtin img processor.proper_description""":
           """Used for processing image files such as PNG, JPEG, etc.. This processor is builtin to OnTheFly""",
+      """job style adverts.adverts_click_for_more_actions""":
+          """Click for more actions""",
       """job style adverts.single_file_title""": """Single File""",
       """job style adverts.single_file_description""":
-          """This job is a simple way to provide a simple way to convert just one file from one format to another format. If you want to convert multiple files or watch a folder, you should seek for alternative methods.""",
+          """Convert one file from one format to another format.""",
+      """job style adverts.multiple_files_title""": """Multiple Files""",
+      """job style adverts.multiple_files_description""":
+          """Convert multiple files of the same format medium to another file format""",
+      """job style adverts.watch_folder_title""": """Watch Folder""",
+      """job style adverts.watch_folder_description""":
+          """Automatically convert files with specific formats to another format within a folder.""",
     };

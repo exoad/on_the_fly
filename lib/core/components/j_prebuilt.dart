@@ -30,7 +30,6 @@ final class FilePathValidators {
 
 class JobSinglePathPickerActionable extends StatefulWidget {
   final void Function(String str) onChanged;
-  // final Future<String?> Function(String? str) validator;
   final FormatMedium formatMedium;
   final String filePickerLabel;
   final String hintLabel;
@@ -43,7 +42,6 @@ class JobSinglePathPickerActionable extends StatefulWidget {
     required this.formatMedium,
     required this.onChanged,
     required this.allowedExtensions,
-    // required this.validator,
     required this.filePickerLabel,
     this.hintLabel = ".../users/downloads/...",
   });
@@ -71,26 +69,7 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
 
   @override
   Widget build(BuildContext context) {
-    return
-        // ExpansionTile(
-        //     visualDensity: VisualDensity.compact,
-        //     enableFeedback: false,
-        //     showTrailingIcon: true,
-        //     title: Text(widget.canonicalLabel,
-        //         style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 18)),
-        //     subtitle: Text(
-        //         isPathContentEmpty
-        //             ? Provider.of<InternationalizationNotifier>(context, listen: false)
-        //                 .i18n
-        //                 .appGenerics
-        //                 .empty
-        //             : _pathContent,
-        //         style: TextStyle(
-        //             fontSize: 12,
-        //             fontWeight: isPathContentEmpty ? FontWeight.w500 : FontWeight.normal,
-        //             color: isPathContentEmpty ? kThemeNeedAction : kThemePrimaryFg2)),
-        //     children: <Widget>[
-        IntrinsicHeight(
+    return IntrinsicHeight(
       child: AsyncTextFormField(
         validationDebounce: const Duration(milliseconds: 120),
         controller: _textEditingController,
@@ -153,8 +132,6 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
         },
       ),
     );
-
-    // ]);
   }
 }
 

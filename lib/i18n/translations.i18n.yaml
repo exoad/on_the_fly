@@ -64,5 +64,10 @@ builtin img processor:
   canonical_name: Builtin Image Processor
   proper_description: Used for processing image files such as PNG, JPEG, etc.. This processor is builtin to OnTheFly
 job style adverts:
+  adverts_click_for_more_actions: Click for more actions
   single_file_title: Single File
-  single_file_description: This job is a simple way to provide a simple way to convert just one file from one format to another format. If you want to convert multiple files or watch a folder, you should seek for alternative methods.
+  single_file_description: Convert one file from one format to another format.
+  multiple_files_title: Multiple Files
+  multiple_files_description: Convert multiple files of the same format medium to another file format
+  watch_folder_title: Watch Folder
+  watch_folder_description: Automatically convert files with specific formats to another format within a folder.

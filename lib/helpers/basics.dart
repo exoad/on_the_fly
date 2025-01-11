@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:on_the_fly/shared/app.dart';
 
 void IGNORE_INVOKE() {}
 
@@ -41,4 +42,21 @@ extension MMap<K, V> on Map<K, V> {
     }
     return function();
   }
+}
+
+List<Alignment> get alignmentValues => const <Alignment>[
+      Alignment.topRight,
+      Alignment.topLeft,
+      Alignment.topCenter,
+      Alignment.bottomCenter,
+      Alignment.bottomLeft,
+      Alignment.bottomRight,
+      Alignment.center,
+      Alignment.centerLeft,
+      Alignment.centerRight
+    ];
+
+extension LList<T> on List<T> {
+  /// caution: dont run this on an empty list !!! O_O
+  T pickRandom() => this[random.nextInt(length)];
 }
