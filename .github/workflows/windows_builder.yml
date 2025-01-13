@@ -31,8 +31,9 @@ jobs:
       - run: flutter --version
       - run: flutter config --enable-windows-desktop
       - run: flutter pub get
-      - run: flutter build windows
+      - run: dart run build_runner build # this is just a simple check for the i18n stuffs
+      - run: flutter build windows --release
       - uses: actions/upload-artifact@v4
         with:
-          name: Windows_Artifact
+          name: OnTheFly_Windows_x64
           path: ./build/windows
