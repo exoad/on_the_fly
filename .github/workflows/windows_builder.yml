@@ -31,7 +31,7 @@ jobs:
       - run: flutter --version
       - run: flutter config --enable-windows-desktop
       - run: flutter pub get
-      - run: dart run build_runner build # this is just a simple check for the i18n stuffs
+      - run: dart run build_runner build --delete-conflicting-outputs # this is just a simple check for the i18n stuffs
       - run: flutter build windows --release
       - uses: actions/upload-artifact@v4
         with:
