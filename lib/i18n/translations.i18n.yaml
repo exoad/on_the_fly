@@ -17,6 +17,7 @@ app generics:
   third_parties: Third party licenses
   author_name: Jiaming Meng (Jack/exoad)
   close: Close
+  add_this: Add
   folder: Folder
   browse: Browse
   empty: Empty
@@ -53,7 +54,6 @@ format generic:
   output_format: Output format
   input_file_path: Input file path
   output_builder: Output builder
-  push_job: Add this job
   image: Images
   click_to_view_more: Click for more info
 builtin img processor:

@@ -179,6 +179,11 @@ class AppGenericsTranslations {
   String get close => """Close""";
 
   /// ```dart
+  /// "Add"
+  /// ```
+  String get add_this => """Add""";
+
+  /// ```dart
   /// "Folder"
   /// ```
   String get folder => """Folder""";
@@ -359,11 +364,6 @@ class FormatGenericTranslations {
   String get output_builder => """Output builder""";
 
   /// ```dart
-  /// "Add this job"
-  /// ```
-  String get push_job => """Add this job""";
-
-  /// ```dart
   /// "Images"
   /// ```
   String get image => """Images""";
@@ -454,6 +454,7 @@ Map<String, String> get translationsMap => {
       """app generics.third_parties""": """Third party licenses""",
       """app generics.author_name""": """Jiaming Meng (Jack/exoad)""",
       """app generics.close""": """Close""",
+      """app generics.add_this""": """Add""",
       """app generics.folder""": """Folder""",
       """app generics.browse""": """Browse""",
       """app generics.empty""": """Empty""",
@@ -484,7 +485,6 @@ Map<String, String> get translationsMap => {
       """format generic.output_format""": """Output format""",
       """format generic.input_file_path""": """Input file path""",
       """format generic.output_builder""": """Output builder""",
-      """format generic.push_job""": """Add this job""",
       """format generic.image""": """Images""",
       """format generic.click_to_view_more""": """Click for more info""",
       """builtin img processor.canonical_name""": """Builtin Image Processor""",

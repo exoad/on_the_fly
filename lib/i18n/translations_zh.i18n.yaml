@@ -17,6 +17,7 @@ app generics:
   third_parties: 第三方许可证
   author_name: 孟嘉明 (Jack/exoad)
   close: 关闭
+  add_this: 加上
   folder: 文件夹
   browse: 浏览
   empty: 空
@@ -53,7 +54,6 @@ format generic:
   output_format: 输出格式
   input_file_path: 输入格式
   output_builder: 输出生成器
-  push_job: 添加这个程序
   image: 图像类
   click_to_view_more: 轻触查看更多信息
 builtin img processor:

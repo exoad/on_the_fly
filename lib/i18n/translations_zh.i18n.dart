@@ -178,6 +178,11 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   String get close => """关闭""";
 
   /// ```dart
+  /// "加上"
+  /// ```
+  String get add_this => """加上""";
+
+  /// ```dart
   /// "文件夹"
   /// ```
   String get folder => """文件夹""";
@@ -358,11 +363,6 @@ class FormatGenericTranslationsZh extends FormatGenericTranslations {
   String get output_builder => """输出生成器""";
 
   /// ```dart
-  /// "添加这个程序"
-  /// ```
-  String get push_job => """添加这个程序""";
-
-  /// ```dart
   /// "图像类"
   /// ```
   String get image => """图像类""";
@@ -448,6 +448,7 @@ Map<String, String> get translationsZhMap => {
       """app generics.third_parties""": """第三方许可证""",
       """app generics.author_name""": """孟嘉明 (Jack/exoad)""",
       """app generics.close""": """关闭""",
+      """app generics.add_this""": """加上""",
       """app generics.folder""": """文件夹""",
       """app generics.browse""": """浏览""",
       """app generics.empty""": """空""",
@@ -477,7 +478,6 @@ Map<String, String> get translationsZhMap => {
       """format generic.output_format""": """输出格式""",
       """format generic.input_file_path""": """输入格式""",
       """format generic.output_builder""": """输出生成器""",
-      """format generic.push_job""": """添加这个程序""",
       """format generic.image""": """图像类""",
       """format generic.click_to_view_more""": """轻触查看更多信息""",
       """builtin img processor.canonical_name""": """内置图像处理器""",

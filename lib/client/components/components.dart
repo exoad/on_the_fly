@@ -28,8 +28,7 @@ extension Gradientify on Widget {
       {List<Color>? colors,
       List<double>? stops,
       required Alignment begin,
-      required Alignment end,
-      TextStyle? style}) {
+      required Alignment end}) {
     colors ??= <Color>[kTheme1, kTheme2]..shuffle();
     return ShaderMask(
         shaderCallback: (Rect rect) =>
