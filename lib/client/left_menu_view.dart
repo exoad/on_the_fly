@@ -30,11 +30,13 @@ class AppLeftMenuView extends StatefulWidget {
 
 class _AppLeftMenuViewState extends State<AppLeftMenuView> {
   late ScrollController _listScrollController;
+  late bool _expandAllAdverts;
 
   @override
   void initState() {
     super.initState();
     _listScrollController = ScrollController();
+    _expandAllAdverts = false;
   }
 
   @override
@@ -56,6 +58,37 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                 .fadeIn(
                     duration: const Duration(milliseconds: 670),
                     curve: Curves.easeInOut), // end of branding section
+            // section: the controller buttons for the list
+            Padding(
+              padding: const EdgeInsets.only(left: kTotalAppMargin, top: 6, bottom: 6),
+              child: Row(children: <Widget>[
+                Expanded(
+                  child: PrefersTextButtonIcon(
+                      style: Theme.of(context).textButtonTheme.style!.copyWith(
+                          backgroundColor: const WidgetStatePropertyAll<Color>(kTheme2)),
+                      label: _expandAllAdverts
+                          ? const Text("Collapse All")
+                          : const Text("Expand All"),
+                      icon: _expandAllAdverts
+                          ? const Icon(Ionicons.arrow_up)
+                          : const Icon(Ionicons.arrow_down)),
+                ),
+                const SizedBox(width: kTotalAppMargin),
+                const Expanded(
+                  child: PrefersTextButtonIcon(
+                      label: Text("Refresh"), icon: Icon(Ionicons.refresh)),
+                )
+              ]),
+            ),
+            // const Padding(
+            //   padding: EdgeInsets.only(left: kTotalAppMargin, bottom: kTotalAppMargin),
+            //   child: IntrinsicHeight(
+            //       child: Divider(
+            //     color: kThemePrimaryFg2,
+            //     thickness: 1,
+            //   )),
+            // ),
+            // section: all the adverts proceeding
             Expanded(
               child: ListView(
                 physics:
@@ -66,7 +99,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                 children: <Widget>[
                   for (MapEntry<String, JobAdvert> advert
                       in ConversionService.adverts.entries)
-                    _AdvertCard(advert: advert, mounted: mounted)
+                    _AdvertCard(advert: advert)
                         .animate(delay: const Duration(milliseconds: 400))
                         .moveY(
                             begin:
@@ -88,22 +121,22 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
 }
 
 class _AdvertCard extends StatefulWidget {
-  const _AdvertCard({
-    required this.advert,
-    required this.mounted,
-  });
-
   final MapEntry<String, JobAdvert> advert;
-  final bool mounted;
+  final bool initExpanded;
+  const _AdvertCard({required this.advert, this.initExpanded = false});
 
   @override
   State<_AdvertCard> createState() => _AdvertCardState();
 }
 
 class _AdvertCardState extends State<_AdvertCard> {
-  bool _expanded;
+  late bool _expanded;
 
-  _AdvertCardState() : _expanded = false;
+  @override
+  void initState() {
+    super.initState();
+    _expanded = widget.initExpanded;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,9 +148,25 @@ class _AdvertCardState extends State<_AdvertCard> {
             colors: <Color>[kTheme1, kTheme2],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight);
+    Widget addWidget = PrefersTextButtonIcon(
+        onPressed: () async {
+          if (mounted) {
+            // TODO: implement this shit
+          }
+        }, // TODO: proper impl job selection
+        style: Theme.of(context)
+            .textButtonTheme
+            .style!
+            .copyWith(backgroundColor: const WidgetStatePropertyAll<Color>(kTheme1)),
+        label: Text(InternationalizationNotifier().i18n.appGenerics.add_this,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+        icon: const Icon(
+          Ionicons.add,
+        ));
     return Padding(
       // this part was originally scraped from an older format-segregated approach
-      padding: const EdgeInsets.only(left: kTotalAppMargin, top: kTotalAppMargin * 2),
+      padding: const EdgeInsets.only(
+          left: kTotalAppMargin, top: kTotalAppMargin, bottom: kTotalAppMargin),
       child: GestureDetector(
         onTap: () {
           //? we will add more stuffs here later on
@@ -149,47 +198,79 @@ class _AdvertCardState extends State<_AdvertCard> {
                           const SizedBox(height: 4),
                           Text(widget.advert.value.description.value,
                               style: const TextStyle(color: kThemePrimaryFg1)),
-                          const SizedBox(height: 10),
-                          Text(
+                          const SizedBox(height: 16),
+                          addWidget
+                        ],
+                      )
+                    : _MinimalAdvert(titleWidget: titleWidget, addWidget: addWidget)),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MinimalAdvert extends StatefulWidget {
+  const _MinimalAdvert({
+    required this.titleWidget,
+    required this.addWidget,
+  });
+
+  final Widget titleWidget;
+  final Widget addWidget;
+
+  @override
+  State<_MinimalAdvert> createState() => _MinimalAdvertState();
+}
+
+class _MinimalAdvertState extends State<_MinimalAdvert> {
+  bool _showHint;
+
+  _MinimalAdvertState() : _showHint = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _showHint = true),
+      onExit: (_) => setState(() => _showHint = false),
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  widget.titleWidget,
+                  AnimatedSwitcher(
+                      //* this animation here is still a bit rough when the hint spawns and despawns
+                      //* we could for another approach such as a tooltip or just try to fix this
+                      switchInCurve: Curves.easeInOut,
+                      switchOutCurve: Curves.easeOutQuad,
+                      duration: const Duration(milliseconds: 330),
+                      reverseDuration: const Duration(milliseconds: 280),
+                      transitionBuilder: (Widget child, Animation<double> animation) =>
+                          SlideTransition(
+                            position: animation.drive(Tween<Offset>(
+                                begin: Offset.zero, end: const Offset(0, 0.1))),
+                            child: FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            ),
+                          ),
+                      child: _showHint
+                          ? Text(
                               Provider.of<InternationalizationNotifier>(context)
                                   .i18n
                                   .jobStyleAdverts
                                   .adverts_click_for_more_actions,
                               style:
-                                  const TextStyle(fontSize: 12, color: kThemePrimaryFg2)),
-                          const SizedBox(height: 8),
-                          PrefersTextButtonIcon(
-                              onPressed: () async {
-                                if (widget.mounted) {
-                                  // TODO: implement this shit
-                                }
-                              }, // TODO: proper impl job selection
-                              style: Theme.of(context).textButtonTheme.style!.copyWith(
-                                  backgroundColor:
-                                      const WidgetStatePropertyAll<Color>(kTheme1)),
-                              label: Text(
-                                  InternationalizationNotifier()
-                                      .i18n
-                                      .appGenerics
-                                      .add_this,
-                                  style: const TextStyle(
-                                      fontSize: 14, fontWeight: FontWeight.w500)),
-                              icon: const Icon(
-                                Ionicons.add,
-                              )),
-                        ],
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                            titleWidget,
-                            const Spacer(),
-                            const ClipRRect(child: ColoredBox(color: kTheme1))
-                          ])),
-          ),
-        ),
-      ),
+                                  const TextStyle(fontSize: 12, color: kThemePrimaryFg2))
+                          : const SizedBox())
+                ]),
+            const Spacer(),
+            widget.addWidget
+          ]),
     );
   }
 }
