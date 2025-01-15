@@ -27,6 +27,7 @@ class InternationalizationNotifier extends ChangeNotifier {
       (String r) when r.startsWith("zh") => translationsZhMap,
       _ => translationsMap, // default and unsupported
     };
+    logger.finer("LocaleMap sets to $localeMap");
     return switch (localeName) {
       (String r) when r.startsWith("zh") => const TranslationsZh(),
       _ => const Translations(), // default and unsupported

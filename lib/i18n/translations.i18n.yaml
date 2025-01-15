@@ -67,3 +67,4 @@ job style adverts:
   multiple_files_description: Convert multiple files of the same format medium to another file format
   watch_folder_title: Watch Folder
   watch_folder_description: Automatically convert files with specific formats to another format within a folder.
+  supported_format_mediums: Supported File Types

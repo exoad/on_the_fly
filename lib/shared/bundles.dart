@@ -78,3 +78,5 @@ final class PublicBundle {
   static bool get preferDenseActionables => _values.getOrDefault("PreferDenseActionables",
       Bundles.parseBool("//RootBundle//Public//PreferDenseActionables") ?? false);
 }
+
+// yea the names here are quite sus, but they make sense tho in terms of terminology

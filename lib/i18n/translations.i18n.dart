@@ -431,6 +431,11 @@ class JobStyleAdvertsTranslations {
   /// ```
   String get watch_folder_description =>
       """Automatically convert files with specific formats to another format within a folder.""";
+
+  /// ```dart
+  /// "Supported File Types"
+  /// ```
+  String get supported_format_mediums => """Supported File Types""";
 }
 
 Map<String, String> get translationsMap => {
@@ -501,4 +506,6 @@ Map<String, String> get translationsMap => {
       """job style adverts.watch_folder_title""": """Watch Folder""",
       """job style adverts.watch_folder_description""":
           """Automatically convert files with specific formats to another format within a folder.""",
+      """job style adverts.supported_format_mediums""":
+          """Supported File Types""",
     };

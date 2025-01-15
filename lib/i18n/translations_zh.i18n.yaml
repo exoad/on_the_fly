@@ -67,3 +67,4 @@ job style adverts:
   multiple_files_description: 将多个相同格式的文件转换为另一种文件格式。
   watch_folder_title: 文件夹监视
   watch_folder_description: 自动将文件夹内特定格式的文件转换为另一种格式。
+  supported_format_mediums: 支持的文件类型

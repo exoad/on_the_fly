@@ -108,8 +108,8 @@ class ImportanceDialog extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border.all(color: kThemePrimaryFg1),
                         borderRadius: BorderRadius.circular(kRRArc)),
-                    height: MediaQuery.sizeOf(context).height * 0.84,
-                    width: MediaQuery.sizeOf(context).width * 0.8,
+                    height: MediaQuery.sizeOf(context).height * 0.88,
+                    width: MediaQuery.sizeOf(context).width * 0.92,
                     child: Padding(
                             padding: const EdgeInsets.all(kTotalAppMargin),
                             child: Stack(

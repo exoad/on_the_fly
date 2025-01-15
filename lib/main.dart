@@ -31,23 +31,18 @@ void main() {
     initConsts().then((_) async {
       // i know i prob shldnt have "unit tests" in production level code LOL
       if (kRunTests) {
+        logger.warning("Running internal tests !");
         __tests();
       }
       logger.info("kShowDebugView=$kShowDebugView");
-
-      logger.info("Registered jobs: ${JobDispatcher.registeredJobDispatchers}");
-      // lets do a sanity check for all of the registered jobs just in case
-      for (MapEntry<Type, Iterable<JobDispatcher>> entry
-          in JobDispatcher.getJobsByMediumMap.entries) {
-        logger.info("Jobs for medium ${entry.key}: ${entry.value.length}");
-      }
       // debugRepaintRainbowEnabled = true;
-      for (int i = 0; i < 2; i++) {
-        LoaderHandlerView.loads["TestDelay$i"] =
-            () => Future<void>.delayed(const Duration(milliseconds: 400));
-      }
+      // for (int i = 0; i < 2; i++) {
+      //   LoaderHandlerView.loads["TestDelay$i"] =
+      //       () => Future<void>.delayed(const Duration(milliseconds: 400));
+      // }
       LoaderHandlerView.loads["Load all asset bundles"] = Bundles.loadAllBundles;
       LoaderHandlerView.loads["Parse configurations"] = PublicBundle.parseConfigurations;
+      LoaderHandlerView.loads["Initialize convertor"] = ConversionService.init;
       LoaderHandlerView.loads["WinMan Module Load"] = () {
         if (PublicBundle.isInitialFocused) {
           WinMan.I.requestFocus();
@@ -58,7 +53,7 @@ void main() {
         onDone: () async {
           String? initWinState = PublicBundle.initialWindowState;
           doWhenWindowReady(() async {
-            logger.info("initWinState=$initWinState");
+            logger.fine("initWinState=$initWinState");
             if (initWinState == null || initWinState == "gui") {
               appWindow.show();
               WinMan.I.setTitle(

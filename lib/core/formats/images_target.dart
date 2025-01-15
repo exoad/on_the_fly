@@ -1,8 +1,5 @@
-
-import 'package:flutter/material.dart';
 import 'package:on_the_fly/core/core.dart';
-import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
-
+import 'package:on_the_fly/helpers/i18n.dart';
 
 /// represents the builtin image formats supported by on the fly
 ///
@@ -10,10 +7,9 @@ import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 final class ImageMedium extends FormatMedium {
   static final ImageMedium I = ImageMedium._();
 
-  @protected
   ImageMedium._()
       : super(
-            mediumName: InternationalizationNotifier().i18n.formatGeneric.image,
+            mediumName: LocaleProducer.key("format generic.image"),
             formats: <String, FileFormat>{
               "webp": const FileFormat(
                   canonicalName: "WebP",

@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:on_the_fly/helpers/i18n.dart';
 import 'package:on_the_fly/shared/app.dart';
 
 /// describes a single instance of a file format, for example, the WAV audio format
@@ -33,7 +34,7 @@ class FileFormat {
 /// a format medium describes a group of file formats that are related to each other, for example
 /// [ImageMedium] hosts all of the file formats that represent general (bitmap) based images.
 class FormatMedium {
-  final String mediumName;
+  final LocaleProducer mediumName;
   final Map<String, FileFormat> _formats;
   final List<FileFormat> _inputTypes;
   final List<FileFormat> _outputTypes;
@@ -121,4 +122,5 @@ class FormatMedium {
     }
     return buffer.toString();
   }
+
 }

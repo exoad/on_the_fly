@@ -8,6 +8,7 @@ import 'package:on_the_fly/core/job/job_base.dart';
 import 'package:on_the_fly/client/components/components.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/client/right_menu_view.dart';
+import 'package:on_the_fly/helpers/basics.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
@@ -63,20 +64,24 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
               padding: const EdgeInsets.only(left: kTotalAppMargin, top: 6, bottom: 6),
               child: Row(children: <Widget>[
                 Expanded(
-                  child: PrefersTextButtonIcon(
-                      style: Theme.of(context).textButtonTheme.style!.copyWith(
-                          backgroundColor: const WidgetStatePropertyAll<Color>(kTheme2)),
-                      label: _expandAllAdverts
-                          ? const Text("Collapse All")
-                          : const Text("Expand All"),
-                      icon: _expandAllAdverts
-                          ? const Icon(Ionicons.arrow_up)
-                          : const Icon(Ionicons.arrow_down)),
-                ),
+                    child: PrefersTextButtonIcon(
+                        style: Theme.of(context).textButtonTheme.style!.copyWith(
+                            backgroundColor:
+                                const WidgetStatePropertyAll<Color>(kTheme2)),
+                        label: _expandAllAdverts
+                            ? const Text("Collapse All")
+                            : const Text("Expand All"),
+                        icon: _expandAllAdverts
+                            ? const Icon(Ionicons.arrow_up)
+                            : const Icon(Ionicons.arrow_down),
+                        onPressed: () =>
+                            setState(() => _expandAllAdverts = !_expandAllAdverts))),
                 const SizedBox(width: kTotalAppMargin),
-                const Expanded(
-                  child: PrefersTextButtonIcon(
-                      label: Text("Refresh"), icon: Icon(Ionicons.refresh)),
+                Expanded(
+                  child: PrefersOutlinedButtonIcon(
+                      label: const Text("Refresh"),
+                      icon: const Icon(Ionicons.refresh),
+                      onPressed: () => wbpfcb((_) => setState(IGNORE_INVOKE))),
                 )
               ]),
             ),
@@ -99,7 +104,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                 children: <Widget>[
                   for (MapEntry<String, JobAdvert> advert
                       in ConversionService.adverts.entries)
-                    _AdvertCard(advert: advert)
+                    _AdvertCard(advert: advert, initExpanded: _expandAllAdverts)
                         .animate(delay: const Duration(milliseconds: 400))
                         .moveY(
                             begin:
@@ -197,7 +202,33 @@ class _AdvertCardState extends State<_AdvertCard> {
                           titleWidget,
                           const SizedBox(height: 4),
                           Text(widget.advert.value.description.value,
-                              style: const TextStyle(color: kThemePrimaryFg1)),
+                              style: const TextStyle(color: kThemePrimaryFg2)),
+                          const SizedBox(height: 4),
+                          Text(
+                              Provider.of<InternationalizationNotifier>(context)
+                                  .i18n
+                                  .jobStyleAdverts
+                                  .supported_format_mediums,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 16)),
+                          const SizedBox(height: 4),
+                          Row(spacing: 2, children: <Widget>[
+                            for (FormatMedium medium
+                                in widget.advert.value.supportedMediums)
+                              Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 4, vertical: 2),
+                                  decoration: BoxDecoration(
+                                      color: kThemeCmpBg,
+                                      borderRadius: BorderRadius.circular(kRRArc)),
+                                  child: Text(
+                                      medium.mediumName.isKey
+                                          ? localeMap[medium.mediumName.value] ?? "XXXX"
+                                          : medium.mediumName.value,
+                                      style: const TextStyle(
+                                          color: kThemePrimaryFg2,
+                                          fontWeight: FontWeight.w500))),
+                          ]),
                           const SizedBox(height: 16),
                           addWidget
                         ],

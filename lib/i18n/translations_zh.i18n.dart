@@ -427,6 +427,11 @@ class JobStyleAdvertsTranslationsZh extends JobStyleAdvertsTranslations {
   /// "自动将文件夹内特定格式的文件转换为另一种格式。"
   /// ```
   String get watch_folder_description => """自动将文件夹内特定格式的文件转换为另一种格式。""";
+
+  /// ```dart
+  /// "支持的文件类型"
+  /// ```
+  String get supported_format_mediums => """支持的文件类型""";
 }
 
 Map<String, String> get translationsZhMap => {
@@ -493,4 +498,5 @@ Map<String, String> get translationsZhMap => {
       """job style adverts.watch_folder_title""": """文件夹监视""",
       """job style adverts.watch_folder_description""":
           """自动将文件夹内特定格式的文件转换为另一种格式。""",
+      """job style adverts.supported_format_mediums""": """支持的文件类型""",
     };

@@ -194,7 +194,7 @@ class _LoggingViewState extends State<LoggingView> {
                           ),
                         ),
                         ConstrainedBox(
-                          constraints: const BoxConstraints.expand(width: 200),
+                          constraints: const BoxConstraints.expand(width: 210),
                           child: Container(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
@@ -213,7 +213,7 @@ class _LoggingViewState extends State<LoggingView> {
                         ),
                         const SizedBox(width: 4),
                         ConstrainedBox(
-                          constraints: const BoxConstraints.expand(width: 60),
+                          constraints: const BoxConstraints.expand(width: 90),
                           child: Container(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
