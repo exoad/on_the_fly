@@ -2,11 +2,11 @@ import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/client/debug_layer_view.dart';
 import 'package:on_the_fly/client/events/debug_events.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
-import 'package:on_the_fly/client/events/job_stack.dart';
 import 'package:on_the_fly/client/left_menu_view.dart';
 import 'package:on_the_fly/client/right_menu_view.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/bundles.dart';
 import "package:on_the_fly/shared/theme.dart";
@@ -30,7 +30,7 @@ class _AppViewState extends State<AppView> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: <ListenableProvider<dynamic>>[
-        ChangeNotifierProvider<GlobalJobStack>(create: (_) => GlobalJobStack()),
+        ChangeNotifierProvider<JobStack>(create: (_) => JobStack()),
         if (kShowDebugView)
           ChangeNotifierProvider<DebugLayerEvents>(create: (_) => DebugLayerEvents())
       ],

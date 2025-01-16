@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:objectid/objectid.dart';
 import 'package:on_the_fly/client/components/components.dart';
-import 'package:on_the_fly/client/events/job_stack.dart';
 import 'package:on_the_fly/shared/app.dart';
 
 /// generic runners class for debugging functions
@@ -11,7 +10,6 @@ class XtRunners {
 
   static final Map<String, void Function()> xtRunnersExport =
       <String, void Function()>{
-    "rmfj": fx2,
     // fx3,
     "hashs_r": fx4
   };
@@ -24,10 +22,7 @@ class XtRunners {
     return p;
   }
 
-  @pragma("vm:prefer-inline")
-  static void fx2() {
-    GlobalJobStack().removeAll();
-  }
+
 
   // static void fx3(String locale) {
   //   InternationalizationNotifier().changeLocale(locale);

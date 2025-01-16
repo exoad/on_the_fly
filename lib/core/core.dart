@@ -1,3 +1,5 @@
+
+import 'package:flutter/material.dart';
 import 'package:on_the_fly/core/formats.dart';
 import 'package:on_the_fly/core/formats/images_target.dart';
 import 'package:on_the_fly/core/job/job_base.dart';
@@ -5,8 +7,6 @@ import 'package:on_the_fly/helpers/i18n.dart';
 import 'package:on_the_fly/shared/app.dart';
 
 export "formats.dart";
-export "jobs.dart";
-export "folder_watchdog.dart";
 
 class ConversionService {
   ConversionService._();
@@ -34,4 +34,18 @@ class ConversionService {
     };
     logger.finer("Done loading ConversionService utils\n$adverts\n$mediums");
   }
+}
+
+abstract class Job {}
+
+class JobStack with ChangeNotifier {
+  List<Job> _queue;
+
+  JobStack() : _queue = <Job>[];
+
+  bool isEmpty() => true;
+
+  int get length => 0;
+
+  Job operator [](int index) => _queue[index];
 }

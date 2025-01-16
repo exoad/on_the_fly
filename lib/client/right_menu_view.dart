@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:on_the_fly/client/events/debug_events.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
-import 'package:on_the_fly/client/events/job_stack.dart';
+import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +31,7 @@ class AppRightMenuView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 const SizedBox(height: 16),
-                if (Provider.of<GlobalJobStack>(context).jobStack.isEmpty)
+                if (Provider.of<JobStack>(context).isEmpty())
                   RepaintBoundary(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -121,8 +121,7 @@ class _JobStackView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int jobStackLen =
-        Provider.of<GlobalJobStack>(context, listen: false).jobStack.length;
+    final int jobStackLen = Provider.of<JobStack>(context, listen: false).length;
     return Scrollbar(
       controller: _scrollController,
       child: SuperListView.builder(
@@ -134,23 +133,24 @@ class _JobStackView extends StatelessWidget {
             Widget contentW = Padding(
                 padding: const EdgeInsets.only(bottom: kListComponentsSpacing),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).listTileTheme.tileColor,
-                      borderRadius: BorderRadius.circular(kRRArc)),
-                  child: Provider.of<GlobalJobStack>(context)[index].buildForm(context),
-                  // onTap: () {
-                  //   Provider.of<GlobalJobStack>(context, listen: false)
-                  //       .removeJob(Provider.of<GlobalJobStack>(context,
-                  //               listen: false)
-                  //           .jobStack[index]);
-                  //   debugSeek()["job_stack_sz"] =
-                  //       Provider.of<GlobalJobStack>(context,
-                  //               listen: false)
-                  //           .jobStack
-                  //           .length;
-                  // },
-                ));
+                    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).listTileTheme.tileColor,
+                        borderRadius: BorderRadius.circular(kRRArc)),
+                    child: const SizedBox()
+                    // child: Provider.of<JobStack>(context)[index].buildForm(context),
+                    // onTap: () {
+                    //   Provider.of<GlobalJobStack>(context, listen: false)
+                    //       .removeJob(Provider.of<GlobalJobStack>(context,
+                    //               listen: false)
+                    //           .jobStack[index]);
+                    //   debugSeek()["job_stack_sz"] =
+                    //       Provider.of<GlobalJobStack>(context,
+                    //               listen: false)
+                    //           .jobStack
+                    //           .length;
+                    // },
+                    ));
             // we add some end or begin padding to the list view scroll element for this
             // job instance form
             return (index == jobStackLen - 1
@@ -182,7 +182,7 @@ class AppTopShelf extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("${InternationalizationNotifier().i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
+          Text("${InternationalizationNotifier().i18n.appGenerics.job_count}: ${Provider.of<JobStack>(context).length}",
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
               .blurry(
                   blur: 10,
