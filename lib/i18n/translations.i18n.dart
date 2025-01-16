@@ -497,7 +497,7 @@ Map<String, String> get translationsMap => {
           """Used for processing image files such as PNG, JPEG, etc.. This processor is builtin to OnTheFly""",
       """job style adverts.adverts_click_for_more_actions""":
           """Click for more actions""",
-      """job style adverts.single_file_title""": """Single File""",
+      """job style adverts.single_file_title""": """Single File""", 
       """job style adverts.single_file_description""":
           """Convert one file from one format to another format.""",
       """job style adverts.multiple_files_title""": """Multiple Files""",

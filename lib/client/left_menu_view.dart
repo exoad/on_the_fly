@@ -1,21 +1,23 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_tilt/flutter_tilt.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+import 'package:on_the_fly/client/components/components.dart';
 import 'package:on_the_fly/client/components/prefers.dart';
+import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/client/logging_view.dart';
+import 'package:on_the_fly/client/right_menu_view.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/core/job/job_base.dart';
-import 'package:on_the_fly/client/components/components.dart';
-import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
-import 'package:on_the_fly/client/right_menu_view.dart';
 import 'package:on_the_fly/helpers/basics.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
-import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 /// left side of the app, this is used for displaying all of the JobDispatcher that the user can choose from
 ///
@@ -84,7 +86,12 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                       onPressed: () => wbpfcb((_) => setState(IGNORE_INVOKE))),
                 )
               ]),
-            ),
+            ).animate().fade(
+                begin: 0,
+                end: 1,
+                delay: const Duration(milliseconds: 120),
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeInOut),
             // const Padding(
             //   padding: EdgeInsets.only(left: kTotalAppMargin, bottom: kTotalAppMargin),
             //   child: IntrinsicHeight(
@@ -184,13 +191,13 @@ class _AdvertCardState extends State<_AdvertCard> {
               borderRadius: BorderRadius.circular(kRRArc), color: kThemePrimaryFg3),
           // description and like all of the "neat" details of the app such as the supported inputs and outputs formats
           child: AnimatedSize(
-            duration: const Duration(milliseconds: 240),
+            duration: const Duration(milliseconds: 330),
             curve: Curves.easeInOut,
             child: AnimatedSwitcher(
                 transitionBuilder: (Widget child, Animation<double> animation) =>
                     ScaleTransition(scale: animation, child: child),
-                duration: const Duration(milliseconds: 220),
-                reverseDuration: const Duration(milliseconds: 160),
+                duration: const Duration(milliseconds: 330),
+                reverseDuration: const Duration(milliseconds: 220),
                 switchInCurve: Curves.easeInOut,
                 switchOutCurve: Curves.easeInOut,
                 child: _expanded
@@ -211,7 +218,7 @@ class _AdvertCardState extends State<_AdvertCard> {
                                   .supported_format_mediums,
                               style: const TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 16)),
-                          const SizedBox(height: 4),
+                          const SizedBox(height: 2),
                           Row(spacing: 2, children: <Widget>[
                             for (FormatMedium medium
                                 in widget.advert.value.supportedMediums)
@@ -221,12 +228,9 @@ class _AdvertCardState extends State<_AdvertCard> {
                                   decoration: BoxDecoration(
                                       color: kThemeCmpBg,
                                       borderRadius: BorderRadius.circular(kRRArc)),
-                                  child: Text(
-                                      medium.mediumName.isKey
-                                          ? localeMap[medium.mediumName.value] ?? "XXXX"
-                                          : medium.mediumName.value,
+                                  child: Text(medium.mediumName.value,
                                       style: const TextStyle(
-                                          color: kThemePrimaryFg2,
+                                          color: kTheme2,
                                           fontWeight: FontWeight.w500))),
                           ]),
                           const SizedBox(height: 16),
@@ -241,7 +245,7 @@ class _AdvertCardState extends State<_AdvertCard> {
   }
 }
 
-class _MinimalAdvert extends StatefulWidget {
+class _MinimalAdvert extends StatelessWidget {
   const _MinimalAdvert({
     required this.titleWidget,
     required this.addWidget,
@@ -251,19 +255,8 @@ class _MinimalAdvert extends StatefulWidget {
   final Widget addWidget;
 
   @override
-  State<_MinimalAdvert> createState() => _MinimalAdvertState();
-}
-
-class _MinimalAdvertState extends State<_MinimalAdvert> {
-  bool _showHint;
-
-  _MinimalAdvertState() : _showHint = false;
-
-  @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onEnter: (_) => setState(() => _showHint = true),
-      onExit: (_) => setState(() => _showHint = false),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -272,35 +265,16 @@ class _MinimalAdvertState extends State<_MinimalAdvert> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  widget.titleWidget,
-                  AnimatedSwitcher(
-                      //* this animation here is still a bit rough when the hint spawns and despawns
-                      //* we could for another approach such as a tooltip or just try to fix this
-                      switchInCurve: Curves.easeInOut,
-                      switchOutCurve: Curves.easeOutQuad,
-                      duration: const Duration(milliseconds: 330),
-                      reverseDuration: const Duration(milliseconds: 280),
-                      transitionBuilder: (Widget child, Animation<double> animation) =>
-                          SlideTransition(
-                            position: animation.drive(Tween<Offset>(
-                                begin: Offset.zero, end: const Offset(0, 0.1))),
-                            child: FadeTransition(
-                              opacity: animation,
-                              child: child,
-                            ),
-                          ),
-                      child: _showHint
-                          ? Text(
-                              Provider.of<InternationalizationNotifier>(context)
-                                  .i18n
-                                  .jobStyleAdverts
-                                  .adverts_click_for_more_actions,
-                              style:
-                                  const TextStyle(fontSize: 12, color: kThemePrimaryFg2))
-                          : const SizedBox())
+                  titleWidget,
+                  Text(
+                      Provider.of<InternationalizationNotifier>(context)
+                          .i18n
+                          .jobStyleAdverts
+                          .adverts_click_for_more_actions,
+                      style: const TextStyle(fontSize: 12, color: kThemePrimaryFg2))
                 ]),
             const Spacer(),
-            widget.addWidget
+            addWidget
           ]),
     );
   }

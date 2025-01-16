@@ -1,10 +1,10 @@
-import 'package:on_the_fly/core/e_files.dart';
+import 'package:on_the_fly/core/formats.dart';
 import 'package:on_the_fly/core/formats/images_target.dart';
 import 'package:on_the_fly/core/job/job_base.dart';
 import 'package:on_the_fly/helpers/i18n.dart';
 import 'package:on_the_fly/shared/app.dart';
 
-export "e_files.dart";
+export "formats.dart";
 export "jobs.dart";
 export "folder_watchdog.dart";
 
