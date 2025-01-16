@@ -44,6 +44,8 @@ class Projections {
         0, 0, 0, 1,
       );
 
+  static Matrix4 get identity => Matrix4.identity();
+
   /// retrieves the first 3x3 linear transformations
   ///
   /// consists of:
@@ -86,10 +88,8 @@ class Projections {
     Vector3 res = Vector3.zero();
     res.x = p1.x * matrix[0] + p1.y * matrix[4] + p1.z * matrix[8] + matrix[12];
     res.y = p1.x * matrix[1] + p1.y * matrix[5] + p1.z * matrix[9] + matrix[13];
-    res.z =
-        p1.x * matrix[2] + p1.y * matrix[6] + p1.z * matrix[10] + matrix[14];
-    double factor =
-        p1.x * matrix[3] + p1.y * matrix[7] + p1.z * matrix[11] + matrix[15];
+    res.z = p1.x * matrix[2] + p1.y * matrix[6] + p1.z * matrix[10] + matrix[14];
+    double factor = p1.x * matrix[3] + p1.y * matrix[7] + p1.z * matrix[11] + matrix[15];
     if (factor != 1) {
       res.x /= factor;
       res.y /= factor;

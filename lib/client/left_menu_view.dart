@@ -13,7 +13,6 @@ import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/client/logging_view.dart';
 import 'package:on_the_fly/client/right_menu_view.dart';
 import 'package:on_the_fly/core/core.dart';
-import 'package:on_the_fly/core/job/job_base.dart';
 import 'package:on_the_fly/helpers/basics.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
@@ -109,7 +108,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                 primary: false,
                 shrinkWrap: true,
                 children: <Widget>[
-                  for (MapEntry<String, JobAdvert> advert
+                  for (MapEntry<String, JobAdvert<Job>> advert
                       in ConversionService.adverts.entries)
                     _AdvertCard(advert: advert, initExpanded: _expandAllAdverts)
                         .animate(delay: const Duration(milliseconds: 400))
@@ -133,7 +132,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
 }
 
 class _AdvertCard extends StatefulWidget {
-  final MapEntry<String, JobAdvert> advert;
+  final MapEntry<String, JobAdvert<Job>> advert;
   final bool initExpanded;
   const _AdvertCard({required this.advert, this.initExpanded = false});
 
@@ -164,6 +163,8 @@ class _AdvertCardState extends State<_AdvertCard> {
         onPressed: () async {
           if (mounted) {
             // TODO: implement this shit
+            Provider.of<JobStack>(context, listen: false)
+                .push(widget.advert.key, widget.advert.value.producer(context));
           }
         }, // TODO: proper impl job selection
         style: Theme.of(context)
@@ -230,8 +231,7 @@ class _AdvertCardState extends State<_AdvertCard> {
                                       borderRadius: BorderRadius.circular(kRRArc)),
                                   child: Text(medium.mediumName.value,
                                       style: const TextStyle(
-                                          color: kTheme2,
-                                          fontWeight: FontWeight.w500))),
+                                          color: kTheme2, fontWeight: FontWeight.w500))),
                           ]),
                           const SizedBox(height: 16),
                           addWidget

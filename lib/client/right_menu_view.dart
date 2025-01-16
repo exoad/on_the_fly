@@ -137,7 +137,7 @@ class _JobStackView extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Theme.of(context).listTileTheme.tileColor,
                         borderRadius: BorderRadius.circular(kRRArc)),
-                    child: const SizedBox()
+                    child: Text(Provider.of<JobStack>(context).at(index).displayTitle)
                     // child: Provider.of<JobStack>(context)[index].buildForm(context),
                     // onTap: () {
                     //   Provider.of<GlobalJobStack>(context, listen: false)

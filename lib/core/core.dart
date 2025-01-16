@@ -1,14 +1,17 @@
+import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/core/formats.dart';
 import 'package:on_the_fly/core/formats/images_target.dart';
-import 'package:on_the_fly/core/job/job_base.dart';
+import 'package:on_the_fly/core/utils/file_system.dart';
 import 'package:on_the_fly/helpers/i18n.dart';
 import 'package:on_the_fly/shared/app.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 export "formats.dart";
 
 class ConversionService {
+  @protected
   ConversionService._();
 
   static late final Map<String, JobAdvert> adverts;
@@ -18,34 +21,173 @@ class ConversionService {
     logger.finer("Loading ConversionService utils");
     mediums = <FormatMedium>[ImageMedium.I];
     adverts = <String, JobAdvert>{
-      "net.exoad.single_file": JobAdvert(
-          title: LocaleProducer.key("job style adverts.single_file_title"),
-          description: LocaleProducer.key("job style adverts.single_file_description"),
-          supportedMediums: mediums),
-      "net.exoad.multiple_files": JobAdvert(
-        title: LocaleProducer.key("job style adverts.multiple_files_title"),
-        description: LocaleProducer.key("job style adverts.multiple_files_description"),
+      "net.exoad.jc.single_file": JobAdvert<SingleFileConvertJob>(
+        title: LocaleProducer.key("job style adverts.single_file_title"),
+        description: LocaleProducer.key("job style adverts.single_file_description"),
         supportedMediums: mediums,
+        producer: (BuildContext context) => SingleFileConvertJob(),
       ),
-      "net.exoad.watch_folder": JobAdvert(
-          title: LocaleProducer.key("job style adverts.watch_folder_title"),
-          description: LocaleProducer.key("job style adverts.watch_folder_description"),
-          supportedMediums: mediums),
+      // "net.exoad.jc.multiple_files": JobAdvert<Job>(
+      //   title: LocaleProducer.key("job style adverts.multiple_files_title"),
+      //   description: LocaleProducer.key("job style adverts.multiple_files_description"),
+      //   supportedMediums: mediums,
+      // ),
+      // "net.exoad.jc.watch_folder": JobAdvert<Job>(
+      //     title: LocaleProducer.key("job style adverts.watch_folder_title"),
+      //     description: LocaleProducer.key("job style adverts.watch_folder_description"),
+      //     supportedMediums: mediums),
     };
     logger.finer("Done loading ConversionService utils\n$adverts\n$mediums");
   }
 }
 
-abstract class Job {}
+class JobAdvert<E extends Job> {
+  final LocaleProducer title;
+  final LocaleProducer description;
+  final List<FormatMedium> supportedMediums;
+  final E Function(BuildContext context) producer;
+
+  const JobAdvert(
+      {required this.title,
+      required this.description,
+      required this.supportedMediums,
+      required this.producer});
+
+  @override
+  String toString() => "${title.value}:${description.value}:$supportedMediums";
+}
+
+class TransmuteService {
+  @protected
+  TransmuteService._();
+
+  static late final Map<String, JobAdvert<Job>> adverts;
+
+  static late final List<FormatMedium> mediums;
+  static void init() {}
+}
+
+/// the different types of jobs accepted, this is used to help with attaching the
+/// job to specific isolates
+enum JobType {
+  /// a single file
+  SINGLE,
+
+  /// multiple files (this is done on an isolate)
+  MULTI,
+
+  /// watch a folder (this is done on an isolate)
+  WATCH
+}
+
+abstract class Job {
+  static const String kJobInputLocationKey = "input_location";
+  final String identifier;
+  late int _creationTime;
+
+  /// should be a hashed identifier unique to this job instance and across all
+  /// job instances, no matter if they are transmuters or convertors
+  late int _hash;
+
+  int get hash => _hash;
+
+  int get creationTime => _creationTime;
+
+  JobType get jobType;
+
+  String get displayTitle;
+
+  /// called when the "start" button is clicked by the user
+  void attach();
+
+  bool get isTransmute => this is TransmuteJob;
+
+  bool get isConvert => this is ConvertJob;
+
+  FormGroup _form;
+
+  Job(this.identifier,
+      [int? creationTime, Map<String, AbstractControl<dynamic>>? controls])
+      : _form = FormGroup(controls ?? <String, AbstractControl<dynamic>>{}) {
+    _creationTime = creationTime ?? DateTime.now().millisecondsSinceEpoch;
+    _hash = Object.hash(identifier, this);
+  }
+
+  void optionsPut(String name, AbstractControl<dynamic> control) {
+    _form.controls[name] = control;
+  }
+
+  void optionsPutAll(Map<String, AbstractControl<dynamic>> controls) {
+    _form.addAll(controls);
+  }
+
+  FormGroup get form => _form;
+}
+
+abstract class ConvertJob extends Job {
+  ConvertJob(super.identifier) {
+    if (kAllowDebugWarnings && !ConversionService.adverts.containsKey(super.identifier)) {
+      logger.warning(
+          "The provided key for ${super.identifier} on $_hash could not be found in the adverts registry!"); // programmer error
+    }
+  }
+
+  @override
+  String get displayTitle => ConversionService.adverts[super.identifier]!.title.value;
+}
+
+class SingleFileConvertJob extends ConvertJob {
+  SingleFileConvertJob() : super("net.exoad.jc.single_file") {
+    super.optionsPutAll(<String, AbstractControl<dynamic>>{
+      Job.kJobInputLocationKey: FormControl<String>(
+          validators: <Validator<dynamic>>[Validators.required],
+          asyncValidators: <AsyncValidator<dynamic>>[ValidReadableFileValidator()]),
+    });
+  }
+
+  @override
+  JobType get jobType => JobType.SINGLE;
+
+  @override
+  void attach() {}
+}
+
+abstract class TransmuteJob implements Job {}
 
 class JobStack with ChangeNotifier {
-  List<Job> _queue;
+  final SplayTreeSet<Job> _stack;
 
-  JobStack() : _queue = <Job>[];
+  JobStack()
+      : _stack = SplayTreeSet<Job>(
+            (Job a, Job b) => a._creationTime.compareTo(b.creationTime));
 
-  bool isEmpty() => true;
+  bool isEmpty() => _stack.isEmpty;
 
-  int get length => 0;
+  int get length => _stack.length;
 
-  Job operator [](int index) => _queue[index];
+  void push(String identifier, Job instance) {
+    _stack.add(instance);
+    notifyListeners();
+  }
+
+  Job at(int index) => _stack.elementAt(index);
+
+  void pop(Job instance) {
+    if (containsJob(instance)) {
+      _stack.remove(instance);
+    }
+    notifyListeners();
+  }
+
+  void popAll(String identifier) {
+    if (containsIdentifier(identifier)) {
+      _stack.clear();
+    }
+    notifyListeners();
+  }
+
+  bool containsIdentifier(String identifier) =>
+      _stack.any((Job job) => job.identifier == identifier);
+
+  bool containsJob(Job instance) => _stack.contains(instance);
 }
