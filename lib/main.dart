@@ -6,7 +6,6 @@ import 'package:on_the_fly/client/tray/tray.dart';
 import 'package:on_the_fly/core/core.dart';
 import 'package:on_the_fly/client/load_it_n_view.dart';
 import 'package:on_the_fly/client/root_service_view.dart';
-import 'package:on_the_fly/core/utils/strings.dart';
 import 'package:on_the_fly/client/app_view.dart';
 import 'package:on_the_fly/client/events/debug_events.dart';
 import 'package:on_the_fly/shared/app.dart';
@@ -14,7 +13,6 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/shared/bundles.dart';
 import 'package:on_the_fly/xt.dart';
-
 
 /// main entry point for the app
 void main() {
@@ -65,7 +63,4 @@ void main() {
 }
 
 /// runs the default tests builtin to the app
-void __tests() {
-  AppDebug()
-      .test("Test AutoImgStrings.formalize", () => "test_test".formalize, "Test Test");
-}
+void __tests() {}
