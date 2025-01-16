@@ -23,6 +23,7 @@ app generics:
   empty: 空
   loading: 加载中
   minimize: 最小化
+  created_on: 创建于
   maximize: 最大化
   restore: 恢复
   clear: 清除
@@ -55,6 +56,8 @@ format generic:
   input_file_path: 输入格式
   output_builder: 输出生成器
   image: 图像类
+  conversion: 转换
+  transmutation: 修改
   click_to_view_more: 轻触查看更多信息
 builtin img processor:
   canonical_name: 内置图像处理器

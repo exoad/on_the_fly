@@ -23,6 +23,7 @@ app generics:
   empty: Empty
   loading: Loading
   minimize: Minimize
+  created_on: Created on
   maximize: Maximize
   restore: Restore
   clear: Clear
@@ -55,6 +56,8 @@ format generic:
   input_file_path: Input file path
   output_builder: Output builder
   image: Images
+  conversion: Conversion
+  transmutation: Transmutation
   click_to_view_more: Click for more info
 builtin img processor:
   canonical_name: Builtin Image Processor

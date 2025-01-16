@@ -209,6 +209,11 @@ class AppGenericsTranslations {
   String get minimize => """Minimize""";
 
   /// ```dart
+  /// "Created on"
+  /// ```
+  String get created_on => """Created on""";
+
+  /// ```dart
   /// "Maximize"
   /// ```
   String get maximize => """Maximize""";
@@ -369,6 +374,16 @@ class FormatGenericTranslations {
   String get image => """Images""";
 
   /// ```dart
+  /// "Conversion"
+  /// ```
+  String get conversion => """Conversion""";
+
+  /// ```dart
+  /// "Transmutation"
+  /// ```
+  String get transmutation => """Transmutation""";
+
+  /// ```dart
   /// "Click for more info"
   /// ```
   String get click_to_view_more => """Click for more info""";
@@ -465,6 +480,7 @@ Map<String, String> get translationsMap => {
       """app generics.empty""": """Empty""",
       """app generics.loading""": """Loading""",
       """app generics.minimize""": """Minimize""",
+      """app generics.created_on""": """Created on""",
       """app generics.maximize""": """Maximize""",
       """app generics.restore""": """Restore""",
       """app generics.clear""": """Clear""",
@@ -491,13 +507,15 @@ Map<String, String> get translationsMap => {
       """format generic.input_file_path""": """Input file path""",
       """format generic.output_builder""": """Output builder""",
       """format generic.image""": """Images""",
+      """format generic.conversion""": """Conversion""",
+      """format generic.transmutation""": """Transmutation""",
       """format generic.click_to_view_more""": """Click for more info""",
       """builtin img processor.canonical_name""": """Builtin Image Processor""",
       """builtin img processor.proper_description""":
           """Used for processing image files such as PNG, JPEG, etc.. This processor is builtin to OnTheFly""",
       """job style adverts.adverts_click_for_more_actions""":
           """Click for more actions""",
-      """job style adverts.single_file_title""": """Single File""", 
+      """job style adverts.single_file_title""": """Single File""",
       """job style adverts.single_file_description""":
           """Convert one file from one format to another format.""",
       """job style adverts.multiple_files_title""": """Multiple Files""",

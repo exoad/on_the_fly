@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:on_the_fly/client/events/debug_events.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/core/core.dart';
+import 'package:on_the_fly/core/utils/date_time.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
@@ -126,14 +127,51 @@ class _JobStackView extends StatelessWidget {
           itemCount: jobStackLen,
           itemBuilder: (BuildContext context, int index) {
             index = (jobStackLen - 1) - index;
+            Job job = Provider.of<JobStack>(context).at(index);
             Widget contentW = Padding(
                 padding: const EdgeInsets.only(bottom: kListComponentsSpacing),
                 child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                     decoration: BoxDecoration(
                         color: Theme.of(context).listTileTheme.tileColor,
                         borderRadius: BorderRadius.circular(kRRArc)),
-                    child: Text(Provider.of<JobStack>(context).at(index).displayTitle)));
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text.rich(
+                          TextSpan(
+                              text:
+                                  "${job.displayTitle} ${job.isConvert ? Provider.of<InternationalizationNotifier>(context).i18n.formatGeneric.conversion : Provider.of<InternationalizationNotifier>(context).i18n.formatGeneric.transmutation}",
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: kTheme1),
+                              children: <InlineSpan>[
+                                TextSpan(
+                                    text: "\n${job.hash.toRadixString(16)} | ",
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        color: kThemePrimaryFg2,
+                                        fontWeight: FontWeight.normal)),
+                                const TextSpan(
+                                    text: "Created on: ",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: kThemePrimaryFg2,
+                                        fontWeight: FontWeight.bold)),
+                                TextSpan(
+                                    text: DateTime.fromMillisecondsSinceEpoch(
+                                            job.creationTime)
+                                        .canonicalizedTimeString,
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        color: kThemePrimaryFg2,
+                                        fontWeight: FontWeight.normal))
+                              ]),
+                        ),
+                        const SizedBox(height: 6),
+                      ],
+                    )));
             // we add some end or begin padding to the list view scroll element for this
             // job instance form
             return (index == jobStackLen - 1

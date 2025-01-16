@@ -3,10 +3,8 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:on_the_fly/core/formats.dart';
 import 'package:on_the_fly/core/formats/images_target.dart';
-import 'package:on_the_fly/core/utils/file_system.dart';
 import 'package:on_the_fly/helpers/i18n.dart';
 import 'package:on_the_fly/shared/app.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 
 export "formats.dart";
 
@@ -14,13 +12,13 @@ class ConversionService {
   @protected
   ConversionService._();
 
-  static late final Map<String, JobAdvert> adverts;
+  static late final Map<String, JobAdvert<Job>> adverts;
 
   static late final List<FormatMedium> mediums;
   static void init() {
     logger.finer("Loading ConversionService utils");
     mediums = <FormatMedium>[ImageMedium.I];
-    adverts = <String, JobAdvert>{
+    adverts = <String, JobAdvert<Job>>{
       "net.exoad.jc.single_file": JobAdvert<SingleFileConvertJob>(
         title: LocaleProducer.key("job style adverts.single_file_title"),
         description: LocaleProducer.key("job style adverts.single_file_description"),
@@ -104,24 +102,10 @@ abstract class Job {
 
   bool get isConvert => this is ConvertJob;
 
-  FormGroup _form;
-
-  Job(this.identifier,
-      [int? creationTime, Map<String, AbstractControl<dynamic>>? controls])
-      : _form = FormGroup(controls ?? <String, AbstractControl<dynamic>>{}) {
+  Job(this.identifier, [int? creationTime]) {
     _creationTime = creationTime ?? DateTime.now().millisecondsSinceEpoch;
     _hash = Object.hash(identifier, this);
   }
-
-  void optionsPut(String name, AbstractControl<dynamic> control) {
-    _form.controls[name] = control;
-  }
-
-  void optionsPutAll(Map<String, AbstractControl<dynamic>> controls) {
-    _form.addAll(controls);
-  }
-
-  FormGroup get form => _form;
 }
 
 abstract class ConvertJob extends Job {
@@ -137,14 +121,7 @@ abstract class ConvertJob extends Job {
 }
 
 class SingleFileConvertJob extends ConvertJob {
-  SingleFileConvertJob() : super("net.exoad.jc.single_file") {
-    super.optionsPutAll(<String, AbstractControl<dynamic>>{
-      Job.kJobInputLocationKey: FormControl<String>(
-          validators: <Validator<dynamic>>[Validators.required],
-          asyncValidators: <AsyncValidator<dynamic>>[ValidReadableFileValidator()]),
-    });
-  }
-
+  SingleFileConvertJob() : super("net.exoad.jc.single_file") {}
   @override
   JobType get jobType => JobType.SINGLE;
 

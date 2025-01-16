@@ -208,6 +208,11 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   String get minimize => """最小化""";
 
   /// ```dart
+  /// "创建于"
+  /// ```
+  String get created_on => """创建于""";
+
+  /// ```dart
   /// "最大化"
   /// ```
   String get maximize => """最大化""";
@@ -368,6 +373,16 @@ class FormatGenericTranslationsZh extends FormatGenericTranslations {
   String get image => """图像类""";
 
   /// ```dart
+  /// "转换"
+  /// ```
+  String get conversion => """转换""";
+
+  /// ```dart
+  /// "修改"
+  /// ```
+  String get transmutation => """修改""";
+
+  /// ```dart
   /// "轻触查看更多信息"
   /// ```
   String get click_to_view_more => """轻触查看更多信息""";
@@ -459,6 +474,7 @@ Map<String, String> get translationsZhMap => {
       """app generics.empty""": """空""",
       """app generics.loading""": """加载中""",
       """app generics.minimize""": """最小化""",
+      """app generics.created_on""": """创建于""",
       """app generics.maximize""": """最大化""",
       """app generics.restore""": """恢复""",
       """app generics.clear""": """清除""",
@@ -484,6 +500,8 @@ Map<String, String> get translationsZhMap => {
       """format generic.input_file_path""": """输入格式""",
       """format generic.output_builder""": """输出生成器""",
       """format generic.image""": """图像类""",
+      """format generic.conversion""": """转换""",
+      """format generic.transmutation""": """修改""",
       """format generic.click_to_view_more""": """轻触查看更多信息""",
       """builtin img processor.canonical_name""": """内置图像处理器""",
       """builtin img processor.proper_description""":
