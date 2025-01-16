@@ -18,13 +18,13 @@ class RangedIncrementor {
     }
   }
 
-  double operator +(double value) {
-    increment(value);
+  double operator +(double by) {
+    increment(by);
     return value;
   }
 
-  double operator -(double value) {
-    increment(-value);
+  double operator -(double by) {
+    increment(-by);
     return value;
   }
 

@@ -5,10 +5,10 @@ import 'package:on_the_fly/client/root_service_view.dart';
 import 'package:provider/provider.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:on_the_fly/shared/theme.dart';
-import 'package:on_the_fly/client/components/c_canvas.dart'; // Assuming this contains your custom painter
-import 'package:on_the_fly/client/components/kinetic_carousel.dart'; // Assuming this is your carousel widget
-import 'package:on_the_fly/client/events/ephemeral_stacks.dart'; // Assuming this is your stack-related logic
-import 'package:on_the_fly/shared/layout.dart'; // Assuming layout and constants are here
+import 'package:on_the_fly/client/components/c_canvas.dart';
+import 'package:on_the_fly/client/components/kinetic_carousel.dart';
+import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
+import 'package:on_the_fly/shared/layout.dart';
 
 const String _kGenericFileImagesPath = "assets/icons";
 const double _kEphemeralLoadingIconSz = 80;
@@ -151,8 +151,6 @@ class _LoaderHandlerViewState extends State<LoaderHandlerView>
                                       kLoadingWindowSize.width - (kTotalAppMargin * 2),
                                       4),
                                   painter: GradientProgressBarPainter(
-                                      // progress: completed /
-                                      //     (LoaderHandlerView.loads.length + 1),
                                       progress: progressAnim.value,
                                       progressGradient: const LinearGradient(
                                           colors: <Color>[kTheme1, kTheme2],

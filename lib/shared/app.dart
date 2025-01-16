@@ -65,64 +65,23 @@ late final Random random;
 late Map<String, String> localeMap;
 final Logger logger = Logger("OnTheFly");
 
-// /// determines how many messages [_loggerQueue] can hold and
-// /// show in the debugview
-// ///
-// /// this should not be used as hollistic logging history
-// const int kLoggerDebugViewRecentFilterDepth = 4;
-
-// late final Queue<String> _loggerQueue;
-
 /// initialize the constants and some other core elements of the app
 /// such as logging as well as the internal registry of the app so
 /// it knows all the registered jobs
 Future<void> initConsts() async {
-  // _loggerQueue = Queue<String>();
   logger.onRecord.listen((LogRecord record) {
     final String built = "[${record.level.name}]: ${record.time}: ${record.message}";
     print(built);
-    // if (_loggerQueue.length == kLoggerDebugViewRecentFilterDepth) {
-    //   _loggerQueue.removeFirst();
-    // }
-    // _loggerQueue.addLast(built);
-    // StringBuffer buffer = StringBuffer("log_depth");
-    // for (int i = 0; i < kLoggerDebugViewRecentFilterDepth; i++) {
-    //   buffer.write("$i: $built");
-    // }
-    // debugSeek()["dd"] = buffer.toString();
     pushbackLogRecord(record);
   });
   hierarchicalLoggingEnabled = true;
   logger.level = Level.ALL;
-  // initialize locale
-  // TODO: will need additional telemetry save options (additonal patterns)
-  // InternationalizationNotifier().changeLocale("zh"); // * FORCED LOCALE CHANGE (VOLATILE)
-  // exclude non latin based locales for the stylized font that only works on latin characters
-  // kStylizedFontFamily = const <String>[
-  //   "ar",
-  //   "zh",
-  //   "ja",
-  //   "ko",
-  //   "ru",
-  //   "bg",
-  //   "el",
-  //   "hi",
-  //   "he",
-  //   "th"
-  // ].contains(kForcedLocale ?? Platform.localeName.split("_")[0])
-  //     ? kDefaultFontFamily
-  //     : "Playfair Display";
-
   random = Random.secure();
 }
 
 /// a very lightweight helper for showing up warnings and other
 /// related utility functions for the developer when making the app
 class AppDebug {
-  // StreamSubscription<LogRecord> listen(void Function(LogRecord) listener) {
-  //   logger.onRecord.asBroadcastStream().listen(listener);
-  // }
-
   AppDebug._();
 
   static final AppDebug _singleton = AppDebug._();

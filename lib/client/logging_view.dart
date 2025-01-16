@@ -64,13 +64,7 @@ class _LoggingViewState extends State<LoggingView> {
   @override
   void initState() {
     super.initState();
-    _repaint = () async {
-      setState(() {});
-      // await _scrollController.animateTo(
-      //     duration: const Duration(milliseconds: 520),
-      //     curve: Curves.easeInOut,
-      //     _scrollController.position.maxScrollExtent);
-    };
+    _repaint = () => setState(IGNORE_INVOKE);
     _scrollController = ScrollController();
   }
 

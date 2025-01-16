@@ -111,13 +111,9 @@ class AppRightMenuView extends StatelessWidget {
 }
 
 class _JobStackView extends StatelessWidget {
-  // final GlobalKey<AnimatedListState> _listKey;
   final ScrollController _scrollController;
 
-  _JobStackView()
-      :
-        // _listKey = GlobalKey<AnimatedListState>(),
-        _scrollController = ScrollController();
+  _JobStackView() : _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -137,20 +133,7 @@ class _JobStackView extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Theme.of(context).listTileTheme.tileColor,
                         borderRadius: BorderRadius.circular(kRRArc)),
-                    child: Text(Provider.of<JobStack>(context).at(index).displayTitle)
-                    // child: Provider.of<JobStack>(context)[index].buildForm(context),
-                    // onTap: () {
-                    //   Provider.of<GlobalJobStack>(context, listen: false)
-                    //       .removeJob(Provider.of<GlobalJobStack>(context,
-                    //               listen: false)
-                    //           .jobStack[index]);
-                    //   debugSeek()["job_stack_sz"] =
-                    //       Provider.of<GlobalJobStack>(context,
-                    //               listen: false)
-                    //           .jobStack
-                    //           .length;
-                    // },
-                    ));
+                    child: Text(Provider.of<JobStack>(context).at(index).displayTitle)));
             // we add some end or begin padding to the list view scroll element for this
             // job instance form
             return (index == jobStackLen - 1
@@ -189,14 +172,6 @@ class AppTopShelf extends StatelessWidget {
                   elevation: 16,
                   borderRadius: BorderRadius.circular(kRRArc),
                   color: kThemePrimaryFg1.withAlpha((0.08 * 255).round())),
-          //   const SizedBox(width: kTotalAppMargin),
-          //   Text("${InternationalizationNotifier().i18n.appGenerics.job_count}: ${Provider.of<GlobalJobStack>(context).jobStack.length}",
-          //           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
-          //       .blurry(
-          //           blur: 10,
-          //           elevation: 16,
-          //           borderRadius: BorderRadius.circular(kRRArc),
-          //           color: kThemePrimaryFg1.withOpacity(0.08)),
         ]);
   }
 }

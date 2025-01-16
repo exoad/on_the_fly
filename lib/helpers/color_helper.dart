@@ -1,8 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:on_the_fly/shared/app.dart';
+ import 'package:on_the_fly/shared/app.dart';
 
 class ColorHelper {
   ColorHelper._();

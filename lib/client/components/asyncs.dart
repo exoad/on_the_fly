@@ -123,7 +123,6 @@ class _AsyncTextFormField extends State<AsyncTextFormField> {
       locked = false;
       setState(() => validating = true);
       _hint = await widget.validator(value);
-      // logger.info(">> $_hint");
       isDirty = _hint != null;
       setState(IGNORE_INVOKE);
       validating = false;

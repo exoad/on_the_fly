@@ -91,15 +91,6 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                 delay: const Duration(milliseconds: 120),
                 duration: const Duration(milliseconds: 200),
                 curve: Curves.easeInOut),
-            // const Padding(
-            //   padding: EdgeInsets.only(left: kTotalAppMargin, bottom: kTotalAppMargin),
-            //   child: IntrinsicHeight(
-            //       child: Divider(
-            //     color: kThemePrimaryFg2,
-            //     thickness: 1,
-            //   )),
-            // ),
-            // section: all the adverts proceeding
             Expanded(
               child: ListView(
                 physics:
