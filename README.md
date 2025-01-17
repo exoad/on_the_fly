@@ -24,7 +24,7 @@ Currently, OnTheFly is **not** stable (in active development) for general consum
 
 *For people who want to do it themselves...*
 
-As previously stated, OnTheFly is **not** stable and is in active development, so expect bugs, undocumented actions, etc.. Additionally, there currently is only support for Windows. Building for any other platforms will produce undefined and untested behavior. However,
+As previously stated, OnTheFly is **not** stable and is in active development, so expect bugs, undocumented actions, etc. Additionally, there currently is only support for Windows. Building for any other platforms will produce undefined and untested behavior. However,
 as OnTheFly is built on Flutter and Dart, it is very easy to build with the tooling provided.
 
 **To build, you must have the Flutter SDK downloaded: https://docs.flutter.dev/get-started/install**
@@ -95,11 +95,11 @@ Here are some of the tools and libraries that make this app possible and greatly
 
 ### [gskinner/flutter_animate](https://github.com/gskinner/flutter_animate)
 
-For simplifying the animation creation process and enhancing the app's overall smoothness.
+This is to simplify the animation creation process and enhance the app's overall smoothness.
 
 ### [flutter](https://flutter.dev/)
 
-A well built framework that is the backbone of this app.
+A well-built framework that is the backbone of this app.
 
 ### [brendan-duncan/image](https://github.com/brendan-duncan/image)
 
@@ -108,10 +108,6 @@ For a versatile cross-platform image IO library for Dart.
 ### [unDraw](https://undraw.co/)
 
 Providing amazing illustrations within the UI.
-
-### [flutter/pigeon](https://pub.dev/packages/pigeon)
-
-A versatile and easy to use package to communicate with native code.
 
 ### Contributors
 
