@@ -34,8 +34,6 @@ class InternationalizationNotifier extends ChangeNotifier {
   void changeLocale(String localeName) {
     i18n = findLocaleModule(localeName);
     notifyListeners();
-    if (kAllowDebugLogs) {
-      logger.info("Locale set to: '$localeName' -> $i18n");
-    }
+    logger.info("Locale set to: '$localeName' -> $i18n");
   }
 }

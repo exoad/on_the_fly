@@ -26,13 +26,9 @@ Future<void> initSystemTray() async {
         onClicked: (_) => appWindow.hide())
   ]);
   await _trayInstance.setContextMenu(menu);
-  if (kAllowDebugLogs) {
-    logger.info("Initialized System Tray !");
-  }
+  logger.info("Initialized System Tray !");
   _trayInstance.registerSystemTrayEventHandler((String eventName) async {
-    if (kAllowDebugLogs) {
-      logger.info("SystemTray_Event: $eventName");
-    }
+    logger.info("SystemTray_Event: $eventName");
     switch (eventName) {
       case kSystemTrayEventClick:
         appWindow.show();

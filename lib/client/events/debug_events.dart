@@ -17,9 +17,7 @@ class DebugLayerEvents with ChangeNotifier {
 
   void operator []=(String key, dynamic value) {
     _values[key] = value;
-    if (!kSuppressDebugViewLogging) {
-      logger.info("DebugView: $key=$value");
-    }
+    logger.info("DebugView: $key=$value");
     if (kShowDebugView) {
       notifyListeners();
     }

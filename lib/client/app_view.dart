@@ -51,13 +51,20 @@ class _AppViewContainer extends StatelessWidget {
           backgroundColor: const WidgetStatePropertyAll<Color>(kThemeBg),
           foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1)));
   static final TooltipThemeData tooltipThemeData = TooltipThemeData(
-      textStyle: const TextStyle(color: kThemePrimaryFg1),
+      textStyle: const TextStyle(color: kThemePrimaryFg1, fontSize: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
       preferBelow: false,
       waitDuration: const Duration(milliseconds: 1000),
       exitDuration: const Duration(milliseconds: 750),
       decoration: BoxDecoration(
-          color: kThemeBg,
-          border: Border.all(color: kThemePrimaryFg1, width: 1.5),
+          color: const Color.fromARGB(194, 0, 0, 0),
+          boxShadow: const <BoxShadow>[
+            BoxShadow(
+                color: Color.fromARGB(120, 0, 0, 0),
+                offset: Offset(0, 8),
+                spreadRadius: 6,
+                blurRadius: 8)
+          ],
           borderRadius: BorderRadius.circular(kRRArc)));
   static final OutlinedButtonThemeData outlinedButtonThemeData = OutlinedButtonThemeData(
       style: ButtonStyle(
@@ -71,7 +78,7 @@ class _AppViewContainer extends StatelessWidget {
               side: const BorderSide(color: kThemePrimaryFg1, width: 2))),
           foregroundColor: const WidgetStatePropertyAll<Color>(kThemePrimaryFg1),
           side: const WidgetStatePropertyAll<BorderSide>(
-              BorderSide(color: kThemePrimaryFg1, width: 1))));
+              BorderSide(color: kThemePrimaryFg1, width: 2))));
   static final TextButtonThemeData textButtonThemeData = TextButtonThemeData(
       style: ButtonStyle(
           visualDensity: VisualDensity.compact,

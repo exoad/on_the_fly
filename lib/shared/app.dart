@@ -5,7 +5,6 @@ import 'dart:math';
 
 import 'package:on_the_fly/client/logging_view.dart';
 import 'package:logging/logging.dart';
-import 'package:on_the_fly/client/events/debug_events.dart';
 
 const String kStrAppName = "On The Fly";
 const String kStrVerCode = "0.0.1";
@@ -35,11 +34,6 @@ const bool kRunSandboxView = true;
 /// (good for debug)
 const bool kShowDebugView = false;
 
-/// turns off debug logging for the debug events dispatcher
-///
-/// see [DebugLayerEvents]
-const bool kSuppressDebugViewLogging = false;
-
 /// determines whether certain things where type checking or sanity
 /// checks are done should be done or not
 ///
@@ -57,10 +51,6 @@ const List<String> kDefinedLocales = <String>[
   "zh" // simplified chinese
 ];
 
-/// whether informational log messages are logged
-///
-/// can be on or off no matter the production state
-const bool kAllowDebugLogs = true;
 late final Random random;
 late Map<String, String> localeMap;
 final Logger logger = Logger("OnTheFly");

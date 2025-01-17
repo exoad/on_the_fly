@@ -32,7 +32,6 @@ class JobSinglePathPickerActionable extends StatefulWidget {
   final String epKey;
   final void Function(String str) onChanged;
   final List<FormatMedium> supported;
-  final String filePickerLabel;
   final String hintLabel;
   final List<String> allowedExtensions;
   final String? filePickerDialogTitle;
@@ -44,7 +43,6 @@ class JobSinglePathPickerActionable extends StatefulWidget {
     required this.supported,
     required this.onChanged,
     required this.allowedExtensions,
-    required this.filePickerLabel,
     this.hintLabel = ".../users/downloads/...",
   });
 
@@ -69,72 +67,89 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
     super.dispose();
   }
 
+  Future<String?> _validateFunc(BuildContext context, String? value) async {
+    String? validFile = await FilePathValidators.validateFilePath(value);
+    if (validFile != null) {
+      return validFile;
+    }
+    String ext = paths
+        .extension(value!)
+        .substring(1); // since paths.extension will return the ".", we need to remove it
+    if (!widget.supported.containsExtension(ext)) {
+      // we use bang on value because the previous validateFilePath call has a null check that returns a value to validFile
+      return (context.mounted
+              ? Provider.of<InternationalizationNotifier>(context, listen: false)
+              : InternationalizationNotifier())
+          .i18n
+          .appGenerics
+          .MIX_is_not_supported(ext);
+    }
+    if (context.mounted) {
+      Provider.of<JobState>(context, listen: false).setEntry(widget.epKey, value);
+      logger.info("OK GOOD: $value");
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return IntrinsicHeight(
-      child: AsyncTextFormField(
-        validationDebounce: const Duration(milliseconds: 120),
-        controller: _textEditingController,
-        decoration: InputDecoration(
-          alignLabelWithHint: true,
-          labelText: Provider.of<InternationalizationNotifier>(context)
-              .i18n
-              .formatGeneric
-              .input_file_path,
-          hintText: widget.hintLabel,
-          counterText: _pathContent.length > 1
-              ? paths.extension(_pathContent).substring(1).toUpperCase()
-              : "",
-          suffixIcon: PrefersTextButtonIcon(
-            style: Theme.of(context).textButtonTheme.style!.copyWith(
-                  padding: const WidgetStatePropertyAll<EdgeInsets>(
-                    EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                  ),
-                ),
-            icon: const Icon(Ionicons.folder_outline),
-            label: Text(
-              widget.filePickerLabel,
-              style: const TextStyle(fontSize: 14),
-            ),
-            onPressed: () async {
-              FilePickerResult? res = await FilePicker.platform.pickFiles(
-                allowMultiple: false,
-                dialogTitle: widget.filePickerDialogTitle,
-                type: widget.allowedExtensions.isEmpty ? FileType.any : FileType.custom,
-                allowedExtensions: widget.allowedExtensions,
-              );
-              if (res == null) {
-                logger.info("FilePicker#$hashCode ignored native_picker");
-              } else {
-                setState(() {
-                  _pathContent = res.files[0].path!;
-                  _textEditingController.text = _pathContent;
-                });
-              }
-            },
-          ),
-        ),
-        validator: (String? value) async {
-          String? validFile = await FilePathValidators.validateFilePath(value);
-          if (validFile != null) {
-            return validFile;
-          }
-          String ext = paths.extension(value!).substring(
-              1); // since paths.extension will return the ".", we need to remove it
-          if (!widget.supported.containsExtension(ext)) {
-            // we use bang on value because the previous validateFilePath call has a null check that returns a value to validFile
-            return (context.mounted
-                    ? Provider.of<InternationalizationNotifier>(context, listen: false)
-                    : InternationalizationNotifier())
+      child: Tooltip(
+        message: _pathContent,
+        child: AsyncTextFormField(
+          validationDebounce: const Duration(milliseconds: 120),
+          controller: _textEditingController,
+          decoration: InputDecoration(
+            alignLabelWithHint: true,
+            labelText: Provider.of<InternationalizationNotifier>(context)
                 .i18n
-                .appGenerics
-                .MIX_is_not_supported(ext);
-          }
-          if (context.mounted) {
-            Provider.of<JobState>(context, listen: false)[widget.epKey] = value;
-          }
-          return null;
-        },
+                .formatGeneric
+                .input_file_path,
+            hintText: widget.hintLabel,
+            counterText: _pathContent.length > 1
+                ? paths.extension(_pathContent).substring(1).toUpperCase()
+                : "",
+            suffixIcon: PrefersTextButtonIcon(
+              style: Theme.of(context).textButtonTheme.style!.copyWith(
+                    padding: const WidgetStatePropertyAll<EdgeInsets>(
+                      EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                    ),
+                  ),
+              icon: const Icon(Ionicons.folder_outline),
+              label: Text(
+                Provider.of<InternationalizationNotifier>(context)
+                    .i18n
+                    .jobPrebuilt
+                    .single_path_actionable_file_picker_label,
+                style: const TextStyle(fontSize: 14),
+              ),
+              onPressed: () async {
+                FilePickerResult? res = await FilePicker.platform.pickFiles(
+                  allowMultiple: false,
+                  dialogTitle: widget.filePickerDialogTitle,
+                  type: widget.allowedExtensions.isEmpty ? FileType.any : FileType.custom,
+                  allowedExtensions: widget.allowedExtensions,
+                );
+                if (res == null) {
+                  logger.info("FilePicker#$hashCode ignored native_picker");
+                } else {
+                  if (mounted) {
+                    setState(() {
+                      _pathContent = res.files[0].path!;
+                      _textEditingController.text = _pathContent;
+                    });
+                  }
+                }
+              },
+            ),
+          ),
+          validator: (String? value) async {
+            if (!mounted) {
+              return null;
+            }
+            return await _validateFunc(context, value);
+          },
+        ),
       ),
     );
   }

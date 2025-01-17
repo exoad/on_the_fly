@@ -81,6 +81,7 @@ class TranslationsZh extends Translations {
       BuiltinImgProcessorTranslationsZh(this);
   JobStyleAdvertsTranslationsZh get jobStyleAdverts =>
       JobStyleAdvertsTranslationsZh(this);
+  JobPrebuiltTranslationsZh get jobPrebuilt => JobPrebuiltTranslationsZh(this);
 }
 
 class AppGenericsTranslationsZh extends AppGenericsTranslations {
@@ -449,6 +450,16 @@ class JobStyleAdvertsTranslationsZh extends JobStyleAdvertsTranslations {
   String get supported_format_mediums => """支持的文件类型""";
 }
 
+class JobPrebuiltTranslationsZh extends JobPrebuiltTranslations {
+  final TranslationsZh _parent;
+  const JobPrebuiltTranslationsZh(this._parent) : super(_parent);
+
+  /// ```dart
+  /// "选文件"
+  /// ```
+  String get single_path_actionable_file_picker_label => """选文件""";
+}
+
 Map<String, String> get translationsZhMap => {
       """app generics.canonical_title""": """悄悄转""",
       """app generics.canonical_description""": """自动背后转换文件器""",
@@ -517,4 +528,5 @@ Map<String, String> get translationsZhMap => {
       """job style adverts.watch_folder_description""":
           """自动将文件夹内特定格式的文件转换为另一种格式。""",
       """job style adverts.supported_format_mediums""": """支持的文件类型""",
+      """job prebuilt.single_path_actionable_file_picker_label""": """选文件""",
     };

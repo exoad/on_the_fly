@@ -1,14 +1,12 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/core/components/job_component.dart';
 import 'package:on_the_fly/core/formats.dart';
 import 'package:on_the_fly/core/formats/images_target.dart';
 import 'package:on_the_fly/helpers/basics.dart';
 import 'package:on_the_fly/helpers/i18n.dart';
 import 'package:on_the_fly/shared/app.dart';
-import 'package:provider/provider.dart';
 
 export "formats.dart";
 
@@ -141,10 +139,6 @@ class SingleFileConvertJob extends ConvertJob {
           JobState.kInputFileEpKey,
           supported: ConversionService.mediums,
           onChanged: (String file) {},
-          filePickerLabel: Provider.of<InternationalizationNotifier>(context)
-              .i18n
-              .formatGeneric
-              .input_file_path,
           allowedExtensions: ConversionService.mediums.allExtension)
     ]);
   }

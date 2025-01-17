@@ -199,9 +199,11 @@ class _LoggingViewState extends State<LoggingView> {
                               child: Text(
                                   _logHistory[index].time.toString().replaceAll("\n", ""),
                                   style: TextStyle(
-                                    color: style.color,
-                                    fontSize: 12,
-                                  )),
+                                      color: style.color,
+                                      fontSize: 12,
+                                      fontWeight: style.isBold
+                                          ? FontWeight.bold
+                                          : FontWeight.normal)),
                             ),
                           ),
                         ),

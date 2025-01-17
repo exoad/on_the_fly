@@ -71,3 +71,5 @@ job style adverts:
   watch_folder_title: Watch Folder
   watch_folder_description: Automatically convert files with specific formats to another format within a folder.
   supported_format_mediums: Supported File Types
+job prebuilt:
+  single_path_actionable_file_picker_label: Select file

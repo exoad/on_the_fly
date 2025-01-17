@@ -14,12 +14,12 @@ final class JobState with ChangeNotifier {
 
   JobState() : _pool = <String, dynamic>{};
 
-  void operator []=(String variable, dynamic object) {
+
+  void setEntry(String variable, dynamic object) {
     _pool[variable] = object;
     notifyListeners();
-    if (kAllowDebugLogs) {
-      logger.info("JobState#$hashCode: $variable = $object");
-    }
+    logger.info("JobState#$hashCode: $variable = $object");
+    logger.config("JobState#$hashCode WHOLE: $_pool");
   }
 
   dynamic operator [](String variable) {
@@ -57,45 +57,43 @@ class _JobBodyState extends State<JobBody> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<JobState>(
       create: (BuildContext context) => JobState(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ...widget.children,
-              const SizedBox(height: 21),
-              Row(
-                  spacing: kTotalAppMargin * 2,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    PrefersOutlinedButtonIcon(
-                        style: Theme.of(context).outlinedButtonTheme.style!.copyWith(
-                            iconColor: const WidgetStatePropertyAll<Color>(kTheme1),
-                            foregroundColor: const WidgetStatePropertyAll<Color>(kTheme1),
-                            side: const WidgetStatePropertyAll<BorderSide>(
-                                BorderSide(color: kTheme1, width: 1))),
-                        onPressed: widget.onRemoveJob,
-                        icon: const Icon(Ionicons.trash_bin),
-                        label: Text(Provider.of<InternationalizationNotifier>(context,
-                                listen: false)
-                            .i18n
-                            .dispatchedJobs
-                            .remove_job_button)),
-                    PrefersTextButtonIcon(
-                        onPressed: widget.onStart,
-                        icon: const Icon(Ionicons.play),
-                        label: Text(
-                            Provider.of<InternationalizationNotifier>(context)
-                                .i18n
-                                .appGenerics
-                                .start,
-                            style: const TextStyle(fontWeight: FontWeight.w600)))
-                  ])
-            ]),
-      ),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const SizedBox(height: 8),
+            ...widget.children,
+            const SizedBox(height: 21),
+            Row(
+                spacing: kTotalAppMargin * 2,
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  PrefersTextButtonIcon(
+                      style: Theme.of(context).textButtonTheme.style!.copyWith(
+                            backgroundColor: const WidgetStatePropertyAll<Color>(kTheme1),
+                          ),
+                      onPressed: widget.onRemoveJob,
+                      icon: const Icon(Ionicons.trash_bin),
+                      label: Text(Provider.of<InternationalizationNotifier>(context,
+                              listen: false)
+                          .i18n
+                          .dispatchedJobs
+                          .remove_job_button)),
+                  PrefersTextButtonIcon(
+                      style: Theme.of(context).textButtonTheme.style!.copyWith(
+                          backgroundColor: const WidgetStatePropertyAll<Color>(kTheme2)),
+                      onPressed: widget.onStart,
+                      icon: const Icon(Ionicons.play),
+                      label: Text(
+                          Provider.of<InternationalizationNotifier>(context)
+                              .i18n
+                              .appGenerics
+                              .start,
+                          style: const TextStyle(fontWeight: FontWeight.w600)))
+                ])
+          ]),
     );
   }
 }

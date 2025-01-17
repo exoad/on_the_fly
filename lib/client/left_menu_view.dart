@@ -79,7 +79,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                             setState(() => _expandAllAdverts = !_expandAllAdverts))),
                 const SizedBox(width: kTotalAppMargin),
                 Expanded(
-                  child: PrefersOutlinedButtonIcon(
+                  child: PrefersTextButtonIcon(
                       label: const Text("Refresh"),
                       icon: const Icon(Ionicons.refresh),
                       onPressed: () => wbpfcb((_) => setState(IGNORE_INVOKE))),

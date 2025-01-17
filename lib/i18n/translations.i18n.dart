@@ -80,6 +80,7 @@ class Translations {
       BuiltinImgProcessorTranslations(this);
   JobStyleAdvertsTranslations get jobStyleAdverts =>
       JobStyleAdvertsTranslations(this);
+  JobPrebuiltTranslations get jobPrebuilt => JobPrebuiltTranslations(this);
 }
 
 class AppGenericsTranslations {
@@ -453,6 +454,16 @@ class JobStyleAdvertsTranslations {
   String get supported_format_mediums => """Supported File Types""";
 }
 
+class JobPrebuiltTranslations {
+  final Translations _parent;
+  const JobPrebuiltTranslations(this._parent);
+
+  /// ```dart
+  /// "Select file"
+  /// ```
+  String get single_path_actionable_file_picker_label => """Select file""";
+}
+
 Map<String, String> get translationsMap => {
       """app generics.canonical_title""": """OnTheFly""",
       """app generics.canonical_description""": """Auto convert file formats""",
@@ -526,4 +537,6 @@ Map<String, String> get translationsMap => {
           """Automatically convert files with specific formats to another format within a folder.""",
       """job style adverts.supported_format_mediums""":
           """Supported File Types""",
+      """job prebuilt.single_path_actionable_file_picker_label""":
+          """Select file""",
     };
