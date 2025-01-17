@@ -170,6 +170,7 @@ class _JobStackView extends StatelessWidget {
                               ]),
                         ),
                         const SizedBox(height: 6),
+                        job.buildForm(context)
                       ],
                     )));
             // we add some end or begin padding to the list view scroll element for this

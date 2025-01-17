@@ -29,17 +29,19 @@ final class FilePathValidators {
 }
 
 class JobSinglePathPickerActionable extends StatefulWidget {
+  final String epKey;
   final void Function(String str) onChanged;
-  final FormatMedium formatMedium;
+  final List<FormatMedium> supported;
   final String filePickerLabel;
   final String hintLabel;
   final List<String> allowedExtensions;
   final String? filePickerDialogTitle;
 
-  const JobSinglePathPickerActionable({
+  const JobSinglePathPickerActionable(
+    this.epKey, {
     super.key,
     this.filePickerDialogTitle,
-    required this.formatMedium,
+    required this.supported,
     required this.onChanged,
     required this.allowedExtensions,
     required this.filePickerLabel,
@@ -119,7 +121,7 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
           }
           String ext = paths.extension(value!).substring(
               1); // since paths.extension will return the ".", we need to remove it
-          if (!widget.formatMedium.isSupportedOutput(ext)) {
+          if (!widget.supported.containsExtension(ext)) {
             // we use bang on value because the previous validateFilePath call has a null check that returns a value to validFile
             return (context.mounted
                     ? Provider.of<InternationalizationNotifier>(context, listen: false)
@@ -127,6 +129,9 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
                 .i18n
                 .appGenerics
                 .MIX_is_not_supported(ext);
+          }
+          if (context.mounted) {
+            Provider.of<JobState>(context, listen: false)[widget.epKey] = value;
           }
           return null;
         },

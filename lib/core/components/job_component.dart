@@ -4,7 +4,6 @@
 /// [jcomponent] using the `as` keyword with prefixes like `j` or `jc`
 library jcomponent;
 
-export "j_titles.dart";
 export "j_body.dart";
 export "j_fields.dart";
 export "j_prebuilt.dart";

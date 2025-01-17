@@ -1,10 +1,14 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
+import 'package:on_the_fly/core/components/job_component.dart';
 import 'package:on_the_fly/core/formats.dart';
 import 'package:on_the_fly/core/formats/images_target.dart';
+import 'package:on_the_fly/helpers/basics.dart';
 import 'package:on_the_fly/helpers/i18n.dart';
 import 'package:on_the_fly/shared/app.dart';
+import 'package:provider/provider.dart';
 
 export "formats.dart";
 
@@ -106,6 +110,8 @@ abstract class Job {
     _creationTime = creationTime ?? DateTime.now().millisecondsSinceEpoch;
     _hash = Object.hash(identifier, this);
   }
+
+  JobBody buildForm(BuildContext context);
 }
 
 abstract class ConvertJob extends Job {
@@ -127,6 +133,21 @@ class SingleFileConvertJob extends ConvertJob {
 
   @override
   void attach() {}
+
+  @override
+  JobBody buildForm(BuildContext context) {
+    return JobBody(onRemoveJob: IGNORE_INVOKE, children: <Widget>[
+      JobSinglePathPickerActionable(
+          JobState.kInputFileEpKey,
+          supported: ConversionService.mediums,
+          onChanged: (String file) {},
+          filePickerLabel: Provider.of<InternationalizationNotifier>(context)
+              .i18n
+              .formatGeneric
+              .input_file_path,
+          allowedExtensions: ConversionService.mediums.allExtension)
+    ]);
+  }
 }
 
 abstract class TransmuteJob implements Job {}

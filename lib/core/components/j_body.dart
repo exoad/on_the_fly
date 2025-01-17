@@ -2,9 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/client/components/prefers.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
+import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
 import 'package:provider/provider.dart';
+
+final class JobState with ChangeNotifier {
+  static const String kInputFileEpKey = "input_files";
+
+  final Map<String, dynamic> _pool;
+
+  JobState() : _pool = <String, dynamic>{};
+
+  void operator []=(String variable, dynamic object) {
+    _pool[variable] = object;
+    notifyListeners();
+    if (kAllowDebugLogs) {
+      logger.info("JobState#$hashCode: $variable = $object");
+    }
+  }
+
+  dynamic operator [](String variable) {
+    return _pool[variable];
+  }
+
+  Iterable<MapEntry<String, dynamic>> get entries => _pool.entries;
+
+  bool contains(String variable) => _pool.containsKey(variable);
+}
 
 class JobBody extends StatefulWidget {
   final List<Widget> children;
@@ -30,9 +55,10 @@ class JobBody extends StatefulWidget {
 class _JobBodyState extends State<JobBody> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Form(
+    return ChangeNotifierProvider<JobState>(
+      create: (BuildContext context) => JobState(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
