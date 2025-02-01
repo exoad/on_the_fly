@@ -7,6 +7,7 @@ import 'package:on_the_fly/core/formats/images_target.dart';
 import 'package:on_the_fly/helpers/basics.dart';
 import 'package:on_the_fly/helpers/i18n.dart';
 import 'package:on_the_fly/shared/app.dart';
+import 'package:provider/provider.dart';
 
 export "formats.dart";
 
@@ -46,10 +47,12 @@ class JobAdvert<E extends Job> {
   final LocaleProducer description;
   final List<FormatMedium> supportedMediums;
   final E Function(BuildContext context) producer;
+  final bool isConvertor;
 
   const JobAdvert(
       {required this.title,
       required this.description,
+      this.isConvertor = true,
       required this.supportedMediums,
       required this.producer});
 
@@ -86,7 +89,7 @@ abstract class Job {
   late int _creationTime;
 
   /// should be a hashed identifier unique to this job instance and across all
-  /// job instances, no matter if they are transmuters or convertors
+  /// job instances, no matter if they are transmutators or convertors
   late int _hash;
 
   int get hash => _hash;
@@ -125,7 +128,7 @@ abstract class ConvertJob extends Job {
 }
 
 class SingleFileConvertJob extends ConvertJob {
-  SingleFileConvertJob() : super("net.exoad.jc.single_file") {}
+  SingleFileConvertJob() : super("net.exoad.jc.single_file");
   @override
   JobType get jobType => JobType.SINGLE;
 
@@ -134,13 +137,16 @@ class SingleFileConvertJob extends ConvertJob {
 
   @override
   JobBody buildForm(BuildContext context) {
-    return JobBody(onRemoveJob: IGNORE_INVOKE, children: <Widget>[
-      JobSinglePathPickerActionable(
-          JobState.kInputFileEpKey,
-          supported: ConversionService.mediums,
-          onChanged: (String file) {},
-          allowedExtensions: ConversionService.mediums.allExtension)
-    ]);
+    return JobBody(
+        onRemoveJob: () {
+          Provider.of<JobStack>(context, listen: false).pop(this);
+        },
+        children: <Widget>[
+          JobSinglePathPickerActionable(JobState.kInputFileEpKey,
+              supported: ConversionService.mediums,
+              onChanged: (String file) {},
+              allowedExtensions: ConversionService.mediums.allExtension)
+        ]);
   }
 }
 
@@ -159,6 +165,7 @@ class JobStack with ChangeNotifier {
 
   void push(String identifier, Job instance) {
     _stack.add(instance);
+    logger.fine("Pushed onto JobStack: $identifier -> ${instance._hash}");
     notifyListeners();
   }
 
@@ -168,6 +175,7 @@ class JobStack with ChangeNotifier {
     if (containsJob(instance)) {
       _stack.remove(instance);
     }
+    logger.fine("JobStack popped: ${instance._hash}");
     notifyListeners();
   }
 
@@ -175,6 +183,7 @@ class JobStack with ChangeNotifier {
     if (containsIdentifier(identifier)) {
       _stack.clear();
     }
+    logger.info("JobStack emptied");
     notifyListeners();
   }
 

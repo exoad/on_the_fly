@@ -57,6 +57,8 @@ format generic:
   output_builder: 输出生成器
   image: 图像类
   conversion: 转换
+  convertors: 转换器
+  transmutators: 修改器
   transmutation: 修改
   click_to_view_more: 轻触查看更多信息
 builtin img processor:

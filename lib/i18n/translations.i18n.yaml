@@ -57,6 +57,8 @@ format generic:
   output_builder: Output builder
   image: Images
   conversion: Conversion
+  convertors: Convertors
+  transmutators: Transmutators
   transmutation: Transmutation
   click_to_view_more: Click for more info
 builtin img processor:

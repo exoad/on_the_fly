@@ -379,6 +379,16 @@ class FormatGenericTranslationsZh extends FormatGenericTranslations {
   String get conversion => """转换""";
 
   /// ```dart
+  /// "转换器"
+  /// ```
+  String get convertors => """转换器""";
+
+  /// ```dart
+  /// "修改器"
+  /// ```
+  String get transmutators => """修改器""";
+
+  /// ```dart
   /// "修改"
   /// ```
   String get transmutation => """修改""";
@@ -512,6 +522,8 @@ Map<String, String> get translationsZhMap => {
       """format generic.output_builder""": """输出生成器""",
       """format generic.image""": """图像类""",
       """format generic.conversion""": """转换""",
+      """format generic.convertors""": """转换器""",
+      """format generic.transmutators""": """修改器""",
       """format generic.transmutation""": """修改""",
       """format generic.click_to_view_more""": """轻触查看更多信息""",
       """builtin img processor.canonical_name""": """内置图像处理器""",

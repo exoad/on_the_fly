@@ -380,6 +380,16 @@ class FormatGenericTranslations {
   String get conversion => """Conversion""";
 
   /// ```dart
+  /// "Convertors"
+  /// ```
+  String get convertors => """Convertors""";
+
+  /// ```dart
+  /// "Transmutators"
+  /// ```
+  String get transmutators => """Transmutators""";
+
+  /// ```dart
   /// "Transmutation"
   /// ```
   String get transmutation => """Transmutation""";
@@ -519,6 +529,8 @@ Map<String, String> get translationsMap => {
       """format generic.output_builder""": """Output builder""",
       """format generic.image""": """Images""",
       """format generic.conversion""": """Conversion""",
+      """format generic.convertors""": """Convertors""",
+      """format generic.transmutators""": """Transmutators""",
       """format generic.transmutation""": """Transmutation""",
       """format generic.click_to_view_more""": """Click for more info""",
       """builtin img processor.canonical_name""": """Builtin Image Processor""",

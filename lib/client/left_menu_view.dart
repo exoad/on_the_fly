@@ -13,7 +13,6 @@ import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/client/logging_view.dart';
 import 'package:on_the_fly/client/right_menu_view.dart';
 import 'package:on_the_fly/core/core.dart';
-import 'package:on_the_fly/helpers/basics.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:on_the_fly/shared/theme.dart';
@@ -60,37 +59,7 @@ class _AppLeftMenuViewState extends State<AppLeftMenuView> {
                 .fadeIn(
                     duration: const Duration(milliseconds: 670),
                     curve: Curves.easeInOut), // end of branding section
-            // section: the controller buttons for the list
-            Padding(
-              padding: const EdgeInsets.only(left: kTotalAppMargin, top: 6, bottom: 6),
-              child: Row(children: <Widget>[
-                Expanded(
-                    child: PrefersTextButtonIcon(
-                        style: Theme.of(context).textButtonTheme.style!.copyWith(
-                            backgroundColor:
-                                const WidgetStatePropertyAll<Color>(kTheme2)),
-                        label: _expandAllAdverts
-                            ? const Text("Collapse All")
-                            : const Text("Expand All"),
-                        icon: _expandAllAdverts
-                            ? const Icon(Ionicons.arrow_up)
-                            : const Icon(Ionicons.arrow_down),
-                        onPressed: () =>
-                            setState(() => _expandAllAdverts = !_expandAllAdverts))),
-                const SizedBox(width: kTotalAppMargin),
-                Expanded(
-                  child: PrefersTextButtonIcon(
-                      label: const Text("Refresh"),
-                      icon: const Icon(Ionicons.refresh),
-                      onPressed: () => wbpfcb((_) => setState(IGNORE_INVOKE))),
-                )
-              ]),
-            ).animate().fade(
-                begin: 0,
-                end: 1,
-                delay: const Duration(milliseconds: 120),
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.easeInOut),
+            const SizedBox(height: kTotalAppMargin * 2),
             Expanded(
               child: ListView(
                 physics:
@@ -169,8 +138,7 @@ class _AdvertCardState extends State<_AdvertCard> {
         ));
     return Padding(
       // this part was originally scraped from an older format-segregated approach
-      padding: const EdgeInsets.only(
-          left: kTotalAppMargin, top: kTotalAppMargin, bottom: kTotalAppMargin),
+      padding: const EdgeInsets.only(left: kTotalAppMargin, bottom: kTotalAppMargin),
       child: GestureDetector(
         onTap: () {
           //? we will add more stuffs here later on

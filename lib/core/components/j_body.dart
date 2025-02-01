@@ -14,7 +14,6 @@ final class JobState with ChangeNotifier {
 
   JobState() : _pool = <String, dynamic>{};
 
-
   void setEntry(String variable, dynamic object) {
     _pool[variable] = object;
     notifyListeners();
