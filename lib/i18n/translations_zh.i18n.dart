@@ -199,6 +199,11 @@ class AppGenericsTranslationsZh extends AppGenericsTranslations {
   String get empty => """空""";
 
   /// ```dart
+  /// "可视化"
+  /// ```
+  String get visualize => """可视化""";
+
+  /// ```dart
   /// "加载中"
   /// ```
   String get loading => """加载中""";
@@ -493,6 +498,7 @@ Map<String, String> get translationsZhMap => {
       """app generics.folder""": """文件夹""",
       """app generics.browse""": """浏览""",
       """app generics.empty""": """空""",
+      """app generics.visualize""": """可视化""",
       """app generics.loading""": """加载中""",
       """app generics.minimize""": """最小化""",
       """app generics.created_on""": """创建于""",

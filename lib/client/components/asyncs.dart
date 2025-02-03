@@ -70,7 +70,9 @@ class _AsyncTextFormField extends State<AsyncTextFormField> {
     _controller = widget.controller ?? TextEditingController();
     _controller.addListener(() {
       _onChanged(_controller.text);
-      setState(IGNORE_INVOKE);
+      if (mounted) {
+        setState(IGNORE_INVOKE);
+      }
     });
   }
 
@@ -103,6 +105,7 @@ class _AsyncTextFormField extends State<AsyncTextFormField> {
           return null;
         },
         decoration: widget.decoration?.copyWith(
+            prefixText: isValid ? "OK" : "",
             prefixIcon: widget.prefixIconBuilder?.call(validating
                 ? AsyncFormStates.VALIDATING
                 : !isValid && isDirty
@@ -121,10 +124,14 @@ class _AsyncTextFormField extends State<AsyncTextFormField> {
     }
     debouncer = Timer(widget.validationDebounce, () async {
       locked = false;
-      setState(() => validating = true);
+      if (mounted) {
+        setState(() => validating = true);
+      }
       _hint = await widget.validator(value);
       isDirty = _hint != null;
-      setState(IGNORE_INVOKE);
+      if (mounted) {
+        setState(IGNORE_INVOKE);
+      }
       validating = false;
     });
   }

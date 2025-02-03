@@ -166,6 +166,11 @@ class TitledImportanceDialog extends StatelessWidget {
   final Widget title;
   final Widget child;
 
+  static Widget createTextTitle(String text, {Color color = kThemePrimaryFg1}) {
+    return Text(text,
+        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: color));
+  }
+
   const TitledImportanceDialog({super.key, required this.title, required this.child});
 
   @override

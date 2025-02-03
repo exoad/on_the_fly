@@ -200,6 +200,11 @@ class AppGenericsTranslations {
   String get empty => """Empty""";
 
   /// ```dart
+  /// "Visualize"
+  /// ```
+  String get visualize => """Visualize""";
+
+  /// ```dart
   /// "Loading"
   /// ```
   String get loading => """Loading""";
@@ -499,6 +504,7 @@ Map<String, String> get translationsMap => {
       """app generics.folder""": """Folder""",
       """app generics.browse""": """Browse""",
       """app generics.empty""": """Empty""",
+      """app generics.visualize""": """Visualize""",
       """app generics.loading""": """Loading""",
       """app generics.minimize""": """Minimize""",
       """app generics.created_on""": """Created on""",

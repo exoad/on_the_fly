@@ -5,10 +5,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:on_the_fly/client/components/asyncs.dart';
+import 'package:on_the_fly/client/components/components.dart';
 import 'package:on_the_fly/client/components/prefers.dart';
 import 'package:on_the_fly/client/events/ephemeral_stacks.dart';
 import 'package:on_the_fly/core/components/job_component.dart';
 import 'package:on_the_fly/core/core.dart';
+import 'package:on_the_fly/helpers/basics.dart';
 import 'package:on_the_fly/shared/app.dart';
 import 'package:on_the_fly/shared/layout.dart';
 import 'package:path/path.dart' as paths;
@@ -25,6 +27,48 @@ final class FilePathValidators {
       return InternationalizationNotifier().i18n.pathValidator.path_not_valid_file;
     }
     return null;
+  }
+}
+
+class JobOutputPathBuilderActionable extends StatefulWidget {
+  final String epKey;
+
+  const JobOutputPathBuilderActionable(this.epKey, {super.key});
+
+  @override
+  State<JobOutputPathBuilderActionable> createState() =>
+      _JobOutputPathBuilderActionableState();
+}
+
+class _JobOutputPathBuilderActionableState extends State<JobOutputPathBuilderActionable> {
+  @override
+  Widget build(BuildContext context) {
+    return AsyncTextFormField(
+        validator: (String? v) async => null,
+        decoration: InputDecoration(
+            alignLabelWithHint: true,
+            labelText: Provider.of<InternationalizationNotifier>(context)
+                .i18n
+                .formatGeneric
+                .output_builder,
+            suffixIcon: IconButton(
+                onPressed: () {
+                  logger.info("Dispatching Job Output Builder helper dialog!");
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return TitledImportanceDialog(
+                            title: TitledImportanceDialog.createTextTitle(
+                                Provider.of<InternationalizationNotifier>(context)
+                                    .i18n
+                                    .formatGeneric
+                                    .output_builder),
+                            child: const Text.rich(
+                                TextSpan(text: "To do", children: <InlineSpan>[])));
+                      });
+                },
+                icon: const Icon(Ionicons.help))),
+        validationDebounce: const Duration(milliseconds: 200));
   }
 }
 
@@ -70,6 +114,7 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
   Future<String?> _validateFunc(BuildContext context, String? value) async {
     String? validFile = await FilePathValidators.validateFilePath(value);
     if (validFile != null) {
+      logger.warning("ValidFileFunc: ${widget.epKey} -> $value raised $validFile");
       return validFile;
     }
     String ext = paths
@@ -77,6 +122,8 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
         .substring(1); // since paths.extension will return the ".", we need to remove it
     if (!widget.supported.containsExtension(ext)) {
       // we use bang on value because the previous validateFilePath call has a null check that returns a value to validFile
+      logger
+          .warning("Supplied $value for ${widget.epKey} found INVALID_EXTENSION of $ext");
       return (context.mounted
               ? Provider.of<InternationalizationNotifier>(context, listen: false)
               : InternationalizationNotifier())
@@ -86,7 +133,8 @@ class _JobSinglePathPickerActionableState extends State<JobSinglePathPickerActio
     }
     if (context.mounted) {
       Provider.of<JobState>(context, listen: false).setEntry(widget.epKey, value);
-      logger.info("OK GOOD: $value");
+      setState(IGNORE_INVOKE);
+      logger.info("OK GOOD: $value for ${widget.epKey}");
     }
     return null;
   }

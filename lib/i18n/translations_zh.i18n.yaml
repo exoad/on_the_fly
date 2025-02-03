@@ -21,6 +21,7 @@ app generics:
   folder: 文件夹
   browse: 浏览
   empty: 空
+  visualize: 可视化
   loading: 加载中
   minimize: 最小化
   created_on: 创建于

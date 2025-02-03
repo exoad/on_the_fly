@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 final class JobState with ChangeNotifier {
   static const String kInputFileEpKey = "input_files";
+  static const String kOutputBuilderEpKey = "output_builder";
 
   final Map<String, dynamic> _pool;
 
@@ -59,16 +60,25 @@ class _JobBodyState extends State<JobBody> {
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 14,
           children: <Widget>[
             const SizedBox(height: 8),
             ...widget.children,
-            const SizedBox(height: 21),
+            const SizedBox(height: 4),
             Row(
-                spacing: kTotalAppMargin * 2,
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  PrefersTextButtonIcon(
+                      onPressed: () {},
+                      icon: const Icon(Ionicons.eye),
+                      label: Text(Provider.of<InternationalizationNotifier>(context,
+                              listen: false)
+                          .i18n
+                          .appGenerics
+                          .visualize)),
+                  const Spacer(),
                   PrefersTextButtonIcon(
                       style: Theme.of(context).textButtonTheme.style!.copyWith(
                             backgroundColor: const WidgetStatePropertyAll<Color>(kTheme1),
@@ -80,6 +90,7 @@ class _JobBodyState extends State<JobBody> {
                           .i18n
                           .dispatchedJobs
                           .remove_job_button)),
+                  const SizedBox(width: kTotalAppMargin * 2),
                   PrefersTextButtonIcon(
                       style: Theme.of(context).textButtonTheme.style!.copyWith(
                           backgroundColor: const WidgetStatePropertyAll<Color>(kTheme2)),

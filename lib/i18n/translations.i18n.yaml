@@ -21,6 +21,7 @@ app generics:
   folder: Folder
   browse: Browse
   empty: Empty
+  visualize: Visualize
   loading: Loading
   minimize: Minimize
   created_on: Created on

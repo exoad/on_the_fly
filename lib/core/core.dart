@@ -40,6 +40,16 @@ class ConversionService {
     };
     logger.finer("Done loading ConversionService utils\n$adverts\n$mediums");
   }
+
+  static FormatMedium? findMedium(String ext) {
+    // greedy approach
+    for (FormatMedium medium in mediums) {
+      if (medium.isSupportedInput(ext) || medium.isSupportedOutput(ext)) {
+        return medium;
+      }
+    }
+    return null;
+  }
 }
 
 class JobAdvert<E extends Job> {
@@ -145,7 +155,8 @@ class SingleFileConvertJob extends ConvertJob {
           JobSinglePathPickerActionable(JobState.kInputFileEpKey,
               supported: ConversionService.mediums,
               onChanged: (String file) {},
-              allowedExtensions: ConversionService.mediums.allExtension)
+              allowedExtensions: ConversionService.mediums.allExtension),
+          JobOutputPathBuilderActionable(JobState.kOutputBuilderEpKey)
         ]);
   }
 }
